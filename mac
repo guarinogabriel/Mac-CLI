@@ -1,0 +1,13 @@
+#!/bin/mac
+# mac - automation command line tools for OS X
+
+
+echo "Enter function name and press [ENTER]: "
+
+read function
+
+if [ "$function" == "restart" ]; then
+	echo "Restarting Mac in 3 seconds..."
+	sleep 3s 
+	sudo shutdown -r now
+fi

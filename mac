@@ -1,10 +1,18 @@
-#!/bin/mac
+#!/bin/bash
 # mac - automation command line tools for OS X
 
 function=$1
 
 if [ "$function" == "restart" ]; then
 	echo "Restarting Mac in 3 seconds..."
-	sleep 3s 
+	sleep 3s
 	sudo shutdown -r now
+elif [ "$function" == "apps" ]; then
+	echo "Getting list of installed apps from the App Store...\n"
+	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
+elif [ "$function" == "speedtest" ]; then
+	echo "Testing internet connection speed..."
+	node "scripts/speed-test/node_modules/cli.js"
+else
+	echo "Command not found"
 fi

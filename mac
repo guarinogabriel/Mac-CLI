@@ -13,6 +13,9 @@ elif [ "$function" == "apps" ]; then
 elif [ "$function" == "speedtest" ]; then
 	echo "Testing internet connection speed..."
 	node "scripts/speed-test/node_modules/cli.js"
+elif [ "$function" == "php:syntax" ]; then
+	echo "Checking PHP syntax for all files in current location...\n"
+	find . -name \*.php -exec php -l "{}" \;
 else
 	echo "Command not found"
 fi

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e55d261f-609c-4361-acbd-ca1e5b2b4659" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/latest-version" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/latest-version" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mac" afterPath="$PROJECT_DIR$/mac" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/mkdirp" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/mkdirp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/rc" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/rc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/update-notifier/node_modules/.bin/repeating" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/update-notifier/node_modules/.bin/repeating" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/semver" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/semver" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-indent" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-indent" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-json-comments" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-json-comments" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mac.iws" />
@@ -33,12 +26,9 @@
     <leaf>
       <file leaf-file-name="mac" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mac">
-          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3482972">
-              <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.6581197">
+              <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -106,6 +96,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -159,7 +150,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -226,9 +216,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/mac">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -282,6 +269,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mac">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/speed-test/node_modules/cli.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/speed-test/node_modules/cli.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -295,8 +301,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3482972">
-          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.6581197">
+          <caret line="33" column="18" selection-start-line="33" selection-start-column="18" selection-end-line="33" selection-end-column="18" />
           <folding />
         </state>
       </provider>

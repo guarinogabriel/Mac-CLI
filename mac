@@ -25,6 +25,36 @@ elif [ "$function" == "chrome" ]; then
 	open -a Google\ Chrome
 elif [ "$function" == "safari" ]; then
 	open -a Safari
+elif [ "$function" == "phpstorm" ]; then
+	open -a PHPStorm
+elif [ "$function" == "xcode" ]; then
+	open -a XCode
+elif [ "$function" == "mamp" ]; then
+	open -a MAMP
+elif [ "$function" == "filezilla" ]; then
+	open -a Filezilla
+elif [ "$function" == "skype" ]; then
+	open -a Skype
+elif [ "$function" == "gotomeeting" ]; then
+	open -a GoToMeeting
+elif [ "$function" == "snippetslab" ]; then
+	open -a SnippetsLab
+elif [ "$function" == "preview" ]; then
+	open -a Preview
+elif [ "$function" == "photoshop" ]; then
+	open -a Adobe\ Photoshop\ CC\ 2015
+elif [ "$function" == "textedit" ]; then
+	open -a TextEdit
+elif [ "$function" == "sourcetree" ]; then
+	open -a SourceTree
+elif [ "$function" == "quiver" ]; then
+	open -a Quiver
+elif [ "$function" == "virtualbox" ]; then
+	open -a VirtualBox
+elif [ "$function" == "mysql" ]; then
+	open -a MySQL
+
+
 
 
 
@@ -43,7 +73,7 @@ elif [ "$function" == "airplane-mode:off" ]; then
 	 # networksetup -setairportpower en1 on
 	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
 
-
+	# TODO: Empty trash
 
 
 

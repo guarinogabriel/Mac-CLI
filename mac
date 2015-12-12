@@ -54,8 +54,8 @@ elif [ "$function" == "virtualbox" ]; then
 elif [ "$function" == "mysql" ]; then
 	open -a MySQL
 
-
-
+elif [ "$function" == "screensaver" ]; then
+	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
 
 
 	# TODO: Working on airplane mode (disable wi-fi and bluetooth)

@@ -55,7 +55,11 @@ elif [ "$function" == "mysql" ]; then
 	open -a MySQL
 
 elif [ "$function" == "screensaver" ]; then
-	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+	open -a
+
+# See memory usage ordered by memory consumption
+elif [ "$function" == "memory" ]; then
+	top -o MEM
 
 
 	# TODO: Working on airplane mode (disable wi-fi and bluetooth)

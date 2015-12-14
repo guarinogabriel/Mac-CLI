@@ -53,6 +53,8 @@ elif [ "$function" == "virtualbox" ]; then
 	open -a VirtualBox
 elif [ "$function" == "mysql" ]; then
 	open -a MySQL
+elif [ "$function" == "mindnode" ]; then
+	open -a MindNode
 
 elif [ "$function" == "screensaver" ]; then
 	open -a

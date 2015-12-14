@@ -47,6 +47,8 @@ elif [ "$function" == "textedit" ]; then
 	open -a TextEdit
 elif [ "$function" == "sourcetree" ]; then
 	open -a SourceTree
+elif [ "$function" == "stree" ]; then
+	open -a SourceTree ./
 elif [ "$function" == "quiver" ]; then
 	open -a Quiver
 elif [ "$function" == "virtualbox" ]; then

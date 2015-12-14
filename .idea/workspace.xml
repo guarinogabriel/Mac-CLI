@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e55d261f-609c-4361-acbd-ca1e5b2b4659" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/latest-version" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/latest-version" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mac" afterPath="$PROJECT_DIR$/mac" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/mkdirp" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/mkdirp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/rc" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/rc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/update-notifier/node_modules/.bin/repeating" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/update-notifier/node_modules/.bin/repeating" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/semver" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/semver" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-indent" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-indent" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-json-comments" afterPath="$PROJECT_DIR$/scripts/speed-test/node_modules/.bin/strip-json-comments" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mac.iws" />
@@ -35,8 +28,8 @@
       <file leaf-file-name="mac" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mac">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28152865">
-              <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.30063695">
+              <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -411,8 +404,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mac">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28152865">
-          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.30063695">
+          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
           <folding />
         </state>
       </provider>

@@ -65,6 +65,10 @@ elif [ "$function" == "appstore" ]; then
 elif [ "$function" == "screensaver" ]; then
 	open -a
 
+# Eject all mounted volumes and disk
+elif [ "$function" == "eject-all" ]; then
+	osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
+
 # See memory usage ordered by memory consumption
 elif [ "$function" == "memory" ]; then
 	top -o MEM

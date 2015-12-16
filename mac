@@ -13,7 +13,7 @@ elif [ "$function" == "apps" ]; then
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 elif [ "$function" == "speedtest" ]; then
 	echo "Testing internet connection speed..."
-	node "scripts/speed-test/node_modules/cli.js"
+	node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
 
 elif [ "$function" == "php:syntax" ]; then
 	echo "Checking PHP syntax for all files in current location...\n"

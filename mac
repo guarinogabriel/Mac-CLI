@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # mac - automation command line tools for OS X
 
 function=$1

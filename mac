@@ -57,6 +57,10 @@ elif [ "$function" == "mysql" ]; then
 	open -a MySQL
 elif [ "$function" == "mindnode" ]; then
 	open -a MindNode
+elif [ "$function" == "paw" ]; then
+	open -a Paw
+elif [ "$function" == "appstore" ]; then
+	open -a App\ Store
 
 elif [ "$function" == "screensaver" ]; then
 	open -a

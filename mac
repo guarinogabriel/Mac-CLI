@@ -55,6 +55,8 @@ elif [ "$function" == "virtualbox" ]; then
 	open -a VirtualBox
 elif [ "$function" == "mysql" ]; then
 	open -a MySQL
+elif [ "$function" == "mysql-cli" ]; then
+	/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
 elif [ "$function" == "mindnode" ]; then
 	open -a MindNode
 elif [ "$function" == "paw" ]; then
@@ -63,7 +65,7 @@ elif [ "$function" == "appstore" ]; then
 	open -a App\ Store
 
 elif [ "$function" == "screensaver" ]; then
-	open -a
+	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
 
 # Eject all mounted volumes and disk
 elif [ "$function" == "eject-all" ]; then

@@ -64,8 +64,13 @@ elif [ "$function" == "paw" ]; then
 elif [ "$function" == "appstore" ]; then
 	open -a App\ Store
 
+# Start screensaver
 elif [ "$function" == "screensaver" ]; then
 	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+
+# Edit hosts file
+elif [ "$function" == "hosts" ]; then
+	sudo vi /private/etc/hosts
 
 # Eject all mounted volumes and disk
 elif [ "$function" == "eject-all" ]; then

@@ -53,10 +53,14 @@ elif [ "$function" == "quiver" ]; then
 	open -a Quiver
 elif [ "$function" == "virtualbox" ]; then
 	open -a VirtualBox
+elif [ "$function" == "pixelmator" ]; then
+	open -a Pixelmator
+
 elif [ "$function" == "mysql" ]; then
 	open -a MySQL
 elif [ "$function" == "mysql-cli" ]; then
 	/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
+
 elif [ "$function" == "mindnode" ]; then
 	open -a MindNode
 elif [ "$function" == "paw" ]; then

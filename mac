@@ -63,6 +63,8 @@ elif [ "$function" == "paw" ]; then
 	open -a Paw
 elif [ "$function" == "appstore" ]; then
 	open -a App\ Store
+elif [ "$function" == "goodtask" ]; then
+	open -a GoodTask
 
 # Start screensaver
 elif [ "$function" == "screensaver" ]; then

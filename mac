@@ -55,6 +55,8 @@ elif [ "$function" == "virtualbox" ]; then
 	open -a VirtualBox
 elif [ "$function" == "pixelmator" ]; then
 	open -a Pixelmator
+elif [ "$function" == "kaleidoscope" ]; then
+	open -a Kaleidoscope
 
 elif [ "$function" == "mysql" ]; then
 	open -a MySQL

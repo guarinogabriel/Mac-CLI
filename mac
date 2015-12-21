@@ -90,6 +90,14 @@ elif [ "$function" == "eject-all" ]; then
 elif [ "$function" == "memory" ]; then
 	top -o MEM
 
+# Empty trash
+elif [ "$function" == "trash:empty" ]; then
+	sudo rm -rf ~/.Trash/*
+
+# Calculate trash size
+elif [ "$function" == "trash:size" ]; then
+	echo "Trash size: \n"
+	du -sh ~/.Trash/
 
 	# TODO: Working on airplane mode (disable wi-fi and bluetooth)
 
@@ -105,10 +113,6 @@ elif [ "$function" == "airplane-mode:off" ]; then
 	 # networksetup -setairportpower en0 on
 	 # networksetup -setairportpower en1 on
 	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
-
-	# TODO: Empty trash
-
-
 
 
 

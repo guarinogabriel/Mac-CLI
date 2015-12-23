@@ -3,22 +3,26 @@
 
 function=$1
 
+# General utilities
 if [ "$function" == "restart" ]; then
 	echo "Restarting Mac in 3 seconds..."
 	sleep 3s
 	sudo shutdown -r now
-
 elif [ "$function" == "apps" ]; then
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
+
+# Network utilities
 elif [ "$function" == "speedtest" ]; then
 	echo "Testing internet connection speed..."
 	node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
 
+# PHP utilities
 elif [ "$function" == "php:syntax" ]; then
 	echo "Checking PHP syntax for all files in current location...\n"
 	find . -name \*.php -exec php -l "{}" \;
 
+# Executable apps
 elif [ "$function" == "firefox" ]; then
 	open -a Firefox
 elif [ "$function" == "chrome" ]; then
@@ -59,12 +63,6 @@ elif [ "$function" == "vlc" ]; then
 	open -a VLC
 elif [ "$function" == "kaleidoscope" ]; then
 	open -a Kaleidoscope
-
-elif [ "$function" == "mysql" ]; then
-	open -a MySQL
-elif [ "$function" == "mysql-cli" ]; then
-	/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
-
 elif [ "$function" == "mindnode" ]; then
 	open -a MindNode
 elif [ "$function" == "paw" ]; then
@@ -73,6 +71,12 @@ elif [ "$function" == "appstore" ]; then
 	open -a App\ Store
 elif [ "$function" == "goodtask" ]; then
 	open -a GoodTask
+
+# MySQL functions
+elif [ "$function" == "mysql" ]; then
+	open -a MySQL
+elif [ "$function" == "mysql-cli" ]; then
+	/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
 
 # Start screensaver
 elif [ "$function" == "screensaver" ]; then
@@ -99,8 +103,8 @@ elif [ "$function" == "trash:size" ]; then
 	echo "Trash size: \n"
 	du -sh ~/.Trash/
 
-	# TODO: Working on airplane mode (disable wi-fi and bluetooth)
 
+# TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
 	echo "Enabling airplane mode...\n"
 	 # networksetup -setairportpower airport off

@@ -103,6 +103,10 @@ elif [ "$function" == "trash:size" ]; then
 	echo "Trash size: \n"
 	du -sh ~/.Trash/
 
+# SSH key utilities
+elif [ "$function" == "ssh-key:copy" ]; then
+	pbcopy < ~/.ssh/id_rsa.pub
+	
 
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then

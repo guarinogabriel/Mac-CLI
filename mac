@@ -2,6 +2,8 @@
 # mac - automation command line tools for OS X
 
 function=$1
+firstParameter=$2
+secondParameter=$3
 
 # General utilities
 if [ "$function" == "restart" ]; then
@@ -12,10 +14,15 @@ elif [ "$function" == "apps" ]; then
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 
-# Network utilities
+## Network utilities
+# Internet connection speed test
 elif [ "$function" == "speedtest" ]; then
 	echo "Testing internet connection speed..."
 	node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
+# List of used ports
+elif [ "$function" == "ports" ]; then
+	echo "Getting list of usd ports..."
+	sudo lsof -iTCP -sTCP:LISTEN -P
 
 # PHP utilities
 elif [ "$function" == "php:syntax" ]; then
@@ -106,7 +113,14 @@ elif [ "$function" == "trash:size" ]; then
 # SSH key utilities
 elif [ "$function" == "ssh-key:copy" ]; then
 	pbcopy < ~/.ssh/id_rsa.pub
-	
+
+## iTerm utilities
+# TODO: Set name to current iTerm tab
+elif [ "$function" == "iterm:tab-name" ]; then
+	echo "WIP"
+
+
+
 
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
@@ -126,5 +140,6 @@ elif [ "$function" == "airplane-mode:off" ]; then
 
 
 else
-	echo "Command not found"
+	echo "Command not found: "
+	echo "$function"
 fi

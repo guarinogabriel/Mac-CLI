@@ -1,9 +1,27 @@
 #!/bin/sh
 # mac - automation command line tools for OS X
 
+# ------------------------------- #
+
+# Variables
 function=$1
 firstParameter=$2
 secondParameter=$3
+allParameters=${@:2}
+
+# ------------------------------- #
+
+# Functions
+function get_branch_data() {
+  (
+    for b in `git branch | sed 's:^[ *]*::'`; do
+        git log -n 1 $b  --pretty="format:%ct|%ci" -- |
+          sed "s^\(.*\)|\(.*\)$^\1|${b}|\2^"
+    done
+  )
+}
+
+# ------------------------------- #
 
 # General utilities
 if [ "$function" == "restart" ]; then
@@ -116,10 +134,27 @@ elif [ "$function" == "ssh-key:copy" ]; then
 
 ## iTerm utilities
 # TODO: Set name to current iTerm tab
-elif [ "$function" == "iterm:tab-name" ]; then
-	echo "WIP"
+elif [ "$function" == "tab:title" ]; then
+	echo -ne "\033]0;"$allParameters"\007"
+	echo "Tab title updated"
+
+## GIT utilities
+# Get last update date for all branches in current project
+elif [ "$function" == "git:fresh" ]; then
+
+	get_branch_data |
+	  sort -k 1gr |
+	  sed "s:^\([0-9]*|\)\(.*\):\2:" |
+	  sed -e '1 i\' -e '1 i\
+		Branch name|Last commit dated' -e '1 i\
+		-----------|-----------------' |
+	  column -t -s '|'
+
+# Search utilities
+# TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result
 
 
+# TODO: Add Google Search with parameters
 
 
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
@@ -140,6 +175,8 @@ elif [ "$function" == "airplane-mode:off" ]; then
 
 
 else
-	echo "Command not found: "
+	echo "\nCommand not found: "
 	echo "$function"
+	echo "\nParameters: "
+	echo "$allParameters"
 fi

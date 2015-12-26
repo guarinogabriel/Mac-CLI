@@ -38,7 +38,7 @@ elif [ "$function" == "apps" ]; then
 elif [ "$function" == "speedtest" ]; then
 	echo "Testing internet connection speed..."
 	node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
-# Run internet connection Speed Test each 2 minutes
+# Run internet connection Speed Test each 5 minutes
 elif [ "$function" == "speedtest:infinite" ]; then
 	title="Testing internet connection speed - "
 	title+=`date '+%Y-%m-%d %H:%M:%S'`
@@ -46,7 +46,7 @@ elif [ "$function" == "speedtest:infinite" ]; then
 	do
 		echo $title
 		node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
-		sleep 120
+		sleep 300
 	done
 # List of used ports
 elif [ "$function" == "ports" ]; then

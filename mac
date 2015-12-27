@@ -40,10 +40,10 @@ elif [ "$function" == "speedtest" ]; then
 	node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
 # Run internet connection Speed Test each 5 minutes
 elif [ "$function" == "speedtest:infinite" ]; then
-	title="Testing internet connection speed - "
-	title+=`date '+%Y-%m-%d %H:%M:%S'`
 	while true
 	do
+		title="Testing internet connection speed - "
+		title+=`date '+%Y-%m-%d %H:%M:%S'`
 		echo $title
 		node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
 		sleep 300

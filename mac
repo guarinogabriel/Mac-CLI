@@ -50,7 +50,7 @@ elif [ "$function" == "speedtest" ]; then
 elif [ "$function" == "speedtest:infinite" ]; then
 	while true
 	do
-		title="Testing internet connection speed - "
+		title="\nTesting internet connection speed - "
 		title+=`date '+%Y-%m-%d %H:%M:%S'`
 		echo $title
 		node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
@@ -115,6 +115,8 @@ elif [ "$function" == "appstore" ]; then
 	open -a App\ Store
 elif [ "$function" == "goodtask" ]; then
 	open -a GoodTask
+elif [ "$function" == "notes" ]; then
+	open -a Transparent\ Note
 
 # MySQL functions
 elif [ "$function" == "mysql" ]; then

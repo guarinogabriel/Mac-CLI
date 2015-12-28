@@ -24,11 +24,19 @@ function get_branch_data()
 
 # ------------------------------- #
 
-# General utilities
+## General utilities
 if [ "$function" == "restart" ]; then
 	echo "Restarting Mac in 3 seconds..."
 	sleep 3s
 	sudo shutdown -r now
+# Close all opened apps
+elif [ "$function" = "close:all" ]; then
+	# To customize ignored apps, just put the keywords in $ignore
+	# To test which apps you are going to kill, run:
+	# ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
+	ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
+	ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
+# Get list of installed apps from the App Store
 elif [ "$function" == "apps" ]; then
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'

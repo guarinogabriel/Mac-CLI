@@ -2,6 +2,10 @@
 # mac - automation command line tools for OS X
 
 # ------------------------------- #
+# Clear the screen for a clean output
+clear
+
+# ------------------------------- #
 
 # Variables
 function=$1

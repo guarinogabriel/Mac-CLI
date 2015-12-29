@@ -48,18 +48,44 @@ elif [ "$function" == "apps" ]; then
 ## Network utilities
 # Internet connection speed test
 elif [ "$function" == "speedtest" ]; then
-	echo "Testing internet connection speed..."
-	node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
+	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+		read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				npm install --global speed-test
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		echo "Testing internet connection speed..."
+		node "/usr/local/lib/node_modules/speed-test/cli.js"
+	fi
+
 # Run internet connection Speed Test each 5 minutes
 elif [ "$function" == "speedtest:infinite" ]; then
-	while true
-	do
-		title="\nTesting internet connection speed - "
-		title+=`date '+%Y-%m-%d %H:%M:%S'`
-		echo $title
-		node "/usr/local/bin/scripts/speed-test/node_modules/cli.js"
-		sleep 300
-	done
+	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+		read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				npm install --global speed-test
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		while true
+		do
+			title="\nTesting internet connection speed - "
+			title+=`date '+%Y-%m-%d %H:%M:%S'`
+			echo $title
+			node "/usr/local/lib/node_modules/speed-test/cli.js"
+			sleep 300
+		done
+	fi
+
 # List of used ports
 elif [ "$function" == "ports" ]; then
 	echo "Getting list of usd ports..."

@@ -33,6 +33,10 @@ if [ "$function" == "restart" ]; then
 	echo "Restarting Mac in 3 seconds..."
 	sleep 3s
 	sudo shutdown -r now
+elif [ "$function" == "sleep" ]; then
+	pmset sleepnow
+elif [ "$function" == "shutdown" ]; then
+	sudo shutdown -h now
 # Close all opened apps
 elif [ "$function" = "close:all" ]; then
 	# To customize ignored apps, just put the keywords in $ignore

@@ -37,6 +37,11 @@ elif [ "$function" == "sleep" ]; then
 	pmset sleepnow
 elif [ "$function" == "shutdown" ]; then
 	sudo shutdown -h now
+# Calculate folder size
+elif [ "$function" == "folder:size" ]; then
+	echo "Calculating folder size...\n"
+	echo "Folder size:"
+	du -sh .
 # Close all opened apps
 elif [ "$function" = "close:all" ]; then
 	# To customize ignored apps, just put the keywords in $ignore

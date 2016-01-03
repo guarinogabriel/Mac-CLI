@@ -1,21 +1,32 @@
 #!/bin/sh
+#####################################################################
 # mac - automation command line tools for OS X
+#####################################################################
+# Version: 0.1
+# Date: December 8, 2015
+# Author: Gabriel Guarino
+#
+# Notes: Collection of useful functions to automate OS X common
+# tasks
+#
+#####################################################################
 
-# ------------------------------- #
+#--------------------------------------------------------------------
 # Clear the screen for a clean output
+#--------------------------------------------------------------------
 clear
 
-# ------------------------------- #
-
+#--------------------------------------------------------------------
 # Variables
+#--------------------------------------------------------------------
 function=$1
 firstParameter=$2
 secondParameter=$3
 allParameters=${@:2}
 
-# ------------------------------- #
-
+#--------------------------------------------------------------------
 # Functions
+#--------------------------------------------------------------------
 function get_branch_data()
 {
   (
@@ -26,9 +37,9 @@ function get_branch_data()
   )
 }
 
-# ------------------------------- #
-
-## General utilities
+#--------------------------------------------------------------------
+# General functions
+#--------------------------------------------------------------------
 if [ "$function" == "restart" ]; then
 	echo "Restarting Mac in 3 seconds..."
 	sleep 3s
@@ -37,11 +48,13 @@ elif [ "$function" == "sleep" ]; then
 	pmset sleepnow
 elif [ "$function" == "shutdown" ]; then
 	sudo shutdown -h now
+
 # Calculate folder size
 elif [ "$function" == "folder:size" ]; then
 	echo "Calculating folder size...\n"
 	echo "Folder size:"
 	du -sh .
+
 # Close all opened apps
 elif [ "$function" = "apps:close-all" ]; then
 	# To customize ignored apps, just put the keywords in $ignore
@@ -49,12 +62,37 @@ elif [ "$function" = "apps:close-all" ]; then
 	# ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
 	ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
 	ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
+
 # Get list of installed apps from the App Store
 elif [ "$function" == "apps:appstore" ]; then
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 
-## Network utilities
+# Start screensaver
+elif [ "$function" == "screensaver" ]; then
+	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+
+# Eject all mounted volumes and disk
+elif [ "$function" == "eject-all" ]; then
+	osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
+
+# TODO: Working on airplane mode (disable wi-fi and bluetooth)
+elif [ "$function" == "airplane-mode:on" ]; then
+	echo "Enabling airplane mode...\n"
+	 # networksetup -setairportpower airport off
+	 # networksetup -setairportpower en0 off
+	 # networksetup -setairportpower en1 off
+	 # launchctl unload -w /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth off
+elif [ "$function" == "airplane-mode:off" ]; then
+	echo "Disabling airplane mode...\n"
+	 # networksetup -setairportpower airport on
+	 # networksetup -setairportpower en0 on
+	 # networksetup -setairportpower en1 on
+	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
+
+#--------------------------------------------------------------------
+# Network utilities
+#--------------------------------------------------------------------
 # Internet connection speed test
 elif [ "$function" == "speedtest" ]; then
 	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
@@ -100,12 +138,9 @@ elif [ "$function" == "ports" ]; then
 	echo "Getting list of usd ports..."
 	sudo lsof -iTCP -sTCP:LISTEN -P
 
-# PHP utilities
-elif [ "$function" == "php:syntax" ]; then
-	echo "Checking PHP syntax for all files in current location...\n"
-	find . -name \*.php -exec php -l "{}" \;
-
+#--------------------------------------------------------------------
 # Executable apps
+#--------------------------------------------------------------------
 elif [ "$function" == "firefox" ]; then
 	open -a Firefox
 elif [ "$function" == "chrome" ]; then
@@ -157,23 +192,32 @@ elif [ "$function" == "goodtask" ]; then
 elif [ "$function" == "notes" ]; then
 	open -a Transparent\ Note
 
-# MySQL functions
+#--------------------------------------------------------------------
+# LAMP (Linux, Apache, MySQL, PHP)
+#--------------------------------------------------------------------
+
+# MySQL utilities
 elif [ "$function" == "mysql" ]; then
 	open -a MySQL
 elif [ "$function" == "mysql-cli" ]; then
 	/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
 
-# Start screensaver
-elif [ "$function" == "screensaver" ]; then
-	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+# PHP utilities
+elif [ "$function" == "php:syntax" ]; then
+	echo "Checking PHP syntax for all files in current location...\n"
+	find . -name \*.php -exec php -l "{}" \;
 
 # Edit hosts file
 elif [ "$function" == "hosts" ]; then
 	sudo vi /private/etc/hosts
 
-# Eject all mounted volumes and disk
-elif [ "$function" == "eject-all" ]; then
-	osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
+# SSH key utilities
+elif [ "$function" == "ssh-key:copy" ]; then
+	pbcopy < ~/.ssh/id_rsa.pub
+
+#--------------------------------------------------------------------
+# Performance and maintenance utilities
+#--------------------------------------------------------------------
 
 # See memory usage ordered by memory consumption
 elif [ "$function" == "memory" ]; then
@@ -188,16 +232,19 @@ elif [ "$function" == "trash:size" ]; then
 	echo "Trash size: \n"
 	du -sh ~/.Trash/
 
-# SSH key utilities
-elif [ "$function" == "ssh-key:copy" ]; then
-	pbcopy < ~/.ssh/id_rsa.pub
+#--------------------------------------------------------------------
+# iTerm utilities
+#--------------------------------------------------------------------
 
-## iTerm utilities
+# Set title to current tab
 elif [ "$function" == "tab:title" ]; then
 	echo -ne "\033]0;"$allParameters"\007"
 	echo "Tab title updated"
 
-## GIT utilities
+#--------------------------------------------------------------------
+# GIT utilities
+#--------------------------------------------------------------------
+
 # Get last update date for all branches in current project
 elif [ "$function" == "git:fresh" ]; then
 	get_branch_data |
@@ -208,8 +255,10 @@ elif [ "$function" == "git:fresh" ]; then
 		-----------|-----------------' |
 	  column -t -s '|'
 
+#--------------------------------------------------------------------
+# XCode utilities
+#--------------------------------------------------------------------
 
-## XCode utilities
 elif [ "$function" == "xcode:cleanup" ]; then
 
 	echo "========== Cleanup start =========="
@@ -284,29 +333,13 @@ elif [ "$function" == "xcode:cleanup" ]; then
 	echo "Suggest you to restart your xcode"
 	echo "========== Have a nice day =========="
 
+#--------------------------------------------------------------------
+# Online search utilities
+#--------------------------------------------------------------------
 
-# Search utilities
 # TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result
 
 # TODO: Add Google Search with parameters
-
-
-# TODO: Working on airplane mode (disable wi-fi and bluetooth)
-elif [ "$function" == "airplane-mode:on" ]; then
-	echo "Enabling airplane mode...\n"
-	 # networksetup -setairportpower airport off
-	 # networksetup -setairportpower en0 off
-	 # networksetup -setairportpower en1 off
-	 # launchctl unload -w /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth off
-elif [ "$function" == "airplane-mode:off" ]; then
-	echo "Disabling airplane mode...\n"
-	 # networksetup -setairportpower airport on
-	 # networksetup -setairportpower en0 on
-	 # networksetup -setairportpower en1 on
-	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
-
-
-
 
 else
 	echo "\nCommand not found: "

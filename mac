@@ -76,6 +76,10 @@ elif [ "$function" == "screensaver" ]; then
 elif [ "$function" == "eject-all" ]; then
 	osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
 
+# Update MAC software
+elif [ "$function" == "software-update" ]; then
+	sudo softwareupdate -i -a
+
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
 	echo "Enabling airplane mode...\n"

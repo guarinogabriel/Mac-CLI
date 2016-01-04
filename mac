@@ -12,11 +12,6 @@
 #####################################################################
 
 #--------------------------------------------------------------------
-# Clear the screen for a clean output
-#--------------------------------------------------------------------
-clear
-
-#--------------------------------------------------------------------
 # Variables
 #--------------------------------------------------------------------
 function=$1
@@ -149,6 +144,11 @@ elif [ "$function" == "speedtest:infinite" ]; then
 elif [ "$function" == "ports" ]; then
 	echo "Getting list of usd ports..."
 	sudo lsof -iTCP -sTCP:LISTEN -P
+
+# Get local IP address
+elif [ "$function" == "ip" ]; then
+	echo "Your IP address is:"
+	ipconfig getifaddr en0
 
 #--------------------------------------------------------------------
 # Executable apps

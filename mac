@@ -49,6 +49,9 @@ elif [ "$function" == "folder:size" ]; then
 	echo "Calculating folder size...\n"
 	echo "Folder size:"
 	du -sh .
+# List folders in current directory
+elif [ "$function" == "folders" ]; then
+	ls -d */
 
 # Close all opened apps
 elif [ "$function" = "apps:close-all" ]; then

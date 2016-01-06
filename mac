@@ -270,6 +270,16 @@ elif [ "$function" == "git:fresh" ]; then
 		-----------|-----------------' |
 	  column -t -s '|'
 
+# Undo latest commit
+elif [ "$function" == "git:undo-commit" ]; then
+	git reset --soft HEAD~
+
+#--------------------------------------------------------------------
+# Development utilities
+#--------------------------------------------------------------------
+
+# TODO: Optimize all images in directory (recursive)
+
 #--------------------------------------------------------------------
 # XCode utilities
 #--------------------------------------------------------------------

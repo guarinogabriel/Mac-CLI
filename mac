@@ -275,6 +275,14 @@ elif [ "$function" == "git:undo-commit" ]; then
 	git reset --soft HEAD~
 
 #--------------------------------------------------------------------
+# Homebrew utilities
+#--------------------------------------------------------------------
+
+# Get list of installed Homebrew packages
+elif [ "$function" == "brew:list" ]; then
+	brew list
+
+#--------------------------------------------------------------------
 # Development utilities
 #--------------------------------------------------------------------
 

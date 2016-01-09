@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="MagicentoSettings">
-    <option name="pathToMage" value="$PROJECT_DIR$/app/Mage.php" />
-    <option name="pathToMage" value="$PROJECT_DIR$/app/Mage.php" />
-    <option name="enabled" value="false" />
-    <option name="projectClosedCorrectly" value="false" />
-  </component>
-</project>

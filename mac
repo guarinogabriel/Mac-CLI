@@ -52,6 +52,9 @@ elif [ "$function" == "folder:size" ]; then
 # List folders in current directory
 elif [ "$function" == "folders" ]; then
 	ls -d */
+# Remove empty subdirectories
+elif [ "$function" == "folders:remove-empty" ]; then
+	find . -type d -empty -delete
 
 # Close all opened apps
 elif [ "$function" = "apps:close-all" ]; then

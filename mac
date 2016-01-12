@@ -277,7 +277,15 @@ elif [ "$function" == "git:fresh" ]; then
 elif [ "$function" == "git:undo-commit" ]; then
 	git reset --soft HEAD~
 
-# Check GIT setgings
+# See latest commits IDs and titles for current branch
+elif [ "$function" == "git:log" ]; then
+	git log --pretty=oneline
+
+# See all branches
+elif [ "$function" == "git:branch" ]; then
+	git branch -a
+
+# Check GIT settings
 elif [ "$function" == "git:settings" ]; then
 	git config --list
 

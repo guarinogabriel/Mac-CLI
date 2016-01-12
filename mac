@@ -277,6 +277,10 @@ elif [ "$function" == "git:fresh" ]; then
 elif [ "$function" == "git:undo-commit" ]; then
 	git reset --soft HEAD~
 
+# Check GIT setgings
+elif [ "$function" == "git:settings" ]; then
+	git config --list
+
 # Open current git repository URL
 elif [ "$function" == "git:open" ]; then
 	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1

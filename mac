@@ -208,7 +208,7 @@ elif [ "$function" == "appstore" ]; then
 elif [ "$function" == "goodtask" ]; then
 	open -a GoodTask
 elif [ "$function" == "notes" ]; then
-	open -a Transparent\ Note
+	open -a Notes
 
 #--------------------------------------------------------------------
 # LAMP (Linux, Apache, MySQL, PHP)

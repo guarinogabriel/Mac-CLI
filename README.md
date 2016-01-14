@@ -28,6 +28,58 @@ The ultimate tool to manage your Mac. It provides a huge set of command line com
 | mac ip  | Get local IP address  |
 
 
+### LAMP (Linux, Apache, MySQL, PHP)
+
+| Command  | Description |
+| ------------- | ------------- |
+| mac mysql  | Open MySQL app (Rename SequelPRO.app to MySQL.app)  |
+| mac mysql-cli  | Start MAMP MySQL CLI  |
+| mac php:syntax  | Check PHP Syntax for all PHP files in current location  |
+| mac hosts  | Edit hosts file  |
+| mac ssh-key:copy  | Copy SSH Public Key  |
+
+
+### Performance and maintenance utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| mac memory  | See memory usage sorted by memory consumption  |
+| mac trash:empty  | Empty trash |
+| mac trash:size  | Calculate trash size |
+
+
+### iTerm / Terminal utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| mac tab:title  | Set title to current tab  |
+
+
+### GIT utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| mac git:fresh  | Get last update date for all branches in current project  |
+| mac git:undo-commit  | Undo latest commit  |
+| mac git:log  | See latest commits IDs and titles for current branch  |
+| mac git:branch  | See all branches  |
+| mac git:settings  | Check GIT settings  |
+| mac git:open  | Open current GIT repository URL  |
+
+
+### Homebrew utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| mac brew:list  | Get list of installed Homebrew packages  |
+
+
+### XCode utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| mac xcode:cleanup  | Cleanup XCode files to free up hard disk space  |
+
 
 ### Executable Apps
 

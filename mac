@@ -157,60 +157,6 @@ elif [ "$function" == "ip" ]; then
 	ipconfig getifaddr en0
 
 #--------------------------------------------------------------------
-# Executable apps
-#--------------------------------------------------------------------
-elif [ "$function" == "firefox" ]; then
-	open -a Firefox
-elif [ "$function" == "chrome" ]; then
-	open -a Google\ Chrome
-elif [ "$function" == "safari" ]; then
-	open -a Safari
-elif [ "$function" == "phpstorm" ]; then
-	open -a PHPStorm
-elif [ "$function" == "xcode" ]; then
-	open -a XCode
-elif [ "$function" == "mamp" ]; then
-	open -a MAMP
-elif [ "$function" == "filezilla" ]; then
-	open -a Filezilla
-elif [ "$function" == "skype" ]; then
-	open -a Skype
-elif [ "$function" == "gotomeeting" ]; then
-	open -a GoToMeeting
-elif [ "$function" == "snippetslab" ]; then
-	open -a SnippetsLab
-elif [ "$function" == "preview" ]; then
-	open -a Preview
-elif [ "$function" == "photoshop" ]; then
-	open -a Adobe\ Photoshop\ CC\ 2015
-elif [ "$function" == "textedit" ]; then
-	open -a TextEdit
-elif [ "$function" == "sourcetree" ]; then
-	open -a SourceTree
-elif [ "$function" == "stree" ]; then
-	open -a SourceTree ./
-elif [ "$function" == "quiver" ]; then
-	open -a Quiver
-elif [ "$function" == "virtualbox" ]; then
-	open -a VirtualBox
-elif [ "$function" == "pixelmator" ]; then
-	open -a Pixelmator
-elif [ "$function" == "vlc" ]; then
-	open -a VLC
-elif [ "$function" == "kaleidoscope" ]; then
-	open -a Kaleidoscope
-elif [ "$function" == "mindnode" ]; then
-	open -a MindNode
-elif [ "$function" == "paw" ]; then
-	open -a Paw
-elif [ "$function" == "appstore" ]; then
-	open -a App\ Store
-elif [ "$function" == "goodtask" ]; then
-	open -a GoodTask
-elif [ "$function" == "notes" ]; then
-	open -a Notes
-
-#--------------------------------------------------------------------
 # LAMP (Linux, Apache, MySQL, PHP)
 #--------------------------------------------------------------------
 
@@ -237,7 +183,7 @@ elif [ "$function" == "ssh-key:copy" ]; then
 # Performance and maintenance utilities
 #--------------------------------------------------------------------
 
-# See memory usage ordered by memory consumption
+# See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then
 	top -o MEM
 
@@ -289,7 +235,7 @@ elif [ "$function" == "git:branch" ]; then
 elif [ "$function" == "git:settings" ]; then
 	git config --list
 
-# Open current git repository URL
+# Open current GIT repository URL
 elif [ "$function" == "git:open" ]; then
 	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
 
@@ -392,6 +338,60 @@ elif [ "$function" == "xcode:cleanup" ]; then
 # TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result
 
 # TODO: Add Google Search with parameters
+
+#--------------------------------------------------------------------
+# Executable apps
+#--------------------------------------------------------------------
+elif [ "$function" == "firefox" ]; then
+	open -a Firefox
+elif [ "$function" == "chrome" ]; then
+	open -a Google\ Chrome
+elif [ "$function" == "safari" ]; then
+	open -a Safari
+elif [ "$function" == "phpstorm" ]; then
+	open -a PHPStorm
+elif [ "$function" == "xcode" ]; then
+	open -a XCode
+elif [ "$function" == "mamp" ]; then
+	open -a MAMP
+elif [ "$function" == "filezilla" ]; then
+	open -a Filezilla
+elif [ "$function" == "skype" ]; then
+	open -a Skype
+elif [ "$function" == "gotomeeting" ]; then
+	open -a GoToMeeting
+elif [ "$function" == "snippetslab" ]; then
+	open -a SnippetsLab
+elif [ "$function" == "preview" ]; then
+	open -a Preview
+elif [ "$function" == "photoshop" ]; then
+	open -a Adobe\ Photoshop\ CC\ 2015
+elif [ "$function" == "textedit" ]; then
+	open -a TextEdit
+elif [ "$function" == "sourcetree" ]; then
+	open -a SourceTree
+elif [ "$function" == "stree" ]; then
+	open -a SourceTree ./
+elif [ "$function" == "quiver" ]; then
+	open -a Quiver
+elif [ "$function" == "virtualbox" ]; then
+	open -a VirtualBox
+elif [ "$function" == "pixelmator" ]; then
+	open -a Pixelmator
+elif [ "$function" == "vlc" ]; then
+	open -a VLC
+elif [ "$function" == "kaleidoscope" ]; then
+	open -a Kaleidoscope
+elif [ "$function" == "mindnode" ]; then
+	open -a MindNode
+elif [ "$function" == "paw" ]; then
+	open -a Paw
+elif [ "$function" == "appstore" ]; then
+	open -a App\ Store
+elif [ "$function" == "goodtask" ]; then
+	open -a GoodTask
+elif [ "$function" == "notes" ]; then
+	open -a Notes
 
 else
 	echo "\nCommand not found: "

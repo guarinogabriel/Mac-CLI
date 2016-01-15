@@ -104,6 +104,14 @@ elif [ "$function" == "airplane-mode:off" ]; then
 	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
 
 #--------------------------------------------------------------------
+# Search utilities
+#--------------------------------------------------------------------
+# Find files modified in the last N minutes
+elif [ "$function" == "find:recent" ]; then
+	echo "Searching for files modified in the last "$firstParameter" minutes..."
+	sudo find / -mmin $firstParameter -type f
+
+#--------------------------------------------------------------------
 # Network utilities
 #--------------------------------------------------------------------
 # Internet connection speed test

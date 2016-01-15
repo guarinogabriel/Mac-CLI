@@ -18,6 +18,13 @@ The ultimate tool to manage your Mac. It provides a huge set of command line com
 | `mac eject-all`  | Eject all mounted volumes and disks  |
 
 
+### Search Utilities
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
+| `mac find:recent N`  | Find files modified in the last N minutes  |  N = number of minutes  |
+
+
 ### Network Utilities
 
 | Command  | Description |

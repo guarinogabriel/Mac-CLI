@@ -243,6 +243,8 @@ elif [ "$function" == "git:branch" ]; then
 elif [ "$function" == "git:settings" ]; then
 	git config --list
 	
+# Remove GIT from current project
+elif [ "$function" == "git:remove" ]; then
 	find . -name '.git' -exec rm -rf {} \;
 
 # Open current GIT repository URL

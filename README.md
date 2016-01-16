@@ -70,6 +70,7 @@ The ultimate tool to manage your Mac. It provides a huge set of command line com
 | `mac git:undo-commit`  | Undo latest commit  |
 | `mac git:log`  | See latest commits IDs and titles for current branch  |
 | `mac git:branch`  | See all branches  |
+| `mac git:remove`  | Remove GIT from current project  |
 | `mac git:settings`  | Check GIT settings  |
 | `mac git:open`  | Open current GIT repository URL  |
 

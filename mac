@@ -44,6 +44,11 @@ elif [ "$function" == "sleep" ]; then
 elif [ "$function" == "shutdown" ]; then
 	sudo shutdown -h now
 
+# Remove files older than X days in current folder
+elif [ "$function" == "files:remove-older" ]; then
+	echo "Removing files older than "$firstParameter" days..."
+	find . -ctime +$firstParameter -print0 | xargs -0 -n1
+
 # Calculate folder size
 elif [ "$function" == "folder:size" ]; then
 	echo "Calculating folder size...\n"
@@ -75,7 +80,11 @@ elif [ "$function" == "screensaver" ]; then
 
 # Eject all mounted volumes and disk
 elif [ "$function" == "eject-all" ]; then
-	osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
+	osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
+
+# Get battery information
+elif [ "$function" == "battery:info" ]; then
+	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages
 elif [ "$function" == "update" ]; then

@@ -1,6 +1,12 @@
 # mac
 The ultimate tool to manage your Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
 
+# Requirements
+These are the requirements to be able to run all the commands:
+
+* Git
+* Pipe Viewer (pv)
+
 ### General Commands
 
 | Command  | Description | Arguments |

@@ -86,6 +86,23 @@ elif [ "$function" == "eject-all" ]; then
 elif [ "$function" == "battery:info" ]; then
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
+# Compress file/folder using TAR with progress indicator
+elif [ "$function" == "tar:compress" ]; then
+	echo "Please enter the filename to save the .tgz file: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read filename
+
+		if [ ! -z "$filename" -a "$filename" != " " ]; then
+			tar -czf - $firstParameter | (pv -p --timer --rate --bytes > "$filename".tgz)
+		else
+			"Please specify the file name"
+		fi
+	else
+		echo "Please specify the folder or directory to compress."
+		echo "E.g.: tar:compress foldername"
+	fi
+
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages
 elif [ "$function" == "update" ]; then
 	echo "Updating OS X...\n"

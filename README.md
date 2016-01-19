@@ -23,6 +23,7 @@ These are the requirements to be able to run all the commands:
 | `mac apps:appstore`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery:info`  | Get battery information  | |
+| `mac tar:compress X Y`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
 
 
 ### Search Utilities

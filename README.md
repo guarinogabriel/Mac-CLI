@@ -48,13 +48,14 @@ These are the requirements to be able to run all the commands:
 
 ### LAMP (Linux, Apache, MySQL, PHP)
 
-| Command  | Description |
-| ------------- | ------------- |
-| `mac mysql`  | Open MySQL app (Rename SequelPRO.app to MySQL.app)  |
-| `mac mysql-cli`  | Start MAMP MySQL CLI  |
-| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |
-| `mac hosts`  | Edit hosts file  |
-| `mac ssh-key:copy`  | Copy SSH Public Key  |
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
+| `mac mysql`  | Open MySQL app (Rename SequelPRO.app to MySQL.app)  |  |
+| `mac mysql-cli`  | Start MAMP MySQL CLI  |  |
+| `mac mysql:export X`  | Export MySQL database to current directory  |  X = database name  |
+| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
+| `mac hosts`  | Edit hosts file  |  |
+| `mac ssh-key:copy`  | Copy SSH Public Key  |  |
 
 
 ### Performance and maintenance utilities

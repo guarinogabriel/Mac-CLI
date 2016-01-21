@@ -16,6 +16,9 @@
 #--------------------------------------------------------------------
 mysql="/Applications/MAMP/Library/bin/mysql"
 mysql_app="MySQL"
+mysql_user="root"
+mysql_password="root"
+mysqldump="/Applications/MAMP/Library/bin/mysqldump"
 
 #--------------------------------------------------------------------
 # Parameters
@@ -200,11 +203,28 @@ elif [ "$function" == "ip" ]; then
 # LAMP (Linux, Apache, MySQL, PHP)
 #--------------------------------------------------------------------
 
-# MySQL utilities
+## MySQL utilities
 elif [ "$function" == "mysql" ]; then
 	open -a $mysql_app
 elif [ "$function" == "mysql-cli" ]; then
-	$mysql --host=localhost -uroot -proot
+	$mysql --host=localhost -u$mysql_user -p$mysql_password
+
+# Export MySQL database
+elif [ "$function" == "mysql:export" ]; then
+	echo "Please enter the filename to save the compressed database: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read filename
+
+		if [ ! -z "$filename" -a "$filename" != " " ]; then
+			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".zip
+		else
+			"Please specify the file name"
+		fi
+	else
+		echo "Please specify the database to export."
+		echo "E.g.: mysql:export database"
+	fi
 
 # PHP utilities
 elif [ "$function" == "php:syntax" ]; then

@@ -12,7 +12,13 @@
 #####################################################################
 
 #--------------------------------------------------------------------
-# Variables
+# Global Variables
+#--------------------------------------------------------------------
+mysql="/Applications/MAMP/Library/bin/mysql"
+mysql_app="MySQL"
+
+#--------------------------------------------------------------------
+# Parameters
 #--------------------------------------------------------------------
 function=$1
 firstParameter=$2
@@ -196,9 +202,9 @@ elif [ "$function" == "ip" ]; then
 
 # MySQL utilities
 elif [ "$function" == "mysql" ]; then
-	open -a MySQL
+	open -a $mysql_app
 elif [ "$function" == "mysql-cli" ]; then
-	/Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot
+	$mysql --host=localhost -uroot -proot
 
 # PHP utilities
 elif [ "$function" == "php:syntax" ]; then

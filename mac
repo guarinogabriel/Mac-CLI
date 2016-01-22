@@ -260,8 +260,8 @@ elif [ "$function" == "trash:size" ]; then
 # iTerm utilities
 #--------------------------------------------------------------------
 
-# Set title to current tab
-elif [ "$function" == "tab:title" ]; then
+# Set title to current iTerm tab
+elif [ "$function" == "iterm:tab-title" ]; then
 	echo -ne "\033]0;"$allParameters"\007"
 	echo "Tab title updated"
 

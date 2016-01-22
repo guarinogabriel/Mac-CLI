@@ -71,7 +71,7 @@ These are the requirements to be able to run all the commands:
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac tab:title`  | Set title to current tab  |
+| `mac iterm:tab-title`  | Set title to current iTerm tab  |
 
 
 ### GIT utilities

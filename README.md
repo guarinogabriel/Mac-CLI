@@ -27,6 +27,7 @@ These are the requirements to be able to run all the commands:
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery:info`  | Get battery information  | |
 | `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
+| `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 
 
 ### Search Utilities

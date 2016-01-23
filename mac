@@ -124,6 +124,17 @@ elif [ "$function" == "update" ]; then
 	sudo gem update --system; sudo gem update
 	echo "Your system has been successfully updated"
 
+# Find text in current directory
+elif [ "$function" == "find:text" ]; then
+
+	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
+		echo "Recursively find '"$allParameters"' inside directory...\n"
+		find . -type f -exec grep -i "$allParameters" {} \; -print
+	else
+		echo "Please introduce text to search. E.g:\n"
+		echo "mac find:text Sample Search Text"
+	fi
+
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
 	echo "Enabling airplane mode...\n"

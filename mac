@@ -242,6 +242,14 @@ elif [ "$function" == "php:syntax" ]; then
 	echo "Checking PHP syntax for all files in current location...\n"
 	find . -name \*.php -exec php -l "{}" \;
 
+# Get battery information
+elif [ "$function" == "battery:info" ]; then
+	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+	
+# Get OS X version information
+elif [ "$function" == "info" ]; then
+	sw_vers
+	
 # Edit hosts file
 elif [ "$function" == "hosts" ]; then
 	sudo vi /private/etc/hosts

@@ -28,7 +28,7 @@ These are the requirements to be able to run all the commands:
 | `mac battery:info`  | Get battery information  | |
 | `mac info`  | Get OS X version information  | |
 | `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
-| `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
+| `mac search:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 
 
 ### Search Utilities

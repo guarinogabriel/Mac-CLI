@@ -125,7 +125,7 @@ elif [ "$function" == "update" ]; then
 	echo "Your system has been successfully updated"
 
 # Find text in current directory
-elif [ "$function" == "find:text" ]; then
+elif [ "$function" == "search:text" ]; then
 
 	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
 		echo "Recursively find '"$allParameters"' inside directory...\n"
@@ -248,7 +248,7 @@ elif [ "$function" == "battery:info" ]; then
 	
 # Get OS X version information
 elif [ "$function" == "info" ]; then
-	sw_vers
+	sw_versf
 	
 # Edit hosts file
 elif [ "$function" == "hosts" ]; then

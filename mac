@@ -228,7 +228,7 @@ elif [ "$function" == "mysql:export" ]; then
 		read filename
 
 		if [ ! -z "$filename" -a "$filename" != " " ]; then
-			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".zip
+			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
 		else
 			"Please specify the file name"
 		fi

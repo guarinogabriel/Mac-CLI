@@ -135,6 +135,16 @@ elif [ "$function" == "search:text" ]; then
 		echo "mac find:text Sample Search Text"
 	fi
 
+# Extract Gzip file
+elif [ "$function" == "gzip:extract" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		gzip -d $firstParameter
+	else
+		echo "Please specify the Gzip file to extract."
+		echo "E.g.: gzip:extract sample_file.gz"
+	fi
+
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
 	echo "Enabling airplane mode...\n"

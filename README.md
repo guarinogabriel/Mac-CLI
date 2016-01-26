@@ -29,6 +29,7 @@ These are the requirements to be able to run all the commands:
 | `mac info`  | Get OS X version information  | |
 | `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
 | `mac search:text X`  | Find exact phrase recursively inside directory  | X = Text string |
+| `mac gzip:extract X` | Extract Gzip file to current folder   | X = Gzip file to extract |
 
 
 ### Search Utilities

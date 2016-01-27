@@ -243,8 +243,25 @@ elif [ "$function" == "mysql:export" ]; then
 			"Please specify the file name"
 		fi
 	else
-		echo "Please specify the database to export."
+		echo "Please specify the database to export"
 		echo "E.g.: mysql:export database"
+	fi
+
+# Import MySQL database
+elif [ "$function" == "mysql:import" ]; then
+	echo "Please enter the database name to import the selected SQL file: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read databasename
+
+		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+			pv $firstParameter | /applications/MAMP/library/bin/mysql -u"$mysql_user" -p"$mysql_password" $databasename
+		else
+			"Please specify the database name"
+		fi
+	else
+		echo "Please specify the SQL file to import"
+		echo "E.g.: mysql:import /path/to/file.sql"
 	fi
 
 # PHP utilities

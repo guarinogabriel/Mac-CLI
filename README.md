@@ -23,7 +23,7 @@ These are the requirements to be able to run all the commands:
 | `mac folder:size`  | Calculate current folder size  | |
 | `mac folders:remove-empty`  | Remove empty subdirectories  | |
 | `mac apps:close-all`  | Close all opened apps  | |
-| `mac apps:appstore`  | Get list of installed apps from App Store  | |
+| `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery:info`  | Get battery information  | |
 | `mac info`  | Get OS X version information  | |

@@ -79,7 +79,7 @@ elif [ "$function" = "apps:close-all" ]; then
 	ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
 
 # Get list of installed apps from the App Store
-elif [ "$function" == "apps:appstore" ]; then
+elif [ "$function" == "apps:app-store" ]; then
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 

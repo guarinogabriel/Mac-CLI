@@ -263,7 +263,7 @@ elif [ "$function" == "mysql:import" ]; then
 		echo "Please specify the SQL file to import"
 		echo "E.g.: mysql:import /path/to/file.sql"
 	fi
-s
+
 # Download file through SSH on current folder
 elif [ "$function" == "ssh:download" ]; then
 
@@ -293,6 +293,48 @@ elif [ "$function" == "ssh:download" ]; then
 	else
 		echo "Please specify the path to the file on the remote server to download"
 		echo "E.g.: /home/sample/file.jpg"
+	fi
+
+# Upload file to remote server through SSH
+elif [ "$function" == "ssh:upload" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+					echo "Please enter path on the remote server to upload the file: "
+
+					read remotepath
+
+					if [ ! -z "$remotepath" -a "$remotepath" != " " ]; then
+
+						scp $firstParameter $username@$ipaddress:$remotepath
+
+					else
+						"Please specify the path on the remote server to upload the file"
+					fi
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the path to the file to upload to the remote server"
+		echo "E.g.: /user/example/documents/file.pdf"
 	fi
 
 # PHP utilities

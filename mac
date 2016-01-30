@@ -141,8 +141,18 @@ elif [ "$function" == "gzip:extract" ]; then
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 		gzip -d $firstParameter
 	else
-		echo "Please specify the Gzip file to extract."
+		echo "Please specify the Gzip file to extract.\n"
 		echo "E.g.: gzip:extract sample_file.gz"
+	fi
+
+# Extract tar file
+elif [ "$function" == "tar:extract" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		tar -xvzf $firstParameter
+	else
+		echo "Please specify the tar file to extract.\n"
+		echo "E.g.: tar:extract sample_file.tgz"
 	fi
 
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)

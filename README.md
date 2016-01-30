@@ -30,6 +30,7 @@ These are the requirements to be able to run all the commands:
 | `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
 | `mac search:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 | `mac gzip:extract X` | Extract Gzip file to current folder   | X = Gzip file to extract |
+| `mac tar:extract X` | Extract tar file to current folder   | X = Tar file to extract |
 
 
 ### Search Utilities

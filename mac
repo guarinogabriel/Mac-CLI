@@ -136,7 +136,7 @@ elif [ "$function" == "search:text" ]; then
 	fi
 
 # Extract Zip file
-elif [ "$function" == "gzip:extract" ]; then
+elif [ "$function" == "zip:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 		unzip $firstParameter

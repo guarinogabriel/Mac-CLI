@@ -29,6 +29,13 @@ secondParameter=$3
 allParameters=${@:2}
 
 #--------------------------------------------------------------------
+# Colors
+#--------------------------------------------------------------------
+GREEN='\033[0;32m'
+GRAY='\033[0;37m'
+NC='\033[0m' # No Color
+
+#--------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------
 function get_branch_data()
@@ -45,33 +52,44 @@ function get_branch_data()
 # General functions
 #--------------------------------------------------------------------
 if [ "$function" == "restart" ]; then
+	printf "${GREEN}sudo shutdown -r now\n\n${NC}"
 	echo "Restarting Mac in 3 seconds..."
 	sleep 3s
 	sudo shutdown -r now
 elif [ "$function" == "sleep" ]; then
+	printf "${GREEN}pmset sleepnow\n\n${NC}"
 	pmset sleepnow
 elif [ "$function" == "shutdown" ]; then
+	printf "${GREEN}sudo shutdown -h now\n\n${NC}"
 	sudo shutdown -h now
 
 # Remove files older than X days in current folder
 elif [ "$function" == "files:remove-older" ]; then
+	printf "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
 	echo "Removing files older than "$firstParameter" days..."
 	find . -ctime +$firstParameter -print0 | xargs -0 -n1
 
 # Calculate folder size
 elif [ "$function" == "folder:size" ]; then
+	printf "${GREEN}du -sh .\n\n${NC}"
 	echo "Calculating folder size...\n"
 	echo "Folder size:"
 	du -sh .
+
 # List folders in current directory
 elif [ "$function" == "folders" ]; then
+	printf "${GREEN}ls -d */\n\n${NC}"
 	ls -d */
+
 # Remove empty subdirectories
 elif [ "$function" == "folders:remove-empty" ]; then
+	printf "${GREEN}find . -type d -empty -delete\n\n${NC}"
 	find . -type d -empty -delete
 
 # Close all opened apps
 elif [ "$function" = "apps:close-all" ]; then
+	printf "${GREEN}ignore='grep\|iTerm\|Finder\|Dropbox\|Bartender'\n${NC}"
+	printf "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
 	# To customize ignored apps, just put the keywords in $ignore
 	# To test which apps you are going to kill, run:
 	# ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
@@ -80,19 +98,23 @@ elif [ "$function" = "apps:close-all" ]; then
 
 # Get list of installed apps from the App Store
 elif [ "$function" == "apps:app-store" ]; then
+	printf "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 
 # Start screensaver
 elif [ "$function" == "screensaver" ]; then
+	printf "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
 	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
 
 # Eject all mounted volumes and disk
 elif [ "$function" == "eject-all" ]; then
+	printf "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
 	osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
 
 # Get battery information
 elif [ "$function" == "battery:info" ]; then
+	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
 # Compress file/folder using TAR with progress indicator
@@ -103,6 +125,7 @@ elif [ "$function" == "tar:compress" ]; then
 		read filename
 
 		if [ ! -z "$filename" -a "$filename" != " " ]; then
+			printf "${GREEN}tar -czf - ${GRAY}${firstParameter}${GREEN}  | (pv -p --timer --rate --bytes > '${GRAY}${filename}${GREEN}'.tgz)\n\n${NC}"
 			tar -czf - $firstParameter | (pv -p --timer --rate --bytes > "$filename".tgz)
 		else
 			"Please specify the file name"
@@ -114,12 +137,16 @@ elif [ "$function" == "tar:compress" ]; then
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages
 elif [ "$function" == "update" ]; then
+	printf "${GREEN}sudo softwareupdate -i -a;\n\n${NC}"
 	echo "Updating OS X...\n"
 	sudo softwareupdate -i -a;
+	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n\n${NC}"
 	echo "Updating Homebrew and its installed packages...\n"
 	brew update; brew upgrade --all; brew cleanup;
+	printf "${GREEN}npm install npm -g; npm update -g;\n\n${NC}"
 	echo "Updating npm and its installed packages...\n"
 	npm install npm -g; npm update -g;
+	printf "${GREEN}sudo gem update --system; sudo gem update\n\n${NC}"
 	echo "Updating installed Ruby gems...\n"
 	sudo gem update --system; sudo gem update
 	echo "Your system has been successfully updated"
@@ -128,6 +155,7 @@ elif [ "$function" == "update" ]; then
 elif [ "$function" == "search:text" ]; then
 
 	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
+		printf "${GREEN}find . -type f -exec grep -i '${GRAY}${firstParameter}${GREEN}' {} \; -print\n\n${NC}"
 		echo "Recursively find '"$allParameters"' inside directory...\n"
 		find . -type f -exec grep -i "$allParameters" {} \; -print
 	else
@@ -139,6 +167,7 @@ elif [ "$function" == "search:text" ]; then
 elif [ "$function" == "zip:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}unzip ${GRAY}${firstParameter}\n\n${NC}"
 		unzip $firstParameter
 	else
 		echo "Please specify the Zip file to extract.\n"

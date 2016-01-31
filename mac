@@ -135,6 +135,16 @@ elif [ "$function" == "search:text" ]; then
 		echo "mac find:text Sample Search Text"
 	fi
 
+# Extract Zip file
+elif [ "$function" == "gzip:extract" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		unzip $firstParameter
+	else
+		echo "Please specify the Zip file to extract.\n"
+		echo "E.g.: zip:extract sample_file.zip"
+	fi
+
 # Extract Gzip file
 elif [ "$function" == "gzip:extract" ]; then
 

@@ -178,6 +178,7 @@ elif [ "$function" == "zip:extract" ]; then
 elif [ "$function" == "gzip:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}gzip -d ${GRAY}${firstParameter}\n\n${NC}"
 		gzip -d $firstParameter
 	else
 		echo "Please specify the Gzip file to extract.\n"
@@ -188,6 +189,7 @@ elif [ "$function" == "gzip:extract" ]; then
 elif [ "$function" == "tar:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}tar -xvzf ${GRAY}${firstParameter}\n\n${NC}"
 		tar -xvzf $firstParameter
 	else
 		echo "Please specify the tar file to extract.\n"
@@ -214,6 +216,7 @@ elif [ "$function" == "airplane-mode:off" ]; then
 # Find files modified in the last N minutes
 elif [ "$function" == "find:recent" ]; then
 	echo "Searching for files modified in the last "$firstParameter" minutes..."
+	printf "${GREEN}sudo find / -mmin ${GRAY}${firstParameter}${GREEN} -type f\n\n${NC}"
 	sudo find / -mmin $firstParameter -type f
 
 #--------------------------------------------------------------------
@@ -262,10 +265,12 @@ elif [ "$function" == "speedtest:infinite" ]; then
 # List of used ports
 elif [ "$function" == "ports" ]; then
 	echo "Getting list of usd ports..."
+	printf "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
 	sudo lsof -iTCP -sTCP:LISTEN -P
 
 # Get local IP address
 elif [ "$function" == "ip" ]; then
+	printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
 	echo "Your IP address is:"
 	ipconfig getifaddr en0
 
@@ -275,8 +280,10 @@ elif [ "$function" == "ip" ]; then
 
 ## MySQL utilities
 elif [ "$function" == "mysql" ]; then
+	printf "${GREEN}open -a $mysql_app\n\n${NC}"
 	open -a $mysql_app
 elif [ "$function" == "mysql-cli" ]; then
+	printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}\n\n${NC}"
 	$mysql --host=localhost -u$mysql_user -p$mysql_password
 
 # Export MySQL database
@@ -287,6 +294,7 @@ elif [ "$function" == "mysql:export" ]; then
 		read filename
 
 		if [ ! -z "$filename" -a "$filename" != " " ]; then
+			printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
 			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
 		else
 			"Please specify the file name"
@@ -304,7 +312,8 @@ elif [ "$function" == "mysql:import" ]; then
 		read databasename
 
 		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			pv $firstParameter | /applications/MAMP/library/bin/mysql -u"$mysql_user" -p"$mysql_password" $databasename
+			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | /applications/MAMP/library/bin/mysql ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+			pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
 		else
 			"Please specify the database name"
 		fi

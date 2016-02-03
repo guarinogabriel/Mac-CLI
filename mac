@@ -338,6 +338,7 @@ elif [ "$function" == "ssh:download" ]; then
 
 			if [ ! -z "$username" -a "$username" != " " ]; then
 
+				printf "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN}.\n\n${NC}"
 				scp $username@$ipaddress:$firstParameter .
 
 			else

@@ -1,5 +1,6 @@
 # mac
 The ultimate tool to manage your Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
+When you run a function, the executed command is displayed and that helps you memorize each of the utilities for future usage.
 
 # Configuration
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.

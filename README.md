@@ -20,7 +20,7 @@ These are the requirements to be able to run all the commands:
 | `mac sleep`  | Sleep mode  | |
 | `mac shutdown`  | Shutdown  | |
 | `mac screensaver`  | Start screensaver  | |
-| `mac folders`  | List folders in current directory  | |
+| `mac folders:list`  | List folders in current directory  | |
 | `mac folder:size`  | Calculate current folder size  | |
 | `mac folders:remove-empty`  | Remove empty subdirectories  | |
 | `mac apps:close-all`  | Close all opened apps  | |

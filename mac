@@ -338,7 +338,7 @@ elif [ "$function" == "ssh:download" ]; then
 
 			if [ ! -z "$username" -a "$username" != " " ]; then
 
-				printf "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN}.\n\n${NC}"
+				printf "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
 				scp $username@$ipaddress:$firstParameter .
 
 			else
@@ -373,11 +373,12 @@ elif [ "$function" == "ssh:upload" ]; then
 
 					echo "Please enter path on the remote server to upload the file: "
 
-					read remotepath
+					read remotePath
 
-					if [ ! -z "$remotepath" -a "$remotepath" != " " ]; then
+					if [ ! -z "$remotePath" -a "$remotePath" != " " ]; then
 
-						scp $firstParameter $username@$ipaddress:$remotepath
+						printf "${GREEN}scp ${GRAY}${firstParameter} ${username}@${ipaddress}:${remotePath}${GREEN}\n\n${NC}"
+						scp $firstParameter $username@$ipaddress:$remotePath
 
 					else
 						"Please specify the path on the remote server to upload the file"
@@ -398,23 +399,28 @@ elif [ "$function" == "ssh:upload" ]; then
 
 # PHP utilities
 elif [ "$function" == "php:syntax" ]; then
+	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
 	echo "Checking PHP syntax for all files in current location...\n"
 	find . -name \*.php -exec php -l "{}" \;
 
 # Get battery information
 elif [ "$function" == "battery:info" ]; then
+	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 	
 # Get OS X version information
 elif [ "$function" == "info" ]; then
+	printf "${GREEN}sw_versf \n\n${NC}"
 	sw_versf
 	
 # Edit hosts file
 elif [ "$function" == "hosts" ]; then
+	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
 	sudo vi /private/etc/hosts
 
 # SSH key utilities
 elif [ "$function" == "ssh-key:copy" ]; then
+	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
 	pbcopy < ~/.ssh/id_rsa.pub
 
 #--------------------------------------------------------------------
@@ -423,14 +429,17 @@ elif [ "$function" == "ssh-key:copy" ]; then
 
 # See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then
+	printf "${GREEN}top -o MEM \n\n${NC}"
 	top -o MEM
 
 # Empty trash
 elif [ "$function" == "trash:empty" ]; then
+	printf "${GREEN}sudo rm -rf ~/.Trash/* \n\n${NC}"
 	sudo rm -rf ~/.Trash/*
 
 # Calculate trash size
 elif [ "$function" == "trash:size" ]; then
+	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
 	echo "Trash size: \n"
 	du -sh ~/.Trash/
 

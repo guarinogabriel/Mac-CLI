@@ -60,7 +60,7 @@ These are the requirements to be able to run all the commands:
 | `mac mysql-cli`  | Start MAMP MySQL CLI  |  |
 | `mac mysql:export X`  | Export MySQL database to current directory  |  X = database name  |
 | `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
-| `mac ssh:download X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
+| `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
 | `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
 | `mac hosts`  | Edit hosts file  |  |

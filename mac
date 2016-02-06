@@ -323,7 +323,7 @@ elif [ "$function" == "mysql:import" ]; then
 	fi
 
 # Download file through SSH on current folder
-elif [ "$function" == "ssh:download" ]; then
+elif [ "$function" == "ssh:download-file" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 

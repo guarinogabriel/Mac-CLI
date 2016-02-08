@@ -353,6 +353,40 @@ elif [ "$function" == "ssh:download-file" ]; then
 		echo "Please specify the path to the file on the remote server to download"
 		echo "E.g.: /home/sample/file.jpg"
 	fi
+	
+# Download entire folder through SSH on current directory
+elif [ "$function" == "ssh:download-folder" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+				printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				scp -r $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the path to the folder on the remote server to download"
+		echo "E.g.: /home/sample/folder/"
+	fi
+
+
 
 # Upload file to remote server through SSH
 elif [ "$function" == "ssh:upload" ]; then

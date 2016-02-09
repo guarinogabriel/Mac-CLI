@@ -490,6 +490,10 @@ elif [ "$function" == "iterm:tab-title" ]; then
 # GIT utilities
 #--------------------------------------------------------------------
 
+# Display local Git configuration
+elif [ "$function" == "git:config" ]; then
+	git config --list
+	
 # Get last update date for all branches in current project
 elif [ "$function" == "git:fresh" ]; then
 	get_branch_data |

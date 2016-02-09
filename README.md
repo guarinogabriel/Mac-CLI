@@ -60,6 +60,7 @@ These are the requirements to be able to run all the commands:
 | `mac mysql-cli`  | Start MAMP MySQL CLI  |  |
 | `mac mysql:export X`  | Export MySQL database to current directory  |  X = database name  |
 | `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
+| `mac mysql:create X`  | Create MySQL database  |  X = Database name |
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
@@ -97,6 +98,11 @@ These are the requirements to be able to run all the commands:
 | `mac git:settings`  | Check GIT settings  |
 | `mac git:open`  | Open current GIT repository URL  |
 
+# Web utilities
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
+| `mac web:download-images`  | Download all images from website to current directory  |
 
 ### Homebrew utilities
 

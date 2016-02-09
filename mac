@@ -312,7 +312,7 @@ elif [ "$function" == "mysql:import" ]; then
 		read databasename
 
 		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | /applications/MAMP/library/bin/mysql ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
 			pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
 		else
 			"Please specify the database name"
@@ -320,6 +320,17 @@ elif [ "$function" == "mysql:import" ]; then
 	else
 		echo "Please specify the SQL file to import"
 		echo "E.g.: mysql:import /path/to/file.sql"
+	fi
+
+# Import MySQL database
+elif [ "$function" == "mysql:create" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+	else
+		echo "Please specify the name for the new database"
+		echo "E.g.: mysql:create database-name"
 	fi
 
 # Download file through SSH on current folder
@@ -527,6 +538,25 @@ elif [ "$function" == "git:remove" ]; then
 # Open current GIT repository URL
 elif [ "$function" == "git:open" ]; then
 	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
+
+
+#--------------------------------------------------------------------
+# Web utilities
+#--------------------------------------------------------------------
+
+# Download all images from website to current directory
+elif [ "$function" == "web:download-images" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
+        # Remove empty subdirectories
+        find . -type d -empty -delete
+
+    else
+        echo "Please specify the full URL of the website to download the images"
+        echo "E.g.: web:download-images http://example.com/sample-page"
+    fi
 
 #--------------------------------------------------------------------
 # Homebrew utilities

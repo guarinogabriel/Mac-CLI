@@ -504,6 +504,23 @@ elif [ "$function" == "iterm:tab-title" ]; then
 # Display local Git configuration
 elif [ "$function" == "git:config" ]; then
 	git config --list
+
+# Open current Git repository on Github
+elif [ "$function" == "git:open" ]; then
+	giturl=$(git config --get remote.origin.url)
+      if [ "$giturl" == "" ]
+        then
+         echo "Not a git repository or no remote.origin.url set"
+         exit 1;
+      fi
+
+      giturl=${giturl/git\@github\.com\:/https://github.com/}
+      giturl=${giturl/\.git/\/}
+      branch="$(git symbolic-ref HEAD 2>/dev/null)" ||
+      branch="(unnamed branch)"     # detached HEAD
+      branch=${branch##refs/heads/}
+      giturl=$giturl
+      open $giturl
 	
 # Get last update date for all branches in current project
 elif [ "$function" == "git:fresh" ]; then

@@ -90,6 +90,7 @@ These are the requirements to be able to run all the commands:
 | Command  | Description |
 | ------------- | ------------- |
 | `mac git:config`  | Display local Git configuration  |
+| `mac git:open`  | Open current repository on Github  |
 | `mac git:fresh`  | Get last update date for all branches in current project  |
 | `mac git:undo-commit`  | Undo latest commit  |
 | `mac git:log`  | See latest commits IDs and titles for current branch  |

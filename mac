@@ -15,7 +15,7 @@
 # Global Variables
 #--------------------------------------------------------------------
 mysql="/Applications/MAMP/Library/bin/mysql"
-mysql_app="MySQL"
+mysql_app="Sequel\ Pro"
 mysql_user="root"
 mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"

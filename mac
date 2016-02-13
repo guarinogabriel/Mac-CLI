@@ -19,6 +19,7 @@ mysql_app="Sequel\ Pro"
 mysql_user="root"
 mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
+dropbox_folder="/Volumes/Cloud/Dropbox/"
 
 #--------------------------------------------------------------------
 # Parameters

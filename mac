@@ -50,7 +50,7 @@ function get_branch_data()
 }
 
 #--------------------------------------------------------------------
-# General functions
+# General utilities
 #--------------------------------------------------------------------
 if [ "$function" == "restart" ]; then
 	printf "${GREEN}sudo shutdown -r now\n\n${NC}"
@@ -197,6 +197,35 @@ elif [ "$function" == "tar:extract" ]; then
 		echo "E.g.: tar:extract sample_file.tgz"
 	fi
 
+# Search and replace string on file
+elif [ "$function" == "search:replace" ]; then
+	echo "Please enter the string to search on the file:"
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read searchString
+
+		if [ ! -z "$searchString" -a "$searchString" != " " ]; then
+
+            echo "Please enter the string to replace on the file:"
+            read replaceString
+
+            if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
+
+                printf "${GREEN}LC_CTYPE=C sed -i 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
+		        LC_CTYPE=C sed -i 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
+
+            else
+			    "Please specify the string to replace"
+		    fi
+
+		else
+			"Please specify the string to search"
+		fi
+	else
+		echo "Please specify the file to perform the search and replace operation"
+		echo "E.g.: search:replace /path/to/file.csv"
+	fi
+
 # TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
 	echo "Enabling airplane mode...\n"
@@ -323,7 +352,7 @@ elif [ "$function" == "mysql:import" ]; then
 		echo "E.g.: mysql:import /path/to/file.sql"
 	fi
 
-# Import MySQL database
+# Create MySQL database
 elif [ "$function" == "mysql:create" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then

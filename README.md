@@ -50,7 +50,8 @@ These are the requirements to be able to run all the commands:
 | `mac speedtest`  | Internet connection speed test  |
 | `mac speedtest:infinite`  | Run internet speed test each 5 minutes  |
 | `mac ports`  | List of used ports  |
-| `mac ip`  | Get local IP address  |
+| `mac ip:local`  | Get local IP address  |
+| `mac ip:public`  | Get public IP address  |
 
 
 ### LAMP (Linux, Apache, MySQL, PHP)

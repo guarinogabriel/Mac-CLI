@@ -299,10 +299,15 @@ elif [ "$function" == "ports" ]; then
 	sudo lsof -iTCP -sTCP:LISTEN -P
 
 # Get local IP address
-elif [ "$function" == "ip" ]; then
+elif [ "$function" == "ip:local" ]; then
 	printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
 	echo "Your IP address is:"
 	ipconfig getifaddr en0
+
+# Get public IP address
+elif [ "$function" == "ip:public" ]; then
+	printf "${GREEN}curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'\n\n${NC}"
+	curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
 
 #--------------------------------------------------------------------
 # LAMP (Linux, Apache, MySQL, PHP)

@@ -721,6 +721,8 @@ elif [ "$function" == "safari" ]; then
 	open -a Safari
 elif [ "$function" == "phpstorm" ]; then
 	open -a PHPStorm
+elif [ "$function" == "atom" ]; then
+	open -a Atom
 elif [ "$function" == "xcode" ]; then
 	open -a XCode
 elif [ "$function" == "mamp" ]; then

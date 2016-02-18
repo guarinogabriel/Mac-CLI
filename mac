@@ -357,6 +357,24 @@ elif [ "$function" == "mysql:import" ]; then
 		echo "E.g.: mysql:import /path/to/file.sql"
 	fi
 
+# Import single MySQL database table
+elif [ "$function" == "mysql:import-table" ]; then
+	echo "Please enter the name from the database containing the table to import: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read databasename
+
+		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u ${mysql_user} -D ${databasename}\n\n${NC}"
+			pv $firstParameter | $mysql -u $mysql_user -p -D $databasename
+		else
+			"Please specify the database name"
+		fi
+	else
+		echo "Please specify the SQL file containing the single table to import"
+		echo "E.g.: mysql:import /path/to/file.sql"
+	fi
+
 # Create MySQL database
 elif [ "$function" == "mysql:create" ]; then
 

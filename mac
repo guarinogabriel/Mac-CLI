@@ -206,7 +206,7 @@ elif [ "$function" == "search:replace" ]; then
 
 		if [ ! -z "$searchString" -a "$searchString" != " " ]; then
 
-            echo "Please enter the string to replace on the file:"
+            echo "Please enter the string that will replace the search string:"
             read replaceString
 
             if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
@@ -384,6 +384,17 @@ elif [ "$function" == "mysql:create" ]; then
 	else
 		echo "Please specify the name for the new database"
 		echo "E.g.: mysql:create database-name"
+	fi
+
+# Remove MySQL database
+elif [ "$function" == "mysql:remove" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+	else
+		echo "Please specify the name of the database to remove"
+		echo "E.g.: mysql:remove database-name"
 	fi
 
 # Download file through SSH on current folder

@@ -64,6 +64,7 @@ These are the requirements to be able to run all the commands:
 | `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
 | `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |
 | `mac mysql:create X`  | Create MySQL database  |  X = Database name |
+| `mac mysql:remove X`  | Remove MySQL database  |  X = Database name |
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |

@@ -357,6 +357,18 @@ elif [ "$function" == "mysql:import" ]; then
 		echo "E.g.: mysql:import /path/to/file.sql"
 	fi
 
+# Export all MySQL databases
+elif [ "$function" == "mysql:export-all" ]; then
+
+    databases=`$mysql -u"$mysql_user" -p"$mysql_password" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
+
+    for db in $databases; do
+        if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
+            echo "Dumping database: $db"
+            $mysqldump -u"$mysql_user" -p"$mysql_password" --databases $db > `date +%Y%m%d`.$db.sql
+        fi
+    done
+
 # Import single MySQL database table
 elif [ "$function" == "mysql:import-table" ]; then
 	echo "Please enter the name from the database containing the table to import: "

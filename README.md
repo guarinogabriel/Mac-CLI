@@ -60,6 +60,7 @@ These are the requirements to be able to run all the commands:
 | ------------- | ------------- | ------------- |
 | `mac mysql`  | Open MySQL app (Rename SequelPRO.app to MySQL.app)  |  |
 | `mac mysql-cli`  | Start MAMP MySQL CLI  |  |
+| `mac mysql:export-all`  | Export all MySQL databases to individual files  | |
 | `mac mysql:export X`  | Export MySQL database to current directory  |  X = database name  |
 | `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
 | `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |

@@ -409,6 +409,25 @@ elif [ "$function" == "mysql:remove" ]; then
 		echo "E.g.: mysql:remove database-name"
 	fi
 
+# Duplicate MySQL database
+elif [ "$function" == "mysql:duplicate" ]; then
+
+    echo "Please enter the name for new table: "
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read databasename
+
+		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+			printf "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
+			mac mysql:create $databasename && $mysqldump -u${mysql_user} -p${mysql_password} $firstParameter | $mysql -u${mysql_user} -p${mysql_password} $databasename
+		else
+			"Please specify the database name"
+		fi
+	else
+		echo "Please specify the name of the database to duplicate"
+		echo "E.g.: mysql:remove database-name"
+	fi
+
 # Download file through SSH on current folder
 elif [ "$function" == "ssh:download-file" ]; then
 
@@ -570,7 +589,8 @@ elif [ "$function" == "trash:size" ]; then
 
 # Set title to current iTerm tab
 elif [ "$function" == "iterm:tab-title" ]; then
-	echo -ne "\033]0;"$allParameters"\007"
+    printf "${GREEN}echo -ne '\033]0;'${GRAY}${firstparameter}${GREEN}'\007'\n\n${NC}"
+	echo -ne '\033]0;'$allParameters'\007'
 	echo "Tab title updated"
 
 #--------------------------------------------------------------------
@@ -579,6 +599,7 @@ elif [ "$function" == "iterm:tab-title" ]; then
 
 # Display local Git configuration
 elif [ "$function" == "git:config" ]; then
+    printf "${GREEN}git config --list\n\n${NC}"
 	git config --list
 
 # Open current Git repository on Github
@@ -610,6 +631,7 @@ elif [ "$function" == "git:fresh" ]; then
 
 # Undo latest commit
 elif [ "$function" == "git:undo-commit" ]; then
+    printf "${GREEN}git reset --soft HEAD~\n\n${NC}"
 	git reset --soft HEAD~
 
 # See latest commits IDs and titles for current branch

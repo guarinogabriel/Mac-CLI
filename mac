@@ -317,6 +317,7 @@ elif [ "$function" == "ip:public" ]; then
 elif [ "$function" == "mysql" ]; then
 	printf "${GREEN}open -a $mysql_app\n\n${NC}"
 	open -a $mysql_app
+
 elif [ "$function" == "mysql-cli" ]; then
 	printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}\n\n${NC}"
 	$mysql --host=localhost -u$mysql_user -p$mysql_password
@@ -338,6 +339,11 @@ elif [ "$function" == "mysql:export" ]; then
 		echo "Please specify the database to export"
 		echo "E.g.: mysql:export database"
 	fi
+
+# List all MySQL databases
+elif [ "$function" == "mysql:list" ]; then
+    printf "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+    echo "show databases;" | ${mysql} -u${mysql_user} -p${mysql_password}
 
 # Import MySQL database
 elif [ "$function" == "mysql:import" ]; then

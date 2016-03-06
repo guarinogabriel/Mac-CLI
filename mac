@@ -624,7 +624,19 @@ elif [ "$function" == "git:open" ]; then
       branch=${branch##refs/heads/}
       giturl=$giturl
       open $giturl
-	
+
+# Create GIT branch based on current branch
+elif [ "$function" == "git:create-branch" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
+	    git checkout -b $firstParameter
+
+    else
+        echo "Please specify the name for the new branch"
+        echo "E.g.: git:create-branch sample-branch"
+    fi
+
 # Get last update date for all branches in current project
 elif [ "$function" == "git:fresh" ]; then
 	get_branch_data |

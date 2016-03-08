@@ -127,6 +127,13 @@ These are the requirements to be able to run all the commands:
 | `mac xcode:cleanup`  | Cleanup XCode files to free up hard disk space  |
 
 
+### Magento utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| `mac magento:version`  | Get Magento version from current project on command line  |
+
+
 ### Executable Apps
 
 | Command  | Description |

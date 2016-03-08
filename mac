@@ -709,6 +709,14 @@ elif [ "$function" == "brew:list" ]; then
 # XCode utilities
 #--------------------------------------------------------------------
 
+elif [ "$function" == "magento:version" ]; then
+    printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+    php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+
+#--------------------------------------------------------------------
+# XCode utilities
+#--------------------------------------------------------------------
+
 elif [ "$function" == "xcode:cleanup" ]; then
 
 	echo "========== Cleanup start =========="

@@ -21,6 +21,7 @@ mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
 dropbox_folder="/Volumes/Cloud/Dropbox/"
 php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
+php_cli="/usr/local/bin/php"
 
 #--------------------------------------------------------------------
 # Parameters

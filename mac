@@ -20,6 +20,7 @@ mysql_user="root"
 mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
 dropbox_folder="/Volumes/Cloud/Dropbox/"
+php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 
 #--------------------------------------------------------------------
 # Parameters
@@ -548,6 +549,10 @@ elif [ "$function" == "php:syntax" ]; then
 	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
 	echo "Checking PHP syntax for all files in current location...\n"
 	find . -name \*.php -exec php -l "{}" \;
+
+elif [ "$function" == "php:info" ]; then
+	printf "${GREEN}$php -i\n\n${NC}"
+	$php -i
 
 # Get battery information
 elif [ "$function" == "battery:info" ]; then

@@ -28,10 +28,11 @@ These are the requirements to be able to run all the commands:
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery:info`  | Get battery information  | |
 | `mac info`  | Get OS X version information  | |
-| `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
 | `mac search:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 | `mac zip:extract X` | Extract Zip file to current folder | X = Zip file to extract |
+| `mac gzip:compress X` | Compress current file using Gzip | X = File to compress |
 | `mac gzip:extract X` | Extract Gzip file to current folder | X = Gzip file to extract |
+| `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
 | `mac tar:extract X` | Extract tar file to current folder | X = Tar file to extract |
 | `mac search:replace X` | Search and replace string in file | X = File to perform the search and replace operation |
 

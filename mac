@@ -177,6 +177,17 @@ elif [ "$function" == "zip:extract" ]; then
 		echo "E.g.: zip:extract sample_file.zip"
 	fi
 
+# Compress Gzip file
+elif [ "$function" == "gzip:compress" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}gzip ${GRAY}${firstParameter}\n\n${NC}"
+		gzip $firstParameter
+	else
+		echo "Please specify the file to compress.\n"
+		echo "E.g.: gzip:compress sample_file"
+	fi
+
 # Extract Gzip file
 elif [ "$function" == "gzip:extract" ]; then
 

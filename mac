@@ -137,7 +137,7 @@ elif [ "$function" == "update" ]; then
 	echo "Your system has been successfully updated"
 
 # Find text in current directory
-elif [ "$function" == "search:text" ]; then
+elif [ "$function" == "find:text" ]; then
 
 	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
 		printf "${GREEN}find . -type f -exec grep -i '${GRAY}${firstParameter}${GREEN}' {} \; -print\n\n${NC}"

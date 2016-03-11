@@ -28,7 +28,7 @@ These are the requirements to be able to run all the commands:
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery:info`  | Get battery information  | |
 | `mac info`  | Get OS X version information  | |
-| `mac search:text X`  | Find exact phrase recursively inside directory  | X = Text string |
+| `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 | `mac zip:extract X` | Extract Zip file to current folder | X = Zip file to extract |
 | `mac gzip:compress X` | Compress current file using Gzip | X = File to compress |
 | `mac gzip:extract X` | Extract Gzip file to current folder | X = Gzip file to extract |

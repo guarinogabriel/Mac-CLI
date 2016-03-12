@@ -22,6 +22,7 @@ mysqldump="/Applications/MAMP/Library/bin/mysqldump"
 dropbox_folder="/Volumes/Cloud/Dropbox/"
 php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 php_cli="/usr/local/bin/php"
+phpmyadmin="http://localhost/phpMyAdmin/"
 
 #--------------------------------------------------------------------
 # Parameters
@@ -334,6 +335,10 @@ elif [ "$function" == "mysql" ]; then
 elif [ "$function" == "mysql-cli" ]; then
 	printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}\n\n${NC}"
 	$mysql --host=localhost -u$mysql_user -p$mysql_password
+
+elif [ "$function" == "phpmyadmin" ]; then
+	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+	open $phpmyadmin
 
 # Export MySQL database
 elif [ "$function" == "mysql:export" ]; then

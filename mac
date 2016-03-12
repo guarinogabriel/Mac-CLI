@@ -577,7 +577,7 @@ elif [ "$function" == "info" ]; then
 	sw_versf
 	
 # Edit hosts file
-elif [ "$function" == "hosts" ]; then
+elif [ "$function" == "hosts:edit" ]; then
 	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
 	sudo vi /private/etc/hosts
 

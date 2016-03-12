@@ -74,7 +74,7 @@ These are the requirements to be able to run all the commands:
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
 | `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
 | `mac php:info`  | Get PHP info on command line  |  |
-| `mac hosts`  | Edit hosts file  |  |
+| `mac hosts:edit`  | Edit hosts file  |  |
 | `mac ssh-key:copy`  | Copy SSH Public Key  |  |
 
 

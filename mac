@@ -452,6 +452,43 @@ elif [ "$function" == "mysql:duplicate" ]; then
 		echo "E.g.: mysql:remove database-name"
 	fi
 
+# Start MAMP Apache and MySQL
+elif [ "$function" == "mamp:start" ]; then
+    # Ask for password up-front
+    sudo -v
+    # Open MAMP
+    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+    # Start Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
+    # Start MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+
+# Start MAMP Apache and MySQL
+elif [ "$function" == "mamp:stop" ]; then
+    # Ask for password up-front
+    sudo -v
+    # Open MAMP
+    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+    # Stop Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
+    # Stop MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+
+# Restart MAMP Apache and MySQL
+elif [ "$function" == "mamp:restart" ]; then
+    # Ask for password up-front
+    sudo -v
+    # Open MAMP
+    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+    # Stop Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
+    # Stop MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+    # Start Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
+    # Start MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+
 # Download file through SSH on current folder
 elif [ "$function" == "ssh:download-file" ]; then
 

@@ -70,6 +70,9 @@ These are the requirements to be able to run all the commands:
 | `mac mysql:create X`  | Create MySQL database  |  X = Database name |
 | `mac mysql:remove X`  | Remove MySQL database  |  X = Database name |
 | `mac mysql:duplicate X`  | Duplicate MySQL database  |  X = Database name |
+| `mac mamp:start`  | Start MAMP Server (Apache and MySQL)  | |
+| `mac mamp:stop`  | Stop MAMP Server (Apache and MySQL)  | |
+| `mac mamp:restart`  | Restart MAMP Server (Apache and MySQL)  | |
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |

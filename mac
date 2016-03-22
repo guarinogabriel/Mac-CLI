@@ -423,14 +423,14 @@ elif [ "$function" == "mysql:create" ]; then
 	fi
 
 # Remove MySQL database
-elif [ "$function" == "mysql:remove" ]; then
+elif [ "$function" == "mysql:drop" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         printf "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
         echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
 	else
 		echo "Please specify the name of the database to remove"
-		echo "E.g.: mysql:remove database-name"
+		echo "E.g.: mysql:drop database-name"
 	fi
 
 # Duplicate MySQL database

@@ -68,7 +68,7 @@ These are the requirements to be able to run all the commands:
 | `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
 | `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |
 | `mac mysql:create X`  | Create MySQL database  |  X = Database name |
-| `mac mysql:remove X`  | Remove MySQL database  |  X = Database name |
+| `mac mysql:drop X`  | Remove MySQL database  |  X = Database name |
 | `mac mysql:duplicate X`  | Duplicate MySQL database  |  X = Database name |
 | `mac mamp:start`  | Start MAMP Server (Apache and MySQL)  | |
 | `mac mamp:stop`  | Stop MAMP Server (Apache and MySQL)  | |

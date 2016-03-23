@@ -195,16 +195,14 @@ if [ "$function" == "list" ]; then
 # General utilities
 #--------------------------------------------------------------------
 elif [ "$function" == "restart" ]; then
-	printf "${GREEN}sudo shutdown -r now\n\n${NC}"
-	echo "Restarting Mac in 3 seconds..."
-	sleep 3s
-	sudo shutdown -r now
+	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
+	osascript -e 'tell app "loginwindow" to «event aevtrrst»'
 elif [ "$function" == "sleep" ]; then
 	printf "${GREEN}pmset sleepnow\n\n${NC}"
 	pmset sleepnow
 elif [ "$function" == "shutdown" ]; then
-	printf "${GREEN}sudo shutdown -h now\n\n${NC}"
-	sudo shutdown -h now
+	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
+	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
 
 # Remove files older than X days in current folder
 elif [ "$function" == "files:remove-older" ]; then

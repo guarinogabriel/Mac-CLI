@@ -15,6 +15,10 @@ These are the requirements to be able to run all the commands:
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
+| `mac list`  | List all available command in mac script  | |
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
 | `mac update`  | Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
 | `mac restart`  | Restart OS X  | |
 | `mac sleep`  | Sleep mode  | |

@@ -11,11 +11,25 @@ These are the requirements to be able to run all the commands:
 * Git
 * Pipe Viewer (pv)
 
-### General Commands
+### Commands List
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac list`  | List all available command in mac script  | |
+| `mac list`  | List all available commands in mac script  | |
+| `mac list:general`  | List all general commands in mac script  | |
+| `mac list:search`  | List all search commands in mac script  | |
+| `mac list:network`  | List all network commands in mac script  | |
+| `mac list:lamp`  | List all LAMP commands in mac script  | |
+| `mac list:performance`  | List all performance commands in mac script  | |
+| `mac list:terminal`  | List all terminal commands in mac script  | |
+| `mac list:git`  | List all GIT commands in mac script  | |
+| `mac list:web`  | List all Web commands in mac script  | |
+| `mac list:brew`  | List all Homebrew commands in mac script  | |
+| `mac list:xcode`  | List all xCode commands in mac script  | |
+| `mac list:magento`  | List all Magento commands in mac script  | |
+| `mac list:apps`  | List all executable apps in mac script  | |
+
+### General Commands
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
@@ -38,7 +52,6 @@ These are the requirements to be able to run all the commands:
 | `mac gzip:extract X` | Extract Gzip file to current folder | X = Gzip file to extract |
 | `mac tar:compress X`  | Compress X file/directory using tar with progress indicator  | X = File or directory |
 | `mac tar:extract X` | Extract tar file to current folder | X = Tar file to extract |
-| `mac search:replace X` | Search and replace string in file | X = File to perform the search and replace operation |
 
 
 ### Search Utilities
@@ -46,6 +59,7 @@ These are the requirements to be able to run all the commands:
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac find:recent N`  | Find files modified in the last N minutes  |  N = number of minutes  |
+| `mac search:replace X` | Search and replace string in file | X = File to perform the search and replace operation |
 
 
 ### Network Utilities

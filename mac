@@ -56,7 +56,7 @@ function get_branch_data()
 }
 
 #--------------------------------------------------------------------
-# mac script utilities
+# mac script commands list - all commands
 #--------------------------------------------------------------------
 
 if [ "$function" == "list" ]; then
@@ -85,21 +85,21 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract\n"
     printf "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory\n"
     printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
-    printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
-    
-    
+
+
     printf "\n\n${WHITEBOLD}Search utilities: \n"
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
-    
-    
+    printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
+
+
     printf "\n\n${WHITEBOLD}Network utilities: \n"
     printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
     printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
     printf "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address \n"
     printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
-    
-    
+
+
     printf "\n\n${WHITEBOLD}LAMP utilities: \n"
     printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app (Rename SequelPRO.app to MySQL.app) \n"
     printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MAMP MySQL CLI \n"
@@ -128,12 +128,12 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
-    
-    
+
+
     printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
-    
-    
+
+
     printf "\n\n${WHITEBOLD}GIT utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
@@ -153,16 +153,16 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}Homebrew utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
-    
+
 
     printf "\n\n${WHITEBOLD}Xcode utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
-    
+
 
     printf "\n\n${WHITEBOLD}Magento utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
-    
-    
+
+
     printf "\n\n${WHITEBOLD}Executable apps: \n"
     printf "${LIGHTBLUE}mac firefox${GRAY}: Open Firefox \n"
     printf "${LIGHTBLUE}mac chrome${GRAY}: Open Chrome \n"
@@ -190,6 +190,231 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac goodtask${GRAY}: Open GoodTask \n"
     printf "${LIGHTBLUE}mac notes${GRAY}: Open Notes \n"
 
+#--------------------------------------------------------------------
+# mac script commands list - general commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:general" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n${WHITEBOLD}General utilities: \n"
+
+    printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
+    printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
+    printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
+    printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
+    printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
+    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory\n"
+    printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
+    printf "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories\n"
+    printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
+    printf "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store\n"
+    printf "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks\n"
+    printf "${LIGHTBLUE}mac battery:info${GRAY}: Get battery information\n"
+    printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
+    printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
+    printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
+    printf "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress\n"
+    printf "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract\n"
+    printf "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory\n"
+    printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - search commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:search" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Search utilities: \n"
+    printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
+    printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - network commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:network" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Network utilities: \n"
+    printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
+    printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
+    printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
+    printf "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address \n"
+    printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
+
+
+#--------------------------------------------------------------------
+# mac script commands list - LAMP commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:lamp" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}LAMP utilities: \n"
+    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app (Rename SequelPRO.app to MySQL.app) \n"
+    printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MAMP MySQL CLI \n"
+    printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
+    printf "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases\n"
+    printf "${LIGHTBLUE}mac mysql:export-all${GRAY}: Export all MySQL databases to individual files\n"
+    printf "${LIGHTBLUE}mac mysql:export ${LIGHTGREEN}X${GRAY}: Export MySQL database to current directory - X = database name \n"
+    printf "${LIGHTBLUE}mac mysql:import ${LIGHTGREEN}X${GRAY}: Import MySQL database - X = SQL file \n"
+    printf "${LIGHTBLUE}mac mysql:import-table ${LIGHTGREEN}X${GRAY}: Import single MySQL database table -   X = SQL file containing database table \n"
+    printf "${LIGHTBLUE}mac mysql:create ${LIGHTGREEN}X${GRAY}: Create MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mysql:drop ${LIGHTGREEN}X${GRAY}: Remove MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mysql:duplicate ${LIGHTGREEN}X${GRAY}: Duplicate MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
+    printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
+    printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
+    printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - performance commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:performance" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Performance and maintenance utilities: \n"
+    printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
+    printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
+    printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - terminal commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:terminal" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
+    printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - GIT commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:git" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}GIT utilities: \n"
+    printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
+    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
+    printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
+    printf "${LIGHTBLUE}mac git:fresh${GRAY}: Get last update date for all branches in current project \n"
+    printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
+    printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
+    printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
+    printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
+    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
+    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current GIT repository URL \n"
+
+
+
+#--------------------------------------------------------------------
+# mac script commands list - web commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:web" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Web utilities: \n"
+    printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - homebrew commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:brew" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Homebrew utilities: \n"
+    printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - xCode commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:xcode" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Xcode utilities: \n"
+    printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - Magento commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:magento" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Magento utilities: \n"
+    printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - apps commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:apps" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Executable apps: \n"
+    printf "${LIGHTBLUE}mac firefox${GRAY}: Open Firefox \n"
+    printf "${LIGHTBLUE}mac chrome${GRAY}: Open Chrome \n"
+    printf "${LIGHTBLUE}mac safari${GRAY}: Open Safari \n"
+    printf "${LIGHTBLUE}mac phpstorm${GRAY}: Open PHPStorm \n"
+    printf "${LIGHTBLUE}mac mamp${GRAY}: Open MAMP \n"
+    printf "${LIGHTBLUE}mac filezilla${GRAY}: Open Filezilla \n"
+    printf "${LIGHTBLUE}mac gotomeeting${GRAY}: Open GoToMeeting \n"
+    printf "${LIGHTBLUE}mac xcode${GRAY}: Open Xcode \n"
+    printf "${LIGHTBLUE}mac snippetslab${GRAY}: Open SnippetsLab \n"
+    printf "${LIGHTBLUE}mac preview${GRAY}: Open Preview \n"
+    printf "${LIGHTBLUE}mac photoshop${GRAY}: Open Photoshop \n"
+    printf "${LIGHTBLUE}mac skype${GRAY}: Open Skype \n"
+    printf "${LIGHTBLUE}mac textedit${GRAY}: Open TextEdit \n"
+    printf "${LIGHTBLUE}mac sourcetree${GRAY}: Open SourceTree \n"
+    printf "${LIGHTBLUE}mac stree${GRAY}: Open current directory in SourceTree \n"
+    printf "${LIGHTBLUE}mac quiver${GRAY}: Open Quiver \n"
+    printf "${LIGHTBLUE}mac virtualbox${GRAY}: Open VirtualBox \n"
+    printf "${LIGHTBLUE}mac pixelmator${GRAY}: Open Pixelmator \n"
+    printf "${LIGHTBLUE}mac vlc${GRAY}: Open VLC \n"
+    printf "${LIGHTBLUE}mac kaleidoscope${GRAY}: Open Kaleidoscope \n"
+    printf "${LIGHTBLUE}mac mindnode${GRAY}: Open MindNode \n"
+    printf "${LIGHTBLUE}mac paw${GRAY}: Open Paw \n"
+    printf "${LIGHTBLUE}mac appstore${GRAY}: Open App Store \n"
+    printf "${LIGHTBLUE}mac goodtask${GRAY}: Open GoodTask \n"
+    printf "${LIGHTBLUE}mac notes${GRAY}: Open Notes \n"
 
 #--------------------------------------------------------------------
 # General utilities

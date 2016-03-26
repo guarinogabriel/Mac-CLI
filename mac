@@ -670,7 +670,7 @@ elif [ "$function" == "speedtest:infinite" ]; then
 
 # List of used ports
 elif [ "$function" == "ports" ]; then
-	echo "Getting list of usd ports..."
+	echo "Getting list of used ports..."
 	printf "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
 	sudo lsof -iTCP -sTCP:LISTEN -P
 
@@ -703,7 +703,7 @@ elif [ "$function" == "phpmyadmin" ]; then
 	open $phpmyadmin
 
 # Export MySQL database
-elif [ "$function" == "mysql:export" ]; then
+elif [ "$function" == "mysql:dump" ]; then
 	echo "Please enter the filename to save the compressed database: "
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then

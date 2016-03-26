@@ -82,7 +82,7 @@ These are the requirements to be able to run all the commands:
 | `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
 | `mac mysql:export-all`  | Export all MySQL databases to individual files  | |
-| `mac mysql:export X`  | Export MySQL database to current directory  |  X = database name  |
+| `mac mysql:dump X`  | Export MySQL database to current directory  |  X = database name  |
 | `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
 | `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |
 | `mac mysql:create X`  | Create MySQL database  |  X = Database name |

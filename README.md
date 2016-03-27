@@ -78,7 +78,7 @@ These are the requirements to be able to run all the commands:
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac mysql`  | Open MySQL app (Rename SequelPRO.app to MySQL.app)  |  |
-| `mac mysql-cli`  | Start MAMP MySQL CLI  |  |
+| `mac mysql:cli`  | Start MAMP MySQL CLI  |  |
 | `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
 | `mac mysql:export-all`  | Export all MySQL databases to individual files  | |

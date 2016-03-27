@@ -102,7 +102,7 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}LAMP utilities: \n"
     printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app (Rename SequelPRO.app to MySQL.app) \n"
-    printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MAMP MySQL CLI \n"
+    printf "${LIGHTBLUE}mac mysql:cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
     printf "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases\n"
     printf "${LIGHTBLUE}mac mysql:export-all${GRAY}: Export all MySQL databases to individual files\n"
@@ -694,7 +694,7 @@ elif [ "$function" == "mysql" ]; then
 	printf "${GREEN}open -a $mysql_app\n\n${NC}"
 	open -a $mysql_app
 
-elif [ "$function" == "mysql-cli" ]; then
+elif [ "$function" == "mysql:cli" ]; then
 	printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}\n\n${NC}"
 	$mysql --host=localhost -u$mysql_user -p$mysql_password
 

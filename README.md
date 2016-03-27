@@ -77,7 +77,7 @@ These are the requirements to be able to run all the commands:
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac mysql`  | Open MySQL app (Rename SequelPRO.app to MySQL.app)  |  |
+| `mac mysql:gui`  | Open Sequel PRO app)  |  |
 | `mac mysql:cli`  | Start MAMP MySQL CLI  |  |
 | `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |

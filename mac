@@ -15,7 +15,6 @@
 # Global Variables
 #--------------------------------------------------------------------
 mysql="/Applications/MAMP/Library/bin/mysql"
-mysql_app="Sequel\ Pro"
 mysql_user="root"
 mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
@@ -690,9 +689,9 @@ elif [ "$function" == "ip:public" ]; then
 #--------------------------------------------------------------------
 
 ## MySQL utilities
-elif [ "$function" == "mysql" ]; then
-	printf "${GREEN}open -a $mysql_app\n\n${NC}"
-	open -a $mysql_app
+elif [ "$function" == "mysql:gui" ]; then
+	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
+	open -a /Applications/Sequel\ Pro.app
 
 elif [ "$function" == "mysql:cli" ]; then
 	printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}\n\n${NC}"

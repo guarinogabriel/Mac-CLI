@@ -123,6 +123,10 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
 
 
+    printf "\n\n${WHITEBOLD}Web Development utilities: \n"
+    printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+
+
     printf "\n\n${WHITEBOLD}Performance and maintenance utilities: \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
@@ -281,6 +285,18 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
     printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - web development commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:web-dev" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Web Development utilities: \n"
+    printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
@@ -988,6 +1004,20 @@ elif [ "$function" == "hosts:edit" ]; then
 elif [ "$function" == "ssh-key:copy" ]; then
 	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
 	pbcopy < ~/.ssh/id_rsa.pub
+
+#--------------------------------------------------------------------
+# Web Development utilities
+#--------------------------------------------------------------------
+
+elif [ "$function" == "monitor" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}tail -f ${GRAY}${firstParameter}\n\n${NC}"
+        tail -f $firstParameter
+	else
+		echo "Please specify the file to monitor"
+		echo "E.g.: monitor /path/to/file.sql"
+	fi
 
 #--------------------------------------------------------------------
 # Performance and maintenance utilities

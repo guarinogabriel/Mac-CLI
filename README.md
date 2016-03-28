@@ -100,6 +100,14 @@ These are the requirements to be able to run all the commands:
 | `mac ssh-key:copy`  | Copy SSH Public Key  |  |
 
 
+### Web Development utilities
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
+| `mac monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
+
+
+
 ### Performance and maintenance utilities
 
 | Command  | Description |

@@ -116,6 +116,8 @@ These are the requirements to be able to run all the commands:
 | `mac trash:empty`  | Empty trash |
 | `mac trash:size`  | Calculate trash size |
 | `mac desktop:cleanup`  | Remove all files and directories from Desktop directory |
+| `mac downloads:cleanup`  | Remove all files and directories from Downloads
+ directory |
 
 
 ### iTerm / Terminal utilities

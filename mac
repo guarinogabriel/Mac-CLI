@@ -100,7 +100,7 @@ if [ "$function" == "list" ]; then
 
 
     printf "\n\n${WHITEBOLD}LAMP utilities: \n"
-    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app (Rename SequelPRO.app to MySQL.app) \n"
+    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
     printf "${LIGHTBLUE}mac mysql:cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
     printf "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases\n"
@@ -131,7 +131,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
-
+    printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
 
     printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
@@ -264,7 +264,7 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${WHITEBOLD}==================================="
 
     printf "\n\n${WHITEBOLD}LAMP utilities: \n"
-    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app (Rename SequelPRO.app to MySQL.app) \n"
+    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
     printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
     printf "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases\n"
@@ -311,6 +311,7 @@ elif [ "$function" == "list:performance" ]; then
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
+    printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - terminal commands
@@ -1038,6 +1039,22 @@ elif [ "$function" == "trash:size" ]; then
 	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
 	echo "Trash size: \n"
 	du -sh ~/.Trash/
+
+# Remove all files and directories from Desktop directory
+elif [ "$function" == "desktop:cleanup" ]; then
+	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	echo "These are the files and directores that are currently located on Desktop: \n"
+	ls -lat ~/Desktop/
+	echo "\n=============================================\n"
+	read -r -p "Do you want to remove all the content from the Desktop directory? (Yes / No)" response
+    case $response in
+        [yY][eE][sS]|[yY])
+            rm -rf ~/Desktop/*
+            ;;
+        *)
+            exit
+            ;;
+    esac
 
 #--------------------------------------------------------------------
 # iTerm utilities

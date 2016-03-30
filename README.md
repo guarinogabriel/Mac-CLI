@@ -115,6 +115,7 @@ These are the requirements to be able to run all the commands:
 | `mac memory`  | See memory usage sorted by memory consumption  |
 | `mac trash:empty`  | Empty trash |
 | `mac trash:size`  | Calculate trash size |
+| `mac desktop:cleanup`  | Remove all files and directories from Desktop directory |
 
 
 ### iTerm / Terminal utilities

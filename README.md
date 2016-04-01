@@ -37,6 +37,7 @@ These are the requirements to be able to run all the commands:
 | `mac restart`  | Restart OS X  | |
 | `mac sleep`  | Sleep mode  | |
 | `mac shutdown`  | Shutdown  | |
+| `mac time`  | Show clock at top right position in Terminal/iTerm  | |
 | `mac screensaver`  | Start screensaver  | |
 | `mac folders:list`  | List folders in current directory  | |
 | `mac folder:size`  | Calculate current folder size  | |

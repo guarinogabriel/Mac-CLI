@@ -69,6 +69,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
     printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
+    printf "${LIGHTBLUE}mac clock${GRAY}: Show clock at top right position in Terminal/iTerm\n"
     printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
     printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory\n"
     printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
@@ -209,6 +210,7 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
     printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
+    printf "${LIGHTBLUE}mac clock${GRAY}: Show clock at top right position in Terminal/iTerm\n"
     printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
     printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory\n"
     printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
@@ -440,12 +442,19 @@ elif [ "$function" == "list:apps" ]; then
 elif [ "$function" == "restart" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
 	osascript -e 'tell app "loginwindow" to «event aevtrrst»'
+
 elif [ "$function" == "sleep" ]; then
 	printf "${GREEN}pmset sleepnow\n\n${NC}"
 	pmset sleepnow
+
 elif [ "$function" == "shutdown" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
 	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
+	pmset sleepnow
+
+elif [ "$function" == "clock" ]; then
+	printf "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
+	while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &
 
 # Remove files older than X days in current folder
 elif [ "$function" == "files:remove-older" ]; then

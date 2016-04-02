@@ -771,7 +771,7 @@ elif [ "$function" == "mysql:import" ]; then
 	fi
 
 # Export all MySQL databases
-elif [ "$function" == "mysql:export-all" ]; then
+elif [ "$function" == "mysql:dump-all" ]; then
 
     databases=`$mysql -u"$mysql_user" -p"$mysql_password" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
 

@@ -168,6 +168,7 @@ These are the requirements to be able to run all the commands:
 | Command  | Description |
 | ------------- | ------------- |
 | `mac magento:version`  | Get Magento version from current project on command line  |
+| `mac magento:create-customer`  | Create Magento customer with sample address and sample credit card information  |
 
 
 ### Executable Apps

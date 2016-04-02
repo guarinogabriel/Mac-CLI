@@ -166,6 +166,7 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}Magento utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+    printf "${LIGHTBLUE}mac magento:create-customer${GRAY}: Create Magento customer with sample address and sample credit card information \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -399,6 +400,7 @@ elif [ "$function" == "list:magento" ]; then
 
     printf "\n\n${WHITEBOLD}Magento utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+    printf "${LIGHTBLUE}mac magento:create-customer${GRAY}: Create Magento customer with sample address and sample credit card information \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -450,7 +452,6 @@ elif [ "$function" == "sleep" ]; then
 elif [ "$function" == "shutdown" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
 	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
-	pmset sleepnow
 
 elif [ "$function" == "clock" ]; then
 	printf "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
@@ -1200,12 +1201,25 @@ elif [ "$function" == "brew:list" ]; then
 # TODO: Optimize all images in directory (recursive)
 
 #--------------------------------------------------------------------
-# XCode utilities
+# Magento utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "magento:version" ]; then
-    printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
-    php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+        php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+	fi
+
+elif [ "$function" == "magento:customer-create" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    # TODO: Add logic to create a customer with address and credit card information
+		echo "WIP"
+	fi
 
 #--------------------------------------------------------------------
 # XCode utilities

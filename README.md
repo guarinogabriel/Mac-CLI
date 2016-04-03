@@ -168,7 +168,8 @@ These are the requirements to be able to run all the commands:
 | Command  | Description |
 | ------------- | ------------- |
 | `mac magento:version`  | Get Magento version from current project on command line  |
-| `mac magento:create-customer`  | Create Magento customer with sample address and sample credit card information  |
+| `mac magento:customer-create`  | Create Magento customer with sample address and sample credit card information  |
+| `mac magento:fix-permissions`  | Fix Magento permissions for files and directories  |
 
 
 ### Executable Apps

@@ -166,7 +166,8 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}Magento utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
-    printf "${LIGHTBLUE}mac magento:create-customer${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -400,7 +401,8 @@ elif [ "$function" == "list:magento" ]; then
 
     printf "\n\n${WHITEBOLD}Magento utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
-    printf "${LIGHTBLUE}mac magento:create-customer${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -1218,6 +1220,14 @@ elif [ "$function" == "magento:customer-create" ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
 	    # TODO: Add logic to create a customer with address and credit card information
+		echo "WIP"
+	fi
+
+elif [ "$function" == "magento:fix-permissions" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    # TODO: Add script to fix permissions
 		echo "WIP"
 	fi
 

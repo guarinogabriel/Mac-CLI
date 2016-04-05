@@ -1,6 +1,6 @@
 # mac
 The ultimate tool to manage your Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
-When you run a function, the executed command is displayed and that helps you memorize each of the utilities for future usage.
+When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
 # Configuration
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
@@ -20,6 +20,7 @@ These are the requirements to be able to run all the commands:
 | `mac list:search`  | List all search commands in mac script  | |
 | `mac list:network`  | List all network commands in mac script  | |
 | `mac list:lamp`  | List all LAMP commands in mac script  | |
+| `mac list:ssh`  | List all SSH commands in mac script  | |
 | `mac list:performance`  | List all performance commands in mac script  | |
 | `mac list:terminal`  | List all terminal commands in mac script  | |
 | `mac list:git`  | List all GIT commands in mac script  | |
@@ -74,7 +75,41 @@ These are the requirements to be able to run all the commands:
 | `mac ip:public`  | Get public IP address  |
 
 
-### LAMP (Linux, Apache, MySQL, PHP)
+### LAMP (Linux, Apache, MySQL, PHP) Utilities
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
+| `mac mysql:gui`  | Open Sequel PRO app)  |  |
+| `mac mysql:cli`  | Start MAMP MySQL CLI  |  |
+| `mac phpmyadmin`  | Open PHPMyAdmin  | |
+| `mac mysql:list`  | List all MySQL databases  | |
+| `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |
+| `mac mysql:dump X`  | Export MySQL database to current directory  |  X = database name  |
+| `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
+| `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |
+| `mac mysql:create X`  | Create MySQL database  |  X = Database name |
+| `mac mysql:drop X`  | Remove MySQL database  |  X = Database name |
+| `mac mysql:duplicate X`  | Duplicate MySQL database  |  X = Database name |
+| `mac mamp:start`  | Start MAMP Server (Apache and MySQL)  | |
+| `mac mamp:stop`  | Stop MAMP Server (Apache and MySQL)  | |
+| `mac mamp:restart`  | Restart MAMP Server (Apache and MySQL)  | |
+| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
+| `mac php:info`  | Get PHP info on command line  |  |
+| `mac hosts:edit`  | Edit hosts file  |  |
+| `mac ssh-key:copy`  | Copy SSH Public Key  |  |
+
+
+### SSH Utilities
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
+| `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
+| `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
+| `mac ssh:download-database X`  | Download MySQL from remote server through SSH  |  X = Name of the database to download  |
+| `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
+
+
+### SSH Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
@@ -101,7 +136,7 @@ These are the requirements to be able to run all the commands:
 | `mac ssh-key:copy`  | Copy SSH Public Key  |  |
 
 
-### Web Development utilities
+### Web Development Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
@@ -109,7 +144,7 @@ These are the requirements to be able to run all the commands:
 
 
 
-### Performance and maintenance utilities
+### Performance and maintenance Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
@@ -121,14 +156,14 @@ These are the requirements to be able to run all the commands:
  directory |
 
 
-### iTerm / Terminal utilities
+### iTerm / Terminal Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
 | `mac iterm:tab-title`  | Set title to current iTerm tab  |
 
 
-### GIT utilities
+### GIT Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
@@ -143,27 +178,27 @@ These are the requirements to be able to run all the commands:
 | `mac git:settings`  | Check GIT settings  |
 | `mac git:open`  | Open current GIT repository URL  |
 
-# Web utilities
+# Web Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac web:download-images`  | Download all images from website to current directory  |
 
-### Homebrew utilities
+### Homebrew Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
 | `mac brew:list`  | Get list of installed Homebrew packages  |
 
 
-### XCode utilities
+### XCode Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
 | `mac xcode:cleanup`  | Cleanup XCode files to free up hard disk space  |
 
 
-### Magento utilities
+### Magento Utilities
 
 | Command  | Description |
 | ------------- | ------------- |

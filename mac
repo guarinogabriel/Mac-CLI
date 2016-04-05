@@ -63,7 +63,7 @@ if [ "$function" == "list" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}===================================\n"
 
-    printf "\n${WHITEBOLD}General utilities: \n"
+    printf "\n${WHITEBOLD}General Utilities: \n"
 
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
@@ -87,12 +87,12 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
 
 
-    printf "\n\n${WHITEBOLD}Search utilities: \n"
+    printf "\n\n${WHITEBOLD}Search Utilities: \n"
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
 
 
-    printf "\n\n${WHITEBOLD}Network utilities: \n"
+    printf "\n\n${WHITEBOLD}Network Utilities: \n"
     printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
     printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
@@ -100,7 +100,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
 
 
-    printf "\n\n${WHITEBOLD}LAMP utilities: \n"
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
     printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
     printf "${LIGHTBLUE}mac mysql:cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
@@ -115,31 +115,35 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
-    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
-    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
-    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
     printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
 
 
-    printf "\n\n${WHITEBOLD}Web Development utilities: \n"
+    printf "\n\n${WHITEBOLD}SSH Utilities: \n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+
+
+    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
 
 
-    printf "\n\n${WHITEBOLD}Performance and maintenance utilities: \n"
+    printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
     printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
     printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
 
-    printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
+    printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
 
 
-    printf "\n\n${WHITEBOLD}GIT utilities: \n"
+    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
     printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
@@ -152,19 +156,19 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current GIT repository URL \n"
 
 
-    printf "\n\n${WHITEBOLD}Web utilities: \n"
+    printf "\n\n${WHITEBOLD}Web Utilities: \n"
     printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
 
 
-    printf "\n\n${WHITEBOLD}Homebrew utilities: \n"
+    printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
 
 
-    printf "\n\n${WHITEBOLD}Xcode utilities: \n"
+    printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
 
-    printf "\n\n${WHITEBOLD}Magento utilities: \n"
+    printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
     printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
@@ -206,7 +210,7 @@ elif [ "$function" == "list:general" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n${WHITEBOLD}General utilities: \n"
+    printf "\n${WHITEBOLD}General Utilities: \n"
 
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
@@ -238,7 +242,7 @@ elif [ "$function" == "list:search" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Search utilities: \n"
+    printf "\n\n${WHITEBOLD}Search Utilities: \n"
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
 
@@ -251,7 +255,7 @@ elif [ "$function" == "list:network" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Network utilities: \n"
+    printf "\n\n${WHITEBOLD}Network Utilities: \n"
     printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
     printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
@@ -268,7 +272,7 @@ elif [ "$function" == "list:lamp" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}LAMP utilities: \n"
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
     printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
     printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
@@ -283,13 +287,26 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
-    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
-    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
-    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
     printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
+
+
+#--------------------------------------------------------------------
+# mac script commands list - SSH commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:ssh" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - web development commands
@@ -300,7 +317,7 @@ elif [ "$function" == "list:web-dev" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Web Development utilities: \n"
+    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
 
 #--------------------------------------------------------------------
@@ -312,7 +329,7 @@ elif [ "$function" == "list:performance" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Performance and maintenance utilities: \n"
+    printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -328,7 +345,7 @@ elif [ "$function" == "list:terminal" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
+    printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
 
 #--------------------------------------------------------------------
@@ -340,7 +357,7 @@ elif [ "$function" == "list:git" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}GIT utilities: \n"
+    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
     printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
@@ -363,7 +380,7 @@ elif [ "$function" == "list:web" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Web utilities: \n"
+    printf "\n\n${WHITEBOLD}Web Utilities: \n"
     printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
 
 #--------------------------------------------------------------------
@@ -375,7 +392,7 @@ elif [ "$function" == "list:brew" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Homebrew utilities: \n"
+    printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
 
 #--------------------------------------------------------------------
@@ -387,7 +404,7 @@ elif [ "$function" == "list:xcode" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Xcode utilities: \n"
+    printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
 #--------------------------------------------------------------------
@@ -399,7 +416,7 @@ elif [ "$function" == "list:magento" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Magento utilities: \n"
+    printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
     printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
@@ -441,7 +458,7 @@ elif [ "$function" == "list:apps" ]; then
     printf "${LIGHTBLUE}mac notes${GRAY}: Open Notes \n"
 
 #--------------------------------------------------------------------
-# General utilities
+# General Utilities
 #--------------------------------------------------------------------
 elif [ "$function" == "restart" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
@@ -647,7 +664,7 @@ elif [ "$function" == "airplane-mode:off" ]; then
 	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
 
 #--------------------------------------------------------------------
-# Search utilities
+# Search Utilities
 #--------------------------------------------------------------------
 # Find files modified in the last N minutes
 elif [ "$function" == "find:recent" ]; then
@@ -656,7 +673,7 @@ elif [ "$function" == "find:recent" ]; then
 	sudo find / -mmin $firstParameter -type f
 
 #--------------------------------------------------------------------
-# Network utilities
+# Network Utilities
 #--------------------------------------------------------------------
 # Internet connection speed test
 elif [ "$function" == "speedtest" ]; then
@@ -719,7 +736,7 @@ elif [ "$function" == "ip:public" ]; then
 # LAMP (Linux, Apache, MySQL, PHP)
 #--------------------------------------------------------------------
 
-## MySQL utilities
+## MySQL Utilities
 elif [ "$function" == "mysql:gui" ]; then
 	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
 	open -a /Applications/Sequel\ Pro.app
@@ -946,6 +963,41 @@ elif [ "$function" == "ssh:download-folder" ]; then
 	fi
 
 
+# Download remote database through SSH on current directory
+elif [ "$function" == "ssh:download-database" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+                # TODO: Create method to download database through SSH
+                echo ""
+				# printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				# scp -r $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the database name on the remote server to download"
+		echo "E.g.: mac ssh:download-database database-name"
+	fi
+
+
 
 # Upload file to remote server through SSH
 elif [ "$function" == "ssh:upload" ]; then
@@ -990,7 +1042,7 @@ elif [ "$function" == "ssh:upload" ]; then
 		echo "E.g.: /user/example/documents/file.pdf"
 	fi
 
-# PHP utilities
+# PHP Utilities
 elif [ "$function" == "php:syntax" ]; then
 	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
 	echo "Checking PHP syntax for all files in current location...\n"
@@ -1015,13 +1067,13 @@ elif [ "$function" == "hosts:edit" ]; then
 	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
 	sudo vi /private/etc/hosts
 
-# SSH key utilities
+# SSH key Utilities
 elif [ "$function" == "ssh-key:copy" ]; then
 	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
 	pbcopy < ~/.ssh/id_rsa.pub
 
 #--------------------------------------------------------------------
-# Web Development utilities
+# Web Development Utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "monitor" ]; then
@@ -1035,7 +1087,7 @@ elif [ "$function" == "monitor" ]; then
 	fi
 
 #--------------------------------------------------------------------
-# Performance and maintenance utilities
+# Performance and maintenance Utilities
 #--------------------------------------------------------------------
 
 # See memory usage sorted by memory consumption
@@ -1087,7 +1139,7 @@ elif [ "$function" == "downloads:cleanup" ]; then
     esac
 
 #--------------------------------------------------------------------
-# iTerm utilities
+# iTerm Utilities
 #--------------------------------------------------------------------
 
 # Set title to current iTerm tab
@@ -1097,7 +1149,7 @@ elif [ "$function" == "iterm:tab-title" ]; then
 	echo "Tab title updated"
 
 #--------------------------------------------------------------------
-# GIT utilities
+# GIT Utilities
 #--------------------------------------------------------------------
 
 # Display local Git configuration
@@ -1171,7 +1223,7 @@ elif [ "$function" == "git:open" ]; then
 
 
 #--------------------------------------------------------------------
-# Web utilities
+# Web Utilities
 #--------------------------------------------------------------------
 
 # Download all images from website to current directory
@@ -1189,7 +1241,7 @@ elif [ "$function" == "web:download-images" ]; then
     fi
 
 #--------------------------------------------------------------------
-# Homebrew utilities
+# Homebrew Utilities
 #--------------------------------------------------------------------
 
 # Get list of installed Homebrew packages
@@ -1197,13 +1249,13 @@ elif [ "$function" == "brew:list" ]; then
 	brew list
 
 #--------------------------------------------------------------------
-# Development utilities
+# Development Utilities
 #--------------------------------------------------------------------
 
 # TODO: Optimize all images in directory (recursive)
 
 #--------------------------------------------------------------------
-# Magento utilities
+# Magento Utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "magento:version" ]; then
@@ -1232,7 +1284,7 @@ elif [ "$function" == "magento:fix-permissions" ]; then
 	fi
 
 #--------------------------------------------------------------------
-# XCode utilities
+# XCode Utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "xcode:cleanup" ]; then
@@ -1310,7 +1362,7 @@ elif [ "$function" == "xcode:cleanup" ]; then
 	echo "========== Have a nice day =========="
 
 #--------------------------------------------------------------------
-# Online search utilities
+# Online search Utilities
 #--------------------------------------------------------------------
 
 # TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result

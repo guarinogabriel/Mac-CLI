@@ -729,8 +729,8 @@ elif [ "$function" == "ip:local" ]; then
 
 # Get public IP address
 elif [ "$function" == "ip:public" ]; then
-	printf "${GREEN}curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'\n\n${NC}"
-	curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
+	printf "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
+	wget http://ipinfo.io/ip -qO -
 
 #--------------------------------------------------------------------
 # LAMP (Linux, Apache, MySQL, PHP)

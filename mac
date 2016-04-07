@@ -1385,7 +1385,7 @@ elif [ "$function" == "atom" ]; then
 elif [ "$function" == "xcode" ]; then
 	open -a XCode
 elif [ "$function" == "mamp" ]; then
-	open -a MAMP
+	open /Applications/MAMP\ PRO/MAMP\ PRO.app/
 elif [ "$function" == "filezilla" ]; then
 	open -a Filezilla
 elif [ "$function" == "skype" ]; then

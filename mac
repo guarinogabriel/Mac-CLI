@@ -118,7 +118,6 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
-    printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
 
 
     printf "\n\n${WHITEBOLD}SSH Utilities: \n"
@@ -126,6 +125,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
 
 
     printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
@@ -290,7 +290,6 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
-    printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
 
 
 #--------------------------------------------------------------------
@@ -307,6 +306,7 @@ elif [ "$function" == "list:ssh" ]; then
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - web development commands
@@ -1042,6 +1042,11 @@ elif [ "$function" == "ssh:upload" ]; then
 		echo "E.g.: /user/example/documents/file.pdf"
 	fi
 
+# SSH key Utilities
+elif [ "$function" == "ssh:public-key" ]; then
+	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+	pbcopy < ~/.ssh/id_rsa.pub
+
 # PHP Utilities
 elif [ "$function" == "php:syntax" ]; then
 	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
@@ -1066,11 +1071,6 @@ elif [ "$function" == "info" ]; then
 elif [ "$function" == "hosts:edit" ]; then
 	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
 	sudo vi /private/etc/hosts
-
-# SSH key Utilities
-elif [ "$function" == "ssh-key:copy" ]; then
-	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
-	pbcopy < ~/.ssh/id_rsa.pub
 
 #--------------------------------------------------------------------
 # Web Development Utilities

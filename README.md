@@ -96,7 +96,6 @@ These are the requirements to be able to run all the commands:
 | `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
 | `mac php:info`  | Get PHP info on command line  |  |
 | `mac hosts:edit`  | Edit hosts file  |  |
-| `mac ssh-key:copy`  | Copy SSH Public Key  |  |
 
 
 ### SSH Utilities
@@ -107,6 +106,7 @@ These are the requirements to be able to run all the commands:
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:download-database X`  | Download MySQL from remote server through SSH  |  X = Name of the database to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
+| `mac ssh:public-key`  | Copy SSH Public Key  |  |
 
 
 ### SSH Utilities
@@ -130,10 +130,10 @@ These are the requirements to be able to run all the commands:
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
+| `mac ssh:public-key`  | Copy SSH Public Key  |  |
 | `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
 | `mac php:info`  | Get PHP info on command line  |  |
 | `mac hosts:edit`  | Edit hosts file  |  |
-| `mac ssh-key:copy`  | Copy SSH Public Key  |  |
 
 
 ### Web Development Utilities

@@ -6,10 +6,19 @@ When you run a function, the executed command is displayed and that helps you me
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
 
 # Requirements
-These are the requirements to be able to run all the commands:
+These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
 
-* Git
+* Homebrew
+* GIT
+* PyPA (pip)
 * Pipe Viewer (pv)
+* Python
+
+# Integrated Projects
+The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running "mac install:all"):
+* Glances (https://github.com/nicolargo/glances)
+* speedtest-cli (https://github.com/sivel/speedtest-cli)
+
 
 ### Commands List
 
@@ -34,6 +43,8 @@ These are the requirements to be able to run all the commands:
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
+| `mac install`  | Install all mac script dependencies to be able to run all commands  | |
+| `mac install:all`  | Install all mac script dependencies and integrated projects  | |
 | `mac update`  | Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
 | `mac restart`  | Restart OS X  | |
 | `mac sleep`  | Sleep mode  | |

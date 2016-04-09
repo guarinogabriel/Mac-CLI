@@ -65,6 +65,8 @@ if [ "$function" == "list" ]; then
 
     printf "\n${WHITEBOLD}General Utilities: \n"
 
+    printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
+    printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
@@ -212,6 +214,8 @@ elif [ "$function" == "list:general" ]; then
 
     printf "\n${WHITEBOLD}General Utilities: \n"
 
+    printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
+    printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
@@ -530,20 +534,51 @@ elif [ "$function" == "battery:info" ]; then
 	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
-# Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages
+# Install all mac script dependencies
+elif [ "$function" == "install" ]; then
+	echo "Installing homebrew..."
+	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	echo "Installing pip..."
+	printf "${GREEN}sudo easy_install pip\n${NC}"
+	sudo easy_install pip
+	echo "Installing GIT..."
+	printf "${GREEN}brew install git\n${NC}"
+	brew install git
+	echo "Installing pv (Pipe Viewer)..."
+	printf "${GREEN}brew install pv\n${NC}"
+	brew install pv
+	echo "Installing Python..."
+	printf "${GREEN}brew install python\n${NC}"
+	brew install python
+
+# Install all mac script dependencies and integrated projects
+elif [ "$function" == "install:all" ]; then
+	mac install
+	echo "Installing Glances (https://github.com/nicolargo/glances)..."
+	printf "${GREEN}pip install glances\n${NC}"
+	pip install glances
+	echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
+	printf "${GREEN}pip install speedtest-cli\n${NC}"
+	pip install speedtest-cli
+
+# Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
-	printf "${GREEN}sudo softwareupdate -i -a;\n\n${NC}"
-	echo "Updating OS X...\n"
+	echo "Updating OS X..."
+	printf "${GREEN}sudo softwareupdate -i -a;\n${NC}"
 	sudo softwareupdate -i -a;
-	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n\n${NC}"
-	echo "Updating Homebrew and its installed packages...\n"
+	echo "Updating Homebrew and its installed packages..."
+	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
 	brew update; brew upgrade --all; brew cleanup;
-	printf "${GREEN}npm install npm -g; npm update -g;\n\n${NC}"
-	echo "Updating npm and its installed packages...\n"
+	echo "Updating npm and its installed packages..."
+	printf "${GREEN}npm install npm -g; npm update -g;\n${NC}"
 	npm install npm -g; npm update -g;
-	printf "${GREEN}sudo gem update --system; sudo gem update\n\n${NC}"
-	echo "Updating installed Ruby gems...\n"
+	echo "Updating installed Ruby gems..."
+	printf "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
 	sudo gem update --system; sudo gem update
+	echo "Updating installed pip packages..."
+	printf "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 	echo "Your system has been successfully updated"
 
 # Find text in current directory

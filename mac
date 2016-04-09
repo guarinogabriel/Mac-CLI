@@ -153,7 +153,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current GIT repository URL \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
 
 
     printf "\n\n${WHITEBOLD}Web Utilities: \n"
@@ -367,7 +367,7 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current GIT repository URL \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
 
 
 
@@ -1220,6 +1220,13 @@ elif [ "$function" == "git:remove" ]; then
 # Open current GIT repository URL
 elif [ "$function" == "git:open" ]; then
 	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
+
+# Get size of current GIT repository
+elif [ "$function" == "git:size" ]; then
+	git bundle create tmp.bundle --all
+	printf "\n\nCurrent GIT repository size: \n"
+	du -sh tmp.bundle
+	rm tmp.bundle
 
 
 #--------------------------------------------------------------------

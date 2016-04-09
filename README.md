@@ -176,7 +176,7 @@ These are the requirements to be able to run all the commands:
 | `mac git:branch`  | See all branches  |
 | `mac git:remove`  | Remove GIT from current project  |
 | `mac git:settings`  | Check GIT settings  |
-| `mac git:open`  | Open current GIT repository URL  |
+| `mac git:size`  | Get size for current GIT directory  |
 
 # Web Utilities
 

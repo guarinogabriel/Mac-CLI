@@ -174,6 +174,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
     printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
+    printf "${LIGHTBLUE}mac magento:create-order${GRAY}: Create sample order in Magento \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -424,6 +425,7 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
     printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
+    printf "${LIGHTBLUE}mac magento:create-order${GRAY}: Create sample order in Magento \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -1200,7 +1202,6 @@ elif [ "$function" == "git:open" ]; then
          echo "Not a git repository or no remote.origin.url set"
          exit 1;
       fi
-
       giturl=${giturl/git\@github\.com\:/https://github.com/}
       giturl=${giturl/\.git/\/}
       branch="$(git symbolic-ref HEAD 2>/dev/null)" ||
@@ -1323,6 +1324,128 @@ elif [ "$function" == "magento:fix-permissions" ]; then
 	else
 	    # TODO: Add script to fix permissions
 		echo "WIP"
+	fi
+
+# Create sample order in Magento
+elif [ "$function" == "magento:create-order" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    # TODO: Add script to fix permissions
+		$php << 'EOF'
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    // If the check money order method or the free shipping method are not enabled, then enable those methods and let the user know
+    $needToRunAgain = false;
+
+    // Check if Check / Money Order payment method is enabled
+    $checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
+
+    // If Check / Money Order is disabled, then enable it temporarely
+    if (!$checkMoneyOrder)
+    {
+        Mage::getConfig()->saveConfig('payment/checkmo/active', '1');
+        $needToRunAgain = true;
+    }
+
+    // Check if free shipping method is enabled
+    $flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
+
+    // If flat rate shipping is disabled, then enable it temporarely
+    if (!$flatRateShippingMethod)
+    {
+        Mage::getConfig()->saveConfig('carriers/flatrate/active', '1');
+        $needToRunAgain = true;
+    }
+
+    if ($needToRunAgain)
+    {
+        echo "IMPORTANT:\n";
+        echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.\n";
+        echo "Please disable those methods if you don't need them after creating the orders programmatically.\n\n";
+
+        $commandOutput = shell_exec('mac magento:create-order');
+        echo "$commandOutput";
+        return false;
+    }
+
+    $customerInfo = array(
+        'email' => 'steve@apple.com',
+        'address' => array(
+                'firstname' => 'Steve',
+                'lastname' => 'Jobs',
+                'street' => '1 Infinite Loop',
+                'city' => 'Cupertino',
+                'postcode' => '95014',
+                'telephone' => '123-123-1234',
+                'country_id' => 'US',
+                'region_id' => 12, // id from directory_country_region table
+        )
+    );
+    // Get random product in stock
+    $collection = Mage::getModel('catalog/product')->getCollection();
+    $collection->addAttributeToFilter('status',1); //only enabled product
+    $collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+    $product = $collection->setPage(1, 1)->getFirstItem();
+    $productInfo = array(
+        $product->getSku() => 1,
+    );
+
+    echo 'The following order has been created: ' . createOrder($customerInfo, $productInfo) . ".";
+
+    //----------------------
+    function createOrder($customerInfo, $productInfo)
+    {
+        $quote = Mage::getModel('sales/quote');
+        $customer = Mage::getModel('customer/customer')
+                        ->setWebsiteId(1)
+                        ->loadByEmail($customerInfo['email']);
+
+        if ($customer)
+        {
+            // for customer orders:
+            $quote->assignCustomer($customer);
+        } else {
+            // for guest orders only:
+            $quote->setCustomerEmail($customerInfo['email']);
+        }
+
+        foreach ($productInfo as $sku => $qty)
+        {
+            // add product(s)
+            $_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);
+            $product = Mage::getModel('catalog/product')->load($_product->getId());
+            if($product){
+                $buyInfo = array(
+                    'qty' => $qty,
+                    // custom option id => value id
+                    // or
+                        // configurable attribute id => value id
+                );
+                $quote->addProduct($product, new Varien_Object($buyInfo));
+            }
+        }
+
+        $addressData = $customerInfo['address'];
+        $billingAddress = $quote->getBillingAddress()->addData($addressData);
+        $shippingAddress = $quote->getShippingAddress()->addData($addressData);
+        $shippingAddress->setCollectShippingRates(true)->collectShippingRates()
+                        ->setShippingMethod('flatrate_flatrate')
+                        ->setPaymentMethod('checkmo');
+        $quote->getPayment()->importData(array('method' => 'checkmo'));
+        $quote->collectTotals()->save();
+        $service = Mage::getModel('sales/service_quote', $quote);
+        $service->submitAll();
+        $order = $service->getOrder();
+
+        return $order->getIncrementId();
+    }
+?>
+EOF
 	fi
 
 #--------------------------------------------------------------------

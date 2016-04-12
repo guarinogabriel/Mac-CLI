@@ -135,6 +135,7 @@ if [ "$function" == "list" ]; then
 
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
+    printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -335,6 +336,7 @@ elif [ "$function" == "list:performance" ]; then
     printf "${WHITEBOLD}==================================="
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
+    printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -1126,6 +1128,11 @@ elif [ "$function" == "monitor" ]; then
 #--------------------------------------------------------------------
 # Performance and maintenance Utilities
 #--------------------------------------------------------------------
+
+# See memory usage sorted by memory consumption
+elif [ "$function" == "system" ]; then
+	printf "${GREEN}glances \n\n${NC}"
+	glances
 
 # See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then

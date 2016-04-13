@@ -132,6 +132,7 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
 
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
@@ -325,6 +326,7 @@ elif [ "$function" == "list:web-dev" ]; then
 
     printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
 
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
@@ -559,6 +561,9 @@ elif [ "$function" == "install" ]; then
 # Install all mac script dependencies and integrated projects
 elif [ "$function" == "install:all" ]; then
 	mac install
+	echo "Installing Compass..."
+	printf "${GREEN}gem install compass\n${NC}"
+	gem install compass
 	echo "Installing Glances (https://github.com/nicolargo/glances)..."
 	printf "${GREEN}pip install glances\n${NC}"
 	pip install glances
@@ -1124,6 +1129,11 @@ elif [ "$function" == "monitor" ]; then
 		echo "Please specify the file to monitor"
 		echo "E.g.: monitor /path/to/file.sql"
 	fi
+
+# Compile SCSS styles in current folder using compass
+elif [ "$function" == "compass:compile" ]; then
+    printf "${GREEN}compass compile . \n\n${NC}"
+	compass compile .
 
 #--------------------------------------------------------------------
 # Performance and maintenance Utilities

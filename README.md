@@ -152,6 +152,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
+| `mac compass:compile`  | Compile current folder using compass  | |
 
 
 

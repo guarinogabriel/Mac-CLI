@@ -176,7 +176,8 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
     printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
-    printf "${LIGHTBLUE}mac magento:create-order${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -429,7 +430,8 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
     printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
-    printf "${LIGHTBLUE}mac magento:create-order${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -1344,11 +1346,10 @@ elif [ "$function" == "magento:fix-permissions" ]; then
 	fi
 
 # Create sample order in Magento
-elif [ "$function" == "magento:create-order" ]; then
+elif [ "$function" == "magento:create:order" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-	    # TODO: Add script to fix permissions
 		$php << 'EOF'
 <?php
     require_once 'app/Mage.php';
@@ -1385,7 +1386,7 @@ elif [ "$function" == "magento:create-order" ]; then
         echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.\n";
         echo "Please disable those methods if you don't need them after creating the orders programmatically.\n\n";
 
-        $commandOutput = shell_exec('mac magento:create-order');
+        $commandOutput = shell_exec('mac magento:create:order');
         echo "$commandOutput";
         return false;
     }
@@ -1464,6 +1465,44 @@ elif [ "$function" == "magento:create-order" ]; then
 ?>
 EOF
 	fi
+
+# Create shell script in Magento
+elif [ "$function" == "magento:create:shell-script" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+cat <<'EOF' >> shell/shellScript.php
+<?php
+/**
+ * Shell script description
+ *
+ * @copyright      Copyright (c) 2016
+ * @author         Gabriel Guarino | gabrielguarino.com
+ *
+ */
+
+require_once 'abstract.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+umask(0);
+
+class Project_Shell_shellScript extends Mage_Shell_Abstract
+{
+    public function run()
+    {
+        // Custom code
+        echo 'It works!';
+    }
+
+}
+
+$shell = new Project_Shell_shellScript();
+$shell->run();
+EOF
+
+        echo "The following shell script has been created: shell/shellScript.php"
+   fi
 
 #--------------------------------------------------------------------
 # XCode Utilities

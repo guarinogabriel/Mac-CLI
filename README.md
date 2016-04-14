@@ -218,7 +218,8 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac magento:version`  | Get Magento version from current project on command line  |
 | `mac magento:customer-create`  | Create Magento customer with sample address and sample credit card information  |
 | `mac magento:fix-permissions`  | Fix Magento permissions for files and directories  |
-| `mac magento:create-order`  | Create sample order in Magento  |
+| `mac magento:create:order`  | Create sample order in Magento  |
+| `mac magento:create:shell-script`  | Create script in Magento shell folder to be run from command line  |
 
 
 ### Executable Apps

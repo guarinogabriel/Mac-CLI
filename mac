@@ -39,6 +39,7 @@ GRAY='\033[0;37m'
 LIGHTBLUE='\033[1;34m'
 LIGHTGREEN='\033[1;32m'
 WHITEBOLD='\033[1;37m'
+RED='\033[1;31m'
 NC='\033[0m' # No Color
 
 #--------------------------------------------------------------------
@@ -178,6 +179,8 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
     printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
     printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -432,6 +435,8 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
     printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
     printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -1503,6 +1508,42 @@ EOF
 
         echo "The following shell script has been created: shell/shellScript.php"
    fi
+
+# Enable Magento URL rewrites
+elif [ "$function" == "magento:enable:url-rewrites" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << 'EOF'
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
+?>
+EOF
+    printf "${LIGHTGREEN}The URL rewrites have been enabled\n"
+	fi
+
+# Disable Magento URL rewrites
+elif [ "$function" == "magento:disable:url-rewrites" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << 'EOF'
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
+?>
+EOF
+    printf "${RED}The URL rewrites have been disabled\n"
+	fi
 
 #--------------------------------------------------------------------
 # XCode Utilities

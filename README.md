@@ -220,6 +220,8 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac magento:fix-permissions`  | Fix Magento permissions for files and directories  |
 | `mac magento:create:order`  | Create sample order in Magento  |
 | `mac magento:create:shell-script`  | Create script in Magento shell folder to be run from command line  |
+| `mac magento:enable:url-rewrites`  | Enable Magento URL rewrites  |
+| `mac magento:disable:url-rewrites`  | Disable Magento URL rewrites  |
 
 
 ### Executable Apps

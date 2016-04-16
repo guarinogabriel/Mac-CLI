@@ -39,6 +39,7 @@ GRAY='\033[0;37m'
 LIGHTBLUE='\033[1;34m'
 LIGHTGREEN='\033[1;32m'
 WHITEBOLD='\033[1;37m'
+RED='\033[1;31m'
 NC='\033[0m' # No Color
 
 #--------------------------------------------------------------------
@@ -63,8 +64,10 @@ if [ "$function" == "list" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}===================================\n"
 
-    printf "\n${WHITEBOLD}General utilities: \n"
+    printf "\n${WHITEBOLD}General Utilities: \n"
 
+    printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
+    printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
@@ -87,12 +90,12 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
 
 
-    printf "\n\n${WHITEBOLD}Search utilities: \n"
+    printf "\n\n${WHITEBOLD}Search Utilities: \n"
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
 
 
-    printf "\n\n${WHITEBOLD}Network utilities: \n"
+    printf "\n\n${WHITEBOLD}Network Utilities: \n"
     printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
     printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
@@ -100,7 +103,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
 
 
-    printf "\n\n${WHITEBOLD}LAMP utilities: \n"
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
     printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
     printf "${LIGHTBLUE}mac mysql:cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
@@ -115,31 +118,37 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
-    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
-    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
-    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
-    printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
 
 
-    printf "\n\n${WHITEBOLD}Web Development utilities: \n"
+    printf "\n\n${WHITEBOLD}SSH Utilities: \n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
+
+
+    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
 
 
-    printf "\n\n${WHITEBOLD}Performance and maintenance utilities: \n"
+    printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
+    printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
     printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
     printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
 
-    printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
+    printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
 
 
-    printf "\n\n${WHITEBOLD}GIT utilities: \n"
+    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
     printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
@@ -149,23 +158,29 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current GIT repository URL \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
 
 
-    printf "\n\n${WHITEBOLD}Web utilities: \n"
+    printf "\n\n${WHITEBOLD}Web Utilities: \n"
     printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
 
 
-    printf "\n\n${WHITEBOLD}Homebrew utilities: \n"
+    printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
 
 
-    printf "\n\n${WHITEBOLD}Xcode utilities: \n"
+    printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
 
-    printf "\n\n${WHITEBOLD}Magento utilities: \n"
+    printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+    printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
+    printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -204,8 +219,10 @@ elif [ "$function" == "list:general" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n${WHITEBOLD}General utilities: \n"
+    printf "\n${WHITEBOLD}General Utilities: \n"
 
+    printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
+    printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
@@ -236,7 +253,7 @@ elif [ "$function" == "list:search" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Search utilities: \n"
+    printf "\n\n${WHITEBOLD}Search Utilities: \n"
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
 
@@ -249,7 +266,7 @@ elif [ "$function" == "list:network" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Network utilities: \n"
+    printf "\n\n${WHITEBOLD}Network Utilities: \n"
     printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
     printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
@@ -266,7 +283,7 @@ elif [ "$function" == "list:lamp" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}LAMP utilities: \n"
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
     printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
     printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MAMP MySQL CLI \n"
     printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
@@ -281,13 +298,26 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
     printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
-    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
-    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
-    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
-    printf "${LIGHTBLUE}mac ssh-key:copy${GRAY}: Copy SSH Public Key \n"
+
+
+#--------------------------------------------------------------------
+# mac script commands list - SSH commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:ssh" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - web development commands
@@ -298,8 +328,9 @@ elif [ "$function" == "list:web-dev" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Web Development utilities: \n"
+    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
 
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
@@ -310,7 +341,8 @@ elif [ "$function" == "list:performance" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Performance and maintenance utilities: \n"
+    printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
+    printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -326,7 +358,7 @@ elif [ "$function" == "list:terminal" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}iTerm / Terminal utilities: \n"
+    printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
 
 #--------------------------------------------------------------------
@@ -338,7 +370,7 @@ elif [ "$function" == "list:git" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}GIT utilities: \n"
+    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
     printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
@@ -348,7 +380,7 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current GIT repository URL \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
 
 
 
@@ -361,7 +393,7 @@ elif [ "$function" == "list:web" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Web utilities: \n"
+    printf "\n\n${WHITEBOLD}Web Utilities: \n"
     printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
 
 #--------------------------------------------------------------------
@@ -373,7 +405,7 @@ elif [ "$function" == "list:brew" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Homebrew utilities: \n"
+    printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
 
 #--------------------------------------------------------------------
@@ -385,7 +417,7 @@ elif [ "$function" == "list:xcode" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Xcode utilities: \n"
+    printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
 #--------------------------------------------------------------------
@@ -397,8 +429,14 @@ elif [ "$function" == "list:magento" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}Magento utilities: \n"
+    printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+    printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
+    printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -437,7 +475,7 @@ elif [ "$function" == "list:apps" ]; then
     printf "${LIGHTBLUE}mac notes${GRAY}: Open Notes \n"
 
 #--------------------------------------------------------------------
-# General utilities
+# General Utilities
 #--------------------------------------------------------------------
 elif [ "$function" == "restart" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
@@ -450,7 +488,6 @@ elif [ "$function" == "sleep" ]; then
 elif [ "$function" == "shutdown" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
 	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
-	pmset sleepnow
 
 elif [ "$function" == "clock" ]; then
 	printf "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
@@ -510,20 +547,54 @@ elif [ "$function" == "battery:status" ]; then
 	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
-# Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages
+# Install all mac script dependencies
+elif [ "$function" == "install" ]; then
+	echo "Installing homebrew..."
+	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	echo "Installing pip..."
+	printf "${GREEN}sudo easy_install pip\n${NC}"
+	sudo easy_install pip
+	echo "Installing GIT..."
+	printf "${GREEN}brew install git\n${NC}"
+	brew install git
+	echo "Installing pv (Pipe Viewer)..."
+	printf "${GREEN}brew install pv\n${NC}"
+	brew install pv
+	echo "Installing Python..."
+	printf "${GREEN}brew install python\n${NC}"
+	brew install python
+
+# Install all mac script dependencies and integrated projects
+elif [ "$function" == "install:all" ]; then
+	mac install
+	echo "Installing Compass..."
+	printf "${GREEN}gem install compass\n${NC}"
+	gem install compass
+	echo "Installing Glances (https://github.com/nicolargo/glances)..."
+	printf "${GREEN}pip install glances\n${NC}"
+	pip install glances
+	echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
+	printf "${GREEN}pip install speedtest-cli\n${NC}"
+	pip install speedtest-cli
+
+# Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
-	printf "${GREEN}sudo softwareupdate -i -a;\n\n${NC}"
-	echo "Updating OS X...\n"
+	echo "Updating OS X..."
+	printf "${GREEN}sudo softwareupdate -i -a;\n${NC}"
 	sudo softwareupdate -i -a;
-	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n\n${NC}"
-	echo "Updating Homebrew and its installed packages...\n"
+	echo "Updating Homebrew and its installed packages..."
+	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
 	brew update; brew upgrade --all; brew cleanup;
-	printf "${GREEN}npm install npm -g; npm update -g;\n\n${NC}"
-	echo "Updating npm and its installed packages...\n"
+	echo "Updating npm and its installed packages..."
+	printf "${GREEN}npm install npm -g; npm update -g;\n${NC}"
 	npm install npm -g; npm update -g;
-	printf "${GREEN}sudo gem update --system; sudo gem update\n\n${NC}"
-	echo "Updating installed Ruby gems...\n"
+	echo "Updating installed Ruby gems..."
+	printf "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
 	sudo gem update --system; sudo gem update
+	echo "Updating installed pip packages..."
+	printf "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 	echo "Your system has been successfully updated"
 
 # Find text in current directory
@@ -644,7 +715,7 @@ elif [ "$function" == "airplane-mode:off" ]; then
 	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
 
 #--------------------------------------------------------------------
-# Search utilities
+# Search Utilities
 #--------------------------------------------------------------------
 # Find files modified in the last N minutes
 elif [ "$function" == "find:recent" ]; then
@@ -653,7 +724,7 @@ elif [ "$function" == "find:recent" ]; then
 	sudo find / -mmin $firstParameter -type f
 
 #--------------------------------------------------------------------
-# Network utilities
+# Network Utilities
 #--------------------------------------------------------------------
 # Internet connection speed test
 elif [ "$function" == "speedtest" ]; then
@@ -709,14 +780,14 @@ elif [ "$function" == "ip:local" ]; then
 
 # Get public IP address
 elif [ "$function" == "ip:public" ]; then
-	printf "${GREEN}curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'\n\n${NC}"
-	curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'
+	printf "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
+	wget http://ipinfo.io/ip -qO -
 
 #--------------------------------------------------------------------
 # LAMP (Linux, Apache, MySQL, PHP)
 #--------------------------------------------------------------------
 
-## MySQL utilities
+## MySQL Utilities
 elif [ "$function" == "mysql:gui" ]; then
 	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
 	open -a /Applications/Sequel\ Pro.app
@@ -943,6 +1014,41 @@ elif [ "$function" == "ssh:download-folder" ]; then
 	fi
 
 
+# Download remote database through SSH on current directory
+elif [ "$function" == "ssh:download-database" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+                # TODO: Create method to download database through SSH
+                echo ""
+				# printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				# scp -r $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the database name on the remote server to download"
+		echo "E.g.: mac ssh:download-database database-name"
+	fi
+
+
 
 # Upload file to remote server through SSH
 elif [ "$function" == "ssh:upload" ]; then
@@ -987,7 +1093,12 @@ elif [ "$function" == "ssh:upload" ]; then
 		echo "E.g.: /user/example/documents/file.pdf"
 	fi
 
-# PHP utilities
+# SSH key Utilities
+elif [ "$function" == "ssh:public-key" ]; then
+	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+	pbcopy < ~/.ssh/id_rsa.pub
+
+# PHP Utilities
 elif [ "$function" == "php:syntax" ]; then
 	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
 	echo "Checking PHP syntax for all files in current location...\n"
@@ -1012,13 +1123,8 @@ elif [ "$function" == "hosts:edit" ]; then
 	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
 	sudo vi /private/etc/hosts
 
-# SSH key utilities
-elif [ "$function" == "ssh-key:copy" ]; then
-	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
-	pbcopy < ~/.ssh/id_rsa.pub
-
 #--------------------------------------------------------------------
-# Web Development utilities
+# Web Development Utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "monitor" ]; then
@@ -1031,9 +1137,19 @@ elif [ "$function" == "monitor" ]; then
 		echo "E.g.: monitor /path/to/file.sql"
 	fi
 
+# Compile SCSS styles in current folder using compass
+elif [ "$function" == "compass:compile" ]; then
+    printf "${GREEN}compass compile . \n\n${NC}"
+	compass compile .
+
 #--------------------------------------------------------------------
-# Performance and maintenance utilities
+# Performance and maintenance Utilities
 #--------------------------------------------------------------------
+
+# See memory usage sorted by memory consumption
+elif [ "$function" == "system" ]; then
+	printf "${GREEN}glances \n\n${NC}"
+	glances
 
 # See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then
@@ -1084,7 +1200,7 @@ elif [ "$function" == "downloads:cleanup" ]; then
     esac
 
 #--------------------------------------------------------------------
-# iTerm utilities
+# iTerm Utilities
 #--------------------------------------------------------------------
 
 # Set title to current iTerm tab
@@ -1094,7 +1210,7 @@ elif [ "$function" == "iterm:tab-title" ]; then
 	echo "Tab title updated"
 
 #--------------------------------------------------------------------
-# GIT utilities
+# GIT Utilities
 #--------------------------------------------------------------------
 
 # Display local Git configuration
@@ -1110,7 +1226,6 @@ elif [ "$function" == "git:open" ]; then
          echo "Not a git repository or no remote.origin.url set"
          exit 1;
       fi
-
       giturl=${giturl/git\@github\.com\:/https://github.com/}
       giturl=${giturl/\.git/\/}
       branch="$(git symbolic-ref HEAD 2>/dev/null)" ||
@@ -1166,9 +1281,16 @@ elif [ "$function" == "git:remove" ]; then
 elif [ "$function" == "git:open" ]; then
 	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
 
+# Get size of current GIT repository
+elif [ "$function" == "git:size" ]; then
+	git bundle create tmp.bundle --all
+	printf "\n\nCurrent GIT repository size: \n"
+	du -sh tmp.bundle
+	rm tmp.bundle
+
 
 #--------------------------------------------------------------------
-# Web utilities
+# Web Utilities
 #--------------------------------------------------------------------
 
 # Download all images from website to current directory
@@ -1186,7 +1308,7 @@ elif [ "$function" == "web:download-images" ]; then
     fi
 
 #--------------------------------------------------------------------
-# Homebrew utilities
+# Homebrew Utilities
 #--------------------------------------------------------------------
 
 # Get list of installed Homebrew packages
@@ -1194,21 +1316,237 @@ elif [ "$function" == "brew:list" ]; then
 	brew list
 
 #--------------------------------------------------------------------
-# Development utilities
+# Development Utilities
 #--------------------------------------------------------------------
 
 # TODO: Optimize all images in directory (recursive)
 
 #--------------------------------------------------------------------
-# XCode utilities
+# Magento Utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "magento:version" ]; then
-    printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
-    php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+        php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+	fi
+
+elif [ "$function" == "magento:customer-create" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    # TODO: Add logic to create a customer with address and credit card information
+		echo "WIP"
+	fi
+
+elif [ "$function" == "magento:fix-permissions" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    # TODO: Add script to fix permissions
+		echo "WIP"
+	fi
+
+# Create sample order in Magento
+elif [ "$function" == "magento:create:order" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << 'EOF'
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    // If the check money order method or the free shipping method are not enabled, then enable those methods and let the user know
+    $needToRunAgain = false;
+
+    // Check if Check / Money Order payment method is enabled
+    $checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
+
+    // If Check / Money Order is disabled, then enable it temporarely
+    if (!$checkMoneyOrder)
+    {
+        Mage::getConfig()->saveConfig('payment/checkmo/active', '1');
+        $needToRunAgain = true;
+    }
+
+    // Check if free shipping method is enabled
+    $flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
+
+    // If flat rate shipping is disabled, then enable it temporarely
+    if (!$flatRateShippingMethod)
+    {
+        Mage::getConfig()->saveConfig('carriers/flatrate/active', '1');
+        $needToRunAgain = true;
+    }
+
+    if ($needToRunAgain)
+    {
+        echo "IMPORTANT:\n";
+        echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.\n";
+        echo "Please disable those methods if you don't need them after creating the orders programmatically.\n\n";
+
+        $commandOutput = shell_exec('mac magento:create:order');
+        echo "$commandOutput";
+        return false;
+    }
+
+    $customerInfo = array(
+        'email' => 'steve@apple.com',
+        'address' => array(
+                'firstname' => 'Steve',
+                'lastname' => 'Jobs',
+                'street' => '1 Infinite Loop',
+                'city' => 'Cupertino',
+                'postcode' => '95014',
+                'telephone' => '123-123-1234',
+                'country_id' => 'US',
+                'region_id' => 12, // id from directory_country_region table
+        )
+    );
+    // Get random product in stock
+    $collection = Mage::getModel('catalog/product')->getCollection();
+    $collection->addAttributeToFilter('status',1); //only enabled product
+    $collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+    $product = $collection->setPage(1, 1)->getFirstItem();
+    $productInfo = array(
+        $product->getSku() => 1,
+    );
+
+    echo 'The following order has been created: ' . createOrder($customerInfo, $productInfo) . ".";
+
+    //----------------------
+    function createOrder($customerInfo, $productInfo)
+    {
+        $quote = Mage::getModel('sales/quote');
+        $customer = Mage::getModel('customer/customer')
+                        ->setWebsiteId(1)
+                        ->loadByEmail($customerInfo['email']);
+
+        if ($customer)
+        {
+            // for customer orders:
+            $quote->assignCustomer($customer);
+        } else {
+            // for guest orders only:
+            $quote->setCustomerEmail($customerInfo['email']);
+        }
+
+        foreach ($productInfo as $sku => $qty)
+        {
+            // add product(s)
+            $_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);
+            $product = Mage::getModel('catalog/product')->load($_product->getId());
+            if($product){
+                $buyInfo = array(
+                    'qty' => $qty,
+                    // custom option id => value id
+                    // or
+                        // configurable attribute id => value id
+                );
+                $quote->addProduct($product, new Varien_Object($buyInfo));
+            }
+        }
+
+        $addressData = $customerInfo['address'];
+        $billingAddress = $quote->getBillingAddress()->addData($addressData);
+        $shippingAddress = $quote->getShippingAddress()->addData($addressData);
+        $shippingAddress->setCollectShippingRates(true)->collectShippingRates()
+                        ->setShippingMethod('flatrate_flatrate')
+                        ->setPaymentMethod('checkmo');
+        $quote->getPayment()->importData(array('method' => 'checkmo'));
+        $quote->collectTotals()->save();
+        $service = Mage::getModel('sales/service_quote', $quote);
+        $service->submitAll();
+        $order = $service->getOrder();
+
+        return $order->getIncrementId();
+    }
+?>
+EOF
+	fi
+
+# Create shell script in Magento
+elif [ "$function" == "magento:create:shell-script" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+cat <<'EOF' >> shell/shellScript.php
+<?php
+/**
+ * Shell script description
+ *
+ * @copyright      Copyright (c) 2016
+ * @author         Gabriel Guarino | gabrielguarino.com
+ *
+ */
+
+require_once 'abstract.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+umask(0);
+
+class Project_Shell_shellScript extends Mage_Shell_Abstract
+{
+    public function run()
+    {
+        // Custom code
+        echo 'It works!';
+    }
+
+}
+
+$shell = new Project_Shell_shellScript();
+$shell->run();
+EOF
+
+        echo "The following shell script has been created: shell/shellScript.php"
+   fi
+
+# Enable Magento URL rewrites
+elif [ "$function" == "magento:enable:url-rewrites" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << 'EOF'
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
+?>
+EOF
+    printf "${LIGHTGREEN}The URL rewrites have been enabled\n"
+	fi
+
+# Disable Magento URL rewrites
+elif [ "$function" == "magento:disable:url-rewrites" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << 'EOF'
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
+?>
+EOF
+    printf "${RED}The URL rewrites have been disabled\n"
+	fi
 
 #--------------------------------------------------------------------
-# XCode utilities
+# XCode Utilities
 #--------------------------------------------------------------------
 
 elif [ "$function" == "xcode:cleanup" ]; then
@@ -1286,7 +1624,7 @@ elif [ "$function" == "xcode:cleanup" ]; then
 	echo "========== Have a nice day =========="
 
 #--------------------------------------------------------------------
-# Online search utilities
+# Online search Utilities
 #--------------------------------------------------------------------
 
 # TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result
@@ -1309,7 +1647,7 @@ elif [ "$function" == "atom" ]; then
 elif [ "$function" == "xcode" ]; then
 	open -a XCode
 elif [ "$function" == "mamp" ]; then
-	open -a MAMP
+	open /Applications/MAMP\ PRO/MAMP\ PRO.app/
 elif [ "$function" == "filezilla" ]; then
 	open -a Filezilla
 elif [ "$function" == "skype" ]; then

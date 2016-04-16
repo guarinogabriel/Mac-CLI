@@ -45,7 +45,7 @@ These are the requirements to be able to run all the commands:
 | `mac apps:close-all`  | Close all opened apps  | |
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
-| `mac battery:info`  | Get battery information  | |
+| `mac battery:status`  | Get battery status  | |
 | `mac info`  | Get OS X version information  | |
 | `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 | `mac zip:extract X` | Extract Zip file to current folder | X = Zip file to extract |

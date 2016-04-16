@@ -77,7 +77,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
     printf "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store\n"
     printf "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks\n"
-    printf "${LIGHTBLUE}mac battery:info${GRAY}: Get battery information\n"
+    printf "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information\n"
     printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
     printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
     printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
@@ -218,7 +218,7 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
     printf "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store\n"
     printf "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks\n"
-    printf "${LIGHTBLUE}mac battery:info${GRAY}: Get battery information\n"
+    printf "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information\n"
     printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
     printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
     printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
@@ -506,7 +506,7 @@ elif [ "$function" == "eject-all" ]; then
 	osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
 
 # Get battery information
-elif [ "$function" == "battery:info" ]; then
+elif [ "$function" == "battery:status" ]; then
 	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
@@ -998,7 +998,7 @@ elif [ "$function" == "php:info" ]; then
 	$php -i
 
 # Get battery information
-elif [ "$function" == "battery:info" ]; then
+elif [ "$function" == "battery:status" ]; then
 	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 	

@@ -187,6 +187,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:undo-commit`  | Undo latest commit  |
 | `mac git:log`  | See latest commits IDs and titles for current branch  |
 | `mac git:branch`  | See all branches  |
+| `mac git:branch:remove`  | Remove GIT branch |
 | `mac git:remove`  | Remove GIT from current project  |
 | `mac git:settings`  | Check GIT settings  |
 | `mac git:size`  | Get size for current GIT directory  |

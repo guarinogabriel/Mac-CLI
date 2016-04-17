@@ -156,7 +156,8 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
-    printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
+    printf "${LIGHTBLUE}mac git:branch:remove${GRAY}: Remove GIT branch \n"
+    printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
 
@@ -378,6 +379,7 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
+    printf "${LIGHTBLUE}mac git:branch:remove${GRAY}: Remove GIT branch \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
@@ -1269,6 +1271,10 @@ elif [ "$function" == "git:log" ]; then
 elif [ "$function" == "git:branch" ]; then
 	git branch -a
 
+# Remove GIT branch
+elif [ "$function" == "git:branch:remove" ]; then
+	# TODO: Add command to remove GIT branch
+	
 # Check GIT settings
 elif [ "$function" == "git:settings" ]; then
 	git config --list

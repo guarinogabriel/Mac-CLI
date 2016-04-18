@@ -183,7 +183,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:config`  | Display local Git configuration  |
 | `mac git:open`  | Open current repository on Github  |
 | `mac git:create-branch`  | Create branch based on current branch  |
-| `mac git:fresh`  | Get last update date for all branches in current project  |
+| `mac git:branches:date`  | Get last update date for all branches in current project  |
 | `mac git:undo-commit`  | Undo latest commit  |
 | `mac git:log`  | See latest commits IDs and titles for current branch  |
 | `mac git:branch`  | See all branches  |

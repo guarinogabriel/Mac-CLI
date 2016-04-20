@@ -156,6 +156,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
+    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename GIT branch \n"
     printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local GIT branch \n"
     printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
     printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
@@ -380,6 +381,7 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
+    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename GIT branch \n"
     printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local GIT branch \n"
     printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
@@ -1272,6 +1274,18 @@ elif [ "$function" == "git:log" ]; then
 # See all branches
 elif [ "$function" == "git:branch" ]; then
 	git branch -a
+
+# Rename GIT branch
+elif [ "$function" == "git:branch:rename" ]; then
+
+	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}git branch -m ${GRAY}$firstParameter\n\n${NC}"
+	    git branch -m $firstParameter
+
+    else
+        echo "Please specify the name of the branch to rename"
+        echo "E.g.: git:branch:rename sample-branch"
+    fi
 
 # Remove local GIT branch
 elif [ "$function" == "git:branch:remove-local" ]; then

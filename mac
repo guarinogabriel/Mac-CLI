@@ -1399,7 +1399,7 @@ elif [ "$function" == "magento:create:order" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-		$php << 'EOF'
+		$php << EOF
 <?php
     require_once 'app/Mage.php';
     ini_set('display_errors', 1);
@@ -1407,40 +1407,40 @@ elif [ "$function" == "magento:create:order" ]; then
     Mage::setIsDeveloperMode(true);
 
     // If the check money order method or the free shipping method are not enabled, then enable those methods and let the user know
-    $needToRunAgain = false;
+    \$needToRunAgain = false;
 
     // Check if Check / Money Order payment method is enabled
-    $checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
+    \$checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
 
     // If Check / Money Order is disabled, then enable it temporarely
-    if (!$checkMoneyOrder)
+    if (!\$checkMoneyOrder)
     {
         Mage::getConfig()->saveConfig('payment/checkmo/active', '1');
-        $needToRunAgain = true;
+        \$needToRunAgain = true;
     }
 
     // Check if free shipping method is enabled
-    $flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
+    \$flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
 
     // If flat rate shipping is disabled, then enable it temporarely
-    if (!$flatRateShippingMethod)
+    if (!\$flatRateShippingMethod)
     {
         Mage::getConfig()->saveConfig('carriers/flatrate/active', '1');
-        $needToRunAgain = true;
+        \$needToRunAgain = true;
     }
 
-    if ($needToRunAgain)
+    if (\$needToRunAgain)
     {
         echo "IMPORTANT:\n";
         echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.\n";
         echo "Please disable those methods if you don't need them after creating the orders programmatically.\n\n";
 
-        $commandOutput = shell_exec('mac magento:create:order');
-        echo "$commandOutput";
+        \$commandOutput = shell_exec('mac magento:create:order');
+        echo "\$commandOutput";
         return false;
     }
 
-    $customerInfo = array(
+    \$customerInfo = array(
         'email' => 'steve@apple.com',
         'address' => array(
                 'firstname' => 'Steve',
@@ -1454,62 +1454,62 @@ elif [ "$function" == "magento:create:order" ]; then
         )
     );
     // Get random product in stock
-    $collection = Mage::getModel('catalog/product')->getCollection();
-    $collection->addAttributeToFilter('status',1); //only enabled product
-    $collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
-    $product = $collection->setPage(1, 1)->getFirstItem();
-    $productInfo = array(
-        $product->getSku() => 1,
+    \$collection = Mage::getModel('catalog/product')->getCollection();
+    \$collection->addAttributeToFilter('status',1); //only enabled product
+    \$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+    \$product = \$collection->setPage(1, 1)->getFirstItem();
+    \$productInfo = array(
+        \$product->getSku() => 1,
     );
 
-    echo 'The following order has been created: ' . createOrder($customerInfo, $productInfo) . ".";
+    echo 'The following order has been created: ' . createOrder(\$customerInfo, \$productInfo) . ".";
 
     //----------------------
-    function createOrder($customerInfo, $productInfo)
+    function createOrder(\$customerInfo, \$productInfo)
     {
-        $quote = Mage::getModel('sales/quote');
-        $customer = Mage::getModel('customer/customer')
+        \$quote = Mage::getModel('sales/quote');
+        \$customer = Mage::getModel('customer/customer')
                         ->setWebsiteId(1)
-                        ->loadByEmail($customerInfo['email']);
+                        ->loadByEmail(\$customerInfo['email']);
 
-        if ($customer)
+        if (\$customer)
         {
             // for customer orders:
-            $quote->assignCustomer($customer);
+            \$quote->assignCustomer(\$customer);
         } else {
             // for guest orders only:
-            $quote->setCustomerEmail($customerInfo['email']);
+            \$quote->setCustomerEmail(\$customerInfo['email']);
         }
 
-        foreach ($productInfo as $sku => $qty)
+        foreach (\$productInfo as \$sku => \$qty)
         {
             // add product(s)
-            $_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $sku);
-            $product = Mage::getModel('catalog/product')->load($_product->getId());
-            if($product){
-                $buyInfo = array(
-                    'qty' => $qty,
+            \$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', \$sku);
+            \$product = Mage::getModel('catalog/product')->load(\$_product->getId());
+            if(\$product){
+                \$buyInfo = array(
+                    'qty' => \$qty,
                     // custom option id => value id
                     // or
                         // configurable attribute id => value id
                 );
-                $quote->addProduct($product, new Varien_Object($buyInfo));
+                \$quote->addProduct(\$product, new Varien_Object(\$buyInfo));
             }
         }
 
-        $addressData = $customerInfo['address'];
-        $billingAddress = $quote->getBillingAddress()->addData($addressData);
-        $shippingAddress = $quote->getShippingAddress()->addData($addressData);
-        $shippingAddress->setCollectShippingRates(true)->collectShippingRates()
+        \$addressData = \$customerInfo['address'];
+        \$billingAddress = \$quote->getBillingAddress()->addData(\$addressData);
+        \$shippingAddress = \$quote->getShippingAddress()->addData(\$addressData);
+        \$shippingAddress->setCollectShippingRates(true)->collectShippingRates()
                         ->setShippingMethod('flatrate_flatrate')
                         ->setPaymentMethod('checkmo');
-        $quote->getPayment()->importData(array('method' => 'checkmo'));
-        $quote->collectTotals()->save();
-        $service = Mage::getModel('sales/service_quote', $quote);
-        $service->submitAll();
-        $order = $service->getOrder();
+        \$quote->getPayment()->importData(array('method' => 'checkmo'));
+        \$quote->collectTotals()->save();
+        \$service = Mage::getModel('sales/service_quote', \$quote);
+        \$service->submitAll();
+        \$order = \$service->getOrder();
 
-        return $order->getIncrementId();
+        return \$order->getIncrementId();
     }
 ?>
 EOF
@@ -1520,7 +1520,13 @@ elif [ "$function" == "magento:create:shell-script" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-cat <<'EOF' >> shell/shellScript.php
+
+        echo "Please enter the name for the shell file: "
+        read shellfile
+
+        if [ ! -z "$shellfile" -a "$shellfile" != " " ]; then
+
+cat <<EOF >> shell/$shellfile.php
 <?php
 /**
  * Shell script description
@@ -1536,7 +1542,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 umask(0);
 
-class Project_Shell_shellScript extends Mage_Shell_Abstract
+class Project_Shell_$shellfile extends Mage_Shell_Abstract
 {
     public function run()
     {
@@ -1546,11 +1552,15 @@ class Project_Shell_shellScript extends Mage_Shell_Abstract
 
 }
 
-$shell = new Project_Shell_shellScript();
-$shell->run();
+\$shell = new Project_Shell_$shellfile();
+\$shell->run();
 EOF
 
-        echo "The following shell script has been created: shell/shellScript.php"
+            echo "The following shell script has been created: shell/${shellfile}.php"
+
+        else
+            "Please specify the filename for the shell script"
+        fi
    fi
 
 # Enable Magento URL rewrites
@@ -1558,7 +1568,7 @@ elif [ "$function" == "magento:enable:url-rewrites" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-		$php << 'EOF'
+		$php << EOF
 <?php
     require_once 'app/Mage.php';
     ini_set('display_errors', 1);
@@ -1576,7 +1586,7 @@ elif [ "$function" == "magento:disable:url-rewrites" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-		$php << 'EOF'
+		$php << EOF
 <?php
     require_once 'app/Mage.php';
     ini_set('display_errors', 1);

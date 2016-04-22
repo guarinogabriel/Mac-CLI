@@ -192,6 +192,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:branch:remove-remote`  | Remove local and remote GIT branch |
 | `mac git:remove`  | Remove GIT from current project  |
 | `mac git:settings`  | Check GIT settings  |
+| `mac git:add:removed`  | Add removed files to staged files  |
 | `mac git:size`  | Get size for current GIT directory  |
 
 # Web Utilities

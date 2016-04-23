@@ -90,6 +90,8 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information\n"
     printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
     printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
+    printf "${LIGHTBLUE}mac find:biggest-files ${GRAY}: Find biggest files inside directory\n"
+    printf "${LIGHTBLUE}mac find:biggest-directories ${GRAY}: Find biggest directories inside directory\n"
     printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
     printf "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress\n"
     printf "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract\n"
@@ -249,6 +251,8 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information\n"
     printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
     printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
+    printf "${LIGHTBLUE}mac find:biggest-files ${LIGHTGREEN}X${GRAY}: Find biggest files inside directory\n"
+    printf "${LIGHTBLUE}mac find:biggest-directories ${LIGHTGREEN}X${GRAY}: Find biggest directories inside directory\n"
     printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
     printf "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress\n"
     printf "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract\n"
@@ -623,6 +627,17 @@ elif [ "$function" == "find:text" ]; then
 		echo "Please introduce text to search. E.g:\n"
 		echo "mac find:text Sample Search Text"
 	fi
+
+# Find biggest files in current directory
+elif [ "$function" == "find:biggest-files" ]; then
+    printf "${GREEN}find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+
+
+# Find biggest directories in current directory
+elif [ "$function" == "find:biggest-directories" ]; then
+    printf "${GREEN}find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
 
 # Extract Zip file
 elif [ "$function" == "zip:extract" ]; then

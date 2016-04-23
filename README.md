@@ -60,6 +60,8 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac battery:status`  | Get battery status  | |
 | `mac info`  | Get OS X version information  | |
 | `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
+| `mac find:biggest-files`  | Find biggest files inside directory  | |
+| `mac find:biggest-directories`  | Find biggest directories inside directory  | |
 | `mac zip:extract X` | Extract Zip file to current folder | X = Zip file to extract |
 | `mac gzip:compress X` | Compress current file using Gzip | X = File to compress |
 | `mac gzip:extract X` | Extract Gzip file to current folder | X = Gzip file to extract |

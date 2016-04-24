@@ -596,6 +596,20 @@ elif [ "$function" == "install:all" ]; then
 	echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
 	printf "${GREEN}pip install speedtest-cli\n${NC}"
 	pip install speedtest-cli
+	echo "Installing N98 Magerun (https://github.com/netz98/n98-magerun)..."
+	printf "${GREEN}wget https://files.magerun.net/n98-magerun.phar\n${NC}"
+	wget https://files.magerun.net/n98-magerun.phar
+	printf "${GREEN}chmod +x ./n98-magerun.phar\n${NC}"
+	chmod +x ./n98-magerun.phar
+	printf "${GREEN}sudo mv ./n98-magerun.phar /usr/local/bin/\n${NC}"
+	sudo mv ./n98-magerun.phar /usr/local/bin/
+	echo "Installing N98 Magerun 2 (https://github.com/netz98/n98-magerun2)..."
+	printf "${GREEN}wget https://files.magerun.net/n98-magerun2.phar\n${NC}"
+	wget https://files.magerun.net/n98-magerun2.phar
+	printf "${GREEN}chmod +x ./n98-magerun2.phar\n${NC}"
+	chmod +x ./n98-magerun2.phar
+	printf "${GREEN}sudo mv ./n98-magerun2.phar /usr/local/bin/\n${NC}"
+	sudo mv ./n98-magerun2.phar /usr/local/bin/
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then

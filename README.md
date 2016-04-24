@@ -18,7 +18,9 @@ These are the requirements to be able to run all the commands (all the dependenc
 The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running "mac install:all"):
 * Glances (https://github.com/nicolargo/glances)
 * speedtest-cli (https://github.com/sivel/speedtest-cli)
-
+* n98-magerun (https://github.com/netz98/n98-magerun)
+* n98-magerun2 (https://github.com/netz98/n98-magerun2)
+* GIT-stats (https://github.com/IonicaBizau/git-stats)
 
 ### Commands List
 
@@ -196,6 +198,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:settings`  | Check GIT settings  |
 | `mac git:add:removed`  | Add removed files to staged files  |
 | `mac git:size`  | Get size for current GIT directory  |
+| `mac github:streak`  | See current GIT contribution streak |
 
 # Web Utilities
 

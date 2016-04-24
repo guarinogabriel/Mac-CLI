@@ -22,6 +22,8 @@ dropbox_folder="/Volumes/Cloud/Dropbox/"
 php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 php_cli="/usr/local/bin/php"
 phpmyadmin="http://localhost/phpMyAdmin/"
+github_email_account="guarinogabriel@gmail.com"
+github_username="guarinogabriel"
 
 #--------------------------------------------------------------------
 # Parameters
@@ -60,6 +62,16 @@ function get_branch_data()
           sed "s^\(.*\)|\(.*\)$^\1|${b}|\2^"
     done
   )
+}
+function spinner()
+{
+    local i sp n
+    sp='/-\|'
+    n=${#sp}
+    printf ' '
+    while sleep 0.1; do
+        printf "%s\b" "${sp:i++%n:1}"
+    done
 }
 
 #--------------------------------------------------------------------
@@ -172,6 +184,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
         printf "${LIGHTBLUE}mac git:add:removed${GRAY}: Add removed files to staged files \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
+    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
 
 
     printf "\n\n${WHITEBOLD}Web Utilities: \n"
@@ -400,7 +413,7 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
     printf "${LIGHTBLUE}mac git:add:removed${GRAY}: Add removed files to staged files \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
-
+    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
 
 
 #--------------------------------------------------------------------
@@ -610,6 +623,14 @@ elif [ "$function" == "install:all" ]; then
 	chmod +x ./n98-magerun2.phar
 	printf "${GREEN}sudo mv ./n98-magerun2.phar /usr/local/bin/\n${NC}"
 	sudo mv ./n98-magerun2.phar /usr/local/bin/
+	echo "Installing composer..."
+	printf "${GREEN}curl -sS https://getcomposer.org/installer | php\n${NC}"
+	curl -sS https://getcomposer.org/installer | php
+	printf "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
+	sudo mv composer.phar /usr/local/bin/
+	echo "Installing GIT cal (https://github.com/k4rthik/git-cal)..."
+	printf "${GREEN}brew install git-cal\n${NC}"
+	brew install git-cal
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
@@ -1374,6 +1395,14 @@ elif [ "$function" == "git:size" ]; then
 	du -sh tmp.bundle
 	rm tmp.bundle
 
+# See current GIT contribution streak
+elif [ "$function" == "github:streak" ]; then
+
+	if [ -d .git ]; then
+	    git-cal --author=$github_username
+	else
+	    echo "Error: The current directory is not a GIT repository"
+	fi
 
 #--------------------------------------------------------------------
 # Web Utilities

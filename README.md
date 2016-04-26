@@ -213,6 +213,13 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac brew:list`  | Get list of installed Homebrew packages  |
 
 
+### Web Development Utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
+
+
 ### XCode Utilities
 
 | Command  | Description |

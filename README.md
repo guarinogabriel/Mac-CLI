@@ -95,7 +95,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac mysql:gui`  | Open Sequel PRO app)  |  |
-| `mac mysql:cli`  | Start MAMP MySQL CLI  |  |
+| `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
 | `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
 | `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |
@@ -129,7 +129,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac mysql:gui`  | Open Sequel PRO app)  |  |
-| `mac mysql:cli`  | Start MAMP MySQL CLI  |  |
+| `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
 | `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
 | `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |

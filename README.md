@@ -53,7 +53,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac shutdown`  | Shutdown  | |
 | `mac time`  | Show clock at top right position in Terminal/iTerm  | |
 | `mac screensaver`  | Start screensaver  | |
-| `mac folders:list`  | List folders in current directory  | |
+| `mac folders:list`  | List folders in current directory with their current size  | |
 | `mac folder:size`  | Calculate current folder size  | |
 | `mac folders:remove-empty`  | Remove empty subdirectories  | |
 | `mac apps:close-all`  | Close all opened apps  | |
@@ -236,6 +236,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac magento:fix-permissions`  | Fix Magento permissions for files and directories  |
 | `mac magento:create:order`  | Create sample order in Magento  |
 | `mac magento:create:shell-script`  | Create script in Magento shell folder to be run from command line  |
+| `mac magento:create:gitignore`  | Create gitignore file for Magento project |
 | `mac magento:enable:url-rewrites`  | Enable Magento URL rewrites  |
 | `mac magento:disable:url-rewrites`  | Disable Magento URL rewrites  |
 

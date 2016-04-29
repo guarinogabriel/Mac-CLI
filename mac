@@ -86,7 +86,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
     printf "${LIGHTBLUE}mac clock${GRAY}: Show clock at top right position in Terminal/iTerm\n"
     printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
-    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory\n"
+    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory with their current size\n"
     printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
     printf "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories\n"
     printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
@@ -202,6 +202,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
     printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
     printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:create:gitignore${GRAY}: Create gitignore file for Magento project \n"
     printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
 
@@ -252,7 +253,7 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
     printf "${LIGHTBLUE}mac clock${GRAY}: Show clock at top right position in Terminal/iTerm\n"
     printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
-    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory\n"
+    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory with their current size\n"
     printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
     printf "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories\n"
     printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
@@ -476,6 +477,7 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
     printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
     printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:create:gitignore${GRAY}: Create gitignore file for Magento project \n"
     printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
 
@@ -549,8 +551,7 @@ elif [ "$function" == "folder:size" ]; then
 
 # List folders in current directory
 elif [ "$function" == "folders:list" ]; then
-	printf "${GREEN}ls -d */\n\n${NC}"
-	ls -d */
+	du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = sprintf( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
 
 # Remove empty subdirectories
 elif [ "$function" == "folders:remove-empty" ]; then
@@ -1665,6 +1666,32 @@ EOF
         else
             "Please specify the filename for the shell script"
         fi
+   fi
+
+# Create gitignore file for Magento project
+elif [ "$function" == "magento:create:gitignore" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+
+cat <<EOF >> .gitignore
+/html
+/media/
+/var/
+/includes/src/
+/app/etc/local.xml
+.sass-cache/
+.idea/
+.phpstorm.meta.php
+.DS_Store
+sitemap.xml
+*_sitemap.xml
+iworx-backup
+/skin/frontend/rwd/*/.sass-cache/
+/skin/frontend/rwd/*/css/*
+EOF
+            echo "The gitignore file has been created."
+
    fi
 
 # Enable Magento URL rewrites

@@ -146,8 +146,9 @@ if [ "$function" == "list" ]; then
 
 
     printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
-    printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
-    printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass \n"
+    printf "${LIGHTBLUE}mac dev:monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac dev:compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass \n"
+    printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
 
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
@@ -157,6 +158,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
     printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
     printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
+
 
     printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
@@ -186,10 +188,6 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
-
-
-    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
-    printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
 
 
     printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
@@ -349,7 +347,7 @@ elif [ "$function" == "list:ssh" ]; then
 # mac script commands list - web development commands
 #--------------------------------------------------------------------
 
-elif [ "$function" == "list:web-dev" ]; then
+elif [ "$function" == "list:dev" ]; then
 
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
@@ -357,6 +355,7 @@ elif [ "$function" == "list:web-dev" ]; then
     printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
     printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
+    printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
@@ -437,18 +436,6 @@ elif [ "$function" == "list:brew" ]; then
 
     printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
-
-#--------------------------------------------------------------------
-# mac script commands list - web development commands
-#--------------------------------------------------------------------
-
-elif [ "$function" == "list:web" ]; then
-
-    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
-    printf "${WHITEBOLD}==================================="
-
-    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
-    printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - xCode commands
@@ -1211,7 +1198,7 @@ elif [ "$function" == "hosts:edit" ]; then
 # Web Development Utilities
 #--------------------------------------------------------------------
 
-elif [ "$function" == "monitor" ]; then
+elif [ "$function" == "dev:monitor" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         printf "${GREEN}tail -f ${GRAY}${firstParameter}\n\n${NC}"
@@ -1222,9 +1209,23 @@ elif [ "$function" == "monitor" ]; then
 	fi
 
 # Compile SCSS styles in current folder using compass
-elif [ "$function" == "compass:compile" ]; then
+elif [ "$function" == "dev:compass:compile" ]; then
     printf "${GREEN}compass compile . \n\n${NC}"
 	compass compile .
+
+# Download all images from website to current directory
+elif [ "$function" == "web:download-images" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
+        # Remove empty subdirectories
+        find . -type d -empty -delete
+
+    else
+        echo "Please specify the full URL of the website to download the images"
+        echo "E.g.: web:download-images http://example.com/sample-page"
+    fi
 
 #--------------------------------------------------------------------
 # Performance and maintenance Utilities
@@ -1416,24 +1417,6 @@ elif [ "$function" == "github:streak" ]; then
 	else
 	    echo "Error: The current directory is not a GIT repository"
 	fi
-
-#--------------------------------------------------------------------
-# Web Utilities
-#--------------------------------------------------------------------
-
-# Download all images from website to current directory
-elif [ "$function" == "web:download-images" ]; then
-
-    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
-        wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
-        # Remove empty subdirectories
-        find . -type d -empty -delete
-
-    else
-        echo "Please specify the full URL of the website to download the images"
-        echo "E.g.: web:download-images http://example.com/sample-page"
-    fi
 
 #--------------------------------------------------------------------
 # Homebrew Utilities

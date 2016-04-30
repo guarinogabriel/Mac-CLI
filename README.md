@@ -155,9 +155,9 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
-| `mac compass:compile`  | Compile current folder using compass  | |
-
+| `mac dev:monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
+| `mac dev:compass:compile`  | Compile current folder using compass  | |
+| `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 
 
 ### Performance and maintenance Utilities
@@ -211,13 +211,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description |
 | ------------- | ------------- |
 | `mac brew:list`  | Get list of installed Homebrew packages  |
-
-
-### Web Development Utilities
-
-| Command  | Description |
-| ------------- | ------------- |
-| `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 
 
 ### XCode Utilities

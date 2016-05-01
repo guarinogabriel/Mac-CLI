@@ -196,13 +196,13 @@ if [ "$function" == "list" ]; then
 
     printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
-    printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:customer:create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
-    printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
-    printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
-    printf "${LIGHTBLUE}mac magento:create:gitignore${GRAY}: Create gitignore file for Magento project \n"
-    printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
-    printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:order:create${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:shell-script:create${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrite:enables${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -460,13 +460,13 @@ elif [ "$function" == "list:magento" ]; then
 
     printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
-    printf "${LIGHTBLUE}mac magento:customer-create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:customer:create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
     printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
-    printf "${LIGHTBLUE}mac magento:create:order${GRAY}: Create sample order in Magento \n"
-    printf "${LIGHTBLUE}mac magento:create:shell-script${GRAY}: Create script in Magento shell folder to be run from command line \n"
-    printf "${LIGHTBLUE}mac magento:create:gitignore${GRAY}: Create gitignore file for Magento project \n"
-    printf "${LIGHTBLUE}mac magento:enable:url-rewrites${GRAY}: Enable Magento URL rewrites \n"
-    printf "${LIGHTBLUE}mac magento:disable:url-rewrites${GRAY}: Disable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:order:create${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:shell-script:create${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrites:enable${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -1449,7 +1449,7 @@ elif [ "$function" == "magento:version" ]; then
         php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
 	fi
 
-elif [ "$function" == "magento:customer-create" ]; then
+elif [ "$function" == "magento:customer:create" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
@@ -1483,7 +1483,7 @@ elif [ "$function" == "magento:fix-permissions" ]; then
 	fi
 
 # Create sample order in Magento
-elif [ "$function" == "magento:create:order" ]; then
+elif [ "$function" == "magento:order:create" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
@@ -1523,7 +1523,7 @@ elif [ "$function" == "magento:create:order" ]; then
         echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.\n";
         echo "Please disable those methods if you don't need them after creating the orders programmatically.\n\n";
 
-        \$commandOutput = shell_exec('mac magento:create:order');
+        \$commandOutput = shell_exec('mac magento:order:create');
         echo "\$commandOutput";
         return false;
     }
@@ -1604,7 +1604,7 @@ EOF
 	fi
 
 # Create shell script in Magento
-elif [ "$function" == "magento:create:shell-script" ]; then
+elif [ "$function" == "magento:shell-script:create" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
@@ -1652,7 +1652,7 @@ EOF
    fi
 
 # Create gitignore file for Magento project
-elif [ "$function" == "magento:create:gitignore" ]; then
+elif [ "$function" == "magento:gitignore:create" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
@@ -1678,7 +1678,7 @@ EOF
    fi
 
 # Enable Magento URL rewrites
-elif [ "$function" == "magento:enable:url-rewrites" ]; then
+elif [ "$function" == "magento:url-rewrites:enable" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
@@ -1696,7 +1696,7 @@ EOF
 	fi
 
 # Disable Magento URL rewrites
-elif [ "$function" == "magento:disable:url-rewrites" ]; then
+elif [ "$function" == "magento:url-rewrites:disable" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else

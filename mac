@@ -655,6 +655,9 @@ elif [ "$function" == "update" ]; then
 	echo "Updating installed pip packages..."
 	printf "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
 	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+	echo "Updating N98-Magerun..."
+	printf "${GREEN}n98-magerun.phar self-update\n${NC}"
+	n98-magerun.phar self-update
 	echo "Your system has been successfully updated"
 
 # Find text in current directory

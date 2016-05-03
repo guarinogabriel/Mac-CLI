@@ -232,6 +232,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac magento:gitignore:create`  | Create gitignore file for Magento project |
 | `mac magento:url-rewrites:enable`  | Enable Magento URL rewrites  |
 | `mac magento:url-rewrites:disable`  | Disable Magento URL rewrites  |
+| `mac magento2:install`  | Install Magento 2 in current folder  |
 
 
 ### Executable Apps

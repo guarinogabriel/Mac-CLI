@@ -203,6 +203,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project \n"
     printf "${LIGHTBLUE}mac magento:url-rewrite:enables${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
 
 
     printf "\n\n${WHITEBOLD}Executable apps: \n"
@@ -467,6 +468,7 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:enable${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - apps commands
@@ -1718,6 +1720,10 @@ elif [ "$function" == "magento:url-rewrites:disable" ]; then
 EOF
     printf "${RED}The URL rewrites have been disabled\n"
 	fi
+
+# Install Magento 2 in current folder
+elif [ "$function" == "magento2:install" ]; then
+    n98-magerun2.phar install
 
 #--------------------------------------------------------------------
 # XCode Utilities

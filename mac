@@ -658,6 +658,9 @@ elif [ "$function" == "update" ]; then
 	echo "Updating N98-Magerun..."
 	printf "${GREEN}n98-magerun.phar self-update\n${NC}"
 	n98-magerun.phar self-update
+	echo "Updating N98-Magerun 2..."
+	printf "${GREEN}n98-magerun2.phar self-update\n${NC}"
+	n98-magerun2.phar self-update
 	echo "Your system has been successfully updated"
 
 # Find text in current directory

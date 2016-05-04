@@ -1264,6 +1264,7 @@ elif [ "$function" == "dev:optimize-images" ]; then
 # Convert CSS file to SCSS
 elif [ "$function" == "dev:css:convert-to-scss" ]; then
     # TODO: Add compass convert to SCSS command - Sample command: "sass-convert --from scss --to scss --in-place _css_scss"
+    echo "WIP: dev:css:convert-to-scss command"
 
 #--------------------------------------------------------------------
 # Performance and maintenance Utilities

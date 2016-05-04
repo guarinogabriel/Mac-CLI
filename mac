@@ -149,6 +149,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac dev:monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
     printf "${LIGHTBLUE}mac dev:compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass \n"
     printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
+    printf "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS \n"
 
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
@@ -357,6 +358,7 @@ elif [ "$function" == "list:dev" ]; then
     printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
     printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
     printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
+    printf "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
@@ -598,6 +600,21 @@ elif [ "$function" == "install" ]; then
 
 # Install all mac script dependencies and integrated projects
 elif [ "$function" == "install:all" ]; then
+    echo "Installing homebrew..."
+	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	echo "Installing pip..."
+	printf "${GREEN}sudo easy_install pip\n${NC}"
+	sudo easy_install pip
+	echo "Installing GIT..."
+	printf "${GREEN}brew install git\n${NC}"
+	brew install git
+	echo "Installing pv (Pipe Viewer)..."
+	printf "${GREEN}brew install pv\n${NC}"
+	brew install pv
+	echo "Installing Python..."
+	printf "${GREEN}brew install python\n${NC}"
+	brew install python
 	mac install
 	echo "Installing mycli (MySQL CLI - https://github.com/dbcli/mycli)..."
 	printf "${GREEN}brew install mycli\n${NC}"
@@ -639,6 +656,9 @@ elif [ "$function" == "install:all" ]; then
 	echo "Installing ImageOptim-CLI (https://github.com/JamieMason/ImageOptim-CLI)..."
 	printf "${GREEN}npm install -g imageoptim-cli\n${NC}"
 	npm install -g imageoptim-cli
+	echo "Installing sass..."
+	printf "${GREEN}sudo gem install sass\n${NC}"
+	sudo gem install sass
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
@@ -867,7 +887,7 @@ elif [ "$function" == "ip:public" ]; then
 #--------------------------------------------------------------------
 
 ## MySQL Utilities
-elif [ "$function" == "mysql:gui" ]; then
+elif [ "$function" == "mysql" ]; then
 	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
 	open -a /Applications/Sequel\ Pro.app
 
@@ -1235,6 +1255,16 @@ elif [ "$function" == "web:download-images" ]; then
         echo "E.g.: web:download-images http://example.com/sample-page"
     fi
 
+# Get list of installed Homebrew packages
+elif [ "$function" == "dev:optimize-images" ]; then
+    echo "Optimizing all images in current directory and subdirectories...\n"
+    printf "${GREEN}imageoptim --directory .\n\n${NC}"
+    imageoptim --directory .
+
+# Convert CSS file to SCSS
+elif [ "$function" == "dev:css:convert-to-scss" ]; then
+    # TODO: Add compass convert to SCSS command - Sample command: "sass-convert --from scss --to scss --in-place _css_scss"
+
 #--------------------------------------------------------------------
 # Performance and maintenance Utilities
 #--------------------------------------------------------------------
@@ -1433,16 +1463,6 @@ elif [ "$function" == "github:streak" ]; then
 # Get list of installed Homebrew packages
 elif [ "$function" == "brew:list" ]; then
 	brew list
-
-#--------------------------------------------------------------------
-# Development Utilities
-#--------------------------------------------------------------------
-
-# Get list of installed Homebrew packages
-elif [ "$function" == "dev:optimize-images" ]; then
-    echo "Optimizing all images in current directory and subdirectories...\n"
-    printf "${GREEN}imageoptim --directory .\n\n${NC}"
-    imageoptim --directory .
 
 #--------------------------------------------------------------------
 # Magento Utilities

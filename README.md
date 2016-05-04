@@ -94,7 +94,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac mysql:gui`  | Open Sequel PRO app)  |  |
+| `mac mysql`  | Open Sequel PRO app)  |  |
 | `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
 | `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
@@ -158,7 +158,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac dev:monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
 | `mac dev:compass:compile`  | Compile current folder using compass  | |
 | `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
-
+| `mac dev:css:convert-to-scss`  | Convert CSS file to SCSS |
 
 ### Performance and maintenance Utilities
 

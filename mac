@@ -1263,8 +1263,14 @@ elif [ "$function" == "dev:optimize-images" ]; then
 
 # Convert CSS file to SCSS
 elif [ "$function" == "dev:css:convert-to-scss" ]; then
-    # TODO: Add compass convert to SCSS command - Sample command: "sass-convert --from scss --to scss --in-place _css_scss"
-    echo "WIP: dev:css:convert-to-scss command"
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        # TODO: Add compass convert to SCSS command - Command in progress: "cp email-non-inline.css email-non-inline.scss && sass-convert --from css --to scss --in-place  email-non-inline.scss"
+        echo "WIP: dev:css:convert-to-scss command"
+    else
+        echo "Please specify the CSS file to convert"
+        echo "E.g.: dev:css:convert-to-scss styles.css"
+    fi
 
 #--------------------------------------------------------------------
 # Performance and maintenance Utilities

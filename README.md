@@ -21,6 +21,7 @@ The following amazing projects have been integrated on the mac script (all the i
 * n98-magerun (https://github.com/netz98/n98-magerun)
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
 * GIT-stats (https://github.com/IonicaBizau/git-stats)
+* Storm (https://github.com/emre/storm)
 
 ### Commands List
 
@@ -122,9 +123,10 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac ssh:download-database X`  | Download MySQL from remote server through SSH  |  X = Name of the database to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
 | `mac ssh:public-key`  | Copy SSH Public Key  |  |
+| `mac ssh:list`  | List all the saved SSH credentials  |  |
 
 
-### SSH Utilities
+### LAMP Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
@@ -142,13 +144,17 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac mamp:start`  | Start MAMP Server (Apache and MySQL)  | |
 | `mac mamp:stop`  | Stop MAMP Server (Apache and MySQL)  | |
 | `mac mamp:restart`  | Restart MAMP Server (Apache and MySQL)  | |
+| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
+| `mac php:info`  | Get PHP info on command line  |  |
+| `mac hosts:edit`  | Edit hosts file  |  |
+
+
+### SSH Utilities
+
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
 | `mac ssh:public-key`  | Copy SSH Public Key  |  |
-| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
-| `mac php:info`  | Get PHP info on command line  |  |
-| `mac hosts:edit`  | Edit hosts file  |  |
 
 
 ### Web Development Utilities

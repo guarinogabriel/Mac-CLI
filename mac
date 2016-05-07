@@ -143,6 +143,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
+    printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
 
 
     printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
@@ -338,12 +339,13 @@ elif [ "$function" == "list:ssh" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
+    printf "\n\n${WHITEBOLD}SSH Utilities: \n"
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
+    printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - web development commands
@@ -659,6 +661,9 @@ elif [ "$function" == "install:all" ]; then
 	echo "Installing sass..."
 	printf "${GREEN}sudo gem install sass\n${NC}"
 	sudo gem install sass
+	echo "Installing storm (https://github.com/emre/storm)..."
+	printf "${GREEN}brew install stormssh\n${NC}"
+	brew install stormssh
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
@@ -1048,6 +1053,35 @@ elif [ "$function" == "mamp:restart" ]; then
     # Start MySQL
     sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
 
+# PHP Utilities
+elif [ "$function" == "php:syntax" ]; then
+	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
+	echo "Checking PHP syntax for all files in current location...\n"
+	find . -name \*.php -exec php -l "{}" \;
+
+elif [ "$function" == "php:info" ]; then
+	printf "${GREEN}$php -i\n\n${NC}"
+	$php -i
+
+# Get battery information
+elif [ "$function" == "battery:status" ]; then
+	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+	
+# Get OS X version information
+elif [ "$function" == "info" ]; then
+	printf "${GREEN}sw_versf \n\n${NC}"
+	sw_versf
+	
+# Edit hosts file
+elif [ "$function" == "hosts:edit" ]; then
+	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
+	sudo vi /private/etc/hosts
+
+#--------------------------------------------------------------------
+# SSH Utilities
+#--------------------------------------------------------------------
+
 # Download file through SSH on current folder
 elif [ "$function" == "ssh:download-file" ]; then
 
@@ -1079,7 +1113,7 @@ elif [ "$function" == "ssh:download-file" ]; then
 		echo "Please specify the path to the file on the remote server to download"
 		echo "E.g.: /home/sample/file.jpg"
 	fi
-	
+
 # Download entire folder through SSH on current directory
 elif [ "$function" == "ssh:download-folder" ]; then
 
@@ -1197,30 +1231,12 @@ elif [ "$function" == "ssh:public-key" ]; then
 	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
 	pbcopy < ~/.ssh/id_rsa.pub
 
-# PHP Utilities
-elif [ "$function" == "php:syntax" ]; then
-	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
-	echo "Checking PHP syntax for all files in current location...\n"
-	find . -name \*.php -exec php -l "{}" \;
 
-elif [ "$function" == "php:info" ]; then
-	printf "${GREEN}$php -i\n\n${NC}"
-	$php -i
+# List saved SSH credentials
+elif [ "$function" == "ssh:list" ]; then
+	printf "${GREEN}storm list \n\n${NC}"
+	storm list
 
-# Get battery information
-elif [ "$function" == "battery:status" ]; then
-	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
-	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
-	
-# Get OS X version information
-elif [ "$function" == "info" ]; then
-	printf "${GREEN}sw_versf \n\n${NC}"
-	sw_versf
-	
-# Edit hosts file
-elif [ "$function" == "hosts:edit" ]; then
-	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
-	sudo vi /private/etc/hosts
 
 #--------------------------------------------------------------------
 # Web Development Utilities

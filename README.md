@@ -77,6 +77,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac find:recent N`  | Find files modified in the last N minutes  |  N = number of minutes  |
+| `mac find:duplicated`  | Find duplicated files  |  |
 | `mac search:replace X` | Search and replace string in file | X = File to perform the search and replace operation |
 
 

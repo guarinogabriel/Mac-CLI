@@ -906,6 +906,10 @@ elif [ "$function" == "mysql:cli" ]; then
 	printf "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
 	mycli  -u$mysql_user -p$mysql_password -S /Applications/MAMP/tmp/mysql/mysql.sock
 
+elif [ "$function" == "export-all" ]; then
+	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+	${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql
+
 elif [ "$function" == "phpmyadmin" ]; then
 	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
 	open $phpmyadmin

@@ -179,7 +179,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
     printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-        printf "${LIGHTBLUE}mac git:add:removed${GRAY}: Add removed files to staged files \n"
+        printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
     printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
 
@@ -415,7 +415,7 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
     printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-    printf "${LIGHTBLUE}mac git:add:removed${GRAY}: Add removed files to staged files \n"
+    printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
     printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
 
@@ -1470,7 +1470,7 @@ elif [ "$function" == "git:settings" ]; then
 	git config --list
 	
 # Add removed files to staged files
-elif [ "$function" == "git:add:removed" ]; then
+elif [ "$function" == "git:add-removed" ]; then
 	git add -u
 	
 # Remove GIT from current project

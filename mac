@@ -169,7 +169,7 @@ if [ "$function" == "list" ]; then
     printf "\n\n${WHITEBOLD}GIT Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
-    printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
+    printf "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch \n"
     printf "${LIGHTBLUE}mac git:branches:date${GRAY}: Get last update date for all branches in current project \n"
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
@@ -405,7 +405,7 @@ elif [ "$function" == "list:git" ]; then
     printf "\n\n${WHITEBOLD}GIT Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
-    printf "${LIGHTBLUE}mac git:create-branch${GRAY}: Create branch based on current branch \n"
+    printf "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch \n"
     printf "${LIGHTBLUE}mac git:branches${GtRAY}: Get last update date for all branches in current project \n"
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
@@ -1399,7 +1399,7 @@ elif [ "$function" == "git:open" ]; then
       open $giturl
 
 # Create GIT branch based on current branch
-elif [ "$function" == "git:create-branch" ]; then
+elif [ "$function" == "git:create:branch" ]; then
 
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         printf "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
@@ -1407,7 +1407,7 @@ elif [ "$function" == "git:create-branch" ]; then
 
     else
         echo "Please specify the name for the new branch"
-        echo "E.g.: git:create-branch sample-branch"
+        echo "E.g.: git:create:branch sample-branch"
     fi
 
 # Get last update date for all branches in current project

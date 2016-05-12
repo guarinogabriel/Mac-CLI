@@ -1523,7 +1523,36 @@ elif [ "$function" == "magento:customer:create" ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
 	    # TODO: Add logic to create a customer with address and credit card information
-		echo "WIP"
+	    $php << EOF
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    \$defaultStoreId = Mage::app()
+                        ->getWebsite()
+                        ->getDefaultGroup()
+                        ->getDefaultStoreId();
+    \$websiteId = Mage::getModel('core/store')->load(\$defaultStoreId)->getWebsiteId();
+
+    \$customer = Mage::getModel(\customer/customer\);
+    \$customer   ->setWebsiteId(\$websiteId)
+                ->setStore(\$defaultStoreId)
+                ->setFirstname('Gabriel')
+                ->setLastname('Guarino')
+                ->setEmail('guarinogabriel@gmail.com')
+                ->setPassword('ABC123xyz');
+
+    try
+    {
+        \$customer->save();
+    }
+    catch (Exception \$e) {
+        Zend_Debug::dump(\$e->getMessage());
+    }
+?>
+EOF
 	fi
 
 elif [ "$function" == "magento:fix-permissions" ]; then

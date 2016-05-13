@@ -141,6 +141,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:sync${GRAY}: Sync two folders using rsync through SSH \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
@@ -345,6 +346,7 @@ elif [ "$function" == "list:ssh" ]; then
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:sync${GRAY}: Sync two folders using rsync through SSH \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
@@ -1159,6 +1161,41 @@ elif [ "$function" == "ssh:download-folder" ]; then
 
 # Download remote database through SSH on current directory
 elif [ "$function" == "ssh:download-database" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+                # TODO: Create method to download database through SSH
+                echo ""
+				# printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				# scp -r $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the database name on the remote server to download"
+		echo "E.g.: mac ssh:download-database database-name"
+	fi
+
+
+# Sync two folders using rsync
+elif [ "$function" == "ssh:sync" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 

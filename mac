@@ -141,7 +141,8 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
-    printf "${LIGHTBLUE}mac ssh:sync${GRAY}: Sync two folders using rsync through SSH \n"
+    printf "${LIGHTBLUE}mac ssh:sync-local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH \n"
+    # TODO: Add ssh:sync-remote command
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
@@ -346,7 +347,7 @@ elif [ "$function" == "list:ssh" ]; then
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
-    printf "${LIGHTBLUE}mac ssh:sync${GRAY}: Sync two folders using rsync through SSH \n"
+    printf "${LIGHTBLUE}mac ssh:sync-local ${LIGHTGREEN}X${GRAY}:  Sync local folder with remote folder using rsync through SSH \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
@@ -548,7 +549,7 @@ elif [ "$function" == "folder:size" ]; then
 
 # List folders in current directory
 elif [ "$function" == "folders:list" ]; then
-	du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = sprintf( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
+  du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = sprintf( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
 
 # Remove empty subdirectories
 elif [ "$function" == "folders:remove-empty" ]; then
@@ -1195,7 +1196,7 @@ elif [ "$function" == "ssh:download-database" ]; then
 
 
 # Sync two folders using rsync
-elif [ "$function" == "ssh:sync" ]; then
+elif [ "$function" == "ssh:sync-local" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 
@@ -1210,11 +1211,17 @@ elif [ "$function" == "ssh:sync" ]; then
 
 			if [ ! -z "$username" -a "$username" != " " ]; then
 
-                # TODO: Create method to download database through SSH
-                echo ""
-				# printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
-				# scp -r $username@$ipaddress:$firstParameter .
+                echo "Please enter local folder to sync with the remove folder: "
 
+                read localfolder
+
+                if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
+                    printf "${GREEN}rsync -a --progress ${GRAY}${username}@${ipaddress}:${localfolder} ${firstparameter}${GREEN} .\n\n${NC}"
+                    rsync -a --progress ${username}@${ipaddress}:${localfolder} ${firstparameter}
+
+                else
+                    "Please specify the local folder to sync with the remote folder"
+                fi
 			else
 				"Please specify the username for the remote server"
 			fi
@@ -1224,8 +1231,8 @@ elif [ "$function" == "ssh:sync" ]; then
 		fi
 
 	else
-		echo "Please specify the database name on the remote server to download"
-		echo "E.g.: mac ssh:download-database database-name"
+		echo "Please specify the remote folder path to sync"
+		echo "E.g.: mac ssh:sync-remote /var/www/html/media/"
 	fi
 
 

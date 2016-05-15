@@ -1607,7 +1607,7 @@ elif [ "$function" == "magento:customer:create" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-	    # TODO: Add logic to create a customer with address and credit card information
+	    # TODO: Add logic to create a customer with address (IN PROGRESS: not working)
 	    $php << EOF
 <?php
     require_once 'app/Mage.php';
@@ -1635,6 +1635,33 @@ elif [ "$function" == "magento:customer:create" ]; then
     }
     catch (Exception \$e) {
         Zend_Debug::dump(\$e->getMessage());
+    }
+
+    \$customAddress = array (
+    'firstname' => 'Gabriel',
+    'lastname' => 'Guarino',
+    'street' => array (
+        '0' => '1 Infinite Loop'
+    ),
+    'city' => 'Cupertino',
+    'region_id' => '',
+    'region' => '',
+    'postcode' => '95014',
+    'country_id' => 'US',
+    'telephone' => '123-123-1234',
+    );
+    \$customAddress = Mage::getModel('customer/address')
+
+    \$customAddress->setData(\$customAddress)
+                ->setCustomerId(\$customer->getId())
+                ->setIsDefaultBilling('1')
+                ->setIsDefaultShipping('1')
+                ->setSaveInAddressBook('1');
+    try {
+        \$customAddress->save();
+    }
+    catch (Exception \$ex) {
+       Zend_Debug::dump(\$ex->getMessage());
     }
 ?>
 EOF

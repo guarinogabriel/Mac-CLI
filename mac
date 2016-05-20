@@ -141,8 +141,8 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
-    printf "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH \n"
-    printf "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder \n"
+    printf "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)\n"
+    printf "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder (upload local folder to remote folder) \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
@@ -347,8 +347,8 @@ elif [ "$function" == "list:ssh" ]; then
     printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
     printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
     printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
-    printf "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}:  Sync local folder with remote folder using rsync through SSH \n"
-    printf "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder \n"
+    printf "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)\n"
+    printf "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder (upload local folder to remote folder) \n"
     printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
     printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
@@ -1221,7 +1221,7 @@ elif [ "$function" == "ssh:sync:local" ]; then
 
 			if [ ! -z "$username" -a "$username" != " " ]; then
 
-                echo "Please enter local folder to sync with the remove folder: "
+                echo "Please enter local folder to sync with the remote folder: "
 
                 read localfolder
 

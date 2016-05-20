@@ -122,8 +122,8 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:download-database X`  | Download MySQL from remote server through SSH  |  X = Name of the database to download  |
-| `mac ssh:sync:local X`  | Sync two folders using SSH  |  X = Path of the remote folder to sync to local folder  |
-| `mac ssh:sync:remote X`  | Sync two folders using SSH  |  X = Path of the remote folder to sync from local folder  |
+| `mac ssh:sync:local X`  | Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)  |  X = Path of the remote folder to sync to local folder  |
+| `mac ssh:sync:remote X`  | Sync remote folder with local folder using rsync through SSH (upload local folder to remote folder)  |  X = Path of the remote folder to sync from local folder  |
 | `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
 | `mac ssh:public-key`  | Copy SSH Public Key  |  |
 | `mac ssh:list`  | List all the saved SSH credentials  |  |

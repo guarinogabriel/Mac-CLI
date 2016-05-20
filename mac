@@ -699,17 +699,16 @@ elif [ "$function" == "update" ]; then
 # Find text in current directory
 elif [ "$function" == "find:text" ]; then
 
-    echo "Please enter the extension to search (i.e.: csv): "
-
 	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
+        echo "Please enter the extension to search (i.e.: csv): "
 
 	    read extension
 
 		if [ ! -z "$extension" -a "$extension" != " " ]; then
 
-            echo "Recursively find '"$allParameters"' inside directory...\n"
+            printf "${GREEN}find . -iname '*.${GRAY}${extension}${GREEN}' | xargs grep -in --color '${GRAY}${allParameters}${GREEN}'${NC}"
+            echo "\nRecursively find '"$allParameters"' inside directory...\n"
             find . -iname "*.$extension" | xargs grep -in --color "$allParameters"
-            # COMMAND: find . -iname '*.csv' | xargs grep -in --color 'Mes Commandes'
 
 		else
             echo "Please introduce the extension of the files to search. E.g: csv\n"

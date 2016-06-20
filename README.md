@@ -27,6 +27,10 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
+| `mac help`  | Shows the help command  | |
+
+| Command  | Description | Arguments |
+| ------------- | ------------- | ------------- |
 | `mac list`  | List all available commands in mac script  | |
 | `mac list:general`  | List all general commands in mac script  | |
 | `mac list:search`  | List all search commands in mac script  | |

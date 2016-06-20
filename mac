@@ -2,9 +2,11 @@
 #####################################################################
 # mac - automation command line tools for OS X
 #####################################################################
-# Version: 0.1
+# Version: 0.2
 # Date: December 8, 2015
 # Author: Gabriel Guarino
+#
+# Contributor: Alex Newson
 #
 # Notes: Collection of useful functions to automate OS X common
 # tasks
@@ -71,7 +73,27 @@ function spinner()
 # mac script commands list - all commands
 #--------------------------------------------------------------------
 
-if [ "$function" == "list" ]; then
+if [ "$function" == "help" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}===================================\n"
+
+    printf "${LIGHTBLUE}mac list${GRAY}: List all available commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:general${GRAY}: List all general commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:search${GRAY}: List all search commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:network${GRAY}: List all network commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:lamp${GRAY}: List all LAMP commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:ssh${GRAY}: List all SSH commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:performance${GRAY}: List all performance commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:terminal${GRAY}: List all terminal commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:git${GRAY}: List all GIT commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:web${GRAY}: List all Web commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:brew${GRAY}: List all Homebrew commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:xcode${GRAY}: List all Xcode commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:magento${GRAY}: List all Magento commands in mac script\n"
+    printf "${LIGHTBLUE}mac list:apps${GRAY}: List executable all apps in mac script\n"
+
+elif [ "$function" == "list" ]; then
 
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}===================================\n"
@@ -181,7 +203,7 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
     printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-        printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
+    printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
     printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
 
@@ -1091,12 +1113,12 @@ elif [ "$function" == "php:info" ]; then
 elif [ "$function" == "battery:status" ]; then
 	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
-	
+
 # Get OS X version information
 elif [ "$function" == "info" ]; then
 	printf "${GREEN}sw_versf \n\n${NC}"
 	sw_versf
-	
+
 # Edit hosts file
 elif [ "$function" == "hosts:edit" ]; then
 	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
@@ -1559,15 +1581,15 @@ elif [ "$function" == "git:branch:remove-remote" ]; then
         echo "Please specify the name of the branch to remove"
         echo "E.g.: git:branch:remove-remote sample-branch"
     fi
-	
+
 # Check GIT settings
 elif [ "$function" == "git:settings" ]; then
 	git config --list
-	
+
 # Add removed files to staged files
 elif [ "$function" == "git:add-removed" ]; then
 	git add -u
-	
+
 # Remove GIT from current project
 elif [ "$function" == "git:remove" ]; then
 	find . -name '.git' -exec rm -rf {} \;
@@ -1766,7 +1788,7 @@ elif [ "$function" == "magento:order:create" ]; then
     // Get random product in stock
     \$collection = Mage::getModel('catalog/product')->getCollection();
     \$collection->addAttributeToFilter('status',1); //only enabled product
-    \$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+    \$collection->getSelect()->order(new Zend_Db_Expr( 'RAND()'));
     \$product = \$collection->setPage(1, 1)->getFirstItem();
     \$productInfo = array(
         \$product->getSku() => 1,
@@ -2080,6 +2102,9 @@ elif [ "$function" == "goodtask" ]; then
 	open -a GoodTask
 elif [ "$function" == "notes" ]; then
 	open -a Notes
+
+elif [ -z "$function" ]; then
+    echo "try ${LIGHTBLUE}mac help${GRAY}: Shows the help command"
 
 else
 	echo "\nCommand not found: "

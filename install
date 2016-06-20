@@ -1,0 +1,21 @@
+#!/bin/bash
+#####################################################################
+# mac - automation command line tools for OS X
+#####################################################################
+# Version: 0.2
+# Date: December 8, 2015
+# Author: Gabriel Guarino
+#
+# Contributor: Alex Newson
+#
+# Notes: Collection of useful functions to automate OS X common
+# tasks
+#
+#####################################################################
+cd $(dirname "$0")
+
+sudo cp -i mac /usr/local/bin
+
+echo "Install Complete"
+
+mac install:all

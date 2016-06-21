@@ -1,11 +1,16 @@
-# mac
-The ultimate tool to manage your Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
+# [![Application icon](https://github.com/guarinogabriel/mac-cli/raw/master/icon/icon.png)][icon]
+[icon]: https://github.com/guarinogabriel/mac-cli/raw/master/icon/icon.png
+
+![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
+
+# mac CLI
+The ultimate tool for developer to manage Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
-# Configuration
+### Configuration
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
 
-# Requirements
+### Requirements
 These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
 
 * Homebrew
@@ -14,7 +19,7 @@ These are the requirements to be able to run all the commands (all the dependenc
 * Pipe Viewer (pv)
 * Python
 
-# Integrated Projects
+### Integrated Projects
 The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running "mac install:all"):
 * Glances (https://github.com/nicolargo/glances)
 * speedtest-cli (https://github.com/sivel/speedtest-cli)
@@ -40,7 +45,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac list:brew`  | List all Homebrew commands in mac script  | |
 | `mac list:xcode`  | List all xCode commands in mac script  | |
 | `mac list:magento`  | List all Magento commands in mac script  | |
-| `mac list:apps`  | List all executable apps in mac script  | |
 
 ### General Commands
 
@@ -169,6 +173,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 | `mac dev:css:convert-to-scss`  | Convert CSS file to SCSS |
 
+
 ### Performance and maintenance Utilities
 
 | Command  | Description |
@@ -242,34 +247,3 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac magento:url-rewrites:enable`  | Enable Magento URL rewrites  |
 | `mac magento:url-rewrites:disable`  | Disable Magento URL rewrites  |
 | `mac magento2:install`  | Install Magento 2 in current folder  |
-
-
-### Executable Apps
-
-| Command  | Description |
-| ------------- | ------------- |
-| `mac firefox`  | Open Firefox  |
-| `mac chrome`  | Open Chrome  |
-| `mac safari`  | Open Safari  |
-| `mac phpstorm`  | Open PHPStorm  |
-| `mac mamp`  | Open MAMP  |
-| `mac filezilla`  | Open Filezilla  |
-| `mac gotomeeting`  | Open GoToMeeting  |
-| `mac xcode`  | Open Xcode  |
-| `mac snippetslab`  | Open SnippetsLab  |
-| `mac preview`  | Open Preview  |
-| `mac photoshop`  | Open Photoshop  |
-| `mac skype`  | Open Skype  |
-| `mac textedit`  | Open TextEdit  |
-| `mac sourcetree`  | Open SourceTree  |
-| `mac stree`  | Open current directory in SourceTree  |
-| `mac quiver`  | Open Quiver  |
-| `mac virtualbox`  | Open VirtualBox  |
-| `mac pixelmator`  | Open Pixelmator  |
-| `mac vlc`  | Open VLC  |
-| `mac kaleidoscope`  | Open Kaleidoscope  |
-| `mac mindnode`  | Open MindNode  |
-| `mac paw`  | Open Paw  |
-| `mac appstore`  | Open App Store  |
-| `mac goodtask`  | Open GoodTask  |
-| `mac notes`  | Open Notes  |

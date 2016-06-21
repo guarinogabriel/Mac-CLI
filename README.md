@@ -1,9 +1,7 @@
-# [![Application icon](https://github.com/guarinogabriel/mac-cli/raw/master/icon/icon.png)][icon]
-[icon]: https://github.com/guarinogabriel/mac-cli/raw/master/icon/icon.png
+# mac CLI
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
-# mac CLI
 The ultimate tool for developer to manage Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 

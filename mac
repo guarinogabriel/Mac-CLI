@@ -1,7 +1,8 @@
 #!/bin/sh
-#####################################################################
-# mac - automation command line tools for OS X
-#####################################################################
+##########################################################################
+# mac CLI (mac command line tool) - OS X command line tools for developers
+##########################################################################
+
 # Version: 0.1
 # Date: December 8, 2015
 # Author: Gabriel Guarino
@@ -9,7 +10,7 @@
 # Notes: Collection of useful functions to automate OS X common
 # tasks
 #
-#####################################################################
+##########################################################################
 
 #--------------------------------------------------------------------
 # Global Variables
@@ -73,8 +74,8 @@ function spinner()
 
 if [ "$function" == "list" ]; then
 
-    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
-    printf "${WHITEBOLD}===================================\n"
+    printf "\n${WHITEBOLD} mac CLI – OS X command line tools for developers\n"
+    printf "${WHITEBOLD}====================================================\n"
 
     printf "\n${WHITEBOLD}General Utilities: \n"
 
@@ -208,34 +209,6 @@ if [ "$function" == "list" ]; then
     printf "${LIGHTBLUE}mac magento:url-rewrite:enables${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
-
-
-    printf "\n\n${WHITEBOLD}Executable apps: \n"
-    printf "${LIGHTBLUE}mac firefox${GRAY}: Open Firefox \n"
-    printf "${LIGHTBLUE}mac chrome${GRAY}: Open Chrome \n"
-    printf "${LIGHTBLUE}mac safari${GRAY}: Open Safari \n"
-    printf "${LIGHTBLUE}mac phpstorm${GRAY}: Open PHPStorm \n"
-    printf "${LIGHTBLUE}mac mamp${GRAY}: Open MAMP \n"
-    printf "${LIGHTBLUE}mac filezilla${GRAY}: Open Filezilla \n"
-    printf "${LIGHTBLUE}mac gotomeeting${GRAY}: Open GoToMeeting \n"
-    printf "${LIGHTBLUE}mac xcode${GRAY}: Open Xcode \n"
-    printf "${LIGHTBLUE}mac snippetslab${GRAY}: Open SnippetsLab \n"
-    printf "${LIGHTBLUE}mac preview${GRAY}: Open Preview \n"
-    printf "${LIGHTBLUE}mac photoshop${GRAY}: Open Photoshop \n"
-    printf "${LIGHTBLUE}mac skype${GRAY}: Open Skype \n"
-    printf "${LIGHTBLUE}mac textedit${GRAY}: Open TextEdit \n"
-    printf "${LIGHTBLUE}mac sourcetree${GRAY}: Open SourceTree \n"
-    printf "${LIGHTBLUE}mac stree${GRAY}: Open current directory in SourceTree \n"
-    printf "${LIGHTBLUE}mac quiver${GRAY}: Open Quiver \n"
-    printf "${LIGHTBLUE}mac virtualbox${GRAY}: Open VirtualBox \n"
-    printf "${LIGHTBLUE}mac pixelmator${GRAY}: Open Pixelmator \n"
-    printf "${LIGHTBLUE}mac vlc${GRAY}: Open VLC \n"
-    printf "${LIGHTBLUE}mac kaleidoscope${GRAY}: Open Kaleidoscope \n"
-    printf "${LIGHTBLUE}mac mindnode${GRAY}: Open MindNode \n"
-    printf "${LIGHTBLUE}mac paw${GRAY}: Open Paw \n"
-    printf "${LIGHTBLUE}mac appstore${GRAY}: Open App Store \n"
-    printf "${LIGHTBLUE}mac goodtask${GRAY}: Open GoodTask \n"
-    printf "${LIGHTBLUE}mac notes${GRAY}: Open Notes \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - general commands
@@ -479,42 +452,6 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:url-rewrites:enable${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
-
-#--------------------------------------------------------------------
-# mac script commands list - apps commands
-#--------------------------------------------------------------------
-
-elif [ "$function" == "list:apps" ]; then
-
-    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
-    printf "${WHITEBOLD}==================================="
-
-    printf "\n\n${WHITEBOLD}Executable apps: \n"
-    printf "${LIGHTBLUE}mac firefox${GRAY}: Open Firefox \n"
-    printf "${LIGHTBLUE}mac chrome${GRAY}: Open Chrome \n"
-    printf "${LIGHTBLUE}mac safari${GRAY}: Open Safari \n"
-    printf "${LIGHTBLUE}mac phpstorm${GRAY}: Open PHPStorm \n"
-    printf "${LIGHTBLUE}mac mamp${GRAY}: Open MAMP \n"
-    printf "${LIGHTBLUE}mac filezilla${GRAY}: Open Filezilla \n"
-    printf "${LIGHTBLUE}mac gotomeeting${GRAY}: Open GoToMeeting \n"
-    printf "${LIGHTBLUE}mac xcode${GRAY}: Open Xcode \n"
-    printf "${LIGHTBLUE}mac snippetslab${GRAY}: Open SnippetsLab \n"
-    printf "${LIGHTBLUE}mac preview${GRAY}: Open Preview \n"
-    printf "${LIGHTBLUE}mac photoshop${GRAY}: Open Photoshop \n"
-    printf "${LIGHTBLUE}mac skype${GRAY}: Open Skype \n"
-    printf "${LIGHTBLUE}mac textedit${GRAY}: Open TextEdit \n"
-    printf "${LIGHTBLUE}mac sourcetree${GRAY}: Open SourceTree \n"
-    printf "${LIGHTBLUE}mac stree${GRAY}: Open current directory in SourceTree \n"
-    printf "${LIGHTBLUE}mac quiver${GRAY}: Open Quiver \n"
-    printf "${LIGHTBLUE}mac virtualbox${GRAY}: Open VirtualBox \n"
-    printf "${LIGHTBLUE}mac pixelmator${GRAY}: Open Pixelmator \n"
-    printf "${LIGHTBLUE}mac vlc${GRAY}: Open VLC \n"
-    printf "${LIGHTBLUE}mac kaleidoscope${GRAY}: Open Kaleidoscope \n"
-    printf "${LIGHTBLUE}mac mindnode${GRAY}: Open MindNode \n"
-    printf "${LIGHTBLUE}mac paw${GRAY}: Open Paw \n"
-    printf "${LIGHTBLUE}mac appstore${GRAY}: Open App Store \n"
-    printf "${LIGHTBLUE}mac goodtask${GRAY}: Open GoodTask \n"
-    printf "${LIGHTBLUE}mac notes${GRAY}: Open Notes \n"
 
 #--------------------------------------------------------------------
 # General Utilities
@@ -2024,62 +1961,6 @@ elif [ "$function" == "xcode:cleanup" ]; then
 # TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result
 
 # TODO: Add Google Search with parameters
-
-#--------------------------------------------------------------------
-# Executable apps
-#--------------------------------------------------------------------
-elif [ "$function" == "firefox" ]; then
-	open -a Firefox
-elif [ "$function" == "chrome" ]; then
-	open -a Google\ Chrome
-elif [ "$function" == "safari" ]; then
-	open -a Safari
-elif [ "$function" == "phpstorm" ]; then
-	open -a PHPStorm
-elif [ "$function" == "atom" ]; then
-	open -a Atom
-elif [ "$function" == "xcode" ]; then
-	open -a XCode
-elif [ "$function" == "mamp" ]; then
-	open /Applications/MAMP\ PRO/MAMP\ PRO.app/
-elif [ "$function" == "filezilla" ]; then
-	open -a Filezilla
-elif [ "$function" == "skype" ]; then
-	open -a Skype
-elif [ "$function" == "gotomeeting" ]; then
-	open -a GoToMeeting
-elif [ "$function" == "snippetslab" ]; then
-	open -a SnippetsLab
-elif [ "$function" == "preview" ]; then
-	open -a Preview
-elif [ "$function" == "photoshop" ]; then
-	open -a Adobe\ Photoshop\ CC\ 2015
-elif [ "$function" == "textedit" ]; then
-	open -a TextEdit
-elif [ "$function" == "sourcetree" ]; then
-	open -a SourceTree
-elif [ "$function" == "stree" ]; then
-	open -a SourceTree ./
-elif [ "$function" == "quiver" ]; then
-	open -a Quiver
-elif [ "$function" == "virtualbox" ]; then
-	open -a VirtualBox
-elif [ "$function" == "pixelmator" ]; then
-	open -a Pixelmator
-elif [ "$function" == "vlc" ]; then
-	open -a VLC
-elif [ "$function" == "kaleidoscope" ]; then
-	open -a Kaleidoscope
-elif [ "$function" == "mindnode" ]; then
-	open -a MindNode
-elif [ "$function" == "paw" ]; then
-	open -a Paw
-elif [ "$function" == "appstore" ]; then
-	open -a App\ Store
-elif [ "$function" == "goodtask" ]; then
-	open -a GoodTask
-elif [ "$function" == "notes" ]; then
-	open -a Notes
 
 else
 	echo "\nCommand not found: "

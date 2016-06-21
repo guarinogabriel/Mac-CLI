@@ -22,7 +22,7 @@ The following command will install the minimum required dependencies:
 The following command will install all the dependencies and integrated projects:
 > `sh mac install:all`
 
-3- Re-open your terminal client. You will be able to run all the commands listed below, for example:
+Re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`
 
 ---

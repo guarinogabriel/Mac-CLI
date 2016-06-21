@@ -1,4 +1,4 @@
-# mac CLI
+# Mac CLI
 
  OS X command line tools for developers
 

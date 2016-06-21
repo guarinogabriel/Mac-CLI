@@ -1,5 +1,7 @@
 # mac CLI
 
+OS X command line tool for developers
+
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
 The ultimate tool for developer to manage Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.

@@ -1,6 +1,6 @@
 # mac CLI
 
-OS X command line tool for developers
+ OS X command line tools for developers
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 

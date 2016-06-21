@@ -1,7 +1,7 @@
 #!/bin/sh
-##########################################################################
-# mac CLI (mac command line tool) - OS X command line tool for developers
-##########################################################################
+###########################################################################
+# mac CLI (mac command line tools) - OS X command line tools for developers
+###########################################################################
 
 # Version: 0.1
 # Date: December 8, 2015
@@ -10,7 +10,7 @@
 # Notes: Collection of useful functions to automate OS X common
 # tasks
 #
-##########################################################################
+###########################################################################
 
 #--------------------------------------------------------------------
 # Global Variables
@@ -182,7 +182,7 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
     printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
     printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
-        printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
+    printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
     printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
 
@@ -347,8 +347,8 @@ elif [ "$function" == "list:dev" ]; then
 
 elif [ "$function" == "list:performance" ]; then
 
-    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
-    printf "${WHITEBOLD}==================================="
+    printf "\n${WHITEBOLD} mac – OS X command line tools for developers\n"
+    printf "${WHITEBOLD}================================================"
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"

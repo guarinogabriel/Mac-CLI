@@ -72,7 +72,7 @@ function spinner()
 # mac script commands list - all commands
 #--------------------------------------------------------------------
 
-if [ "$function" == "list" ]; then
+if [[ "$function" == "list" || "$function" == "help" ]]; then
 
     printf "\n${WHITEBOLD} mac CLI – OS X command line tools for developers\n"
     printf "${WHITEBOLD}====================================================\n"
@@ -527,6 +527,8 @@ elif [ "$function" == "battery:status" ]; then
 
 # Install all mac script dependencies
 elif [ "$function" == "install" ]; then
+	echo "Copying script to local folder..."
+	cp mac /usr/local/bin/mac
 	echo "Installing homebrew..."
 	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -545,6 +547,8 @@ elif [ "$function" == "install" ]; then
 
 # Install all mac script dependencies and integrated projects
 elif [ "$function" == "install:all" ]; then
+    echo "Copying script to local folder..."
+	cp mac /usr/local/bin/mac
     echo "Installing homebrew..."
 	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

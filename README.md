@@ -7,20 +7,30 @@
 The ultimate tool for developer to manage Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
+---
+
 ### Installation in 2 Simple Steps
 
 1- Download command line tool to your local machine:
 > `wget https://github.com/guarinogabriel/mac-cli/blob/master/mac`
 
 2- Run the installer. There are 2 install options:
-> `sh mac install` – This command will install the minimum required dependencies
-> `sh mac install:all` – This command will install all the dependencies and integrated projects
+
+The following command will install the minimum required dependencies:
+> `sh mac install`
+
+The following command will install all the dependencies and integrated projects:
+> `sh mac install:all`
 
 3- Re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`
 
+---
+
 ### Configuration
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
+
+---
 
 ### Requirements
 These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
@@ -31,6 +41,8 @@ These are the requirements to be able to run all the commands (all the dependenc
 * Pipe Viewer (pv)
 * Python
 
+---
+
 ### Integrated Projects
 The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running `mac install:all`):
 * Glances (https://github.com/nicolargo/glances)
@@ -39,6 +51,8 @@ The following amazing projects have been integrated on the mac script (all the i
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
 * GIT-stats (https://github.com/IonicaBizau/git-stats)
 * Storm (https://github.com/emre/storm)
+
+---
 
 ### Commands List
 

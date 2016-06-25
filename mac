@@ -845,9 +845,14 @@ elif [ "$function" == "ports" ]; then
 
 # Get local IP address
 elif [ "$function" == "ip:local" ]; then
-	printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
-	echo "Your IP address is:"
-	ipconfig getifaddr en0
+	local_ip=$(ipconfig getifaddr en0)
+	if [ $? == 0 ]; then
+		printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
+	else
+		printf "${GREEN}ipconfig getifaddr en1\n\n${NC}"
+		local_ip=$(ipconfig getifaddr en1)
+	fi
+	printf "Your IP address is:\n${local_ip}\n"
 
 # Get public IP address
 elif [ "$function" == "ip:public" ]; then

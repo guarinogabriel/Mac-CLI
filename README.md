@@ -183,14 +183,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac hosts:edit`  | Edit hosts file  |  |
 
 
-### SSH Utilities
-
-| `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
-| `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
-| `mac ssh:upload X`  | Upload file to remote server through SSH  |  X = Path of the file to upload to the remote server  |
-| `mac ssh:public-key`  | Copy SSH Public Key  |  |
-
-
 ### Web Development Utilities
 
 | Command  | Description | Arguments |

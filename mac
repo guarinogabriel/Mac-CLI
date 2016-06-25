@@ -82,6 +82,7 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
     printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
+    printf "${LIGHTBLUE}mac lock${GRAY}: Lock\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
     printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
@@ -224,6 +225,7 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
     printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
     printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
+    printf "${LIGHTBLUE}mac lock${GRAY}: Lock\n"
     printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
     printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
     printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
@@ -456,6 +458,10 @@ elif [ "$function" == "list:magento" ]; then
 #--------------------------------------------------------------------
 # General Utilities
 #--------------------------------------------------------------------
+elif [ "$function" == "lock" ]; then
+    printf "${GREEN}/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend\n\n${NC}"
+    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+
 elif [ "$function" == "restart" ]; then
 	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
 	osascript -e 'tell app "loginwindow" to «event aevtrrst»'

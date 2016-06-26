@@ -1046,8 +1046,8 @@ elif [ "$function" == "battery:status" ]; then
 	
 # Get OS X version information
 elif [ "$function" == "info" ]; then
-	printf "${GREEN}sw_versf \n\n${NC}"
-	sw_versf
+	printf "${GREEN}sw_vers \n\n${NC}"
+	sw_vers
 	
 # Edit hosts file
 elif [ "$function" == "hosts:edit" ]; then

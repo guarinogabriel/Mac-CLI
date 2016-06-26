@@ -69,7 +69,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac list:git`  | List all GIT commands in mac script  | |
 | `mac list:web`  | List all Web commands in mac script  | |
 | `mac list:brew`  | List all Homebrew commands in mac script  | |
-| `mac list:xcode`  | List all xCode commands in mac script  | |
+| `mac list:xcode`  | List all Xcode commands in mac script  | |
 | `mac list:magento`  | List all Magento commands in mac script  | |
 
 ### General Commands
@@ -246,11 +246,11 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac brew:list`  | Get list of installed Homebrew packages  |
 
 
-### XCode Utilities
+### Xcode Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac xcode:cleanup`  | Cleanup XCode files to free up hard disk space  |
+| `mac xcode:cleanup`  | Cleanup Xcode files to free up hard disk space  |
 
 
 ### Magento Utilities

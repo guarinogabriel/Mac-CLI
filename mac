@@ -241,7 +241,7 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
     printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
     printf "${LIGHTBLUE}mac find:biggest-files ${LIGHTGREEN}X${GRAY}: Find biggest files inside directory\n"
-    printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files\n"
+    printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files in current directory and subcategories\n"
     printf "${LIGHTBLUE}mac find:biggest-directories ${LIGHTGREEN}X${GRAY}: Find biggest directories inside directory\n"
     printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
     printf "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress\n"
@@ -260,7 +260,7 @@ elif [ "$function" == "list:search" ]; then
 
     printf "\n\n${WHITEBOLD}Search Utilities: \n"
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
-    printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files\n"
+    printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files in current directory and subcategories\n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
 
 #--------------------------------------------------------------------
@@ -550,6 +550,9 @@ elif [ "$function" == "install" ]; then
 	echo "Installing Python..."
 	printf "${GREEN}brew install python\n${NC}"
 	brew install python
+	echo "Installing fdupes..."
+	printf "${GREEN}brew install fdupes\n\n${NC}"
+    brew install fdupes
 
 # Install all mac script dependencies and integrated projects
 elif [ "$function" == "install:all" ]; then
@@ -617,6 +620,9 @@ elif [ "$function" == "install:all" ]; then
 	echo "Installing storm (https://github.com/emre/storm)..."
 	printf "${GREEN}brew install stormssh\n${NC}"
 	brew install stormssh
+	echo "Installing fdupes..."
+	printf "${GREEN}brew install fdupes\n\n${NC}"
+    brew install fdupes
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
@@ -792,7 +798,20 @@ elif [ "$function" == "find:recent" ]; then
 
 # Find duplicated files
 elif [ "$function" == "find:duplicated" ]; then
-find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
+
+    # Check if fdupes is installed
+    if [ ! -f /usr/local/bin/fdupes ]; then
+        printf "${RED}fdupes not found ${NC}- ${GREEN}Installing dependency...\n\n${NC}"
+        printf "${GREEN}brew install fdupes\n\n${NC}"
+        brew install fdupes
+        echo "Searching for duplicated files in current directory and subdirectories..."
+        fdupes -r .
+
+    else
+        printf "${GREEN}fdupes -r .\n\n${NC}"
+        echo "Searching for duplicated files in current directory and subdirectories..."
+        fdupes -r .
+    fi
 
 #--------------------------------------------------------------------
 # Network Utilities

@@ -12,7 +12,7 @@ When you run a function, the executed command is displayed and that helps you me
 ### Installation in 2 Simple Steps
 
 1- Download command line tool to your local machine:
-> `git clone git@github.com:guarinogabriel/mac-cli.git && cd mac-cli`
+> `git clone https://github.com/guarinogabriel/mac-cli.git && cd mac-cli`
 
 2- Run the installer. There are 2 install options:
 

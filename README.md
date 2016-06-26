@@ -202,8 +202,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac trash:empty`  | Empty trash |
 | `mac trash:size`  | Calculate trash size |
 | `mac desktop:cleanup`  | Remove all files and directories from Desktop directory |
-| `mac downloads:cleanup`  | Remove all files and directories from Downloads
- directory |
+| `mac downloads:cleanup`  | Remove all files and directories from Downloads directory |
 
 
 ### iTerm / Terminal Utilities

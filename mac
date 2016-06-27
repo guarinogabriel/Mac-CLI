@@ -1338,9 +1338,8 @@ elif [ "$function" == "web:download-images" ]; then
 
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        mkdir downloaded-images && cd downloaded-images
         wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
-        # Remove empty subdirectories
-        find . -type d -empty -delete
 
     else
         echo "Please specify the full URL of the website to download the images"

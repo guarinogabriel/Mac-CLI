@@ -38,10 +38,10 @@ Update the shell script to match your local environment configuration. Global va
 These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
 
 * Homebrew
-* GIT
-* PyPA (pip)
-* Pipe Viewer (pv)
+* Git
 * Python
+* pip (Python package manager)
+* Pipe Viewer (pv)
 
 ---
 
@@ -52,7 +52,7 @@ The following amazing projects have been integrated on the mac script (all the i
 * speedtest-cli (https://github.com/sivel/speedtest-cli)
 * n98-magerun (https://github.com/netz98/n98-magerun)
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
-* GIT-stats (https://github.com/IonicaBizau/git-stats)
+* Git Stats (https://github.com/IonicaBizau/git-stats)
 * Storm (https://github.com/emre/storm)
 
 ---
@@ -69,7 +69,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac list:ssh`  | List all SSH commands in mac script  | |
 | `mac list:performance`  | List all performance commands in mac script  | |
 | `mac list:terminal`  | List all terminal commands in mac script  | |
-| `mac list:git`  | List all GIT commands in mac script  | |
+| `mac list:git`  | List all Git commands in mac script  | |
 | `mac list:web`  | List all Web commands in mac script  | |
 | `mac list:brew`  | List all Homebrew commands in mac script  | |
 | `mac list:xcode`  | List all Xcode commands in mac script  | |
@@ -217,7 +217,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac iterm:tab-title`  | Set title of current iTerm tab  |
 
 
-### GIT Utilities
+### Git Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
@@ -228,14 +228,14 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:undo-commit`  | Undo latest commit  |
 | `mac git:log`  | See latest commits IDs and titles for current branch  |
 | `mac git:branch`  | See all branches  |
-| `mac git:branch:rename`  | Rename GIT branch |
-| `mac git:branch:remove-local`  | Remove local GIT branch |
-| `mac git:branch:remove-remote`  | Remove local and remote GIT branch |
-| `mac git:remove`  | Remove GIT from current project  |
-| `mac git:settings`  | Check GIT settings  |
+| `mac git:branch:rename`  | Rename Git branch |
+| `mac git:branch:remove-local`  | Remove local Git branch |
+| `mac git:branch:remove-remote`  | Remove local and remote Git branch |
+| `mac git:remove`  | Remove Git from current project  |
+| `mac git:settings`  | Check Git settings  |
 | `mac git:add-removed`  | Add removed files to staged files  |
-| `mac git:size`  | Get size for current GIT directory  |
-| `mac github:streak`  | See current GIT contribution streak |
+| `mac git:size`  | Get size for current Git directory  |
+| `mac github:streak`  | See current Git contribution streak |
 
 ### Web Utilities
 

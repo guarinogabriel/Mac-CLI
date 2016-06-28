@@ -73,6 +73,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac list:web`  | List all Web commands in mac script  | |
 | `mac list:brew`  | List all Homebrew commands in mac script  | |
 | `mac list:xcode`  | List all Xcode commands in mac script  | |
+| `mac list:image`  | List all Image commands in mac script  | |
 | `mac list:magento`  | List all Magento commands in mac script  | |
 
 ### General Commands
@@ -236,7 +237,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:size`  | Get size for current GIT directory  |
 | `mac github:streak`  | See current GIT contribution streak |
 
-# Web Utilities
+### Web Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
@@ -254,6 +255,13 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description |
 | ------------- | ------------- |
 | `mac xcode:cleanup`  | Cleanup Xcode files to free up hard disk space  |
+
+
+### Image Utilities
+
+| Command  | Description | Arguments
+| ------------- | ------------- | ------------- |
+| `mac image:generate:mobile-app-icons X Y`  | Generate mobile app icons  | X = Original image file, Y = Output path |
 
 
 ### Magento Utilities

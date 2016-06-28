@@ -159,6 +159,7 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
+    printf "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -354,6 +355,7 @@ elif [ "$function" == "list:performance" ]; then
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
+    printf "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -623,6 +625,9 @@ elif [ "$function" == "install:all" ]; then
 	echo "Installing fdupes..."
 	printf "${GREEN}brew install fdupes\n\n${NC}"
     brew install fdupes
+	echo "Installing iStats..."
+	printf "${GREEN}sudo gem install iStats -n/usr/local/bin\n\n${NC}"
+    sudo gem install iStats -n/usr/local/bin
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
@@ -1375,10 +1380,27 @@ elif [ "$function" == "dev:css:convert-to-scss" ]; then
 # Performance and maintenance Utilities
 #--------------------------------------------------------------------
 
-# See memory usage sorted by memory consumption
+# Get overall system information
 elif [ "$function" == "system" ]; then
 	printf "${GREEN}glances \n\n${NC}"
 	glances
+
+# Show temperature, fan and battery statistics
+elif [ "$function" == "temp" ]; then
+    if [ ! -f /usr/local/bin/istats ]; then
+		read -r -p "Do you want to install the iStats utility? (https://github.com/Chris911/iStats) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				sudo gem install iStats -n/usr/local/bin
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		printf "${GREEN}istats all \n\n${NC}"
+	    istats all
+	fi
 
 # See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then

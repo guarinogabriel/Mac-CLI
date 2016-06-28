@@ -198,6 +198,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description |
 | ------------- | ------------- |
 | `mac system`  | Show system information to review mac performance  |
+| `mac temp`  | Show temperature, fan and battery statistics  |
 | `mac memory`  | See memory usage sorted by memory consumption  |
 | `mac trash:empty`  | Empty trash |
 | `mac trash:size`  | Calculate trash size |

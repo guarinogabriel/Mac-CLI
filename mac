@@ -1,69 +1,784 @@
-#!/bin/bash
-# mac - automation command line tools for OS X
+#!/bin/sh
+###########################################################################
+# mac CLI (mac command line tools) - OS X command line tools for developers
+###########################################################################
 
+# Version: 1.0
+# Date: December 8, 2015
+# Author: Gabriel Guarino
+#
+# Notes: Collection of useful functions to automate OS X common
+# tasks
+#
+###########################################################################
+
+#--------------------------------------------------------------------
+# Global Variables
+#--------------------------------------------------------------------
+mysql="/Applications/MAMP/Library/bin/mysql"
+mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
+mysql_user="root"
+mysql_password="root"
+mysqldump="/Applications/MAMP/Library/bin/mysqldump"
+dropbox_folder="/Volumes/Cloud/Dropbox/"
+php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
+php_cli="/usr/local/bin/php"
+phpmyadmin="http://localhost/phpMyAdmin/"
+github_email_account="guarinogabriel@gmail.com"
+github_username="guarinogabriel"
+
+#--------------------------------------------------------------------
+# Parameters
+#--------------------------------------------------------------------
 function=$1
+firstParameter=$2
+secondParameter=$3
+allParameters=${@:2}
 
-if [ "$function" == "restart" ]; then
-	echo "Restarting Mac in 3 seconds..."
-	sleep 3s
-	sudo shutdown -r now
+#--------------------------------------------------------------------
+# Colors
+#--------------------------------------------------------------------
+GREEN='\033[0;32m'
+GRAY='\033[0;37m'
+LIGHTBLUE='\033[1;34m'
+LIGHTGREEN='\033[1;32m'
+WHITEBOLD='\033[1;37m'
+RED='\033[1;31m'
+NC='\033[0m' # No Color
 
-elif [ "$function" == "apps" ]; then
+#--------------------------------------------------------------------
+# Utilities
+#--------------------------------------------------------------------
+
+# Is the user running commands in sudo?
+IS_SUDO=$(id -u)
+
+#--------------------------------------------------------------------
+# Functions
+#--------------------------------------------------------------------
+
+function spinner()
+{
+    local i sp n
+    sp='/-\|'
+    n=${#sp}
+    printf ' '
+    while sleep 0.1; do
+        printf "%s\b" "${sp:i++%n:1}"
+    done
+}
+
+#--------------------------------------------------------------------
+# mac script commands list - all commands
+#--------------------------------------------------------------------
+
+if [[ "$function" == "list" || "$function" == "help" ]]; then
+
+    printf "\n${WHITEBOLD} mac CLI – OS X command line tools for developers\n"
+    printf "${WHITEBOLD}====================================================\n"
+
+    printf "\n${WHITEBOLD}General Utilities: \n"
+
+    printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
+    printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
+    printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
+    printf "${LIGHTBLUE}mac lock${GRAY}: Lock\n"
+    printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
+    printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
+    printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
+    printf "${LIGHTBLUE}mac time${GRAY}: Show clock at top right position in Terminal/iTerm\n"
+    printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
+    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory with their current size\n"
+    printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
+    printf "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories\n"
+    printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
+    printf "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store\n"
+    printf "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks\n"
+    printf "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information\n"
+    printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
+    printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
+    printf "${LIGHTBLUE}mac find:biggest-files ${GRAY}: Find biggest files inside directory\n"
+    printf "${LIGHTBLUE}mac find:biggest-directories ${GRAY}: Find biggest directories inside directory\n"
+    printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
+    printf "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress\n"
+    printf "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract\n"
+    printf "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory\n"
+    printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
+
+
+    printf "\n\n${WHITEBOLD}Search Utilities: \n"
+    printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
+    printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
+
+
+    printf "\n\n${WHITEBOLD}Network Utilities: \n"
+    printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
+    printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
+    printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
+    printf "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address \n"
+    printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
+
+
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
+    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
+    printf "${LIGHTBLUE}mac mysql:cli${GRAY}: Start MySQL CLI with autocompletion and syntax higlighting \n"
+    printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
+    printf "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases\n"
+    printf "${LIGHTBLUE}mac mysql:export-all${GRAY}: Export all MySQL databases to individual files\n"
+    printf "${LIGHTBLUE}mac mysql:export ${LIGHTGREEN}X${GRAY}: Export MySQL database to current directory - X = database name \n"
+    printf "${LIGHTBLUE}mac mysql:import ${LIGHTGREEN}X${GRAY}: Import MySQL database - X = SQL file \n"
+    printf "${LIGHTBLUE}mac mysql:import-table ${LIGHTGREEN}X${GRAY}: Import single MySQL database table -   X = SQL file containing database table \n"
+    printf "${LIGHTBLUE}mac mysql:create ${LIGHTGREEN}X${GRAY}: Create MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mysql:drop ${LIGHTGREEN}X${GRAY}: Remove MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mysql:duplicate ${LIGHTGREEN}X${GRAY}: Duplicate MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
+    printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
+    printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
+
+
+    printf "\n\n${WHITEBOLD}SSH Utilities: \n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)\n"
+    printf "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder (upload local folder to remote folder) \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine \n"
+    printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
+
+
+    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
+    printf "${LIGHTBLUE}mac dev:monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac dev:compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass \n"
+    printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
+    printf "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS \n"
+
+
+    printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
+    printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
+    printf "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics \n"
+    printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
+    printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
+    printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
+    printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
+    printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
+
+
+    printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
+    printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
+
+
+    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
+    printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
+    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
+    printf "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch \n"
+    printf "${LIGHTBLUE}mac git:branches:date${GRAY}: Get last update date for all branches in current project \n"
+    printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
+    printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
+    printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
+    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename GIT branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local GIT branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
+    printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
+    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
+    printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
+    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
+
+
+    printf "\n\n${WHITEBOLD}Web Utilities: \n"
+    printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
+
+
+    printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
+    printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
+
+
+    printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
+    printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
+
+
+    printf "\n\n${WHITEBOLD}Magento Utilities: \n"
+    printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+    printf "${LIGHTBLUE}mac magento:customer:create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
+    printf "${LIGHTBLUE}mac magento:order:create${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:shell-script:create${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrite:enables${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - general commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:general" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n${WHITEBOLD}General Utilities: \n"
+
+    printf "${LIGHTBLUE}mac install${GRAY}: Install all mac script dependencies to be able to run all commands\n"
+    printf "${LIGHTBLUE}mac install:all${GRAY}: Install all mac script dependencies and integrated projects\n"
+    printf "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages\n"
+    printf "${LIGHTBLUE}mac lock${GRAY}: Lock\n"
+    printf "${LIGHTBLUE}mac restart${GRAY}: Restart OS X\n"
+    printf "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode\n"
+    printf "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown\n"
+    printf "${LIGHTBLUE}mac time${GRAY}: Show clock at top right position in Terminal/iTerm\n"
+    printf "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver\n"
+    printf "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory with their current size\n"
+    printf "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size\n"
+    printf "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories\n"
+    printf "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps\n"
+    printf "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store\n"
+    printf "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks\n"
+    printf "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information\n"
+    printf "${LIGHTBLUE}mac info${GRAY}: Get OS X version information\n"
+    printf "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string\n"
+    printf "${LIGHTBLUE}mac find:biggest-files ${LIGHTGREEN}X${GRAY}: Find biggest files inside directory\n"
+    printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files in current directory and subcategories\n"
+    printf "${LIGHTBLUE}mac find:biggest-directories ${LIGHTGREEN}X${GRAY}: Find biggest directories inside directory\n"
+    printf "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract\n"
+    printf "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress\n"
+    printf "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract\n"
+    printf "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory\n"
+    printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - search commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:search" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Search Utilities: \n"
+    printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
+    printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files in current directory and subcategories\n"
+    printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - network commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:network" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Network Utilities: \n"
+    printf "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test \n"
+    printf "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes \n"
+    printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
+    printf "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address \n"
+    printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
+
+
+#--------------------------------------------------------------------
+# mac script commands list - LAMP commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:lamp" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}LAMP Utilities: \n"
+    printf "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app \n"
+    printf "${LIGHTBLUE}mac mysql-cli${GRAY}: Start MySQL CLI with autocompletion and syntax higlighting \n"
+    printf "${LIGHTBLUE}mac phpmyadmin${GRAY}: Open PHPMyAdmin\n"
+    printf "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases\n"
+    printf "${LIGHTBLUE}mac mysql:export-all${GRAY}: Export all MySQL databases to individual files\n"
+    printf "${LIGHTBLUE}mac mysql:export ${LIGHTGREEN}X${GRAY}: Export MySQL database to current directory - X = database name \n"
+    printf "${LIGHTBLUE}mac mysql:import ${LIGHTGREEN}X${GRAY}: Import MySQL database - X = SQL file \n"
+    printf "${LIGHTBLUE}mac mysql:import-table ${LIGHTGREEN}X${GRAY}: Import single MySQL database table -   X = SQL file containing database table \n"
+    printf "${LIGHTBLUE}mac mysql:create ${LIGHTGREEN}X${GRAY}: Create MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mysql:drop ${LIGHTGREEN}X${GRAY}: Remove MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mysql:duplicate ${LIGHTGREEN}X${GRAY}: Duplicate MySQL database - X = Database name\n"
+    printf "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)\n"
+    printf "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location \n"
+    printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
+    printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
+
+
+#--------------------------------------------------------------------
+# mac script commands list - SSH commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:ssh" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}SSH Utilities: \n"
+    printf "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download \n"
+    printf "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download \n"
+    printf "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)\n"
+    printf "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder (upload local folder to remote folder) \n"
+    printf "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server \n"
+    printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
+    printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - web development commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:dev" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Web Development Utilities: \n"
+    printf "${LIGHTBLUE}mac monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor \n"
+    printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
+    printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
+    printf "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - performance commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:performance" ]; then
+
+    printf "\n${WHITEBOLD} mac – OS X command line tools for developers\n"
+    printf "${WHITEBOLD}================================================"
+
+    printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
+    printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
+    printf "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics \n"
+    printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
+    printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
+    printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
+    printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
+    printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - terminal commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:terminal" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
+    printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - GIT commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:git" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
+    printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
+    printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
+    printf "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch \n"
+    printf "${LIGHTBLUE}mac git:branches${GtRAY}: Get last update date for all branches in current project \n"
+    printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
+    printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
+    printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
+    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename GIT branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local GIT branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
+    printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
+    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
+    printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
+    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
+
+
+#--------------------------------------------------------------------
+# mac script commands list - web commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:web" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Web Utilities: \n"
+    printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - homebrew commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:brew" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
+    printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - xCode commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:xcode" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
+    printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - Magento commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:magento" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Magento Utilities: \n"
+    printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
+    printf "${LIGHTBLUE}mac magento:customer:create${GRAY}: Create Magento customer with sample address and sample credit card information \n"
+    printf "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories \n"
+    printf "${LIGHTBLUE}mac magento:order:create${GRAY}: Create sample order in Magento \n"
+    printf "${LIGHTBLUE}mac magento:shell-script:create${GRAY}: Create script in Magento shell folder to be run from command line \n"
+    printf "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrites:enable${GRAY}: Enable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
+    printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
+
+#--------------------------------------------------------------------
+# General Utilities
+#--------------------------------------------------------------------
+elif [ "$function" == "lock" ]; then
+    printf "${GREEN}/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend\n\n${NC}"
+    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+
+elif [ "$function" == "restart" ]; then
+	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
+	osascript -e 'tell app "loginwindow" to «event aevtrrst»'
+
+elif [ "$function" == "sleep" ]; then
+	printf "${GREEN}pmset sleepnow\n\n${NC}"
+	pmset sleepnow
+
+elif [ "$function" == "shutdown" ]; then
+	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
+	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
+
+elif [ "$function" == "time" ]; then
+	printf "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
+	while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &
+
+# Remove files older than X days in current folder
+elif [ "$function" == "files:remove-older" ]; then
+	printf "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
+	echo "Removing files older than "$firstParameter" days..."
+	find . -ctime +$firstParameter -print0 | xargs -0 -n1
+
+# Calculate folder size
+elif [ "$function" == "folder:size" ]; then
+	printf "${GREEN}du -sh .\n\n${NC}"
+	echo "Calculating folder size...\n"
+	echo "Folder size:"
+	du -sh .
+
+# List folders in current directory
+elif [ "$function" == "folders:list" ]; then
+  du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = sprintf( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
+
+# Remove empty subdirectories
+elif [ "$function" == "folders:remove-empty" ]; then
+	printf "${GREEN}find . -type d -empty -delete\n\n${NC}"
+	find . -type d -empty -delete
+
+# Close all opened apps
+elif [ "$function" = "apps:close-all" ]; then
+	printf "${GREEN}ignore='grep\|iTerm\|Finder\|Dropbox\|Bartender'\n${NC}"
+	printf "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
+	# To customize ignored apps, just put the keywords in $ignore
+	# To test which apps you are going to kill, run:
+	# ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
+	ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
+	ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
+
+# Get list of installed apps from the App Store
+elif [ "$function" == "apps:app-store" ]; then
+	printf "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
-elif [ "$function" == "speedtest" ]; then
-	echo "Testing internet connection speed..."
-	node "scripts/speed-test/node_modules/cli.js"
 
-elif [ "$function" == "php:syntax" ]; then
-	echo "Checking PHP syntax for all files in current location...\n"
-	find . -name \*.php -exec php -l "{}" \;
-
-elif [ "$function" == "firefox" ]; then
-	open -a Firefox
-elif [ "$function" == "chrome" ]; then
-	open -a Google\ Chrome
-elif [ "$function" == "safari" ]; then
-	open -a Safari
-elif [ "$function" == "phpstorm" ]; then
-	open -a PHPStorm
-elif [ "$function" == "xcode" ]; then
-	open -a XCode
-elif [ "$function" == "mamp" ]; then
-	open -a MAMP
-elif [ "$function" == "filezilla" ]; then
-	open -a Filezilla
-elif [ "$function" == "skype" ]; then
-	open -a Skype
-elif [ "$function" == "gotomeeting" ]; then
-	open -a GoToMeeting
-elif [ "$function" == "snippetslab" ]; then
-	open -a SnippetsLab
-elif [ "$function" == "preview" ]; then
-	open -a Preview
-elif [ "$function" == "photoshop" ]; then
-	open -a Adobe\ Photoshop\ CC\ 2015
-elif [ "$function" == "textedit" ]; then
-	open -a TextEdit
-elif [ "$function" == "sourcetree" ]; then
-	open -a SourceTree
-elif [ "$function" == "quiver" ]; then
-	open -a Quiver
-elif [ "$function" == "virtualbox" ]; then
-	open -a VirtualBox
-elif [ "$function" == "mysql" ]; then
-	open -a MySQL
-
+# Start screensaver
 elif [ "$function" == "screensaver" ]; then
-	open -a
+	printf "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
+	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
 
-# See memory usage ordered by memory consumption
-elif [ "$function" == "memory" ]; then
-	top -o MEM
+# Eject all mounted volumes and disk
+elif [ "$function" == "eject-all" ]; then
+	printf "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
+	osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
+
+# Get battery information
+elif [ "$function" == "battery:status" ]; then
+	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+
+# Install all mac script dependencies
+elif [ "$function" == "install" ]; then
+	echo "Copying script to local folder..."
+	cp mac /usr/local/bin/mac
+	echo "Installing homebrew..."
+	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	echo "Installing pip..."
+	printf "${GREEN}sudo easy_install pip\n${NC}"
+	sudo easy_install pip
+	echo "Installing GIT..."
+	printf "${GREEN}brew install git\n${NC}"
+	brew install git
+	echo "Installing pv (Pipe Viewer)..."
+	printf "${GREEN}brew install pv\n${NC}"
+	brew install pv
+	echo "Installing Python..."
+	printf "${GREEN}brew install python\n${NC}"
+	brew install python
+	echo "Installing fdupes..."
+	printf "${GREEN}brew install fdupes\n\n${NC}"
+    brew install fdupes
+
+# Install all mac script dependencies and integrated projects
+elif [ "$function" == "install:all" ]; then
+    echo "Copying script to local folder..."
+	cp mac /usr/local/bin/mac
+    echo "Installing homebrew..."
+	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	echo "Installing pip..."
+	printf "${GREEN}sudo easy_install pip\n${NC}"
+	sudo easy_install pip
+	echo "Installing GIT..."
+	printf "${GREEN}brew install git\n${NC}"
+	brew install git
+	echo "Installing pv (Pipe Viewer)..."
+	printf "${GREEN}brew install pv\n${NC}"
+	brew install pv
+	echo "Installing Python..."
+	printf "${GREEN}brew install python\n${NC}"
+	brew install python
+	mac install
+	echo "Installing mycli (MySQL CLI - https://github.com/dbcli/mycli)..."
+	printf "${GREEN}brew install mycli\n${NC}"
+	brew install mycli
+	echo "Installing Compass..."
+	printf "${GREEN}gem install compass\n${NC}"
+	gem install compass
+	echo "Installing Glances (https://github.com/nicolargo/glances)..."
+	printf "${GREEN}pip install glances\n${NC}"
+	pip install glances
+	echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
+	printf "${GREEN}pip install speedtest-cli\n${NC}"
+	pip install speedtest-cli
+	echo "Installing N98 Magerun (https://github.com/netz98/n98-magerun)..."
+	printf "${GREEN}wget https://files.magerun.net/n98-magerun.phar\n${NC}"
+	wget https://files.magerun.net/n98-magerun.phar
+	printf "${GREEN}chmod +x ./n98-magerun.phar\n${NC}"
+	chmod +x ./n98-magerun.phar
+	printf "${GREEN}sudo mv ./n98-magerun.phar /usr/local/bin/\n${NC}"
+	sudo mv ./n98-magerun.phar /usr/local/bin/
+	echo "Installing N98 Magerun 2 (https://github.com/netz98/n98-magerun2)..."
+	printf "${GREEN}wget https://files.magerun.net/n98-magerun2.phar\n${NC}"
+	wget https://files.magerun.net/n98-magerun2.phar
+	printf "${GREEN}chmod +x ./n98-magerun2.phar\n${NC}"
+	chmod +x ./n98-magerun2.phar
+	printf "${GREEN}sudo mv ./n98-magerun2.phar /usr/local/bin/\n${NC}"
+	sudo mv ./n98-magerun2.phar /usr/local/bin/
+	echo "Installing composer..."
+	printf "${GREEN}curl -sS https://getcomposer.org/installer | php\n${NC}"
+	curl -sS https://getcomposer.org/installer | php
+	printf "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
+	sudo mv composer.phar /usr/local/bin/
+	echo "Installing GIT cal (https://github.com/k4rthik/git-cal)..."
+	printf "${GREEN}brew install git-cal\n${NC}"
+	brew install git-cal
+	echo "Installing ImageOptim..."
+	printf "${GREEN}brew cask install --appdir="~/Applications" imageoptim --force\n${NC}"
+	brew cask install --appdir="~/Applications" imageoptim --force
+	echo "Installing ImageOptim-CLI (https://github.com/JamieMason/ImageOptim-CLI)..."
+	printf "${GREEN}npm install -g imageoptim-cli\n${NC}"
+	npm install -g imageoptim-cli
+	echo "Installing sass..."
+	printf "${GREEN}sudo gem install sass\n${NC}"
+	sudo gem install sass
+	echo "Installing storm (https://github.com/emre/storm)..."
+	printf "${GREEN}brew install stormssh\n${NC}"
+	brew install stormssh
+	echo "Installing fdupes..."
+	printf "${GREEN}brew install fdupes\n\n${NC}"
+    brew install fdupes
+	echo "Installing iStats..."
+	printf "${GREEN}sudo gem install iStats -n/usr/local/bin\n\n${NC}"
+    sudo gem install iStats -n/usr/local/bin
+
+# Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
+elif [ "$function" == "update" ]; then
+	echo "Updating OS X..."
+	printf "${GREEN}sudo softwareupdate -i -a;\n${NC}"
+	sudo softwareupdate -i -a;
+	echo "Updating Homebrew and its installed packages..."
+	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+	brew update; brew upgrade --all; brew cleanup;
+	echo "Updating npm and its installed packages..."
+	printf "${GREEN}npm install npm -g; npm update -g;\n${NC}"
+	npm install npm -g; npm update -g;
+	echo "Updating installed Ruby gems..."
+	printf "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
+	sudo gem update --system; sudo gem update
+	echo "Updating installed pip packages..."
+	printf "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+	echo "Updating N98-Magerun..."
+	printf "${GREEN}n98-magerun.phar self-update\n${NC}"
+	n98-magerun.phar self-update
+	echo "Updating N98-Magerun 2..."
+	printf "${GREEN}n98-magerun2.phar self-update\n${NC}"
+	n98-magerun2.phar self-update
+	echo "Your system has been successfully updated"
+
+# Find text in current directory
+elif [ "$function" == "find:text" ]; then
+
+	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
+        echo "Please enter the extension to search (i.e.: csv): "
+
+	    read extension
+
+		if [ ! -z "$extension" -a "$extension" != " " ]; then
+
+            printf "${GREEN}find . -iname '*.${GRAY}${extension}${GREEN}' | xargs grep -in --color '${GRAY}${allParameters}${GREEN}'${NC}"
+            echo "\nRecursively find '"$allParameters"' inside directory...\n"
+            find . -iname "*.$extension" | xargs grep -in --color "$allParameters"
+
+		else
+            echo "Please introduce the extension of the files to search. E.g: csv\n"
+		fi
+	else
+		echo "Please introduce text to search. E.g:\n"
+		echo "mac find:text Sample Search Text"
+	fi
+
+# Find biggest files in current directory
+elif [ "$function" == "find:biggest-files" ]; then
+    printf "${GREEN}find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
 
 
-	# TODO: Working on airplane mode (disable wi-fi and bluetooth)
+# Find biggest directories in current directory
+elif [ "$function" == "find:biggest-directories" ]; then
+    printf "${GREEN}find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
 
+# Extract Zip file
+elif [ "$function" == "zip:extract" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}unzip ${GRAY}${firstParameter}\n\n${NC}"
+		unzip $firstParameter
+	else
+		echo "Please specify the Zip file to extract.\n"
+		echo "E.g.: zip:extract sample_file.zip"
+	fi
+
+# Compress Gzip file
+elif [ "$function" == "gzip:compress" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}gzip ${GRAY}${firstParameter}\n\n${NC}"
+		gzip $firstParameter
+	else
+		echo "Please specify the file to compress.\n"
+		echo "E.g.: gzip:compress sample_file"
+	fi
+
+# Extract Gzip file
+elif [ "$function" == "gzip:extract" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}gzip -d ${GRAY}${firstParameter}\n\n${NC}"
+		gzip -d $firstParameter
+	else
+		echo "Please specify the Gzip file to extract.\n"
+		echo "E.g.: gzip:extract sample_file.gz"
+	fi
+
+# Extract tar file
+elif [ "$function" == "tar:extract" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		printf "${GREEN}tar -xvzf ${GRAY}${firstParameter}\n\n${NC}"
+		tar -xvzf $firstParameter
+	else
+		echo "Please specify the tar file to extract.\n"
+		echo "E.g.: tar:extract sample_file.tgz"
+	fi
+
+# Compress file/folder using TAR with progress indicator
+elif [ "$function" == "tar:compress" ]; then
+	echo "Please enter the filename to save the .tgz file: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read filename
+
+		if [ ! -z "$filename" -a "$filename" != " " ]; then
+			printf "${GREEN}tar -czf${GRAY}: ${firstParameter}${GREEN}  | (pv -p --timer --rate --bytes > '${GRAY}${filename}${GREEN}'.tgz)\n\n${NC}"
+			tar -czf - $firstParameter | (pv -p --timer --rate --bytes > "$filename".tgz)
+		else
+			"Please specify the file name"
+		fi
+	else
+		echo "Please specify the folder or directory to compress."
+		echo "E.g.: tar:compress foldername"
+	fi
+
+# Search and replace string on file
+elif [ "$function" == "search:replace" ]; then
+	echo "Please enter the string to search on the file:"
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read searchString
+
+		if [ ! -z "$searchString" -a "$searchString" != " " ]; then
+
+            echo "Please enter the string that will replace the search string:"
+            read replaceString
+
+            if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
+
+                printf "${GREEN}LC_CTYPE=C sed -i 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
+		        LC_CTYPE=C sed -i 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
+
+            else
+			    "Please specify the string to replace"
+		    fi
+
+		else
+			"Please specify the string to search"
+		fi
+	else
+		echo "Please specify the file to perform the search and replace operation"
+		echo "E.g.: search:replace /path/to/file.csv"
+	fi
+
+# TODO: Working on airplane mode (disable wi-fi and bluetooth)
 elif [ "$function" == "airplane-mode:on" ]; then
 	echo "Enabling airplane mode...\n"
 	 # networksetup -setairportpower airport off
@@ -77,13 +792,1234 @@ elif [ "$function" == "airplane-mode:off" ]; then
 	 # networksetup -setairportpower en1 on
 	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
 
-	# TODO: Empty trash
+#--------------------------------------------------------------------
+# Search Utilities
+#--------------------------------------------------------------------
+# Find files modified in the last N minutes
+elif [ "$function" == "find:recent" ]; then
+	echo "Searching for files modified in the last "$firstParameter" minutes..."
+	printf "${GREEN}sudo find / -mmin ${GRAY}${firstParameter}${GREEN} -type f\n\n${NC}"
+	sudo find / -mmin $firstParameter -type f
+
+# Find duplicated files
+elif [ "$function" == "find:duplicated" ]; then
+
+    # Check if fdupes is installed
+    if [ ! -f /usr/local/bin/fdupes ]; then
+        printf "${RED}fdupes not found ${NC}- ${GREEN}Installing dependency...\n\n${NC}"
+        printf "${GREEN}brew install fdupes\n\n${NC}"
+        brew install fdupes
+        echo "Searching for duplicated files in current directory and subdirectories..."
+        fdupes -r .
+
+    else
+        printf "${GREEN}fdupes -r .\n\n${NC}"
+        echo "Searching for duplicated files in current directory and subdirectories..."
+        fdupes -r .
+    fi
+
+#--------------------------------------------------------------------
+# Network Utilities
+#--------------------------------------------------------------------
+# Internet connection speed test
+elif [ "$function" == "speedtest" ]; then
+	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+		read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				npm install --global speed-test
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		echo "Testing internet connection speed..."
+		node "/usr/local/lib/node_modules/speed-test/cli.js"
+	fi
+
+# Run internet connection Speed Test each 5 minutes
+elif [ "$function" == "speedtest:infinite" ]; then
+	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+		read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				npm install --global speed-test
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		while true
+		do
+			title="\nTesting internet connection speed - "
+			title+=`date '+%Y-%m-%d %H:%M:%S'`
+			echo $title
+			node "/usr/local/lib/node_modules/speed-test/cli.js"
+			sleep 300
+		done
+	fi
+
+# List of used ports
+elif [ "$function" == "ports" ]; then
+	echo "Getting list of used ports..."
+	printf "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
+	sudo lsof -iTCP -sTCP:LISTEN -P
+
+# Get local IP address
+elif [ "$function" == "ip:local" ]; then
+	local_ip=$(ipconfig getifaddr en0)
+	if [ $? == 0 ]; then
+		printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
+	else
+		printf "${GREEN}ipconfig getifaddr en1\n\n${NC}"
+		local_ip=$(ipconfig getifaddr en1)
+	fi
+	printf "Your IP address is:\n${local_ip}\n"
+
+# Get public IP address
+elif [ "$function" == "ip:public" ]; then
+	printf "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
+	wget http://ipinfo.io/ip -qO -
+
+#--------------------------------------------------------------------
+# LAMP (Linux, Apache, MySQL, PHP)
+#--------------------------------------------------------------------
+
+## MySQL Utilities
+elif [ "$function" == "mysql" ]; then
+	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
+	open -a /Applications/Sequel\ Pro.app
+
+elif [ "$function" == "mysql:cli" ]; then
+	printf "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
+	mycli  -u$mysql_user -p$mysql_password -S /Applications/MAMP/tmp/mysql/mysql.sock
+
+elif [ "$function" == "mysql:export-all" ]; then
+	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+	${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql
+
+elif [ "$function" == "phpmyadmin" ]; then
+	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+	open $phpmyadmin
+
+# Export MySQL database
+elif [ "$function" == "mysql:dump" ]; then
+	echo "Please enter the filename to save the compressed database: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read filename
+
+		if [ ! -z "$filename" -a "$filename" != " " ]; then
+			printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
+			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
+		else
+			"Please specify the file name"
+		fi
+	else
+		echo "Please specify the database to export"
+		echo "E.g.: mysql:export database"
+	fi
+
+# List all MySQL databases
+elif [ "$function" == "mysql:list" ]; then
+    printf "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+    echo "show databases;" | ${mysql} -u${mysql_user} -p${mysql_password}
+
+# Import MySQL database
+elif [ "$function" == "mysql:import" ]; then
+	echo "Please enter the database name to import the selected SQL file: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read databasename
+
+		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+			pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
+		else
+			"Please specify the database name"
+		fi
+	else
+		echo "Please specify the SQL file to import"
+		echo "E.g.: mysql:import /path/to/file.sql"
+	fi
+
+# Export all MySQL databases
+elif [ "$function" == "mysql:dump-all" ]; then
+
+    databases=`$mysql -u"$mysql_user" -p"$mysql_password" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
+
+    for db in $databases; do
+        if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
+            echo "Dumping database: $db"
+            $mysqldump -u"$mysql_user" -p"$mysql_password" --databases $db > `date +%Y%m%d`.$db.sql
+        fi
+    done
+
+# Import single MySQL database table
+elif [ "$function" == "mysql:import-table" ]; then
+	echo "Please enter the name from the database containing the table to import: "
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read databasename
+
+		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u ${mysql_user} -D ${databasename}\n\n${NC}"
+			pv $firstParameter | $mysql -u $mysql_user -p -D $databasename
+		else
+			"Please specify the database name"
+		fi
+	else
+		echo "Please specify the SQL file containing the single table to import"
+		echo "E.g.: mysql:import /path/to/file.sql"
+	fi
+
+# Create MySQL database
+elif [ "$function" == "mysql:create" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+	else
+		echo "Please specify the name for the new database"
+		echo "E.g.: mysql:create database-name"
+	fi
+
+# Remove MySQL database
+elif [ "$function" == "mysql:drop" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+	else
+		echo "Please specify the name of the database to remove"
+		echo "E.g.: mysql:drop database-name"
+	fi
+
+# Duplicate MySQL database
+elif [ "$function" == "mysql:duplicate" ]; then
+
+    echo "Please enter the name for new table: "
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+		read databasename
+
+		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+			printf "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
+			mac mysql:create $databasename && $mysqldump -u${mysql_user} -p${mysql_password} $firstParameter | $mysql -u${mysql_user} -p${mysql_password} $databasename
+		else
+			"Please specify the database name"
+		fi
+	else
+		echo "Please specify the name of the database to duplicate"
+		echo "E.g.: mysql:remove database-name"
+	fi
+
+# Start MAMP Apache and MySQL
+elif [ "$function" == "mamp:start" ]; then
+    # Ask for password up-front
+    sudo -v
+    # Open MAMP
+    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+    # Start Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
+    # Start MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+
+# Start MAMP Apache and MySQL
+elif [ "$function" == "mamp:stop" ]; then
+    # Ask for password up-front
+    sudo -v
+    # Open MAMP
+    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+    # Stop Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
+    # Stop MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+
+# Restart MAMP Apache and MySQL
+elif [ "$function" == "mamp:restart" ]; then
+    # Ask for password up-front
+    sudo -v
+    # Open MAMP
+    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+    # Stop Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
+    # Stop MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+    # Start Apache
+    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
+    # Start MySQL
+    sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+
+# PHP Utilities
+elif [ "$function" == "php:syntax" ]; then
+	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
+	echo "Checking PHP syntax for all files in current location...\n"
+	find . -name \*.php -exec php -l "{}" \;
+
+elif [ "$function" == "php:info" ]; then
+	printf "${GREEN}$php -i\n\n${NC}"
+	$php -i
+
+# Get battery information
+elif [ "$function" == "battery:status" ]; then
+	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+	
+# Get OS X version information
+elif [ "$function" == "info" ]; then
+	printf "${GREEN}sw_vers \n\n${NC}"
+	sw_vers
+	
+# Edit hosts file
+elif [ "$function" == "hosts:edit" ]; then
+	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
+	sudo vi /private/etc/hosts
+
+#--------------------------------------------------------------------
+# SSH Utilities
+#--------------------------------------------------------------------
+
+# Download file through SSH on current folder
+elif [ "$function" == "ssh:download-file" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+				printf "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				scp $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the path to the file on the remote server to download"
+		echo "E.g.: /home/sample/file.jpg"
+	fi
+
+# Download entire folder through SSH on current directory
+elif [ "$function" == "ssh:download-folder" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+				printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				scp -r $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the path to the folder on the remote server to download"
+		echo "E.g.: /home/sample/folder/"
+	fi
+
+
+# Download remote database through SSH on current directory
+elif [ "$function" == "ssh:download-database" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+                # TODO: Create method to download database through SSH
+                echo ""
+				# printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+				# scp -r $username@$ipaddress:$firstParameter .
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the database name on the remote server to download"
+		echo "E.g.: mac ssh:download-database database-name"
+	fi
+
+
+elif [ "$function" == "ssh:sync:local" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+                echo "Please enter local folder to sync with the remote folder: "
+
+                read localfolder
+
+                if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
+                    printf "${GREEN}rsync -a --progress ${GRAY}${username}@${ipaddress}:${firstparameter} ${localfolder}${GREEN}\n\n${NC}"
+                    rsync -a --progress ${username}@${ipaddress}:${firstparameter} ${localfolder}
+
+                else
+                    "Please specify the local folder to sync with the remote folder"
+                fi
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the remote folder path to sync"
+		echo "E.g.: mac ssh:sync:remote /var/www/html/media/"
+	fi
 
 
 
+elif [ "$function" == "ssh:sync:remote" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+                echo "Please enter local folder to sync from the remove folder: "
+
+                read localfolder
+
+                if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
+                    printf "${GREEN}rsync -a ${localfolder} ${username}@${ipaddress}:${firstparameter}\n\n${NC}"
+                    rsync -a --progress ${localfolder} ${username}@${ipaddress}:${firstparameter}
+
+                else
+                    "Please specify the local folder to sync from the remote folder"
+                fi
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the remote folder path to sync"
+		echo "E.g.: mac ssh:sync:remote /var/www/html/media/"
+	fi
 
 
+
+# Upload file to remote server through SSH
+elif [ "$function" == "ssh:upload" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+		echo "Please enter the server IP address or domain: "
+
+		read ipaddress
+
+		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+			echo "Please enter username: "
+
+			read username
+
+			if [ ! -z "$username" -a "$username" != " " ]; then
+
+					echo "Please enter path on the remote server to upload the file: "
+
+					read remotePath
+
+					if [ ! -z "$remotePath" -a "$remotePath" != " " ]; then
+
+						printf "${GREEN}scp ${GRAY}${firstParameter} ${username}@${ipaddress}:${remotePath}${GREEN}\n\n${NC}"
+						scp $firstParameter $username@$ipaddress:$remotePath
+
+					else
+						"Please specify the path on the remote server to upload the file"
+					fi
+
+			else
+				"Please specify the username for the remote server"
+			fi
+
+		else
+			"Please specify the server IP address or domain"
+		fi
+
+	else
+		echo "Please specify the path to the file to upload to the remote server"
+		echo "E.g.: /user/example/documents/file.pdf"
+	fi
+
+# SSH key Utilities
+elif [ "$function" == "ssh:public-key" ]; then
+	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+	pbcopy < ~/.ssh/id_rsa.pub
+
+
+# List saved SSH credentials
+elif [ "$function" == "ssh:list" ]; then
+	printf "${GREEN}storm list \n\n${NC}"
+	storm list
+
+
+#--------------------------------------------------------------------
+# Web Development Utilities
+#--------------------------------------------------------------------
+
+elif [ "$function" == "dev:monitor" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}tail -f ${GRAY}${firstParameter}\n\n${NC}"
+        tail -f $firstParameter
+	else
+		echo "Please specify the file to monitor"
+		echo "E.g.: monitor /path/to/file.sql"
+	fi
+
+# Compile SCSS styles in current folder using compass
+elif [ "$function" == "dev:compass:compile" ]; then
+    printf "${GREEN}compass compile . \n\n${NC}"
+	compass compile .
+
+# Download all images from website to current directory
+elif [ "$function" == "web:download-images" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        mkdir downloaded-images && cd downloaded-images
+        wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
+
+    else
+        echo "Please specify the full URL of the website to download the images"
+        echo "E.g.: web:download-images http://example.com/sample-page"
+    fi
+
+# Get list of installed Homebrew packages
+elif [ "$function" == "dev:optimize-images" ]; then
+    echo "Optimizing all images in current directory and subdirectories...\n"
+    printf "${GREEN}imageoptim --directory .\n\n${NC}"
+    imageoptim --directory .
+
+# Convert CSS file to SCSS
+elif [ "$function" == "dev:css:convert-to-scss" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+        if [[ $firstParameter == *".css"* ]];  then
+            printf "${GREEN}cp ${GRAY}${firstParameter} ${firstParameter/css/scss}${GREEN} email-non-inline.scss && sass-convert --from css --to scss --in-place ${GRAY}${firstParameter/css/scss}'\n\n${NC}"
+            cp ${firstParameter} ${firstParameter/css/scss} && sass-convert --from css --to scss --in-place ${firstParameter/css/scss}
+        else
+            echo "The specified file is not a CSS file"
+            echo "Please specify the CSS file to convert"
+            echo "E.g.: dev:css:convert-to-scss styles.css"
+        fi
+
+    else
+        echo "Please specify the CSS file to convert"
+        echo "E.g.: dev:css:convert-to-scss styles.css"
+    fi
+
+#--------------------------------------------------------------------
+# Performance and maintenance Utilities
+#--------------------------------------------------------------------
+
+# Get overall system information
+elif [ "$function" == "system" ]; then
+	printf "${GREEN}glances \n\n${NC}"
+	glances
+
+# Show temperature, fan and battery statistics
+elif [ "$function" == "temp" ]; then
+    if [ ! -f /usr/local/bin/istats ]; then
+		read -r -p "Do you want to install the iStats utility? (https://github.com/Chris911/iStats) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				sudo gem install iStats -n/usr/local/bin
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		printf "${GREEN}istats all \n\n${NC}"
+	    istats all
+	fi
+
+# See memory usage sorted by memory consumption
+elif [ "$function" == "memory" ]; then
+	printf "${GREEN}top -o MEM \n\n${NC}"
+	top -o MEM
+
+# Empty trash
+elif [ "$function" == "trash:empty" ]; then
+	printf "${GREEN}sudo rm -rf ~/.Trash/* \n\n${NC}"
+	sudo rm -rf ~/.Trash/*
+
+# Calculate trash size
+elif [ "$function" == "trash:size" ]; then
+	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	echo "Trash size: \n"
+	du -sh ~/.Trash/
+
+# Remove all files and directories from Desktop directory
+elif [ "$function" == "desktop:cleanup" ]; then
+	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	echo "These are the files and directories that are currently located on Desktop: \n"
+	ls -lat ~/Desktop/
+	echo "\n=============================================\n"
+	read -r -p "Do you want to remove all the content from the Desktop directory? (Yes / No)" response
+    case $response in
+        [yY][eE][sS]|[yY])
+            rm -rf ~/Desktop/*
+            ;;
+        *)
+            exit
+            ;;
+    esac
+
+# Remove all files and directories from Downloads directory
+elif [ "$function" == "downloads:cleanup" ]; then
+	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	echo "These are the files and directories that are currently located on Downloads: \n"
+	ls -lat ~/Downloads/
+	echo "\n=============================================\n"
+	read -r -p "Do you want to remove all the content from the Downloads directory? (Yes / No)" response
+    case $response in
+        [yY][eE][sS]|[yY])
+            rm -rf ~/Downloads/*
+            ;;
+        *)
+            exit
+            ;;
+    esac
+
+#--------------------------------------------------------------------
+# iTerm Utilities
+#--------------------------------------------------------------------
+
+# Set title to current iTerm tab
+elif [ "$function" == "iterm:tab-title" ]; then
+    printf "${GREEN}echo -ne '\033]0;'${GRAY}${firstparameter}${GREEN}'\007'\n\n${NC}"
+	echo -ne '\033]0;'$allParameters'\007'
+	echo "Tab title updated"
+
+#--------------------------------------------------------------------
+# GIT Utilities
+#--------------------------------------------------------------------
+
+# Display local Git configuration
+elif [ "$function" == "git:config" ]; then
+    printf "${GREEN}git config --list\n\n${NC}"
+	git config --list
+
+# Open current Git repository on Github
+elif [ "$function" == "git:open" ]; then
+	giturl=$(git config --get remote.origin.url)
+      if [ "$giturl" == "" ]
+        then
+         echo "Not a git repository or no remote.origin.url set"
+         exit 1;
+      fi
+      giturl=${giturl/git\@github\.com\:/https://github.com/}
+      giturl=${giturl/\.git/\/}
+      branch="$(git symbolic-ref HEAD 2>/dev/null)" ||
+      branch="(unnamed branch)"     # detached HEAD
+      branch=${branch##refs/heads/}
+      giturl=$giturl
+      open $giturl
+
+# Create GIT branch based on current branch
+elif [ "$function" == "git:create:branch" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
+	    git checkout -b $firstParameter
+
+    else
+        echo "Please specify the name for the new branch"
+        echo "E.g.: git:create:branch sample-branch"
+    fi
+
+# Get last update date for all branches in current project
+elif [ "$function" == "git:branches" ]; then
+	git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+
+# Undo latest commit
+elif [ "$function" == "git:undo-commit" ]; then
+    printf "${GREEN}git reset --soft HEAD~\n\n${NC}"
+	git reset --soft HEAD~
+
+# See latest commits IDs and titles for current branch
+elif [ "$function" == "git:log" ]; then
+	git log --pretty=oneline
+
+# See all branches
+elif [ "$function" == "git:branch" ]; then
+	git branch -a
+
+# Rename GIT branch
+elif [ "$function" == "git:branch:rename" ]; then
+
+	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}git branch -m ${GRAY}$firstParameter\n\n${NC}"
+	    git branch -m $firstParameter
+
+    else
+        echo "Please specify the name of the branch to rename"
+        echo "E.g.: git:branch:rename sample-branch"
+    fi
+
+# Remove local GIT branch
+elif [ "$function" == "git:branch:remove-local" ]; then
+
+	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+	    git branch -d $firstParameter
+
+    else
+        echo "Please specify the name of the branch to remove"
+        echo "E.g.: git:branch:remove-local sample-branch"
+    fi
+
+# Remove local and remote GIT branch
+elif [ "$function" == "git:branch:remove-remote" ]; then
+
+	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        printf "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+	    git branch -d $firstParameter
+        printf "${GREEN}git push origin --delete ${GRAY}$firstParameter\n\n${NC}"
+	    git push origin --delete $firstParameter
+
+    else
+        echo "Please specify the name of the branch to remove"
+        echo "E.g.: git:branch:remove-remote sample-branch"
+    fi
+	
+# Check GIT settings
+elif [ "$function" == "git:settings" ]; then
+	git config --list
+	
+# Add removed files to staged files
+elif [ "$function" == "git:add-removed" ]; then
+	git add -u
+	
+# Remove GIT from current project
+elif [ "$function" == "git:remove" ]; then
+	find . -name '.git' -exec rm -rf {} \;
+
+# Open current GIT repository URL
+elif [ "$function" == "git:open" ]; then
+	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
+
+# Get size of current GIT repository
+elif [ "$function" == "git:size" ]; then
+	git bundle create tmp.bundle --all
+	printf "\n\nCurrent GIT repository size: \n"
+	du -sh tmp.bundle
+	rm tmp.bundle
+
+# See current GIT contribution streak
+elif [ "$function" == "github:streak" ]; then
+
+	if [ -d .git ]; then
+	    git-cal --author=$github_username
+	else
+	    echo "Error: The current directory is not a GIT repository"
+	fi
+
+#--------------------------------------------------------------------
+# Homebrew Utilities
+#--------------------------------------------------------------------
+
+# Get list of installed Homebrew packages
+elif [ "$function" == "brew:list" ]; then
+	brew list
+
+#--------------------------------------------------------------------
+# Magento Utilities
+#--------------------------------------------------------------------
+
+elif [ "$function" == "magento:version" ]; then
+
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+        php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+	fi
+
+# TODO: Finish magento:customer:create command (in progress creating customer address)
+elif [ "$function" == "magento:customer:create" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    $php << EOF
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    \$defaultStoreId = Mage::app()
+                        ->getWebsite()
+                        ->getDefaultGroup()
+                        ->getDefaultStoreId();
+    \$websiteId = Mage::getModel('core/store')->load(\$defaultStoreId)->getWebsiteId();
+
+    \$customer = Mage::getModel(\customer/customer\);
+    \$customer   ->setWebsiteId(\$websiteId)
+                ->setStore(\$defaultStoreId)
+                ->setFirstname('Gabriel')
+                ->setLastname('Guarino')
+                ->setEmail('guarinogabriel@gmail2.com')
+                ->setPassword('ABC123xyz');
+
+    try
+    {
+        \$customer->save();
+        echo "\nCustomer successfully created."
+    }
+    catch (Exception \$e) {
+        echo \$e->getMessage();
+    }
+
+    \$customAddress = array (
+        'firstname' => 'Gabriel',
+        'lastname' => 'Guarino',
+        'street' => array (
+            '0' => '1 Infinite Loop'
+        ),
+        'city' => 'Cupertino',
+        'region_id' => '',
+        'region' => '',
+        'postcode' => '95014',
+        'country_id' => 'US',
+        'telephone' => '123-123-1234',
+    );
+    \$customAddress = Mage::getModel('customer/address')
+
+    \$customAddress->setData(\$customAddress)
+                ->setCustomerId(\$customer->getId())
+                ->setIsDefaultBilling('1')
+                ->setIsDefaultShipping('1')
+                ->setSaveInAddressBook('1');
+    try {
+        \$customAddress->save();
+        echo "\nCustomer successfully created."
+    }
+    catch (Exception \$ex) {
+       echo \$ex->getMessage());
+    }
+?>
+EOF
+	fi
+
+elif [ "$function" == "magento:fix-permissions" ]; then
+    if [ ! -f app/Mage.php ]; then
+        printf "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+	    # Ask for the administrator password upfront
+        sudo -v
+
+        # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+        while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+	    if [ ${IS_SUDO} -eq 0 ]; then
+            find . -type f \-exec chmod 644 {} \;
+            find . -type d \-exec chmod 755 {} \;
+            find ./var -type d \-exec chmod 777 {} \;
+            find ./var -type f \-exec chmod 666 {} \;
+            find ./media -type d \-exec chmod 777 {} \;
+            find ./media -type f \-exec chmod 666 {} \;
+            chmod 777 ./app/etc
+            chmod 644 ./app/etc/*.xml
+        else
+            printf "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n"
+        fi
+
+	fi
+
+# Create sample order in Magento
+elif [ "$function" == "magento:order:create" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << EOF
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    // If the check money order method or the free shipping method are not enabled, then enable those methods and let the user know
+    \$needToRunAgain = false;
+
+    // Check if Check / Money Order payment method is enabled
+    \$checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
+
+    // If Check / Money Order is disabled, then enable it temporarely
+    if (!\$checkMoneyOrder)
+    {
+        Mage::getConfig()->saveConfig('payment/checkmo/active', '1');
+        \$needToRunAgain = true;
+    }
+
+    // Check if free shipping method is enabled
+    \$flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
+
+    // If flat rate shipping is disabled, then enable it temporarely
+    if (!\$flatRateShippingMethod)
+    {
+        Mage::getConfig()->saveConfig('carriers/flatrate/active', '1');
+        \$needToRunAgain = true;
+    }
+
+    if (\$needToRunAgain)
+    {
+        echo "IMPORTANT:\n";
+        echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.\n";
+        echo "Please disable those methods if you don't need them after creating the orders programmatically.\n\n";
+
+        \$commandOutput = shell_exec('mac magento:order:create');
+        echo "\$commandOutput";
+        return false;
+    }
+
+    \$customerInfo = array(
+        'email' => 'steve@apple.com',
+        'address' => array(
+                'firstname' => 'Steve',
+                'lastname' => 'Jobs',
+                'street' => '1 Infinite Loop',
+                'city' => 'Cupertino',
+                'postcode' => '95014',
+                'telephone' => '123-123-1234',
+                'country_id' => 'US',
+                'region_id' => 12, // id from directory_country_region table
+        )
+    );
+    // Get random product in stock
+    \$collection = Mage::getModel('catalog/product')->getCollection();
+    \$collection->addAttributeToFilter('status',1); //only enabled product
+    \$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+    \$product = \$collection->setPage(1, 1)->getFirstItem();
+    \$productInfo = array(
+        \$product->getSku() => 1,
+    );
+
+    echo 'The following order has been created: ' . createOrder(\$customerInfo, \$productInfo) . ".";
+
+    //----------------------
+    function createOrder(\$customerInfo, \$productInfo)
+    {
+        \$quote = Mage::getModel('sales/quote');
+        \$customer = Mage::getModel('customer/customer')
+                        ->setWebsiteId(1)
+                        ->loadByEmail(\$customerInfo['email']);
+
+        if (\$customer)
+        {
+            // for customer orders:
+            \$quote->assignCustomer(\$customer);
+        } else {
+            // for guest orders only:
+            \$quote->setCustomerEmail(\$customerInfo['email']);
+        }
+
+        foreach (\$productInfo as \$sku => \$qty)
+        {
+            // add product(s)
+            \$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', \$sku);
+            \$product = Mage::getModel('catalog/product')->load(\$_product->getId());
+            if(\$product){
+                \$buyInfo = array(
+                    'qty' => \$qty,
+                    // custom option id => value id
+                    // or
+                        // configurable attribute id => value id
+                );
+                \$quote->addProduct(\$product, new Varien_Object(\$buyInfo));
+            }
+        }
+
+        \$addressData = \$customerInfo['address'];
+        \$billingAddress = \$quote->getBillingAddress()->addData(\$addressData);
+        \$shippingAddress = \$quote->getShippingAddress()->addData(\$addressData);
+        \$shippingAddress->setCollectShippingRates(true)->collectShippingRates()
+                        ->setShippingMethod('flatrate_flatrate')
+                        ->setPaymentMethod('checkmo');
+        \$quote->getPayment()->importData(array('method' => 'checkmo'));
+        \$quote->collectTotals()->save();
+        \$service = Mage::getModel('sales/service_quote', \$quote);
+        \$service->submitAll();
+        \$order = \$service->getOrder();
+
+        return \$order->getIncrementId();
+    }
+?>
+EOF
+	fi
+
+# Create shell script in Magento
+elif [ "$function" == "magento:shell-script:create" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+
+        echo "Please enter the name for the shell file: "
+        read shellfile
+
+        if [ ! -z "$shellfile" -a "$shellfile" != " " ]; then
+
+cat <<EOF >> shell/$shellfile.php
+<?php
+/**
+ * Shell script description
+ *
+ * @copyright      Copyright (c) 2016
+ * @author         Gabriel Guarino | gabrielguarino.com
+ *
+ */
+
+require_once 'abstract.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+umask(0);
+
+class Project_Shell_$shellfile extends Mage_Shell_Abstract
+{
+    public function run()
+    {
+        // Custom code
+        echo 'It works!';
+    }
+
+}
+
+\$shell = new Project_Shell_$shellfile();
+\$shell->run();
+EOF
+
+            echo "The following shell script has been created: shell/${shellfile}.php"
+
+        else
+            "Please specify the filename for the shell script"
+        fi
+   fi
+
+# Create gitignore file for Magento project
+elif [ "$function" == "magento:gitignore:create" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+
+cat <<EOF >> .gitignore
+/html
+/media/
+/var/
+/includes/src/
+/app/etc/local.xml
+.sass-cache/
+.idea/
+.phpstorm.meta.php
+.DS_Store
+sitemap.xml
+*_sitemap.xml
+iworx-backup
+/skin/frontend/rwd/*/.sass-cache/
+/skin/frontend/rwd/*/css/*
+EOF
+            echo "The gitignore file has been created."
+
+   fi
+
+# Enable Magento URL rewrites
+elif [ "$function" == "magento:url-rewrites:enable" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << EOF
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
+?>
+EOF
+    printf "${LIGHTGREEN}The URL rewrites have been enabled\n"
+	fi
+
+# Disable Magento URL rewrites
+elif [ "$function" == "magento:url-rewrites:disable" ]; then
+    if [ ! -f app/Mage.php ]; then
+        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+	else
+		$php << EOF
+<?php
+    require_once 'app/Mage.php';
+    ini_set('display_errors', 1);
+    Mage::app();
+    Mage::setIsDeveloperMode(true);
+
+    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
+?>
+EOF
+    printf "${RED}The URL rewrites have been disabled\n"
+	fi
+
+# Install Magento 2 in current folder
+elif [ "$function" == "magento2:install" ]; then
+    n98-magerun2.phar install
+
+#--------------------------------------------------------------------
+# XCode Utilities
+#--------------------------------------------------------------------
+
+elif [ "$function" == "xcode:cleanup" ]; then
+
+	echo "========== Cleanup start =========="
+
+	# define paths
+	archivesPath="/Library/Developer/Xcode/Archives"
+	derivedDataPath="/Library/Developer/Xcode/DerivedData"
+	oldDeviceInfoPath="/Library/Developer/Xcode/iOS DeviceSupport"
+	simulatorApplicationRootPath="/Library/Application Support/iPhone Simulator/"
+	USER_HOME=$(eval echo ~${SUDO_USER})
+
+	paths=( "$archivesPath" "$derivedDataPath" "$oldDeviceInfoPath" )
+	msgs=( "Archives" "DerivedData" "Old device information" )
+	pathsLength=${#paths[@]}
+
+	# Clean up developer folder
+	# loop through predefined paths
+	for (( i=0; i<${pathsLength}; i++ ));
+	do
+	  CMD="sudo rm -rf "$USER_HOME${paths[$i]}"/*"
+	  $CMD
+	  echo ${msgs[$i]}" cleared"
+	done
+
+	# Clean up iOS Simulator
+	ignoreFolders=("Applications" "Containers" "Library" "Root" "User" "tmpspace")
+	versionMarker="."
+
+	rootPathIdx=$((${#USER_HOME} + ${#simulatorApplicationRootPath}))
+	for folderPath in "$USER_HOME$simulatorApplicationRootPath"*
+	do
+		length=${#folderPath}
+		folderName=${folderPath:$rootPathIdx:$((length - rootPathIdx))}
+
+		# Find folder in ~/Library/Application Support/iPhone Simulator/ with "." (assuming it is simulator version) and not in ignored list
+		if [[ "${ignoreFolders[*]}" != *$folderName* && $folderName == *$versionMarker* ]]; then
+
+			# Check if Applications folder exists
+			if [ -d "$folderPath/Applications" ]; then
+				echo 'iOS Simulator version '$folderName' with applications installed, now cleared'
+				tmpFolderPath="${folderPath// /*}"
+				CMD="sudo rm -rf "$tmpFolderPath"/Applications"
+				$CMD
+			fi
+
+			# Check if tmp folder exists
+			if [ -d "$folderPath/tmp" ]; then
+
+				# Check tmp files in folder with special prefixs (say ghostlyIcons.xqwj3qwb2)
+				tmpFolderPath="${folderPath// /*}"
+				hasTmpFiles=false
+				for ext in "ghostlyIcons" "gridImages" "iconImages" "iconLabels_gray"
+				do
+					fileCheckPath="$tmpFolderPath/tmp/$ext.*"
+					if (ls $fileCheckPath > /dev/null 2>&1)
+					then
+					  CMD="sudo rm -rf "$tmpFolderPath"/tmp/$ext.*"
+					  $CMD
+					  hasTmpFiles=true
+					fi
+				done
+
+				if ($hasTmpFiles); then
+					echo 'iOS Simulator version '$folderName' tmp files cleared'
+				fi
+			fi
+		fi
+
+	done
+
+	echo "========== Cleanup ended =========="
+	echo "Suggest you to restart your xcode"
+	echo "========== Have a nice day =========="
+
+#--------------------------------------------------------------------
+# Online search Utilities
+#--------------------------------------------------------------------
+
+# TODO: Add "Feeling Lucky" Google Search with parameters to quickly access first result
+
+# TODO: Add Google Search with parameters
 
 else
-	echo "Command not found"
+	echo "\nCommand not found: "
+	echo "$function"
+	echo "\nParameters: "
+	echo "$allParameters"
 fi

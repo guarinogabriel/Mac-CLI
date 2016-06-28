@@ -237,7 +237,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:size`  | Get size for current GIT directory  |
 | `mac github:streak`  | See current GIT contribution streak |
 
-# Web Utilities
+### Web Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |

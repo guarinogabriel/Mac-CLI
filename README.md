@@ -39,9 +39,9 @@ These are the requirements to be able to run all the commands (all the dependenc
 
 * Homebrew
 * GIT
-* PyPA (pip)
-* Pipe Viewer (pv)
 * Python
+* pip (Python package manager)
+* Pipe Viewer (pv)
 
 ---
 

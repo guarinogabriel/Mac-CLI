@@ -40,7 +40,6 @@ These are the requirements to be able to run all the commands (all the dependenc
 * Homebrew
 * Git
 * Python
-* pip (Python package manager)
 * Pipe Viewer (pv)
 
 ---

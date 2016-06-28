@@ -4,7 +4,7 @@
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
-The ultimate tool for developer to manage Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
+The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your OS X system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
 ---
@@ -28,11 +28,13 @@ Re-open your terminal client. You will be able to run all the commands listed be
 ---
 
 ### Configuration
+
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
 
 ---
 
 ### Requirements
+
 These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
 
 * Homebrew
@@ -44,6 +46,7 @@ These are the requirements to be able to run all the commands (all the dependenc
 ---
 
 ### Integrated Projects
+
 The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running `mac install:all`):
 * Glances (https://github.com/nicolargo/glances)
 * speedtest-cli (https://github.com/sivel/speedtest-cli)
@@ -187,7 +190,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac dev:monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
+| `mac dev:monitor X`  | Monitor file changes (for example: log files)  |  X = File to monitor  |
 | `mac dev:compass:compile`  | Compile current folder using compass  | |
 | `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 | `mac dev:css:convert-to-scss`  | Convert CSS file to SCSS |
@@ -210,7 +213,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac iterm:tab-title`  | Set title to current iTerm tab  |
+| `mac iterm:tab-title`  | Set title of current iTerm tab  |
 
 
 ### GIT Utilities
@@ -243,7 +246,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac brew:list`  | Get list of installed Homebrew packages  |
+| `mac brew:list`  | Get a list of installed Homebrew packages  |
 
 
 ### Xcode Utilities

@@ -541,8 +541,12 @@ elif [ "$function" == "install" ]; then
 	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	echo "Installing pip..."
-	printf "${GREEN}sudo easy_install pip\n${NC}"
-	sudo easy_install pip
+	printf "${GREEN}curl https://bootstrap.pypa.io/get-pip.py > get-pip.py\n${NC}"
+	curl https://bootstrap.pypa.io/get-pip.py > get-pip.py
+	printf "${GREEN}sudo python get-pip.py\n${NC}"
+	sudo python get-pip.py
+	# Clean up (unannounced)
+	rm get-pip.py
 	echo "Installing Git..."
 	printf "${GREEN}brew install git\n${NC}"
 	brew install git

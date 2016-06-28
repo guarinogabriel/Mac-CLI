@@ -200,6 +200,10 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
+	
+	printf "\n\n${WHITEBOLD}Image Utilities: \n"
+	printf "${LIGHTBLUE}mac image:generate:mobile-app-icons ${LIGHTGREEN}X Y${GRAY}: Generate mobile app icons - X = Path of the original image file, Y= Path of the output file path \n"
+
 
     printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
@@ -436,6 +440,18 @@ elif [ "$function" == "list:xcode" ]; then
 
     printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
+
+#--------------------------------------------------------------------
+# mac script commands list - Image commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:image" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Image Utilities: \n"
+	printf "${LIGHTBLUE}mac image:generate:mobile-app-icons ${LIGHTGREEN}X Y${GRAY}: Generate mobile app icons - X = Path of the original image file, Y= Path of the output file path \n"
 
 #--------------------------------------------------------------------
 # mac script commands list - Magento commands
@@ -2008,6 +2024,32 @@ elif [ "$function" == "xcode:cleanup" ]; then
 	echo "========== Cleanup ended =========="
 	echo "Suggest you to restart your xcode"
 	echo "========== Have a nice day =========="
+
+#--------------------------------------------------------------------
+# Image Utilities
+#--------------------------------------------------------------------
+
+elif [ "$function" == "image:generate:mobile-app-icons" ]; then
+	# iOS and OSX Icon
+	sips -Z 512 $firstParameter --out mac/icon512.png
+
+	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x.png
+	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-1.png
+	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-2.png
+	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x.png
+	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-1.png
+	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-2.png
+
+	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x.png
+	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-1.png
+	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-2.png
+
+	sips -Z 76 $firstParameter --out $secondParameter/Icon-76.png
+	sips -Z 76 $firstParameter --out $secondParameter/Icon-77.png
+	sips -Z 76 $firstParameter --out $secondParameter/Icon-78.png
+
+	# Android Icon
+	sips -Z 128 $firstParameter --out $secondParameter/Icon-128.png
 
 #--------------------------------------------------------------------
 # Online search Utilities

@@ -257,7 +257,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac xcode:cleanup`  | Cleanup Xcode files to free up hard disk space  |
 
 
-### Xcode Utilities
+### Image Utilities
 
 | Command  | Description | Arguments
 | ------------- | ------------- | ------------- |

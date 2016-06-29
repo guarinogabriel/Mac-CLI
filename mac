@@ -216,6 +216,8 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - general commands
 #--------------------------------------------------------------------
@@ -254,6 +256,8 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory\n"
     printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - search commands
 #--------------------------------------------------------------------
@@ -267,6 +271,8 @@ elif [ "$function" == "list:search" ]; then
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
     printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files in current directory and subcategories\n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - network commands
@@ -283,6 +289,8 @@ elif [ "$function" == "list:network" ]; then
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
     printf "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address \n"
     printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
+
+    printf "${NC}\n"
 
 
 #--------------------------------------------------------------------
@@ -313,6 +321,8 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
 
+    printf "${NC}\n"
+
 
 #--------------------------------------------------------------------
 # mac script commands list - SSH commands
@@ -333,6 +343,8 @@ elif [ "$function" == "list:ssh" ]; then
     printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - web development commands
 #--------------------------------------------------------------------
@@ -347,6 +359,8 @@ elif [ "$function" == "list:dev" ]; then
     printf "${LIGHTBLUE}mac compass:compile ${LIGHTGREEN}X${GRAY}: Compile current folder using compass"
     printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
     printf "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
@@ -366,6 +380,8 @@ elif [ "$function" == "list:performance" ]; then
     printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
     printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - terminal commands
 #--------------------------------------------------------------------
@@ -377,6 +393,8 @@ elif [ "$function" == "list:terminal" ]; then
 
     printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - Git commands
@@ -404,6 +422,8 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current Git repository \n"
     printf "${LIGHTBLUE}mac github:streak${GRAY}: See current Git contribution streak \n"
 
+    printf "${NC}\n"
+
 
 #--------------------------------------------------------------------
 # mac script commands list - web commands
@@ -417,6 +437,8 @@ elif [ "$function" == "list:web" ]; then
     printf "\n\n${WHITEBOLD}Web Utilities: \n"
     printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - homebrew commands
 #--------------------------------------------------------------------
@@ -428,6 +450,8 @@ elif [ "$function" == "list:brew" ]; then
 
     printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - xCode commands
@@ -441,6 +465,8 @@ elif [ "$function" == "list:xcode" ]; then
     printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - Image commands
 #--------------------------------------------------------------------
@@ -452,6 +478,8 @@ elif [ "$function" == "list:image" ]; then
 
     printf "\n\n${WHITEBOLD}Image Utilities: \n"
 	printf "${LIGHTBLUE}mac image:generate:mobile-app-icons ${LIGHTGREEN}X Y${GRAY}: Generate mobile app icons - X = Path of the original image file, Y= Path of the output file path \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - Magento commands
@@ -472,6 +500,8 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:url-rewrites:enable${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # General Utilities
@@ -1683,7 +1713,7 @@ EOF
 
 elif [ "$function" == "magento:fix-permissions" ]; then
     if [ ! -f app/Mage.php ]; then
-        printf "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+        printf "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project.\n\n${NC}"
 	else
 	    # Ask for the administrator password upfront
         sudo -v
@@ -1701,7 +1731,7 @@ elif [ "$function" == "magento:fix-permissions" ]; then
             chmod 777 ./app/etc
             chmod 644 ./app/etc/*.xml
         else
-            printf "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n"
+            printf "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n\n${NC}"
         fi
 
 	fi
@@ -1916,7 +1946,7 @@ elif [ "$function" == "magento:url-rewrites:enable" ]; then
     Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
 ?>
 EOF
-    printf "${LIGHTGREEN}The URL rewrites have been enabled\n"
+    printf "${LIGHTGREEN}The URL rewrites have been enabled\n\n${NC}"
 	fi
 
 # Disable Magento URL rewrites
@@ -1934,7 +1964,7 @@ elif [ "$function" == "magento:url-rewrites:disable" ]; then
     Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
 ?>
 EOF
-    printf "${RED}The URL rewrites have been disabled\n"
+    printf "${RED}The URL rewrites have been disabled\n\n${NC}"
 	fi
 
 # Install Magento 2 in current folder

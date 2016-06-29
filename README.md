@@ -4,7 +4,7 @@
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
-The ultimate tool for developer to manage Mac. It provides a huge set of command line commands that automatize the usage of your OS X system.
+The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your OS X system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
 ---
@@ -28,28 +28,30 @@ Re-open your terminal client. You will be able to run all the commands listed be
 ---
 
 ### Configuration
+
 Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
 
 ---
 
 ### Requirements
+
 These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
 
 * Homebrew
-* GIT
-* PyPA (pip)
-* Pipe Viewer (pv)
+* Git
 * Python
+* Pipe Viewer (pv)
 
 ---
 
 ### Integrated Projects
+
 The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running `mac install:all`):
 * Glances (https://github.com/nicolargo/glances)
 * speedtest-cli (https://github.com/sivel/speedtest-cli)
 * n98-magerun (https://github.com/netz98/n98-magerun)
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
-* GIT-stats (https://github.com/IonicaBizau/git-stats)
+* Git Stats (https://github.com/IonicaBizau/git-stats)
 * Storm (https://github.com/emre/storm)
 
 ---
@@ -66,10 +68,11 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac list:ssh`  | List all SSH commands in mac script  | |
 | `mac list:performance`  | List all performance commands in mac script  | |
 | `mac list:terminal`  | List all terminal commands in mac script  | |
-| `mac list:git`  | List all GIT commands in mac script  | |
+| `mac list:git`  | List all Git commands in mac script  | |
 | `mac list:web`  | List all Web commands in mac script  | |
 | `mac list:brew`  | List all Homebrew commands in mac script  | |
 | `mac list:xcode`  | List all Xcode commands in mac script  | |
+| `mac list:image`  | List all Image commands in mac script  | |
 | `mac list:magento`  | List all Magento commands in mac script  | |
 
 ### General Commands
@@ -187,7 +190,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac dev:monitor X`  | Monitor file changes (for example: log file)  |  X = File to monitor  |
+| `mac dev:monitor X`  | Monitor file changes (for example: log files)  |  X = File to monitor  |
 | `mac dev:compass:compile`  | Compile current folder using compass  | |
 | `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 | `mac dev:css:convert-to-scss`  | Convert CSS file to SCSS |
@@ -198,6 +201,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description |
 | ------------- | ------------- |
 | `mac system`  | Show system information to review mac performance  |
+| `mac temp`  | Show temperature, fan and battery statistics  |
 | `mac memory`  | See memory usage sorted by memory consumption  |
 | `mac trash:empty`  | Empty trash |
 | `mac trash:size`  | Calculate trash size |
@@ -209,10 +213,10 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac iterm:tab-title`  | Set title to current iTerm tab  |
+| `mac iterm:tab-title`  | Set title of current iTerm tab  |
 
 
-### GIT Utilities
+### Git Utilities
 
 | Command  | Description |
 | ------------- | ------------- |
@@ -223,16 +227,16 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:undo-commit`  | Undo latest commit  |
 | `mac git:log`  | See latest commits IDs and titles for current branch  |
 | `mac git:branch`  | See all branches  |
-| `mac git:branch:rename`  | Rename GIT branch |
-| `mac git:branch:remove-local`  | Remove local GIT branch |
-| `mac git:branch:remove-remote`  | Remove local and remote GIT branch |
-| `mac git:remove`  | Remove GIT from current project  |
-| `mac git:settings`  | Check GIT settings  |
+| `mac git:branch:rename`  | Rename Git branch |
+| `mac git:branch:remove-local`  | Remove local Git branch |
+| `mac git:branch:remove-remote`  | Remove local and remote Git branch |
+| `mac git:remove`  | Remove Git from current project  |
+| `mac git:settings`  | Check Git settings  |
 | `mac git:add-removed`  | Add removed files to staged files  |
-| `mac git:size`  | Get size for current GIT directory  |
-| `mac github:streak`  | See current GIT contribution streak |
+| `mac git:size`  | Get size for current Git directory  |
+| `mac github:streak`  | See current Git contribution streak |
 
-# Web Utilities
+### Web Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
@@ -242,7 +246,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac brew:list`  | Get list of installed Homebrew packages  |
+| `mac brew:list`  | Get a list of installed Homebrew packages  |
 
 
 ### Xcode Utilities
@@ -250,6 +254,13 @@ The following amazing projects have been integrated on the mac script (all the i
 | Command  | Description |
 | ------------- | ------------- |
 | `mac xcode:cleanup`  | Cleanup Xcode files to free up hard disk space  |
+
+
+### Image Utilities
+
+| Command  | Description | Arguments
+| ------------- | ------------- | ------------- |
+| `mac image:generate:mobile-app-icons X Y`  | Generate mobile app icons  | X = Original image file, Y = Output path |
 
 
 ### Magento Utilities

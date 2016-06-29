@@ -51,7 +51,7 @@ NC='\033[0m' # No Color
 #--------------------------------------------------------------------
 
 # Is the user running commands in sudo?
-IS_SUDO=$(sudo -n uptime 2>&1|grep "load"|wc -l)
+IS_SUDO=$(id -u)
 
 #--------------------------------------------------------------------
 # Functions
@@ -159,6 +159,7 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
+    printf "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
@@ -170,7 +171,7 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
 
 
-    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
+    printf "\n\n${WHITEBOLD}Git Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
     printf "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch \n"
@@ -178,14 +179,14 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
-    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename GIT branch \n"
-    printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local GIT branch \n"
-    printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
-    printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove GIT from current project \n"
-    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
+    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename Git branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local Git branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote Git branch \n"
+    printf "${LIGHTBLUE}mac git:removeprintf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"${GRAY}: Remove Git from current project \n"
+    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check Git settings \n"
     printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
-    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
-    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current Git repository \n"
+    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current Git contribution streak \n"
 
 
     printf "\n\n${WHITEBOLD}Web Utilities: \n"
@@ -199,6 +200,10 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
 
+	
+	printf "\n\n${WHITEBOLD}Image Utilities: \n"
+	printf "${LIGHTBLUE}mac image:generate:mobile-app-icons ${LIGHTGREEN}X Y${GRAY}: Generate mobile app icons - X = Path of the original image file, Y= Path of the output file path \n"
+
 
     printf "\n\n${WHITEBOLD}Magento Utilities: \n"
     printf "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line \n"
@@ -210,6 +215,8 @@ if [[ "$function" == "list" || "$function" == "help" ]]; then
     printf "${LIGHTBLUE}mac magento:url-rewrite:enables${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - general commands
@@ -249,6 +256,8 @@ elif [ "$function" == "list:general" ]; then
     printf "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory\n"
     printf "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract\n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - search commands
 #--------------------------------------------------------------------
@@ -262,6 +271,8 @@ elif [ "$function" == "list:search" ]; then
     printf "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes \n"
     printf "${LIGHTBLUE}mac find:duplicated ${GRAY}: Find duplicated files in current directory and subcategories\n"
     printf "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation\n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - network commands
@@ -278,6 +289,8 @@ elif [ "$function" == "list:network" ]; then
     printf "${LIGHTBLUE}mac ports${GRAY}: List of used ports \n"
     printf "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address \n"
     printf "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address \n"
+
+    printf "${NC}\n"
 
 
 #--------------------------------------------------------------------
@@ -308,6 +321,8 @@ elif [ "$function" == "list:lamp" ]; then
     printf "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line \n"
     printf "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file \n"
 
+    printf "${NC}\n"
+
 
 #--------------------------------------------------------------------
 # mac script commands list - SSH commands
@@ -328,6 +343,8 @@ elif [ "$function" == "list:ssh" ]; then
     printf "${LIGHTBLUE}mac ssh:public-key${GRAY}: Copy SSH Public Key \n"
     printf "${LIGHTBLUE}mac ssh:list ${LIGHTGREEN}X${GRAY}: List all the saved SSH credentials \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - web development commands
 #--------------------------------------------------------------------
@@ -343,6 +360,8 @@ elif [ "$function" == "list:dev" ]; then
     printf "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories \n"
     printf "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - performance commands
 #--------------------------------------------------------------------
@@ -354,11 +373,14 @@ elif [ "$function" == "list:performance" ]; then
 
     printf "\n\n${WHITEBOLD}Performance and maintenance Utilities: \n"
     printf "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance \n"
+    printf "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics \n"
     printf "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption \n"
     printf "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash\n"
     printf "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size\n"
     printf "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory\n"
     printf "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory\n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - terminal commands
@@ -372,8 +394,10 @@ elif [ "$function" == "list:terminal" ]; then
     printf "\n\n${WHITEBOLD}iTerm / Terminal Utilities: \n"
     printf "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
-# mac script commands list - GIT commands
+# mac script commands list - Git commands
 #--------------------------------------------------------------------
 
 elif [ "$function" == "list:git" ]; then
@@ -381,7 +405,7 @@ elif [ "$function" == "list:git" ]; then
     printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
     printf "${WHITEBOLD}==================================="
 
-    printf "\n\n${WHITEBOLD}GIT Utilities: \n"
+    printf "\n\n${WHITEBOLD}Git Utilities: \n"
     printf "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration \n"
     printf "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github \n"
     printf "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch \n"
@@ -389,14 +413,16 @@ elif [ "$function" == "list:git" ]; then
     printf "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit \n"
     printf "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch \n"
     printf "${LIGHTBLUE}mac git:branch${GRAY}: See all branches \n"
-    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename GIT branch \n"
-    printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local GIT branch \n"
-    printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote GIT branch \n"
-    printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove GIT from current project \n"
-    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check GIT settings \n"
+    printf "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename Git branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local Git branch \n"
+    printf "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote Git branch \n"
+    printf "${LIGHTBLUE}mac git:remove${GRAY}: Remove Git from current project \n"
+    printf "${LIGHTBLUE}mac git:settings${GRAY}: Check Git settings \n"
     printf "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files \n"
-    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current GIT repository \n"
-    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current GIT contribution streak \n"
+    printf "${LIGHTBLUE}mac git:size${GRAY}: Get size for current Git repository \n"
+    printf "${LIGHTBLUE}mac github:streak${GRAY}: See current Git contribution streak \n"
+
+    printf "${NC}\n"
 
 
 #--------------------------------------------------------------------
@@ -411,6 +437,8 @@ elif [ "$function" == "list:web" ]; then
     printf "\n\n${WHITEBOLD}Web Utilities: \n"
     printf "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - homebrew commands
 #--------------------------------------------------------------------
@@ -423,6 +451,8 @@ elif [ "$function" == "list:brew" ]; then
     printf "\n\n${WHITEBOLD}Homebrew Utilities: \n"
     printf "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages \n"
 
+    printf "${NC}\n"
+
 #--------------------------------------------------------------------
 # mac script commands list - xCode commands
 #--------------------------------------------------------------------
@@ -434,6 +464,22 @@ elif [ "$function" == "list:xcode" ]; then
 
     printf "\n\n${WHITEBOLD}Xcode Utilities: \n"
     printf "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space \n"
+
+    printf "${NC}\n"
+
+#--------------------------------------------------------------------
+# mac script commands list - Image commands
+#--------------------------------------------------------------------
+
+elif [ "$function" == "list:image" ]; then
+
+    printf "\n${WHITEBOLD} mac – automation tools for OS X\n"
+    printf "${WHITEBOLD}==================================="
+
+    printf "\n\n${WHITEBOLD}Image Utilities: \n"
+	printf "${LIGHTBLUE}mac image:generate:mobile-app-icons ${LIGHTGREEN}X Y${GRAY}: Generate mobile app icons - X = Path of the original image file, Y= Path of the output file path \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # mac script commands list - Magento commands
@@ -454,6 +500,8 @@ elif [ "$function" == "list:magento" ]; then
     printf "${LIGHTBLUE}mac magento:url-rewrites:enable${GRAY}: Enable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites \n"
     printf "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory \n"
+
+    printf "${NC}\n"
 
 #--------------------------------------------------------------------
 # General Utilities
@@ -538,10 +586,7 @@ elif [ "$function" == "install" ]; then
 	echo "Installing homebrew..."
 	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	echo "Installing pip..."
-	printf "${GREEN}sudo easy_install pip\n${NC}"
-	sudo easy_install pip
-	echo "Installing GIT..."
+	echo "Installing Git..."
 	printf "${GREEN}brew install git\n${NC}"
 	brew install git
 	echo "Installing pv (Pipe Viewer)..."
@@ -561,10 +606,7 @@ elif [ "$function" == "install:all" ]; then
     echo "Installing homebrew..."
 	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	echo "Installing pip..."
-	printf "${GREEN}sudo easy_install pip\n${NC}"
-	sudo easy_install pip
-	echo "Installing GIT..."
+	echo "Installing Git..."
 	printf "${GREEN}brew install git\n${NC}"
 	brew install git
 	echo "Installing pv (Pipe Viewer)..."
@@ -605,7 +647,7 @@ elif [ "$function" == "install:all" ]; then
 	curl -sS https://getcomposer.org/installer | php
 	printf "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
 	sudo mv composer.phar /usr/local/bin/
-	echo "Installing GIT cal (https://github.com/k4rthik/git-cal)..."
+	echo "Installing Git cal (https://github.com/k4rthik/git-cal)..."
 	printf "${GREEN}brew install git-cal\n${NC}"
 	brew install git-cal
 	echo "Installing ImageOptim..."
@@ -623,6 +665,9 @@ elif [ "$function" == "install:all" ]; then
 	echo "Installing fdupes..."
 	printf "${GREEN}brew install fdupes\n\n${NC}"
     brew install fdupes
+	echo "Installing iStats..."
+	printf "${GREEN}sudo gem install iStats -n/usr/local/bin\n\n${NC}"
+    sudo gem install iStats -n/usr/local/bin
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
@@ -1338,9 +1383,8 @@ elif [ "$function" == "web:download-images" ]; then
 
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        mkdir downloaded-images && cd downloaded-images
         wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
-        # Remove empty subdirectories
-        find . -type d -empty -delete
 
     else
         echo "Please specify the full URL of the website to download the images"
@@ -1376,10 +1420,27 @@ elif [ "$function" == "dev:css:convert-to-scss" ]; then
 # Performance and maintenance Utilities
 #--------------------------------------------------------------------
 
-# See memory usage sorted by memory consumption
+# Get overall system information
 elif [ "$function" == "system" ]; then
 	printf "${GREEN}glances \n\n${NC}"
 	glances
+
+# Show temperature, fan and battery statistics
+elif [ "$function" == "temp" ]; then
+    if [ ! -f /usr/local/bin/istats ]; then
+		read -r -p "Do you want to install the iStats utility? (https://github.com/Chris911/iStats) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				sudo gem install iStats -n/usr/local/bin
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+		printf "${GREEN}istats all \n\n${NC}"
+	    istats all
+	fi
 
 # See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then
@@ -1440,7 +1501,7 @@ elif [ "$function" == "iterm:tab-title" ]; then
 	echo "Tab title updated"
 
 #--------------------------------------------------------------------
-# GIT Utilities
+# Git Utilities
 #--------------------------------------------------------------------
 
 # Display local Git configuration
@@ -1464,7 +1525,7 @@ elif [ "$function" == "git:open" ]; then
       giturl=$giturl
       open $giturl
 
-# Create GIT branch based on current branch
+# Create Git branch based on current branch
 elif [ "$function" == "git:create:branch" ]; then
 
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
@@ -1493,7 +1554,7 @@ elif [ "$function" == "git:log" ]; then
 elif [ "$function" == "git:branch" ]; then
 	git branch -a
 
-# Rename GIT branch
+# Rename Git branch
 elif [ "$function" == "git:branch:rename" ]; then
 
 	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
@@ -1505,7 +1566,7 @@ elif [ "$function" == "git:branch:rename" ]; then
         echo "E.g.: git:branch:rename sample-branch"
     fi
 
-# Remove local GIT branch
+# Remove local Git branch
 elif [ "$function" == "git:branch:remove-local" ]; then
 
 	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
@@ -1517,7 +1578,7 @@ elif [ "$function" == "git:branch:remove-local" ]; then
         echo "E.g.: git:branch:remove-local sample-branch"
     fi
 
-# Remove local and remote GIT branch
+# Remove local and remote Git branch
 elif [ "$function" == "git:branch:remove-remote" ]; then
 
 	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
@@ -1531,7 +1592,7 @@ elif [ "$function" == "git:branch:remove-remote" ]; then
         echo "E.g.: git:branch:remove-remote sample-branch"
     fi
 	
-# Check GIT settings
+# Check Git settings
 elif [ "$function" == "git:settings" ]; then
 	git config --list
 	
@@ -1539,28 +1600,28 @@ elif [ "$function" == "git:settings" ]; then
 elif [ "$function" == "git:add-removed" ]; then
 	git add -u
 	
-# Remove GIT from current project
+# Remove Git from current project
 elif [ "$function" == "git:remove" ]; then
 	find . -name '.git' -exec rm -rf {} \;
 
-# Open current GIT repository URL
+# Open current Git repository URL
 elif [ "$function" == "git:open" ]; then
 	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
 
-# Get size of current GIT repository
+# Get size of current Git repository
 elif [ "$function" == "git:size" ]; then
 	git bundle create tmp.bundle --all
-	printf "\n\nCurrent GIT repository size: \n"
+	printf "\n\nCurrent Git repository size: \n"
 	du -sh tmp.bundle
 	rm tmp.bundle
 
-# See current GIT contribution streak
+# See current Git contribution streak
 elif [ "$function" == "github:streak" ]; then
 
 	if [ -d .git ]; then
 	    git-cal --author=$github_username
 	else
-	    echo "Error: The current directory is not a GIT repository"
+	    echo "Error: The current directory is not a Git repository"
 	fi
 
 #--------------------------------------------------------------------
@@ -1652,7 +1713,7 @@ EOF
 
 elif [ "$function" == "magento:fix-permissions" ]; then
     if [ ! -f app/Mage.php ]; then
-        printf "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+        printf "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project.\n\n${NC}"
 	else
 	    # Ask for the administrator password upfront
         sudo -v
@@ -1660,7 +1721,7 @@ elif [ "$function" == "magento:fix-permissions" ]; then
         # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
         while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-	    if [ ${IS_SUDO} -gt 0 ]; then
+	    if [ ${IS_SUDO} -eq 0 ]; then
             find . -type f \-exec chmod 644 {} \;
             find . -type d \-exec chmod 755 {} \;
             find ./var -type d \-exec chmod 777 {} \;
@@ -1670,7 +1731,7 @@ elif [ "$function" == "magento:fix-permissions" ]; then
             chmod 777 ./app/etc
             chmod 644 ./app/etc/*.xml
         else
-            printf "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n"
+            printf "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n\n${NC}"
         fi
 
 	fi
@@ -1885,7 +1946,7 @@ elif [ "$function" == "magento:url-rewrites:enable" ]; then
     Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
 ?>
 EOF
-    printf "${LIGHTGREEN}The URL rewrites have been enabled\n"
+    printf "${LIGHTGREEN}The URL rewrites have been enabled\n\n${NC}"
 	fi
 
 # Disable Magento URL rewrites
@@ -1903,7 +1964,7 @@ elif [ "$function" == "magento:url-rewrites:disable" ]; then
     Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
 ?>
 EOF
-    printf "${RED}The URL rewrites have been disabled\n"
+    printf "${RED}The URL rewrites have been disabled\n\n${NC}"
 	fi
 
 # Install Magento 2 in current folder
@@ -1987,6 +2048,32 @@ elif [ "$function" == "xcode:cleanup" ]; then
 	echo "========== Cleanup ended =========="
 	echo "Suggest you to restart your xcode"
 	echo "========== Have a nice day =========="
+
+#--------------------------------------------------------------------
+# Image Utilities
+#--------------------------------------------------------------------
+
+elif [ "$function" == "image:generate:mobile-app-icons" ]; then
+	# iOS and OSX Icon
+	sips -Z 512 $firstParameter --out mac/icon512.png
+
+	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x.png
+	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-1.png
+	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-2.png
+	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x.png
+	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-1.png
+	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-2.png
+
+	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x.png
+	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-1.png
+	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-2.png
+
+	sips -Z 76 $firstParameter --out $secondParameter/Icon-76.png
+	sips -Z 76 $firstParameter --out $secondParameter/Icon-77.png
+	sips -Z 76 $firstParameter --out $secondParameter/Icon-78.png
+
+	# Android Icon
+	sips -Z 128 $firstParameter --out $secondParameter/Icon-128.png
 
 #--------------------------------------------------------------------
 # Online search Utilities

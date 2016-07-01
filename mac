@@ -631,6 +631,9 @@ elif [ "$function" == "install" ]; then
     	printf "${GREEN}brew install python\n${NC}"
     fi
 	brew install python
+	echo "Installing wget..."
+	printf "${GREEN}brew install wget\n${NC}"
+	brew install wget
 	echo "Installing fdupes..."
     if [ "$echocommand" == "true" ]; then
     	printf "${GREEN}brew install fdupes\n\n${NC}"

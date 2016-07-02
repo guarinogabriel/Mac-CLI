@@ -22,12 +22,12 @@ mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
 dropbox_folder="/Volumes/Cloud/Dropbox/"
 php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
-php_cli="/usr/local/bin/php"
+php_cli=$(which php)
 phpmyadmin="http://localhost/phpMyAdmin/"
-github_email_account="guarinogabriel@gmail.com"
-github_username="guarinogabriel"
+github_email_account=$(git config -l | grep user.email=.* | cut -d "=" -f2)
+github_username=$(git config -l | grep user.name=.* | cut -d "=" -f2)
 echocommand="false"
-pref_editor="nano" # what's your preferred terminal editor?
+pref_editor=$EDITOR # what's your preferred terminal editor?
 
 #--------------------------------------------------------------------
 # Parameters

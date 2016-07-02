@@ -26,6 +26,8 @@ php_cli="/usr/local/bin/php"
 phpmyadmin="http://localhost/phpMyAdmin/"
 github_email_account="guarinogabriel@gmail.com"
 github_username="guarinogabriel"
+echocommand="false"
+pref_editor="nano" # what's your preferred terminal editor?
 
 #--------------------------------------------------------------------
 # Parameters
@@ -507,34 +509,48 @@ elif [ "$function" == "list:magento" ]; then
 # General Utilities
 #--------------------------------------------------------------------
 elif [ "$function" == "lock" ]; then
-    printf "${GREEN}/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend\n\n${NC}"
+    fi
     /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
 
 elif [ "$function" == "restart" ]; then
-	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
+    fi
 	osascript -e 'tell app "loginwindow" to «event aevtrrst»'
 
 elif [ "$function" == "sleep" ]; then
-	printf "${GREEN}pmset sleepnow\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}pmset sleepnow\n\n${NC}"
+    fi
 	pmset sleepnow
 
 elif [ "$function" == "shutdown" ]; then
-	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
+    fi
 	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
 
 elif [ "$function" == "time" ]; then
-	printf "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
+    fi
 	while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &
 
 # Remove files older than X days in current folder
 elif [ "$function" == "files:remove-older" ]; then
-	printf "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
+    fi
 	echo "Removing files older than "$firstParameter" days..."
 	find . -ctime +$firstParameter -print0 | xargs -0 -n1
 
 # Calculate folder size
 elif [ "$function" == "folder:size" ]; then
-	printf "${GREEN}du -sh .\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}du -sh .\n\n${NC}"
+    fi
 	echo "Calculating folder size...\n"
 	echo "Folder size:"
 	du -sh .
@@ -545,13 +561,17 @@ elif [ "$function" == "folders:list" ]; then
 
 # Remove empty subdirectories
 elif [ "$function" == "folders:remove-empty" ]; then
-	printf "${GREEN}find . -type d -empty -delete\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}find . -type d -empty -delete\n\n${NC}"
+    fi
 	find . -type d -empty -delete
 
 # Close all opened apps
 elif [ "$function" = "apps:close-all" ]; then
-	printf "${GREEN}ignore='grep\|iTerm\|Finder\|Dropbox\|Bartender'\n${NC}"
-	printf "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}ignore='grep\|iTerm\|Finder\|Dropbox\|Bartender'\n${NC}"
+        printf "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
+    fi
 	# To customize ignored apps, just put the keywords in $ignore
 	# To test which apps you are going to kill, run:
 	# ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
@@ -560,23 +580,31 @@ elif [ "$function" = "apps:close-all" ]; then
 
 # Get list of installed apps from the App Store
 elif [ "$function" == "apps:app-store" ]; then
-	printf "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
+    fi
 	echo "Getting list of installed apps from the App Store...\n"
 	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
 
 # Start screensaver
 elif [ "$function" == "screensaver" ]; then
-	printf "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
+    fi
 	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
 
 # Eject all mounted volumes and disk
 elif [ "$function" == "eject-all" ]; then
-	printf "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
+    fi
 	osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
 
 # Get battery information
 elif [ "$function" == "battery:status" ]; then
-	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+    fi
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 
 # Install all mac script dependencies
@@ -584,19 +612,32 @@ elif [ "$function" == "install" ]; then
 	echo "Copying script to local folder..."
 	cp mac /usr/local/bin/mac
 	echo "Installing homebrew..."
-	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+    fi
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	echo "Installing Git..."
-	printf "${GREEN}brew install git\n${NC}"
+    if [ "$echocommand" == "true" ]; then  
+    	printf "${GREEN}brew install git\n${NC}"
+    fi
 	brew install git
 	echo "Installing pv (Pipe Viewer)..."
-	printf "${GREEN}brew install pv\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install pv\n${NC}"
+    fi
 	brew install pv
 	echo "Installing Python..."
-	printf "${GREEN}brew install python\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install python\n${NC}"
+    fi
 	brew install python
+	echo "Installing wget..."
+	printf "${GREEN}brew install wget\n${NC}"
+	brew install wget
 	echo "Installing fdupes..."
-	printf "${GREEN}brew install fdupes\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install fdupes\n\n${NC}"
+    fi
     brew install fdupes
 
 # Install all mac script dependencies and integrated projects
@@ -604,93 +645,153 @@ elif [ "$function" == "install:all" ]; then
     echo "Copying script to local folder..."
 	cp mac /usr/local/bin/mac
     echo "Installing homebrew..."
-	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+    fi
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	echo "Installing Git..."
-	printf "${GREEN}brew install git\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install git\n${NC}"
+    fi
 	brew install git
 	echo "Installing pv (Pipe Viewer)..."
-	printf "${GREEN}brew install pv\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install pv\n${NC}"
+    fi
 	brew install pv
 	echo "Installing Python..."
-	printf "${GREEN}brew install python\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install python\n${NC}"
+	fi
 	brew install python
 	mac install
 	echo "Installing mycli (MySQL CLI - https://github.com/dbcli/mycli)..."
-	printf "${GREEN}brew install mycli\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install mycli\n${NC}"
+    fi
 	brew install mycli
 	echo "Installing Compass..."
-	printf "${GREEN}gem install compass\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}gem install compass\n${NC}"
+    fi
 	gem install compass
 	echo "Installing Glances (https://github.com/nicolargo/glances)..."
-	printf "${GREEN}pip install glances\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}pip install glances\n${NC}"
+    fi
 	pip install glances
 	echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
-	printf "${GREEN}pip install speedtest-cli\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}pip install speedtest-cli\n${NC}"
+    fi
 	pip install speedtest-cli
 	echo "Installing N98 Magerun (https://github.com/netz98/n98-magerun)..."
-	printf "${GREEN}wget https://files.magerun.net/n98-magerun.phar\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}wget https://files.magerun.net/n98-magerun.phar\n${NC}"
+	fi
 	wget https://files.magerun.net/n98-magerun.phar
-	printf "${GREEN}chmod +x ./n98-magerun.phar\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}chmod +x ./n98-magerun.phar\n${NC}"
+    fi
 	chmod +x ./n98-magerun.phar
-	printf "${GREEN}sudo mv ./n98-magerun.phar /usr/local/bin/\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo mv ./n98-magerun.phar /usr/local/bin/\n${NC}"
+    fi
 	sudo mv ./n98-magerun.phar /usr/local/bin/
 	echo "Installing N98 Magerun 2 (https://github.com/netz98/n98-magerun2)..."
-	printf "${GREEN}wget https://files.magerun.net/n98-magerun2.phar\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}wget https://files.magerun.net/n98-magerun2.phar\n${NC}"
+    fi
 	wget https://files.magerun.net/n98-magerun2.phar
-	printf "${GREEN}chmod +x ./n98-magerun2.phar\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}chmod +x ./n98-magerun2.phar\n${NC}"
+    fi
 	chmod +x ./n98-magerun2.phar
-	printf "${GREEN}sudo mv ./n98-magerun2.phar /usr/local/bin/\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo mv ./n98-magerun2.phar /usr/local/bin/\n${NC}"
+    fi
 	sudo mv ./n98-magerun2.phar /usr/local/bin/
 	echo "Installing composer..."
-	printf "${GREEN}curl -sS https://getcomposer.org/installer | php\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}curl -sS https://getcomposer.org/installer | php\n${NC}"
+    fi
 	curl -sS https://getcomposer.org/installer | php
-	printf "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
+    fi
 	sudo mv composer.phar /usr/local/bin/
 	echo "Installing Git cal (https://github.com/k4rthik/git-cal)..."
-	printf "${GREEN}brew install git-cal\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install git-cal\n${NC}"
+    fi
 	brew install git-cal
 	echo "Installing ImageOptim..."
-	printf "${GREEN}brew cask install --appdir="~/Applications" imageoptim --force\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew cask install --appdir="~/Applications" imageoptim --force\n${NC}"
+    fi
 	brew cask install --appdir="~/Applications" imageoptim --force
 	echo "Installing ImageOptim-CLI (https://github.com/JamieMason/ImageOptim-CLI)..."
-	printf "${GREEN}npm install -g imageoptim-cli\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}npm install -g imageoptim-cli\n${NC}"
+    fi
 	npm install -g imageoptim-cli
 	echo "Installing sass..."
-	printf "${GREEN}sudo gem install sass\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo gem install sass\n${NC}"
+    fi
 	sudo gem install sass
 	echo "Installing storm (https://github.com/emre/storm)..."
-	printf "${GREEN}brew install stormssh\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install stormssh\n${NC}"
+    fi
 	brew install stormssh
 	echo "Installing fdupes..."
-	printf "${GREEN}brew install fdupes\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew install fdupes\n\n${NC}"
+    fi
     brew install fdupes
 	echo "Installing iStats..."
-	printf "${GREEN}sudo gem install iStats -n/usr/local/bin\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo gem install iStats -n/usr/local/bin\n\n${NC}"
+    fi
     sudo gem install iStats -n/usr/local/bin
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
 elif [ "$function" == "update" ]; then
 	echo "Updating OS X..."
-	printf "${GREEN}sudo softwareupdate -i -a;\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo softwareupdate -i -a;\n${NC}"
+    fi
 	sudo softwareupdate -i -a;
 	echo "Updating Homebrew and its installed packages..."
-	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+    fi
 	brew update; brew upgrade --all; brew cleanup;
 	echo "Updating npm and its installed packages..."
-	printf "${GREEN}npm install npm -g; npm update -g;\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}npm install npm -g; npm update -g;\n${NC}"
+    fi
 	npm install npm -g; npm update -g;
 	echo "Updating installed Ruby gems..."
-	printf "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
+    fi
 	sudo gem update --system; sudo gem update
 	echo "Updating installed pip packages..."
-	printf "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+    fi
 	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 	echo "Updating N98-Magerun..."
-	printf "${GREEN}n98-magerun.phar self-update\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}n98-magerun.phar self-update\n${NC}"
+    fi
 	n98-magerun.phar self-update
 	echo "Updating N98-Magerun 2..."
-	printf "${GREEN}n98-magerun2.phar self-update\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}n98-magerun2.phar self-update\n${NC}"
+    fi
 	n98-magerun2.phar self-update
 	echo "Your system has been successfully updated"
 
@@ -703,8 +804,9 @@ elif [ "$function" == "find:text" ]; then
 	    read extension
 
 		if [ ! -z "$extension" -a "$extension" != " " ]; then
-
-            printf "${GREEN}find . -iname '*.${GRAY}${extension}${GREEN}' | xargs grep -in --color '${GRAY}${allParameters}${GREEN}'${NC}"
+            if [ "$echocommand" == "true" ]; then
+                printf "${GREEN}find . -iname '*.${GRAY}${extension}${GREEN}' | xargs grep -in --color '${GRAY}${allParameters}${GREEN}'${NC}"
+            fi
             echo "\nRecursively find '"$allParameters"' inside directory...\n"
             find . -iname "*.$extension" | xargs grep -in --color "$allParameters"
 
@@ -718,20 +820,26 @@ elif [ "$function" == "find:text" ]; then
 
 # Find biggest files in current directory
 elif [ "$function" == "find:biggest-files" ]; then
-    printf "${GREEN}find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    fi
     find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
 
 
 # Find biggest directories in current directory
 elif [ "$function" == "find:biggest-directories" ]; then
-    printf "${GREEN}find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+    fi
     find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
 
 # Extract Zip file
 elif [ "$function" == "zip:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		printf "${GREEN}unzip ${GRAY}${firstParameter}\n\n${NC}"
+	    if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}unzip ${GRAY}${firstParameter}\n\n${NC}"
+        fi
 		unzip $firstParameter
 	else
 		echo "Please specify the Zip file to extract.\n"
@@ -742,7 +850,9 @@ elif [ "$function" == "zip:extract" ]; then
 elif [ "$function" == "gzip:compress" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		printf "${GREEN}gzip ${GRAY}${firstParameter}\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+	    	printf "${GREEN}gzip ${GRAY}${firstParameter}\n\n${NC}"
+	   fi
 		gzip $firstParameter
 	else
 		echo "Please specify the file to compress.\n"
@@ -753,7 +863,9 @@ elif [ "$function" == "gzip:compress" ]; then
 elif [ "$function" == "gzip:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		printf "${GREEN}gzip -d ${GRAY}${firstParameter}\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+	    	printf "${GREEN}gzip -d ${GRAY}${firstParameter}\n\n${NC}"
+        fi
 		gzip -d $firstParameter
 	else
 		echo "Please specify the Gzip file to extract.\n"
@@ -764,7 +876,9 @@ elif [ "$function" == "gzip:extract" ]; then
 elif [ "$function" == "tar:extract" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		printf "${GREEN}tar -xvzf ${GRAY}${firstParameter}\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+		    printf "${GREEN}tar -xvzf ${GRAY}${firstParameter}\n\n${NC}"
+		fi
 		tar -xvzf $firstParameter
 	else
 		echo "Please specify the tar file to extract.\n"
@@ -779,7 +893,9 @@ elif [ "$function" == "tar:compress" ]; then
 		read filename
 
 		if [ ! -z "$filename" -a "$filename" != " " ]; then
-			printf "${GREEN}tar -czf${GRAY}: ${firstParameter}${GREEN}  | (pv -p --timer --rate --bytes > '${GRAY}${filename}${GREEN}'.tgz)\n\n${NC}"
+            if [ "$echocommand" == "true" ]; then
+			    printf "${GREEN}tar -czf${GRAY}: ${firstParameter}${GREEN}  | (pv -p --timer --rate --bytes > '${GRAY}${filename}${GREEN}'.tgz)\n\n${NC}"
+            fi
 			tar -czf - $firstParameter | (pv -p --timer --rate --bytes > "$filename".tgz)
 		else
 			"Please specify the file name"
@@ -802,8 +918,9 @@ elif [ "$function" == "search:replace" ]; then
             read replaceString
 
             if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
-
-                printf "${GREEN}LC_CTYPE=C sed -i 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
+                if [ "$echocommand" == "true" ]; then
+                    printf "${GREEN}LC_CTYPE=C sed -i 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
+                fi
 		        LC_CTYPE=C sed -i 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
 
             else
@@ -838,7 +955,9 @@ elif [ "$function" == "airplane-mode:off" ]; then
 # Find files modified in the last N minutes
 elif [ "$function" == "find:recent" ]; then
 	echo "Searching for files modified in the last "$firstParameter" minutes..."
-	printf "${GREEN}sudo find / -mmin ${GRAY}${firstParameter}${GREEN} -type f\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo find / -mmin ${GRAY}${firstParameter}${GREEN} -type f\n\n${NC}"
+    fi
 	sudo find / -mmin $firstParameter -type f
 
 # Find duplicated files
@@ -847,13 +966,17 @@ elif [ "$function" == "find:duplicated" ]; then
     # Check if fdupes is installed
     if [ ! -f /usr/local/bin/fdupes ]; then
         printf "${RED}fdupes not found ${NC}- ${GREEN}Installing dependency...\n\n${NC}"
-        printf "${GREEN}brew install fdupes\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}brew install fdupes\n\n${NC}"
+        fi
         brew install fdupes
         echo "Searching for duplicated files in current directory and subdirectories..."
         fdupes -r .
 
     else
-        printf "${GREEN}fdupes -r .\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}fdupes -r .\n\n${NC}"
+        fi
         echo "Searching for duplicated files in current directory and subdirectories..."
         fdupes -r .
     fi
@@ -904,23 +1027,31 @@ elif [ "$function" == "speedtest:infinite" ]; then
 # List of used ports
 elif [ "$function" == "ports" ]; then
 	echo "Getting list of used ports..."
-	printf "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
+    fi
 	sudo lsof -iTCP -sTCP:LISTEN -P
 
 # Get local IP address
 elif [ "$function" == "ip:local" ]; then
 	local_ip=$(ipconfig getifaddr en0)
 	if [ $? == 0 ]; then
-		printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+    		printf "${GREEN}ipconfig getifaddr en0\n\n${NC}"
+        fi
 	else
-		printf "${GREEN}ipconfig getifaddr en1\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+    		printf "${GREEN}ipconfig getifaddr en1\n\n${NC}"
+        fi
 		local_ip=$(ipconfig getifaddr en1)
 	fi
 	printf "Your IP address is:\n${local_ip}\n"
 
 # Get public IP address
 elif [ "$function" == "ip:public" ]; then
-	printf "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
+    fi
 	wget http://ipinfo.io/ip -qO -
 
 #--------------------------------------------------------------------
@@ -929,19 +1060,27 @@ elif [ "$function" == "ip:public" ]; then
 
 ## MySQL Utilities
 elif [ "$function" == "mysql" ]; then
-	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
+    fi
 	open -a /Applications/Sequel\ Pro.app
 
 elif [ "$function" == "mysql:cli" ]; then
-	printf "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
+    fi
 	mycli  -u$mysql_user -p$mysql_password -S /Applications/MAMP/tmp/mysql/mysql.sock
 
 elif [ "$function" == "mysql:export-all" ]; then
-	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+    fi
 	${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql
 
 elif [ "$function" == "phpmyadmin" ]; then
-	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}open ${phpmyadmin}\n\n${NC}"
+    fi
 	open $phpmyadmin
 
 # Export MySQL database
@@ -952,7 +1091,9 @@ elif [ "$function" == "mysql:dump" ]; then
 		read filename
 
 		if [ ! -z "$filename" -a "$filename" != " " ]; then
-			printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
+            if [ "$echocommand" == "true" ]; then
+			    printf "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
+			fi
 			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
 		else
 			"Please specify the file name"
@@ -964,7 +1105,9 @@ elif [ "$function" == "mysql:dump" ]; then
 
 # List all MySQL databases
 elif [ "$function" == "mysql:list" ]; then
-    printf "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+    fi
     echo "show databases;" | ${mysql} -u${mysql_user} -p${mysql_password}
 
 # Import MySQL database
@@ -975,7 +1118,9 @@ elif [ "$function" == "mysql:import" ]; then
 		read databasename
 
 		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            if [ "$echocommand" == "true" ]; then
+			    printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            fi
 			pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
 		else
 			"Please specify the database name"
@@ -1005,7 +1150,9 @@ elif [ "$function" == "mysql:import-table" ]; then
 		read databasename
 
 		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u ${mysql_user} -D ${databasename}\n\n${NC}"
+            if [ "$echocommand" == "true" ]; then
+			    printf "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u ${mysql_user} -D ${databasename}\n\n${NC}"
+            fi
 			pv $firstParameter | $mysql -u $mysql_user -p -D $databasename
 		else
 			"Please specify the database name"
@@ -1019,7 +1166,9 @@ elif [ "$function" == "mysql:import-table" ]; then
 elif [ "$function" == "mysql:create" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        fi
         echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
 	else
 		echo "Please specify the name for the new database"
@@ -1030,7 +1179,9 @@ elif [ "$function" == "mysql:create" ]; then
 elif [ "$function" == "mysql:drop" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        fi
         echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
 	else
 		echo "Please specify the name of the database to remove"
@@ -1046,7 +1197,9 @@ elif [ "$function" == "mysql:duplicate" ]; then
 		read databasename
 
 		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			printf "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
+            if [ "$echocommand" == "true" ]; then
+			    printf "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
+            fi
 			mac mysql:create $databasename && $mysqldump -u${mysql_user} -p${mysql_password} $firstParameter | $mysql -u${mysql_user} -p${mysql_password} $databasename
 		else
 			"Please specify the database name"
@@ -1095,28 +1248,38 @@ elif [ "$function" == "mamp:restart" ]; then
 
 # PHP Utilities
 elif [ "$function" == "php:syntax" ]; then
-	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
+    fi
 	echo "Checking PHP syntax for all files in current location...\n"
 	find . -name \*.php -exec php -l "{}" \;
 
 elif [ "$function" == "php:info" ]; then
-	printf "${GREEN}$php -i\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}$php -i\n\n${NC}"
+    fi
 	$php -i
 
 # Get battery information
 elif [ "$function" == "battery:status" ]; then
-	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+    fi
 	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { printf }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
 	
 # Get OS X version information
 elif [ "$function" == "info" ]; then
-	printf "${GREEN}sw_vers \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sw_vers \n\n${NC}"
+    fi
 	sw_vers
 	
 # Edit hosts file
 elif [ "$function" == "hosts:edit" ]; then
-	printf "${GREEN}sudo vi /private/etc/hosts \n\n${NC}"
-	sudo vi /private/etc/hosts
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo ${pref_editor} /private/etc/hosts \n\n${NC}"
+    fi
+	sudo $pref_editor /private/etc/hosts
 
 #--------------------------------------------------------------------
 # SSH Utilities
@@ -1137,8 +1300,9 @@ elif [ "$function" == "ssh:download-file" ]; then
 			read username
 
 			if [ ! -z "$username" -a "$username" != " " ]; then
-
-				printf "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+                if [ "$echocommand" == "true" ]; then
+    				printf "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+                fi
 				scp $username@$ipaddress:$firstParameter .
 
 			else
@@ -1169,8 +1333,9 @@ elif [ "$function" == "ssh:download-folder" ]; then
 			read username
 
 			if [ ! -z "$username" -a "$username" != " " ]; then
-
-				printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+                if [ "$echocommand" == "true" ]; then
+    				printf "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+                fi
 				scp -r $username@$ipaddress:$firstParameter .
 
 			else
@@ -1242,7 +1407,9 @@ elif [ "$function" == "ssh:sync:local" ]; then
                 read localfolder
 
                 if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
-                    printf "${GREEN}rsync -a --progress ${GRAY}${username}@${ipaddress}:${firstparameter} ${localfolder}${GREEN}\n\n${NC}"
+                    if [ "$echocommand" == "true" ]; then
+                        printf "${GREEN}rsync -a --progress ${GRAY}${username}@${ipaddress}:${firstparameter} ${localfolder}${GREEN}\n\n${NC}"
+                    fi
                     rsync -a --progress ${username}@${ipaddress}:${firstparameter} ${localfolder}
 
                 else
@@ -1283,7 +1450,9 @@ elif [ "$function" == "ssh:sync:remote" ]; then
                 read localfolder
 
                 if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
-                    printf "${GREEN}rsync -a ${localfolder} ${username}@${ipaddress}:${firstparameter}\n\n${NC}"
+                    if [ "$echocommand" == "true" ]; then
+                        printf "${GREEN}rsync -a ${localfolder} ${username}@${ipaddress}:${firstparameter}\n\n${NC}"
+                    fi
                     rsync -a --progress ${localfolder} ${username}@${ipaddress}:${firstparameter}
 
                 else
@@ -1326,8 +1495,9 @@ elif [ "$function" == "ssh:upload" ]; then
 					read remotePath
 
 					if [ ! -z "$remotePath" -a "$remotePath" != " " ]; then
-
-						printf "${GREEN}scp ${GRAY}${firstParameter} ${username}@${ipaddress}:${remotePath}${GREEN}\n\n${NC}"
+                        if [ "$echocommand" == "true" ]; then
+    						printf "${GREEN}scp ${GRAY}${firstParameter} ${username}@${ipaddress}:${remotePath}${GREEN}\n\n${NC}"
+                        fi
 						scp $firstParameter $username@$ipaddress:$remotePath
 
 					else
@@ -1349,13 +1519,17 @@ elif [ "$function" == "ssh:upload" ]; then
 
 # SSH key Utilities
 elif [ "$function" == "ssh:public-key" ]; then
-	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+    fi
 	pbcopy < ~/.ssh/id_rsa.pub
 
 
 # List saved SSH credentials
 elif [ "$function" == "ssh:list" ]; then
-	printf "${GREEN}storm list \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}storm list \n\n${NC}"
+    fi
 	storm list
 
 
@@ -1366,7 +1540,9 @@ elif [ "$function" == "ssh:list" ]; then
 elif [ "$function" == "dev:monitor" ]; then
 
 	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}tail -f ${GRAY}${firstParameter}\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}tail -f ${GRAY}${firstParameter}\n\n${NC}"
+        fi
         tail -f $firstParameter
 	else
 		echo "Please specify the file to monitor"
@@ -1375,14 +1551,18 @@ elif [ "$function" == "dev:monitor" ]; then
 
 # Compile SCSS styles in current folder using compass
 elif [ "$function" == "dev:compass:compile" ]; then
-    printf "${GREEN}compass compile . \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}compass compile . \n\n${NC}"
+    fi
 	compass compile .
 
 # Download all images from website to current directory
 elif [ "$function" == "web:download-images" ]; then
 
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        fi
         mkdir downloaded-images && cd downloaded-images
         wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
 
@@ -1394,7 +1574,9 @@ elif [ "$function" == "web:download-images" ]; then
 # Get list of installed Homebrew packages
 elif [ "$function" == "dev:optimize-images" ]; then
     echo "Optimizing all images in current directory and subdirectories...\n"
-    printf "${GREEN}imageoptim --directory .\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}imageoptim --directory .\n\n${NC}"
+    fi
     imageoptim --directory .
 
 # Convert CSS file to SCSS
@@ -1403,7 +1585,9 @@ elif [ "$function" == "dev:css:convert-to-scss" ]; then
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 
         if [[ $firstParameter == *".css"* ]];  then
-            printf "${GREEN}cp ${GRAY}${firstParameter} ${firstParameter/css/scss}${GREEN} email-non-inline.scss && sass-convert --from css --to scss --in-place ${GRAY}${firstParameter/css/scss}'\n\n${NC}"
+            if [ "$echocommand" == "true" ]; then
+                printf "${GREEN}cp ${GRAY}${firstParameter} ${firstParameter/css/scss}${GREEN} email-non-inline.scss && sass-convert --from css --to scss --in-place ${GRAY}${firstParameter/css/scss}'\n\n${NC}"
+            fi
             cp ${firstParameter} ${firstParameter/css/scss} && sass-convert --from css --to scss --in-place ${firstParameter/css/scss}
         else
             echo "The specified file is not a CSS file"
@@ -1422,7 +1606,9 @@ elif [ "$function" == "dev:css:convert-to-scss" ]; then
 
 # Get overall system information
 elif [ "$function" == "system" ]; then
-	printf "${GREEN}glances \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}glances \n\n${NC}"
+    fi
 	glances
 
 # Show temperature, fan and battery statistics
@@ -1438,29 +1624,41 @@ elif [ "$function" == "temp" ]; then
 				;;
 		esac
 	else
-		printf "${GREEN}istats all \n\n${NC}"
+	    if [ "$echocommand" == "true" ]; then
+            if [ "$echocommand" == "true" ]; then
+		        printf "${GREEN}istats all \n\n${NC}"
+		    fi
+        fi
 	    istats all
 	fi
 
 # See memory usage sorted by memory consumption
 elif [ "$function" == "memory" ]; then
-	printf "${GREEN}top -o MEM \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}top -o MEM \n\n${NC}"
+    fi
 	top -o MEM
 
 # Empty trash
 elif [ "$function" == "trash:empty" ]; then
-	printf "${GREEN}sudo rm -rf ~/.Trash/* \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}sudo rm -rf ~/.Trash/* \n\n${NC}"
+    fi
 	sudo rm -rf ~/.Trash/*
 
 # Calculate trash size
 elif [ "$function" == "trash:size" ]; then
-	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+    fi
 	echo "Trash size: \n"
 	du -sh ~/.Trash/
 
 # Remove all files and directories from Desktop directory
 elif [ "$function" == "desktop:cleanup" ]; then
-	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+    fi
 	echo "These are the files and directories that are currently located on Desktop: \n"
 	ls -lat ~/Desktop/
 	echo "\n=============================================\n"
@@ -1476,7 +1674,9 @@ elif [ "$function" == "desktop:cleanup" ]; then
 
 # Remove all files and directories from Downloads directory
 elif [ "$function" == "downloads:cleanup" ]; then
-	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+    	printf "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+    fi
 	echo "These are the files and directories that are currently located on Downloads: \n"
 	ls -lat ~/Downloads/
 	echo "\n=============================================\n"
@@ -1496,7 +1696,9 @@ elif [ "$function" == "downloads:cleanup" ]; then
 
 # Set title to current iTerm tab
 elif [ "$function" == "iterm:tab-title" ]; then
-    printf "${GREEN}echo -ne '\033]0;'${GRAY}${firstparameter}${GREEN}'\007'\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}echo -ne '\033]0;'${GRAY}${firstparameter}${GREEN}'\007'\n\n${NC}"
+    fi
 	echo -ne '\033]0;'$allParameters'\007'
 	echo "Tab title updated"
 
@@ -1506,7 +1708,9 @@ elif [ "$function" == "iterm:tab-title" ]; then
 
 # Display local Git configuration
 elif [ "$function" == "git:config" ]; then
-    printf "${GREEN}git config --list\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}git config --list\n\n${NC}"
+    fi
 	git config --list
 
 # Open current Git repository on Github
@@ -1529,7 +1733,9 @@ elif [ "$function" == "git:open" ]; then
 elif [ "$function" == "git:create:branch" ]; then
 
     if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
+        fi
 	    git checkout -b $firstParameter
 
     else
@@ -1543,7 +1749,9 @@ elif [ "$function" == "git:branches" ]; then
 
 # Undo latest commit
 elif [ "$function" == "git:undo-commit" ]; then
-    printf "${GREEN}git reset --soft HEAD~\n\n${NC}"
+    if [ "$echocommand" == "true" ]; then
+        printf "${GREEN}git reset --soft HEAD~\n\n${NC}"
+    fi
 	git reset --soft HEAD~
 
 # See latest commits IDs and titles for current branch
@@ -1557,8 +1765,10 @@ elif [ "$function" == "git:branch" ]; then
 # Rename Git branch
 elif [ "$function" == "git:branch:rename" ]; then
 
-	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}git branch -m ${GRAY}$firstParameter\n\n${NC}"
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}git branch -m ${GRAY}$firstParameter\n\n${NC}"
+        fi
 	    git branch -m $firstParameter
 
     else
@@ -1569,8 +1779,10 @@ elif [ "$function" == "git:branch:rename" ]; then
 # Remove local Git branch
 elif [ "$function" == "git:branch:remove-local" ]; then
 
-	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+        fi
 	    git branch -d $firstParameter
 
     else
@@ -1581,10 +1793,14 @@ elif [ "$function" == "git:branch:remove-local" ]; then
 # Remove local and remote Git branch
 elif [ "$function" == "git:branch:remove-remote" ]; then
 
-	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        printf "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+        fi
 	    git branch -d $firstParameter
-        printf "${GREEN}git push origin --delete ${GRAY}$firstParameter\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+            printf "${GREEN}git push origin --delete ${GRAY}$firstParameter\n\n${NC}"
+        fi
 	    git push origin --delete $firstParameter
 
     else
@@ -1641,7 +1857,9 @@ elif [ "$function" == "magento:version" ]; then
     if [ ! -f app/Mage.php ]; then
         echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
 	else
-		printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+        if [ "$echocommand" == "true" ]; then
+    		printf "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+        fi
         php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
 	fi
 

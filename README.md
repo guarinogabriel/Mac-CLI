@@ -3,6 +3,7 @@
  OS X command line tools for developers
 
 :star: Now with modularity and plugins! You can check the plugins folder.
+
 _Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!_
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)

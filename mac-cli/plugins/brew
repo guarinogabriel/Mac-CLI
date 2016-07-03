@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# Homebrew Utilities
+#--------------------------------------------------------------------
+
+# Get list of installed Homebrew packages
+if [ "$fn" == "brew:list" ]; then
+	brew list
+
+fi

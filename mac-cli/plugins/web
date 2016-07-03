@@ -1,0 +1,63 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# Web Development Utilities
+#--------------------------------------------------------------------
+
+if [ "$fn" == "dev:monitor" ]; then
+
+	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}tail -f ${GRAY}${firstParameter}\n\n${NC}"
+        fi
+        tail -f $firstParameter
+	else
+		echo "Please specify the file to monitor"
+		echo "E.g.: monitor /path/to/file.sql"
+	fi
+
+# Download all images from website to current directory
+elif [ "$fn" == "web:download-images" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${GRAY}${firstParameter}'\n\n${NC}"
+        fi
+        mkdir downloaded-images && cd downloaded-images
+        wget -r -l 1 -A jpeg,jpg,bmp,gif,png ${firstParameter}
+
+    else
+        echo "Please specify the full URL of the website to download the images"
+        echo "E.g.: web:download-images http://example.com/sample-page"
+    fi
+
+# Get list of installed Homebrew packages
+elif [ "$fn" == "dev:optimize-images" ]; then
+    echo "Optimizing all images in current directory and subdirectories..."
+    if [ "$echocommand" == "true" ]; then
+        echo "${GREEN}imageoptim --directory .\n\n${NC}"
+    fi
+    imageoptim --directory .
+
+# Convert CSS file to SCSS
+elif [ "$fn" == "dev:css:convert-to-scss" ]; then
+
+    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+        if [[ $firstParameter == *".css"* ]];  then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}cp ${GRAY}${firstParameter} ${firstParameter/css/scss}${GREEN} email-non-inline.scss && sass-convert --from css --to scss --in-place ${GRAY}${firstParameter/css/scss}'\n\n${NC}"
+            fi
+            cp ${firstParameter} ${firstParameter/css/scss} && sass-convert --from css --to scss --in-place ${firstParameter/css/scss}
+        else
+            echo "The specified file is not a CSS file"
+            echo "Please specify the CSS file to convert"
+            echo "E.g.: dev:css:convert-to-scss styles.css"
+        fi
+
+    else
+        echo "Please specify the CSS file to convert"
+        echo "E.g.: dev:css:convert-to-scss styles.css"
+    fi
+
+fi

@@ -2,6 +2,9 @@
 
  OS X command line tools for developers
 
+:star: Now with modularity and plugins! You can check the plugins folder.
+Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!
+
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
 The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your OS X system.
@@ -9,33 +12,29 @@ When you run a function, the executed command is displayed and that helps you me
 
 ---
 
-### Installation in 2 Simple Steps
+### Installation in 1 Simple Step - Including configuration wizard!
 
-1- Download command line tool to your local machine:
-> `git clone https://github.com/guarinogabriel/mac-cli.git && cd mac-cli`
+via curl
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/tools/install)"`
 
-2- Run the installer. There are 2 install options:
+via wget
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/tools/install)"`
 
-The following command will install the minimum required dependencies:
-> `sh mac install`
-
-The following command will install all the dependencies and integrated projects:
-> `sh mac install:all`
-
-Re-open your terminal client. You will be able to run all the commands listed below, for example:
+Then, re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`
 
 ---
 
 ### Configuration
 
-Update the shell script to match your local environment configuration. Global variables are defined at the beginning of the file.
+The configuration is done when you install Mac CLI for the first time though the installer configuration wizard.
+After that, you can update your Mac CLI configuration by editing the following file: `/usr/local/bin/mac`
 
 ---
 
 ### Requirements
 
-These are the requirements to be able to run all the commands (all the dependencies/requirements can be installed running "mac install"):
+These are the requirements to be able to run all the commands (the dependencies/requirements are installed when you install Mac CLI for the first time):
 
 * Homebrew
 * Git
@@ -46,34 +45,22 @@ These are the requirements to be able to run all the commands (all the dependenc
 
 ### Integrated Projects
 
-The following amazing projects have been integrated on the mac script (all the integrated projects can be installed running `mac install:all`):
+The following amazing projects have been integrated on the mac script (all the integrated projects are optional and can be installed through the installation wizard):
 * Glances (https://github.com/nicolargo/glances)
+* MySQL CLI (https://github.com/dbcli/mycli)
 * speedtest-cli (https://github.com/sivel/speedtest-cli)
 * n98-magerun (https://github.com/netz98/n98-magerun)
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
-* Git Stats (https://github.com/IonicaBizau/git-stats)
-* Storm (https://github.com/emre/storm)
+* imageOptim
+* iStats
 
 ---
 
-### Commands List
+### Help / Commands List
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac list`  | List all available commands in mac script  | |
-| `mac list:general`  | List all general commands in mac script  | |
-| `mac list:search`  | List all search commands in mac script  | |
-| `mac list:network`  | List all network commands in mac script  | |
-| `mac list:lamp`  | List all LAMP commands in mac script  | |
-| `mac list:ssh`  | List all SSH commands in mac script  | |
-| `mac list:performance`  | List all performance commands in mac script  | |
-| `mac list:terminal`  | List all terminal commands in mac script  | |
-| `mac list:git`  | List all Git commands in mac script  | |
-| `mac list:web`  | List all Web commands in mac script  | |
-| `mac list:brew`  | List all Homebrew commands in mac script  | |
-| `mac list:xcode`  | List all Xcode commands in mac script  | |
-| `mac list:image`  | List all Image commands in mac script  | |
-| `mac list:magento`  | List all Magento commands in mac script  | |
+| `mac help`  | List all available commands in mac script  | |
 
 ### General Commands
 
@@ -132,7 +119,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | ------------- | ------------- | ------------- |
 | `mac mysql`  | Open Sequel PRO app)  |  |
 | `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
-| `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
 | `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |
 | `mac mysql:dump X`  | Export MySQL database to current directory  |  X = database name  |
@@ -169,7 +155,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | ------------- | ------------- | ------------- |
 | `mac mysql:gui`  | Open Sequel PRO app)  |  |
 | `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
-| `mac phpmyadmin`  | Open PHPMyAdmin  | |
 | `mac mysql:list`  | List all MySQL databases  | |
 | `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |
 | `mac mysql:dump X`  | Export MySQL database to current directory  |  X = database name  |
@@ -234,7 +219,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac git:settings`  | Check Git settings  |
 | `mac git:add-removed`  | Add removed files to staged files  |
 | `mac git:size`  | Get size for current Git directory  |
-| `mac github:streak`  | See current Git contribution streak |
 
 ### Web Utilities
 

@@ -8,7 +8,7 @@ LIGHTBLUE='\033[01;34m'
 NC='\033[0m' # No Color
 
 # In directory
-PACKAGE_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../../ && pwd )"
+PACKAGE_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 main() {
 

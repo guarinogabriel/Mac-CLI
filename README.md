@@ -15,10 +15,10 @@ When you run a function, the executed command is displayed and that helps you me
 ### Installation in 1 Simple Step - Including configuration wizard!
 
 via curl
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/tools/install)"`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"`
 
 via wget
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/tools/install)"`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"`
 
 Then, re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`

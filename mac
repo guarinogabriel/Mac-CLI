@@ -131,6 +131,7 @@ COMMANDS=(
     mysql:create
     mysql:drop
     mysql:duplicate
+    mysql:dump
     mamp:start
     mamp:stop
     mamp:restart

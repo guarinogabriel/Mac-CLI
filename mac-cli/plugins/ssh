@@ -245,3 +245,6 @@ elif [ "$fn" == "ssh:public-key" ]; then
 	    echo "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
 	fi
 	pbcopy < ~/.ssh/id_rsa.pub
+
+
+fi

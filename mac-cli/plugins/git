@@ -128,3 +128,5 @@ elif [ "$fn" == "git:size" ]; then
 	echo "\n\nCurrent Git repository size: "
 	du -sh tmp.bundle
 	rm tmp.bundle
+
+fi

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# iTerm Utilities
+#--------------------------------------------------------------------
+
+# Set title to current iTerm tab
+if [ "$fn" == "iterm:tab-title" ]; then
+    if [ "$echocommand" == "true" ]; then
+        echo "${GREEN}echo -ne '\033]0;'${GRAY}${firstparameter}${GREEN}'\007'\n\n${NC}"
+	fi
+	echo -ne '\033]0;'$allParameters'\007'
+	echo "Tab title updated"
+
+fi

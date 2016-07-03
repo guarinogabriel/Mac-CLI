@@ -1,0 +1,91 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# Performance and maintenance Utilities
+#--------------------------------------------------------------------
+
+# Get overall system information
+if [ "$fn" == "system" ]; then
+    if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}glances \n\n${NC}"
+	fi
+	glances
+
+# Show temperature, fan and battery statistics
+elif [ "$fn" == "temp" ]; then
+    if [ ! -f /usr/local/bin/istats ]; then
+		read -r -p "Do you want to install the iStats utility? (https://github.com/Chris911/iStats) (Yes / No)" response
+		case $response in
+			[yY][eE][sS]|[yY])
+				sudo gem install iStats -n/usr/local/bin
+				;;
+			*)
+				exit
+				;;
+		esac
+	else
+	    if [ "$echocommand" == "true" ]; then
+		    echo "${GREEN}istats all \n\n${NC}"
+		fi
+	    istats all
+	fi
+
+# See memory usage sorted by memory consumption
+elif [ "$fn" == "memory" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}top -o MEM \n\n${NC}"
+	fi
+	top -o MEM
+
+# Empty trash
+elif [ "$fn" == "trash:empty" ]; then
+    if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}sudo rm -rf ~/.Trash/* \n\n${NC}"
+	fi
+	sudo rm -rf ~/.Trash/*
+
+# Calculate trash size
+elif [ "$fn" == "trash:size" ]; then
+    if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	fi
+	echo "Trash size: "
+	du -sh ~/.Trash/
+
+# Remove all files and directories from Desktop directory
+elif [ "$fn" == "desktop:cleanup" ]; then
+    if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	fi
+	echo "These are the files and directories that are currently located on Desktop: "
+	ls -lat ~/Desktop/
+	echo "\n============================================="
+	read -r -p "Do you want to remove all the content from the Desktop directory? (Yes / No)" response
+    case $response in
+        [yY][eE][sS]|[yY])
+            rm -rf ~/Desktop/*
+            ;;
+        *)
+            exit
+            ;;
+    esac
+
+# Remove all files and directories from Downloads directory
+elif [ "$fn" == "downloads:cleanup" ]; then
+    if [ "$echocommand" == "true" ]; then
+        echo "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
+	fi
+	echo "These are the files and directories that are currently located on Downloads: "
+	ls -lat ~/Downloads/
+	echo "\n============================================="
+	read -r -p "Do you want to remove all the content from the Downloads directory? (Yes / No)" response
+    case $response in
+        [yY][eE][sS]|[yY])
+            rm -rf ~/Downloads/*
+            ;;
+        *)
+            exit
+            ;;
+    esac
+
+fi

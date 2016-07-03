@@ -3,7 +3,6 @@
  OS X command line tools for developers
 
 :star: Now with modularity and plugins! You can check the plugins folder.
-
 _Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!_
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
@@ -19,7 +18,7 @@ Via curl
 > `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"`
 
 Via wget
-> `sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)""`
+> `sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"`
 
 Then, re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`

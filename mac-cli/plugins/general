@@ -79,7 +79,7 @@ elif [ "$fn" == "hidden:hide" ]; then
 # Close all opened apps
 elif [ "$fn" = "apps:close-all" ]; then
 	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}ignore='grep\|iTerm\|Finder\|Dropbox\|Bartender'\n${NC}"
+	    echo "${GREEN}ignore='grep\|iTerm\|Terminal\|Finder\|Dropbox\|Bartender'\n${NC}"
 	    echo "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
 	fi
 	# To customize ignored apps, just put the keywords in $ignore

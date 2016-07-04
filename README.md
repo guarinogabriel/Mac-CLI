@@ -67,8 +67,6 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac install`  | Install all mac script dependencies to be able to run all commands  | |
-| `mac install:all`  | Install all mac script dependencies and integrated projects  | |
 | `mac update`  | Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
 | `mac lock`  | Lock  | |
 | `mac restart`  | Restart OS X  | |

@@ -127,9 +127,18 @@ main() {
 	fi
 
     if [ ! -f /usr/local/bin/sass ]; then
-        echo "Installing sass..."
-        echo "${GREEN}sudo gem install sass\n${NC}"
-        sudo gem install sass
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install sass (http://sass-lang.com/)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing sass..."
+                echo "${GREEN}sudo gem install sass\n${NC}"
+                sudo gem install sass
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
 	fi
 
     if [ ! -f /usr/local/bin/mycli ]; then

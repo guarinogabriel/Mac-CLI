@@ -34,6 +34,27 @@ elif [ "$fn" == "time" ]; then
 	fi
 	while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &
 
+# Get battery information
+elif [ "$fn" == "battery:status" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { echo }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+	fi
+	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { echo }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+
+# Get OS X version information
+elif [ "$fn" == "info" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}sw_vers \n\n${NC}"
+	fi
+	sw_vers
+
+# Edit hosts file
+elif [ "$fn" == "hosts:edit" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}sudo ${pref_editor} /private/etc/hosts \n\n${NC}"
+	fi
+	sudo $pref_editor /private/etc/hosts
+
 # Remove files older than X days in current folder
 elif [ "$fn" == "files:remove-older" ]; then
 	if [ "$echocommand" == "true" ]; then

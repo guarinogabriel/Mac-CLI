@@ -97,6 +97,10 @@ COMMANDS=(
     sleep
     shutdown
     time
+    volume
+    volume:ismute
+    volume:mute
+    volume:unmute
     screensaver
     folders:list
     folder:size

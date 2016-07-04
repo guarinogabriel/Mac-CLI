@@ -82,6 +82,8 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery:status`  | Get battery status  | |
 | `mac info`  | Get OS X version information  | |
+| `mac hidden:show`  | Show hidden files  | |
+| `mac hidden:hide`  | Hide hidden files  | |
 | `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 | `mac find:biggest-files`  | Find biggest files inside directory  | |
 | `mac find:biggest-directories`  | Find biggest directories inside directory  | |

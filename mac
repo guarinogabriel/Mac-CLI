@@ -101,6 +101,8 @@ COMMANDS=(
     volume:ismute
     volume:mute
     volume:unmute
+    hidden:show
+    hidden:hide
     screensaver
     folders:list
     folder:size

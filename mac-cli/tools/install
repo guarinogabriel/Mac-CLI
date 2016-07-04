@@ -22,49 +22,49 @@ main() {
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysql"
     read mysql_path
     if [ ! -z "$mysql_path" -a "$mysql_path" != " " ]; then
-        LC_CTYPE=C sed -i "s#/Applications/MAMP/Library/bin/mysql#${mysql_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/Library/bin/mysql#${mysql_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     echo "${LIGHTGREEN}Please enter your mysql user:"
     echo "${NC}Press enter without any value to keep default: root"
     read mysql_user
     if [ ! -z "$mysql_user" -a "$mysql_user" != " " ]; then
-        LC_CTYPE=C sed -i "s#mysql_user=\"root\"#mysql_user=\"${mysql_user}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#mysql_user=\"root\"#mysql_user=\"${mysql_user}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     echo "${LIGHTGREEN}Please enter your mysql password:"
     echo "${NC}Press enter without any value to keep default: root"
     read mysql_password
     if [ ! -z "$mysql_password" -a "$mysql_password" != " " ]; then
-        LC_CTYPE=C sed -i "s#mysql_password=\"root\"#mysql_password=\"${mysql_password}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#mysql_password=\"root\"#mysql_password=\"${mysql_password}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     echo "${LIGHTGREEN}Please enter path to the mysql socket on your local machine:"
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/tmp/mysql/mysql.sock"
     read mysql_socket
     if [ ! -z "$mysql_socket" -a "$mysql_socket" != " " ]; then
-        LC_CTYPE=C sed -i "s#/Applications/MAMP/tmp/mysql/mysql.sock#${mysql_socket}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/tmp/mysql/mysql.sock#${mysql_socket}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     echo "${LIGHTGREEN}Please enter path to mysqldump on your local machine:"
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysqldump"
     read mysql_dump
     if [ ! -z "$mysql_dump" -a "$mysql_dump" != " " ]; then
-        LC_CTYPE=C sed -i "s#/Applications/MAMP/Library/bin/mysqldump#${mysql_dump}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/Library/bin/mysqldump#${mysql_dump}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     echo "${LIGHTGREEN}Please enter path to your Dropbox folder:"
     echo "${NC}Press enter without any value to keep default: /Volumes/$(id -u -n)/Dropbox/"
     read dropbox_path
     if [ ! -z "$dropbox_path" -a "$dropbox_path" != " " ]; then
-        LC_CTYPE=C sed -i "s#/Volumes/\$(id -u -n)/Dropbox/#${dropbox_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#/Volumes/\$(id -u -n)/Dropbox/#${dropbox_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     printf "${LIGHTGREEN}"
     read -r -p "Would you like Mac CLI to show you the commands that are run on each mac command? (Yes / No)" response
     case $response in
         [yY][eE][sS]|[yY])
-            LC_CTYPE=C sed -i 's#echocommand="false"#echocommand="true"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
+            LC_CTYPE=C sed -i'' -e 's#echocommand="false"#echocommand="true"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
             ;;
         *)
             ;;
@@ -75,7 +75,7 @@ main() {
     echo "${NC}Press enter without any value to keep default: vi"
     read pref_editor
     if [ ! -z "$pref_editor" -a "$pref_editor" != " " ]; then
-        LC_CTYPE=C sed -i 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac

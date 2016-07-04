@@ -62,6 +62,20 @@ elif [ "$fn" == "folders:remove-empty" ]; then
 	fi
 	find . -type d -empty -delete
 
+# Show hidden files
+elif [ "$fn" == "hidden:show" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}defaults write com.apple.finder AppleShowAllFiles YES; killall Finder\n\n${NC}"
+	fi
+	defaults write com.apple.finder AppleShowAllFiles YES; killall Finder
+
+# Hide hidden files
+elif [ "$fn" == "hidden:hide" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}defaults write com.apple.finder AppleShowAllFiles NO; killall Finder\n\n${NC}"
+	fi
+	defaults write com.apple.finder AppleShowAllFiles NO; killall Finder
+
 # Close all opened apps
 elif [ "$fn" = "apps:close-all" ]; then
 	if [ "$echocommand" == "true" ]; then

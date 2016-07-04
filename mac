@@ -228,3 +228,4 @@ fi
 "$MAC/mac-cli/plugins/ssh"
 "$MAC/mac-cli/plugins/web"
 "$MAC/mac-cli/plugins/xcode"
+"$MAC/mac-cli/plugins/volume"

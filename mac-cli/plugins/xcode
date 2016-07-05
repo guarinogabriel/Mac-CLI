@@ -4,78 +4,79 @@
 # XCode Utilities
 #--------------------------------------------------------------------
 
-if [ "$fn" == "xcode:cleanup" ]; then
+case "$fn" in
+	"xcode:cleanup")
 
-	echo "========== Cleanup start =========="
+		echo "========== Cleanup start =========="
 
-	# define paths
-	archivesPath="/Library/Developer/Xcode/Archives"
-	derivedDataPath="/Library/Developer/Xcode/DerivedData"
-	oldDeviceInfoPath="/Library/Developer/Xcode/iOS DeviceSupport"
-	simulatorApplicationRootPath="/Library/Application Support/iPhone Simulator/"
-	USER_HOME=$(eval echo ~${SUDO_USER})
+		# define paths
+		archivesPath="/Library/Developer/Xcode/Archives"
+		derivedDataPath="/Library/Developer/Xcode/DerivedData"
+		oldDeviceInfoPath="/Library/Developer/Xcode/iOS DeviceSupport"
+		simulatorApplicationRootPath="/Library/Application Support/iPhone Simulator/"
+		USER_HOME=$(eval echo ~${SUDO_USER})
 
-	paths=( "$archivesPath" "$derivedDataPath" "$oldDeviceInfoPath" )
-	msgs=( "Archives" "DerivedData" "Old device information" )
-	pathsLength=${#paths[@]}
+		paths=( "$archivesPath" "$derivedDataPath" "$oldDeviceInfoPath" )
+		msgs=( "Archives" "DerivedData" "Old device information" )
+		pathsLength=${#paths[@]}
 
-	# Clean up developer folder
-	# loop through predefined paths
-	for (( i=0; i<${pathsLength}; i++ ));
-	do
-	  CMD="sudo rm -rf "$USER_HOME${paths[$i]}"/*"
-	  $CMD
-	  echo ${msgs[$i]}" cleared"
-	done
+		# Clean up developer folder
+		# loop through predefined paths
+		for (( i=0; i<${pathsLength}; i++ ));
+		do
+		  CMD="sudo rm -rf "$USER_HOME${paths[$i]}"/*"
+		  $CMD
+		  echo ${msgs[$i]}" cleared"
+		done
 
-	# Clean up iOS Simulator
-	ignoreFolders=("Applications" "Containers" "Library" "Root" "User" "tmpspace")
-	versionMarker="."
+		# Clean up iOS Simulator
+		ignoreFolders=("Applications" "Containers" "Library" "Root" "User" "tmpspace")
+		versionMarker="."
 
-	rootPathIdx=$((${#USER_HOME} + ${#simulatorApplicationRootPath}))
-	for folderPath in "$USER_HOME$simulatorApplicationRootPath"*
-	do
-		length=${#folderPath}
-		folderName=${folderPath:$rootPathIdx:$((length - rootPathIdx))}
+		rootPathIdx=$((${#USER_HOME} + ${#simulatorApplicationRootPath}))
+		for folderPath in "$USER_HOME$simulatorApplicationRootPath"*
+		do
+			length=${#folderPath}
+			folderName=${folderPath:$rootPathIdx:$((length - rootPathIdx))}
 
-		# Find folder in ~/Library/Application Support/iPhone Simulator/ with "." (assuming it is simulator version) and not in ignored list
-		if [[ "${ignoreFolders[*]}" != *$folderName* && $folderName == *$versionMarker* ]]; then
+			# Find folder in ~/Library/Application Support/iPhone Simulator/ with "." (assuming it is simulator version) and not in ignored list
+			if [[ "${ignoreFolders[*]}" != *$folderName* && $folderName == *$versionMarker* ]]; then
 
-			# Check if Applications folder exists
-			if [ -d "$folderPath/Applications" ]; then
-				echo 'iOS Simulator version '$folderName' with applications installed, now cleared'
-				tmpFolderPath="${folderPath// /*}"
-				CMD="sudo rm -rf "$tmpFolderPath"/Applications"
-				$CMD
-			fi
+				# Check if Applications folder exists
+				if [ -d "$folderPath/Applications" ]; then
+					echo 'iOS Simulator version '$folderName' with applications installed, now cleared'
+					tmpFolderPath="${folderPath// /*}"
+					CMD="sudo rm -rf "$tmpFolderPath"/Applications"
+					$CMD
+				fi
 
-			# Check if tmp folder exists
-			if [ -d "$folderPath/tmp" ]; then
+				# Check if tmp folder exists
+				if [ -d "$folderPath/tmp" ]; then
 
-				# Check tmp files in folder with special prefixs (say ghostlyIcons.xqwj3qwb2)
-				tmpFolderPath="${folderPath// /*}"
-				hasTmpFiles=false
-				for ext in "ghostlyIcons" "gridImages" "iconImages" "iconLabels_gray"
-				do
-					fileCheckPath="$tmpFolderPath/tmp/$ext.*"
-					if (ls $fileCheckPath > /dev/null 2>&1)
-					then
-					  CMD="sudo rm -rf "$tmpFolderPath"/tmp/$ext.*"
-					  $CMD
-					  hasTmpFiles=true
+					# Check tmp files in folder with special prefixs (say ghostlyIcons.xqwj3qwb2)
+					tmpFolderPath="${folderPath// /*}"
+					hasTmpFiles=false
+					for ext in "ghostlyIcons" "gridImages" "iconImages" "iconLabels_gray"
+					do
+						fileCheckPath="$tmpFolderPath/tmp/$ext.*"
+						if (ls $fileCheckPath > /dev/null 2>&1)
+						then
+						  CMD="sudo rm -rf "$tmpFolderPath"/tmp/$ext.*"
+						  $CMD
+						  hasTmpFiles=true
+						fi
+					done
+
+					if ($hasTmpFiles); then
+						echo 'iOS Simulator version '$folderName' tmp files cleared'
 					fi
-				done
-
-				if ($hasTmpFiles); then
-					echo 'iOS Simulator version '$folderName' tmp files cleared'
 				fi
 			fi
-		fi
 
-	done
+		done
 
-	echo "========== Cleanup ended =========="
-	echo "Suggest you to restart your xcode"
-	echo "========== Have a nice day =========="
-
-fi
+		echo "========== Cleanup ended =========="
+		echo "Suggest you to restart your xcode"
+		echo "========== Have a nice day =========="
+	;;
+esac

@@ -4,26 +4,27 @@
 # Image Utilities
 #--------------------------------------------------------------------
 
-if [ "$fn" == "image:generate:mobile-app-icons" ]; then
-	# iOS and OSX Icon
-	sips -Z 512 $firstParameter --out mac/icon512.png
+case "$fn" in
+	"image:generate:mobile-app-icons")
+		# iOS and OSX Icon
+		sips -Z 512 $firstParameter --out mac/icon512.png
 
-	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x.png
-	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-1.png
-	sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-2.png
-	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x.png
-	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-1.png
-	sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-2.png
+		sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x.png
+		sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-1.png
+		sips -Z 120 $firstParameter --out $secondParameter/Icon-60@2x-2.png
+		sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x.png
+		sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-1.png
+		sips -Z 180 $firstParameter --out $secondParameter/Icon-60@3x-2.png
 
-	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x.png
-	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-1.png
-	sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-2.png
+		sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x.png
+		sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-1.png
+		sips -Z 152 $firstParameter --out $secondParameter/Icon-76@2x-2.png
 
-	sips -Z 76 $firstParameter --out $secondParameter/Icon-76.png
-	sips -Z 76 $firstParameter --out $secondParameter/Icon-77.png
-	sips -Z 76 $firstParameter --out $secondParameter/Icon-78.png
+		sips -Z 76 $firstParameter --out $secondParameter/Icon-76.png
+		sips -Z 76 $firstParameter --out $secondParameter/Icon-77.png
+		sips -Z 76 $firstParameter --out $secondParameter/Icon-78.png
 
-	# Android Icon
-	sips -Z 128 $firstParameter --out $secondParameter/Icon-128.png
-
-fi
+		# Android Icon
+		sips -Z 128 $firstParameter --out $secondParameter/Icon-128.png
+	;;
+esac

@@ -4,33 +4,35 @@
 # Search Utilities
 #--------------------------------------------------------------------
 
+case "$fn" in
 # Find files modified in the last N minutes
-if [ "$fn" == "find:recent" ]; then
-	echo "Searching for files modified in the last "$firstParameter" minutes..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}sudo find / -mmin ${GRAY}${firstParameter}${GREEN} -type f\n\n${NC}"
-	fi
-	sudo find / -mmin $firstParameter -type f
+	"find:recent")
+		echo "Searching for files modified in the last "$firstParameter" minutes..."
+		if [ "$echocommand" == "true" ]; then
+			echo "${GREEN}sudo find / -mmin ${GRAY}${firstParameter}${GREEN} -type f\n\n${NC}"
+		fi
+		sudo find / -mmin $firstParameter -type f
+	;;
 
-# Find duplicated files
-elif [ "$fn" == "find:duplicated" ]; then
+	# Find duplicated files
+	"find:duplicated")
 
-    # Check if fdupes is installed
-    if [ ! -f /usr/local/bin/fdupes ]; then
-        echo "${RED}fdupes not found ${NC}- ${GREEN}Installing dependency...\n\n${NC}"
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}brew install fdupes\n\n${NC}"
-        fi
-        brew install fdupes
-        echo "Searching for duplicated files in current directory and subdirectories..."
-        fdupes -r .
+		# Check if fdupes is installed
+		if [ ! -f /usr/local/bin/fdupes ]; then
+			echo "${RED}fdupes not found ${NC}- ${GREEN}Installing dependency...\n\n${NC}"
+			if [ "$echocommand" == "true" ]; then
+				echo "${GREEN}brew install fdupes\n\n${NC}"
+			fi
+			brew install fdupes
+			echo "Searching for duplicated files in current directory and subdirectories..."
+			fdupes -r .
 
-    else
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}fdupes -r .\n\n${NC}"
-        fi
-        echo "Searching for duplicated files in current directory and subdirectories..."
-        fdupes -r .
-    fi
-
-fi
+		else
+			if [ "$echocommand" == "true" ]; then
+				echo "${GREEN}fdupes -r .\n\n${NC}"
+			fi
+			echo "Searching for duplicated files in current directory and subdirectories..."
+			fdupes -r .
+		fi
+	;;
+esac

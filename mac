@@ -95,6 +95,7 @@ COMMANDS=(
     lock
     restart
     sleep
+    display
     shutdown
     time
     screensaver

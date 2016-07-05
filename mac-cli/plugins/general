@@ -24,7 +24,7 @@ elif [ "$fn" == "sleep" ]; then
 
 elif [ "$fn" == "display" ]; then
 	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}pmset sleepnow\n\n${NC}"
+	    echo "${GREEN}pmset displaysleepnow\n\n${NC}"
 	fi
 	pmset displaysleepnow
 

@@ -29,7 +29,7 @@ php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 php_cli=$(which php)
 github_email_account=$(git config -l | grep user.email= | cut -d "=" -f2)
 echocommand="false"
-pref_editor="vi" # what's your preferred terminal editor?
+pref_editor="vi"
 
 export cli_path
 export plugins_path
@@ -95,6 +95,7 @@ COMMANDS=(
     lock
     restart
     sleep
+    display
     shutdown
     time
     volume
@@ -192,9 +193,7 @@ COMMANDS=(
     magento2:install
 )
 
-if [[ " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
-    echo "${GREEN}mac ${fn} ${allParameters} ${NC}"
-else
+if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
     echo "${RED}Command not found: ${NC}"
 	echo "$fn"
 	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then

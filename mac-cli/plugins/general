@@ -22,6 +22,12 @@ elif [ "$fn" == "sleep" ]; then
 	fi
 	pmset sleepnow
 
+elif [ "$fn" == "display" ]; then
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}pmset displaysleepnow\n\n${NC}"
+	fi
+	pmset displaysleepnow
+
 elif [ "$fn" == "shutdown" ]; then
 	if [ "$echocommand" == "true" ]; then
 	    echo "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"

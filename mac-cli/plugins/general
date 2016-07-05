@@ -38,7 +38,12 @@ elif [ "$fn" == "time" ]; then
 	if [ "$echocommand" == "true" ]; then
 	    echo "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
 	fi
-	while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &
+    if [ -z "$(pgrep macClock)"   ]; then
+        # naming the process
+        ( exec -a macClock bash -c 'while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done' &   )
+    else
+        pkill macClock
+    fi
 
 # Remove files older than X days in current folder
 elif [ "$fn" == "files:remove-older" ]; then

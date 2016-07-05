@@ -283,9 +283,9 @@ elif [ "$fn" == "search:replace" ]; then
             if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
 
                 if [ "$echocommand" == "true" ]; then
-                    echo "${GREEN}LC_CTYPE=C sed -i 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
+                    echo "${GREEN}LC_CTYPE=C sed -i'' -e 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
 		        fi
-		        LC_CTYPE=C sed -i 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
+		        LC_CTYPE=C sed -i'' -e 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
 
             else
 			    "Please specify the string to replace"

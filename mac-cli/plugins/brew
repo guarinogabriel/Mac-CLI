@@ -5,7 +5,8 @@
 #--------------------------------------------------------------------
 
 # Get list of installed Homebrew packages
-if [ "$fn" == "brew:list" ]; then
-	brew list
-
-fi
+case "$fn" in
+	"brew:list")
+		brew list
+	;;
+esac

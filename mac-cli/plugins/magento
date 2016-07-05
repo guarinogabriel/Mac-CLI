@@ -4,239 +4,244 @@
 # Magento Utilities
 #--------------------------------------------------------------------
 
-if [ "$fn" == "magento:version" ]; then
+case "$fn" in
+	"magento:version")
 
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
-		if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
-        fi
-        php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
-	fi
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
+			if [ "$echocommand" == "true" ]; then
+				echo "${GREEN}php -r 'require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();'\n\n${NC}"
+			fi
+			php -r "require 'app/Mage.php'; echo 'Magento version: ' . Mage::getVersion();"
+		fi
+	;;
 
-# TODO: Finish magento:customer:create command (in progress creating customer address)
-elif [ "$fn" == "magento:customer:create" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
-	    $php << EOF
+	# TODO: Finish magento:customer:create command (in progress creating customer address)
+	"magento:customer:create")
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
+			$php << EOF
 <?php
-    require_once 'app/Mage.php';
-    ini_set('display_errors', 1);
-    Mage::app();
-    Mage::setIsDeveloperMode(true);
+	require_once 'app/Mage.php';
+	ini_set('display_errors', 1);
+	Mage::app();
+	Mage::setIsDeveloperMode(true);
 
-    \$defaultStoreId = Mage::app()
-                        ->getWebsite()
-                        ->getDefaultGroup()
-                        ->getDefaultStoreId();
-    \$websiteId = Mage::getModel('core/store')->load(\$defaultStoreId)->getWebsiteId();
+	\$defaultStoreId = Mage::app()
+						->getWebsite()
+						->getDefaultGroup()
+						->getDefaultStoreId();
+	\$websiteId = Mage::getModel('core/store')->load(\$defaultStoreId)->getWebsiteId();
 
-    \$customer = Mage::getModel(\customer/customer\);
-    \$customer   ->setWebsiteId(\$websiteId)
-                ->setStore(\$defaultStoreId)
-                ->setFirstname('Gabriel')
-                ->setLastname('Guarino')
-                ->setEmail('guarinogabriel@gmail2.com')
-                ->setPassword('ABC123xyz');
+	\$customer = Mage::getModel(\customer/customer\);
+	\$customer   ->setWebsiteId(\$websiteId)
+				->setStore(\$defaultStoreId)
+				->setFirstname('Gabriel')
+				->setLastname('Guarino')
+				->setEmail('guarinogabriel@gmail2.com')
+				->setPassword('ABC123xyz');
 
-    try
-    {
-        \$customer->save();
-        echo "\nCustomer successfully created."
-    }
-    catch (Exception \$e) {
-        echo \$e->getMessage();
-    }
+	try
+	{
+		\$customer->save();
+		echo "\nCustomer successfully created."
+	}
+	catch (Exception \$e) {
+		echo \$e->getMessage();
+	}
 
-    \$customAddress = array (
-        'firstname' => 'Gabriel',
-        'lastname' => 'Guarino',
-        'street' => array (
-            '0' => '1 Infinite Loop'
-        ),
-        'city' => 'Cupertino',
-        'region_id' => '',
-        'region' => '',
-        'postcode' => '95014',
-        'country_id' => 'US',
-        'telephone' => '123-123-1234',
-    );
-    \$customAddress = Mage::getModel('customer/address')
+	\$customAddress = array (
+		'firstname' => 'Gabriel',
+		'lastname' => 'Guarino',
+		'street' => array (
+			'0' => '1 Infinite Loop'
+		),
+		'city' => 'Cupertino',
+		'region_id' => '',
+		'region' => '',
+		'postcode' => '95014',
+		'country_id' => 'US',
+		'telephone' => '123-123-1234',
+	);
+	\$customAddress = Mage::getModel('customer/address')
 
-    \$customAddress->setData(\$customAddress)
-                ->setCustomerId(\$customer->getId())
-                ->setIsDefaultBilling('1')
-                ->setIsDefaultShipping('1')
-                ->setSaveInAddressBook('1');
-    try {
-        \$customAddress->save();
-        echo "\nCustomer successfully created."
-    }
-    catch (Exception \$ex) {
-       echo \$ex->getMessage());
-    }
+	\$customAddress->setData(\$customAddress)
+				->setCustomerId(\$customer->getId())
+				->setIsDefaultBilling('1')
+				->setIsDefaultShipping('1')
+				->setSaveInAddressBook('1');
+	try {
+		\$customAddress->save();
+		echo "\nCustomer successfully created."
+	}
+	catch (Exception \$ex) {
+	   echo \$ex->getMessage());
+	}
 ?>
 EOF
-	fi
+		fi
+	;;
 
-elif [ "$fn" == "magento:fix-permissions" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project.\n\n${NC}"
-	else
-	    # Ask for the administrator password upfront
-        sudo -v
+	"magento:fix-permissions")
+		if [ ! -f app/Mage.php ]; then
+			echo "${RED}Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project.\n\n${NC}"
+		else
+			# Ask for the administrator password upfront
+			sudo -v
 
-        # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
-        while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+			# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+			while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-	    if [ ${IS_SUDO} -eq 0 ]; then
-            find . -type f \-exec chmod 644 {} \;
-            find . -type d \-exec chmod 755 {} \;
-            find ./var -type d \-exec chmod 777 {} \;
-            find ./var -type f \-exec chmod 666 {} \;
-            find ./media -type d \-exec chmod 777 {} \;
-            find ./media -type f \-exec chmod 666 {} \;
-            chmod 777 ./app/etc
-            chmod 644 ./app/etc/*.xml
-        else
-            echo "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n\n${NC}"
-        fi
+			if [ ${IS_SUDO} -eq 0 ]; then
+				find . -type f \-exec chmod 644 {} \;
+				find . -type d \-exec chmod 755 {} \;
+				find ./var -type d \-exec chmod 777 {} \;
+				find ./var -type f \-exec chmod 666 {} \;
+				find ./media -type d \-exec chmod 777 {} \;
+				find ./media -type f \-exec chmod 666 {} \;
+				chmod 777 ./app/etc
+				chmod 644 ./app/etc/*.xml
+			else
+				echo "${RED}Error: This script should be run as root so that file ownership changes can be set correctly\n\n${NC}"
+			fi
 
-	fi
+		fi
+	;;
 
-# Create sample order in Magento
-elif [ "$fn" == "magento:order:create" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
-		$php << EOF
+	# Create sample order in Magento
+	"magento:order:create")
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
+			$php << EOF
 <?php
-    require_once 'app/Mage.php';
-    ini_set('display_errors', 1);
-    Mage::app();
-    Mage::setIsDeveloperMode(true);
+	require_once 'app/Mage.php';
+	ini_set('display_errors', 1);
+	Mage::app();
+	Mage::setIsDeveloperMode(true);
 
-    // If the check money order method or the free shipping method are not enabled, then enable those methods and let the user know
-    \$needToRunAgain = false;
+	// If the check money order method or the free shipping method are not enabled, then enable those methods and let the user know
+	\$needToRunAgain = false;
 
-    // Check if Check / Money Order payment method is enabled
-    \$checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
+	// Check if Check / Money Order payment method is enabled
+	\$checkMoneyOrder = Mage::getStoreConfig('payment/checkmo/active');
 
-    // If Check / Money Order is disabled, then enable it temporarely
-    if (!\$checkMoneyOrder)
-    {
-        Mage::getConfig()->saveConfig('payment/checkmo/active', '1');
-        \$needToRunAgain = true;
-    }
+	// If Check / Money Order is disabled, then enable it temporarely
+	if (!\$checkMoneyOrder)
+	{
+		Mage::getConfig()->saveConfig('payment/checkmo/active', '1');
+		\$needToRunAgain = true;
+	}
 
-    // Check if free shipping method is enabled
-    \$flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
+	// Check if free shipping method is enabled
+	\$flatRateShippingMethod = Mage::getStoreConfig('carriers/flatrate/active');
 
-    // If flat rate shipping is disabled, then enable it temporarely
-    if (!\$flatRateShippingMethod)
-    {
-        Mage::getConfig()->saveConfig('carriers/flatrate/active', '1');
-        \$needToRunAgain = true;
-    }
+	// If flat rate shipping is disabled, then enable it temporarely
+	if (!\$flatRateShippingMethod)
+	{
+		Mage::getConfig()->saveConfig('carriers/flatrate/active', '1');
+		\$needToRunAgain = true;
+	}
 
-    if (\$needToRunAgain)
-    {
-        echo "IMPORTANT:";
-        echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.";
-        echo "Please disable those methods if you don't need them after creating the orders programmatically.\n";
+	if (\$needToRunAgain)
+	{
+		echo "IMPORTANT:";
+		echo "The 'Flat Rate' shipping method and 'Check Money Order' payment method have been enabled to create a new order from mac.";
+		echo "Please disable those methods if you don't need them after creating the orders programmatically.\n";
 
-        \$commandOutput = shell_exec('mac magento:order:create');
-        echo "\$commandOutput";
-        return false;
-    }
+		\$commandOutput = shell_exec('mac magento:order:create');
+		echo "\$commandOutput";
+		return false;
+	}
 
-    \$customerInfo = array(
-        'email' => 'steve@apple.com',
-        'address' => array(
-                'firstname' => 'Steve',
-                'lastname' => 'Jobs',
-                'street' => '1 Infinite Loop',
-                'city' => 'Cupertino',
-                'postcode' => '95014',
-                'telephone' => '123-123-1234',
-                'country_id' => 'US',
-                'region_id' => 12, // id from directory_country_region table
-        )
-    );
-    // Get random product in stock
-    \$collection = Mage::getModel('catalog/product')->getCollection();
-    \$collection->addAttributeToFilter('status',1); //only enabled product
-    \$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
-    \$product = \$collection->setPage(1, 1)->getFirstItem();
-    \$productInfo = array(
-        \$product->getSku() => 1,
-    );
+	\$customerInfo = array(
+		'email' => 'steve@apple.com',
+		'address' => array(
+				'firstname' => 'Steve',
+				'lastname' => 'Jobs',
+				'street' => '1 Infinite Loop',
+				'city' => 'Cupertino',
+				'postcode' => '95014',
+				'telephone' => '123-123-1234',
+				'country_id' => 'US',
+				'region_id' => 12, // id from directory_country_region table
+		)
+	);
+	// Get random product in stock
+	\$collection = Mage::getModel('catalog/product')->getCollection();
+	\$collection->addAttributeToFilter('status',1); //only enabled product
+	\$collection->getSelect()->order(new Zend_Db_Expr('RAND()'));
+	\$product = \$collection->setPage(1, 1)->getFirstItem();
+	\$productInfo = array(
+		\$product->getSku() => 1,
+	);
 
-    echo 'The following order has been created: ' . createOrder(\$customerInfo, \$productInfo) . ".";
+	echo 'The following order has been created: ' . createOrder(\$customerInfo, \$productInfo) . ".";
 
-    //----------------------
-    function createOrder(\$customerInfo, \$productInfo)
-    {
-        \$quote = Mage::getModel('sales/quote');
-        \$customer = Mage::getModel('customer/customer')
-                        ->setWebsiteId(1)
-                        ->loadByEmail(\$customerInfo['email']);
+	//----------------------
+	function createOrder(\$customerInfo, \$productInfo)
+	{
+		\$quote = Mage::getModel('sales/quote');
+		\$customer = Mage::getModel('customer/customer')
+						->setWebsiteId(1)
+						->loadByEmail(\$customerInfo['email']);
 
-        if (\$customer)
-        {
-            // for customer orders:
-            \$quote->assignCustomer(\$customer);
-        } else {
-            // for guest orders only:
-            \$quote->setCustomerEmail(\$customerInfo['email']);
-        }
+		if (\$customer)
+		{
+			// for customer orders:
+			\$quote->assignCustomer(\$customer);
+		} else {
+			// for guest orders only:
+			\$quote->setCustomerEmail(\$customerInfo['email']);
+		}
 
-        foreach (\$productInfo as \$sku => \$qty)
-        {
-            // add product(s)
-            \$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', \$sku);
-            \$product = Mage::getModel('catalog/product')->load(\$_product->getId());
-            if(\$product){
-                \$buyInfo = array(
-                    'qty' => \$qty,
-                    // custom option id => value id
-                    // or
-                        // configurable attribute id => value id
-                );
-                \$quote->addProduct(\$product, new Varien_Object(\$buyInfo));
-            }
-        }
+		foreach (\$productInfo as \$sku => \$qty)
+		{
+			// add product(s)
+			\$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', \$sku);
+			\$product = Mage::getModel('catalog/product')->load(\$_product->getId());
+			if(\$product){
+				\$buyInfo = array(
+					'qty' => \$qty,
+					// custom option id => value id
+					// or
+						// configurable attribute id => value id
+				);
+				\$quote->addProduct(\$product, new Varien_Object(\$buyInfo));
+			}
+		}
 
-        \$addressData = \$customerInfo['address'];
-        \$billingAddress = \$quote->getBillingAddress()->addData(\$addressData);
-        \$shippingAddress = \$quote->getShippingAddress()->addData(\$addressData);
-        \$shippingAddress->setCollectShippingRates(true)->collectShippingRates()
-                        ->setShippingMethod('flatrate_flatrate')
-                        ->setPaymentMethod('checkmo');
-        \$quote->getPayment()->importData(array('method' => 'checkmo'));
-        \$quote->collectTotals()->save();
-        \$service = Mage::getModel('sales/service_quote', \$quote);
-        \$service->submitAll();
-        \$order = \$service->getOrder();
+		\$addressData = \$customerInfo['address'];
+		\$billingAddress = \$quote->getBillingAddress()->addData(\$addressData);
+		\$shippingAddress = \$quote->getShippingAddress()->addData(\$addressData);
+		\$shippingAddress->setCollectShippingRates(true)->collectShippingRates()
+						->setShippingMethod('flatrate_flatrate')
+						->setPaymentMethod('checkmo');
+		\$quote->getPayment()->importData(array('method' => 'checkmo'));
+		\$quote->collectTotals()->save();
+		\$service = Mage::getModel('sales/service_quote', \$quote);
+		\$service->submitAll();
+		\$order = \$service->getOrder();
 
-        return \$order->getIncrementId();
-    }
+		return \$order->getIncrementId();
+	}
 ?>
 EOF
-	fi
+		fi
+	;;
 
-# Create shell script in Magento
-elif [ "$fn" == "magento:shell-script:create" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
+	# Create shell script in Magento
+	"magento:shell-script:create")
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
 
-        echo "Please enter the name for the shell file: "
-        read shellfile
+			echo "Please enter the name for the shell file: "
+			read shellfile
 
-        if [ ! -z "$shellfile" -a "$shellfile" != " " ]; then
+			if [ ! -z "$shellfile" -a "$shellfile" != " " ]; then
 
 cat <<EOF >> shell/$shellfile.php
 <?php
@@ -256,11 +261,11 @@ umask(0);
 
 class Project_Shell_$shellfile extends Mage_Shell_Abstract
 {
-    public function run()
-    {
-        // Custom code
-        echo 'It works!';
-    }
+	public function run()
+	{
+		// Custom code
+		echo 'It works!';
+	}
 
 }
 
@@ -268,18 +273,19 @@ class Project_Shell_$shellfile extends Mage_Shell_Abstract
 \$shell->run();
 EOF
 
-            echo "The following shell script has been created: shell/${shellfile}.php"
+				echo "The following shell script has been created: shell/${shellfile}.php"
 
-        else
-            "Please specify the filename for the shell script"
-        fi
-   fi
+			else
+				"Please specify the filename for the shell script"
+			fi
+	   fi
+   ;;
 
-# Create gitignore file for Magento project
-elif [ "$fn" == "magento:gitignore:create" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
+	# Create gitignore file for Magento project
+	"magento:gitignore:create")
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
 
 cat <<EOF >> .gitignore
 /html
@@ -297,48 +303,51 @@ iworx-backup
 /skin/frontend/rwd/*/.sass-cache/
 /skin/frontend/rwd/*/css/*
 EOF
-            echo "The gitignore file has been created."
+			echo "The gitignore file has been created."
 
-   fi
+   		fi
+	;;
 
-# Enable Magento URL rewrites
-elif [ "$fn" == "magento:url-rewrites:enable" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
-		$php << EOF
+	# Enable Magento URL rewrites
+	"magento:url-rewrites:enable")
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
+			$php << EOF
 <?php
-    require_once 'app/Mage.php';
-    ini_set('display_errors', 1);
-    Mage::app();
-    Mage::setIsDeveloperMode(true);
+	require_once 'app/Mage.php';
+	ini_set('display_errors', 1);
+	Mage::app();
+	Mage::setIsDeveloperMode(true);
 
-    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
+	Mage::getConfig()->saveConfig('web/seo/use_rewrites', 1);
 ?>
 EOF
-    echo "${LIGHTGREEN}The URL rewrites have been enabled\n\n${NC}"
-	fi
+		echo "${LIGHTGREEN}The URL rewrites have been enabled\n\n${NC}"
+		fi
+	;;
 
-# Disable Magento URL rewrites
-elif [ "$fn" == "magento:url-rewrites:disable" ]; then
-    if [ ! -f app/Mage.php ]; then
-        echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
-	else
-		$php << EOF
+	# Disable Magento URL rewrites
+	"magento:url-rewrites:disable")
+		if [ ! -f app/Mage.php ]; then
+			echo "Error: app/Mage.php file not found. Please make sure that you are currently on the root of the Magento project."
+		else
+			$php << EOF
 <?php
-    require_once 'app/Mage.php';
-    ini_set('display_errors', 1);
-    Mage::app();
-    Mage::setIsDeveloperMode(true);
+	require_once 'app/Mage.php';
+	ini_set('display_errors', 1);
+	Mage::app();
+	Mage::setIsDeveloperMode(true);
 
-    Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
+	Mage::getConfig()->saveConfig('web/seo/use_rewrites', 0);
 ?>
 EOF
-    echo "${RED}The URL rewrites have been disabled\n\n${NC}"
-	fi
+		echo "${RED}The URL rewrites have been disabled\n\n${NC}"
+		fi
+	;;
 
-# Install Magento 2 in current folder
-elif [ "$fn" == "magento2:install" ]; then
-    n98-magerun2.phar install
-
-fi
+	# Install Magento 2 in current folder
+	"magento2:install")
+		n98-magerun2.phar install
+	;;
+esac

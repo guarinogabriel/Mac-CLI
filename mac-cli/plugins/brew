@@ -7,5 +7,10 @@
 # Get list of installed Homebrew packages
 if [ "$fn" == "brew:list" ]; then
 	brew list
-
+elif [[ "$fn" == "brew:update" ]]; then
+	echo "Updating Homebrew and its installed packages..."
+	if [ "$echocommand" == "true" ]; then
+	    echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+	fi
+	brew update; brew upgrade --all; brew cleanup;
 fi

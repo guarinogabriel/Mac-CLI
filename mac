@@ -180,6 +180,7 @@ COMMANDS=(
     git:size
     web:download-images
     brew:list
+    brew:update
     xcode:cleanup
     image:generate:mobile-app-icons
     magento:version

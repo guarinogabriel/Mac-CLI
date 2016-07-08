@@ -124,9 +124,9 @@ elif [ "$fn" == "eject-all" ]; then
 # Get battery information
 elif [ "$fn" == "battery:status" ]; then
 	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { echo }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
+	    echo "${GREEN}pmset -g batt\n\n${NC}"
 	fi
-	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { echo }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+    pmset -g batt
 
 
 # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages

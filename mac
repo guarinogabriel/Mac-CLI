@@ -24,7 +24,7 @@ mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
 mysql_user="root"
 mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
-dropbox_folder="/Volumes/$(id -u -n)/Dropbox/"
+dropbox_folder="/Users/$(id -u -n)/Dropbox/"
 php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 php_cli=$(which php)
 github_email_account=$(git config -l | grep user.email= | cut -d "=" -f2)

@@ -193,6 +193,7 @@ COMMANDS=(
     magento:url-rewrites:disable
     magento2:install
 )
+## ---- END OF COMMANDS; Comment required for bash_completion------
 
 if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
     echo "${RED}Command not found: ${NC}"

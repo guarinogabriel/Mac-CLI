@@ -1,0 +1,18 @@
+# Mac_CLI bash completion
+
+have mac && {
+_mac() {
+    local MACWORDS cur
+
+    COMPREPLY=()
+    _get_comp_words_by_ref -n : cur
+
+    MACWORDS=$(awk "/COMMANDS=/,/#/" < /usr/local/bin/mac  | tail -n +2 | sed '/)/d;/#/d')
+
+    COMPREPLY=( $( compgen -W "$MACWORDS" -- "$cur" ) )
+
+    __ltrim_colon_completions "$cur"
+}
+complete -F _mac mac
+}
+

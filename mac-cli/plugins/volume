@@ -3,21 +3,35 @@
 #--------------------------------------------------------------------
 # Volume Utilities
 #--------------------------------------------------------------------
-if [ "$fn" == "volume" ]; then
-    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-        osascript -e "set volume output volume $firstParameter"
-        echo "${WHITEBOLD}Vol:${NC} ${GREEN}${firstParameter}%${NC}"
-    else
-        echo "${WHITEBOLD}Vol:${NC} ${GREEN}$(osascript -e "output volume of (get volume settings)")% ${NC}"
 
-    fi
-elif [ "$fn" == "volume:ismute" ]; then
-    echo "${WHITEBOLD}Mute:${NC} ${GREEN}$(osascript -e 'output muted of (get volume settings)')${NC}"
-elif [ "$fn" == "volume:mute" ]; then
-    osascript -e "set volume output muted true"
-    echo "${WHITEBOLD}Mute:${NC} ${GREEN}true${NC}"
-elif [ "$fn" == "volume:unmute" ]; then
-    osascript -e "set volume output muted false"
-    echo "${WHITEBOLD}Mute:${NC} ${GREEN}false${NC}"
-fi
+case "$fn" in
 
+    # Get current volume
+    "volume")
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            osascript -e "set volume output volume $firstParameter"
+            echo "${WHITEBOLD}Vol:${NC} ${GREEN}${firstParameter}%${NC}"
+        else
+            echo "${WHITEBOLD}Vol:${NC} ${GREEN}$(osascript -e "output volume of (get volume settings)")% ${NC}"
+
+        fi
+    ;;
+
+     # Is volume muted?
+    "volume:ismute")
+        echo "${WHITEBOLD}Mute:${NC} ${GREEN}$(osascript -e 'output muted of (get volume settings)')${NC}"
+    ;;
+
+     # Mute volume
+    "volume:mute")
+        osascript -e "set volume output muted true"
+        echo "${WHITEBOLD}Mute:${NC} ${GREEN}true${NC}"
+    ;;
+
+     # Umute volume
+    "volume:umute")
+        osascript -e "set volume output muted false"
+        echo "${WHITEBOLD}Mute:${NC} ${GREEN}false${NC}"
+    ;;
+
+esac

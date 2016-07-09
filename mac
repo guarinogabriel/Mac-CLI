@@ -111,7 +111,7 @@ COMMANDS=(
     apps:close-all
     apps:app-store
     eject-all
-    battery:status
+    battery
     info
     find:text
     find:biggest-files

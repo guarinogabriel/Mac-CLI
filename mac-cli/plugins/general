@@ -4,324 +4,373 @@
 # General Utilities
 #--------------------------------------------------------------------
 
-if [ "$fn" == "lock" ]; then
-    if [ "$echocommand" == "true" ]; then
-        echo "${GREEN}/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend\n\n${NC}"
-    fi
-    /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+case "$fn" in
 
-elif [ "$fn" == "restart" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
-	fi
-	osascript -e 'tell app "loginwindow" to «event aevtrrst»'
+    # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
+    "update")
 
-elif [ "$fn" == "sleep" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}pmset sleepnow\n\n${NC}"
-	fi
-	pmset sleepnow
+        echo "Updating OS X..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo softwareupdate -i -a;\n${NC}"
+        fi
+        sudo softwareupdate -i -a;
 
-elif [ "$fn" == "display" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}pmset displaysleepnow\n\n${NC}"
-	fi
-	pmset displaysleepnow
+        echo "Updating Homebrew and its installed packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+        fi
+        brew update; brew upgrade --all; brew cleanup;
 
-elif [ "$fn" == "shutdown" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
-	fi
-	osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
+        echo "Updating npm and its installed packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}npm install npm -g; npm update -g;\n${NC}"
+        fi
+        npm install npm -g; npm update -g;
 
-elif [ "$fn" == "time" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
-	fi
-    if [ -z "$(pgrep macClock)"   ]; then
-        # naming the process
-        ( exec -a macClock bash -c 'while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done' &   )
-    else
-        pkill macClock
-    fi
+        echo "Updating installed Ruby gems..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
+        fi
+        sudo gem update --system; sudo gem update
 
-# Remove files older than X days in current folder
-elif [ "$fn" == "files:remove-older" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
-	fi
-	echo "Removing files older than "$firstParameter" days..."
-	find . -ctime +$firstParameter -print0 | xargs -0 -n1
+        echo "Updating installed pip packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+        fi
+        pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 
-# Calculate folder size
-elif [ "$fn" == "folder:size" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}du -sh .\n\n${NC}"
-	fi
-	echo "Calculating folder size..."
-	echo "Folder size:"
-	du -sh .
-
-# List folders in current directory
-elif [ "$fn" == "folders:list" ]; then
-  du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = secho( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
-
-# Remove empty subdirectories
-elif [ "$fn" == "folders:remove-empty" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}find . -type d -empty -delete\n\n${NC}"
-	fi
-	find . -type d -empty -delete
-
-# Show hidden files
-elif [ "$fn" == "hidden:show" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}defaults write com.apple.finder AppleShowAllFiles YES; killall Finder\n\n${NC}"
-	fi
-	defaults write com.apple.finder AppleShowAllFiles YES; killall Finder
-
-# Hide hidden files
-elif [ "$fn" == "hidden:hide" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}defaults write com.apple.finder AppleShowAllFiles NO; killall Finder\n\n${NC}"
-	fi
-	defaults write com.apple.finder AppleShowAllFiles NO; killall Finder
-
-# Close all opened apps
-elif [ "$fn" = "apps:close-all" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}ignore='grep\|iTerm\|Terminal\|Finder\|Dropbox\|Bartender'\n${NC}"
-	    echo "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
-	fi
-	# To customize ignored apps, just put the keywords in $ignore
-	# To test which apps you are going to kill, run:
-	# ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
-	ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
-	ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
-
-# Get list of installed apps from the App Store
-elif [ "$fn" == "apps:app-store" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
-	fi
-    echo "Getting list of installed apps from the App Store..."
-	find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
-
-# Start screensaver
-elif [ "$fn" == "screensaver" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
-	fi
-	open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
-
-# Eject all mounted volumes and disk
-elif [ "$fn" == "eject-all" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
-	fi
-	osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
-
-# Get battery information
-elif [ "$fn" == "battery:status" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}pmset -g batt\n\n${NC}"
-	fi
-    pmset -g batt
-
-
-# Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
-elif [ "$fn" == "update" ]; then
-	echo "Updating OS X..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}sudo softwareupdate -i -a;\n${NC}"
-	fi
-	sudo softwareupdate -i -a;
-	echo "Updating Homebrew and its installed packages..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
-	fi
-	brew update; brew upgrade --all; brew cleanup;
-	echo "Updating npm and its installed packages..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}npm install npm -g; npm update -g;\n${NC}"
-	fi
-	npm install npm -g; npm update -g;
-	echo "Updating installed Ruby gems..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
-	fi
-	sudo gem update --system; sudo gem update
-	echo "Updating installed pip packages..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
-	fi
-	pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-	echo "Updating N98-Magerun..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}n98-magerun.phar self-update\n${NC}"
-	fi
-	n98-magerun.phar self-update
-	echo "Updating N98-Magerun 2..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}n98-magerun2.phar self-update\n${NC}"
-	fi
-    n98-magerun2.phar self-update
-	echo "Your system has been successfully updated"
-
-# Find text in current directory
-elif [ "$fn" == "find:text" ]; then
-
-	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
-        echo "Please enter the extension to search (i.e.: csv): "
-
-	    read extension
-
-		if [ ! -z "$extension" -a "$extension" != " " ]; then
-
+        if [ -f /usr/local/bin/n98-magerun.phar ]; then
+            echo "Updating N98-Magerun..."
             if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}find . -iname '*.${GRAY}${extension}${GREEN}' | xargs grep -in --color '${GRAY}${allParameters}${GREEN}'${NC}"
+                echo "${GREEN}n98-magerun.phar self-update\n${NC}"
             fi
-            echo "\nRecursively find '"$allParameters"' inside directory..."
-            find . -iname "*.$extension" | xargs grep -in --color "$allParameters"
+            n98-magerun.phar self-update
 
-		else
-            echo "Please introduce the extension of the files to search. E.g: csv"
-		fi
-	else
-		echo "Please introduce text to search. E.g:"
-		echo "mac find:text Sample Search Text"
-	fi
+        fi
 
-# Find biggest files in current directory
-elif [ "$fn" == "find:biggest-files" ]; then
-    if [ "$echocommand" == "true" ]; then
-        echo "${GREEN}find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
-    fi
-    find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+        if [ -f /usr/local/bin/n98-magerun2.phar ]; then
+            echo "Updating N98-Magerun 2..."
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}n98-magerun2.phar self-update\n${NC}"
+            fi
+            n98-magerun2.phar self-update
+            echo "Your system has been successfully updated"
+        fi
+    ;;
 
 
-# Find biggest directories in current directory
-elif [ "$fn" == "find:biggest-directories" ]; then
-    if [ "$echocommand" == "true" ]; then
-        echo "${GREEN}find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
-    fi
-    find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+    # Lock Mac
+    "lock")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend\n\n${NC}"
+        fi
+        /System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend
+    ;;
 
-# Extract Zip file
-elif [ "$fn" == "zip:extract" ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}unzip ${GRAY}${firstParameter}\n\n${NC}"
-		fi
-		unzip $firstParameter
-	else
-		echo "Please specify the Zip file to extract."
-		echo "E.g.: zip:extract sample_file.zip"
-	fi
+    # Restart Mac
+    "restart")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrrst»''\n\n${NC}"
+        fi
+        osascript -e 'tell app "loginwindow" to «event aevtrrst»'
+    ;;
 
-# Compress Gzip file
-elif [ "$fn" == "gzip:compress" ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}gzip ${GRAY}${firstParameter}\n\n${NC}"
-		fi
-		gzip $firstParameter
-	else
-		echo "Please specify the file to compress."
-		echo "E.g.: gzip:compress sample_file"
-	fi
+    # Sleep
+    "sleep")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}pmset sleepnow\n\n${NC}"
+        fi
+        pmset sleepnow
+    ;;
 
-# Extract Gzip file
-elif [ "$fn" == "gzip:extract" ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}gzip -d ${GRAY}${firstParameter}\n\n${NC}"
-		fi
-		gzip -d $firstParameter
-	else
-		echo "Please specify the Gzip file to extract."
-		echo "E.g.: gzip:extract sample_file.gz"
-	fi
+    # Shutdown Mac
+    "shutdown")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}osascript -e 'tell app 'loginwindow' to «event aevtrsdn»'\n\n${NC}"
+        fi
+        osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
+    ;;
 
-# Extract tar file
-elif [ "$fn" == "tar:extract" ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}tar -xvzf ${GRAY}${firstParameter}\n\n${NC}"
-		fi
-		tar -xvzf $firstParameter
-	else
-		echo "Please specify the tar file to extract."
-		echo "E.g.: tar:extract sample_file.tgz"
-	fi
+    # Display clock in Terminal
+    "clock")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
+        fi
+        if [ -z "$(pgrep macClock)"   ]; then
+            # naming the process
+            ( exec -a macClock bash -c 'while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done' &   )
+        else
+            pkill macClock
+        fi
+    ;;
 
-# Compress file/folder using TAR with progress indicator
-elif [ "$fn" == "tar:compress" ]; then
-	echo "Please enter the filename to save the .tgz file: "
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		read filename
+    # Remove files older than X days in current folder
+    "files:remove-older")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
+        fi
+        echo "Removing files older than "$firstParameter" days..."
+        find . -ctime +$firstParameter -print0 | xargs -0 -n1
+    ;;
 
-		if [ ! -z "$filename" -a "$filename" != " " ]; then
-			if [ "$echocommand" == "true" ]; then
-			    echo "${GREEN}tar -czf${GRAY}: ${firstParameter}${GREEN}  | (pv -p --timer --rate --bytes > '${GRAY}${filename}${GREEN}'.tgz)\n\n${NC}"
-			fi
-			tar -czf - $firstParameter | (pv -p --timer --rate --bytes > "$filename".tgz)
-		else
-			"Please specify the file name"
-		fi
-	else
-		echo "Please specify the folder or directory to compress."
-		echo "E.g.: tar:compress foldername"
-	fi
 
-# Search and replace string on file
-elif [ "$fn" == "search:replace" ]; then
-	echo "Please enter the string to search on the file:"
+    #List folders in current directory
+    "folders:list")
+        du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = secho( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
+    ;;
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		read searchString
 
-		if [ ! -z "$searchString" -a "$searchString" != " " ]; then
+    # Remove empty subdirectories
+    "folders:remove-empty")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find . -type d -empty -delete\n\n${NC}"
+        fi
+        find . -type d -empty -delete
+    ;;
 
-            echo "Please enter the string that will replace the search string:"
-            read replaceString
 
-            if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
+    # Calculate folder size
+    "folder:size")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}du -sh .\n\n${NC}"
+        fi
+        echo "Calculating folder size..."
+        echo "Folder size:"
+        du -sh .
+    ;;
+
+
+    # Show hidden files
+    "hidden:show")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}defaults write com.apple.finder AppleShowAllFiles YES; killall Finder\n\n${NC}"
+        fi
+        defaults write com.apple.finder AppleShowAllFiles YES; killall Finder
+    ;;
+
+
+    # Hide hidden files
+    "hidden:hide")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}defaults write com.apple.finder AppleShowAllFiles NO; killall Finder\n\n${NC}"
+        fi
+        defaults write com.apple.finder AppleShowAllFiles NO; killall Finder
+    ;;
+
+
+    # Close all opened apps
+    "apps:close-all")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}ignore='grep\|iTerm\|Terminal\|Finder\|Dropbox\|Bartender'\n${NC}"
+            echo "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
+        fi
+        # To customize ignored apps, just put the keywords in $ignore
+        # To test which apps you are going to kill, run:
+        # ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
+        ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
+        ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
+    ;;
+
+
+    # Get list of installed apps from the App Store
+    "apps:app-store")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
+        fi
+        echo "Getting list of installed apps from the App Store..."
+        find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
+    ;;
+
+
+    # Start screensaver
+    "screensaver")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
+        fi
+        open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+    ;;
+
+
+    # Eject all mounted volumes and disk
+    "eject-all")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
+        fi
+        osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
+    ;;
+
+
+    # Get battery information
+    "battery")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}pmset -g batt\n\n${NC}"
+        fi
+        pmset -g batt
+    ;;
+
+
+    # Find text in current directory
+    "find:text")
+
+        if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
+            echo "Please enter the extension to search (i.e.: csv): "
+
+            read extension
+
+            if [ ! -z "$extension" -a "$extension" != " " ]; then
 
                 if [ "$echocommand" == "true" ]; then
-                    echo "${GREEN}LC_CTYPE=C sed -i'' -e 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
-		        fi
-		        LC_CTYPE=C sed -i'' -e 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
+                    echo "${GREEN}find . -iname '*.${GRAY}${extension}${GREEN}' | xargs grep -in --color '${GRAY}${allParameters}${GREEN}'${NC}"
+                fi
+                echo "\nRecursively find '"$allParameters"' inside directory..."
+                find . -iname "*.$extension" | xargs grep -in --color "$allParameters"
 
             else
-			    "Please specify the string to replace"
-		    fi
+                echo "Please introduce the extension of the files to search. E.g: csv"
+            fi
+        else
+            echo "Please introduce text to search. E.g:"
+            echo "mac find:text Sample Search Text"
+        fi
+    ;;
 
-		else
-			"Please specify the string to search"
-		fi
-	else
-		echo "Please specify the file to perform the search and replace operation"
-		echo "E.g.: search:replace /path/to/file.csv"
-	fi
 
-# TODO: Working on airplane mode (disable wi-fi and bluetooth)
-elif [ "$fn" == "airplane-mode:on" ]; then
-	echo "Enabling airplane mode..."
-	 # networksetup -setairportpower airport off
-	 # networksetup -setairportpower en0 off
-	 # networksetup -setairportpower en1 off
-	 # launchctl unload -w /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth off
-elif [ "$fn" == "airplane-mode:off" ]; then
-	echo "Disabling airplane mode..."
-	 # networksetup -setairportpower airport on
-	 # networksetup -setairportpower en0 on
-	 # networksetup -setairportpower en1 on
-	 # launchctl load -wF /System/Library/LaunchDaemons/com.apple.blued.plist # Switch bluetooth on
+    # Find biggest files in current directory
+    "find:biggest-files")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+        fi
+        find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+    ;;
 
-fi
+
+    # Find biggest directories in current directory
+    "find:biggest-directories")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}${NC}"
+        fi
+        find . -type d -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {}
+    ;;
+
+
+    # Extract Zip file
+    "zip:extract")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}unzip ${GRAY}${firstParameter}\n\n${NC}"
+            fi
+            unzip $firstParameter
+        else
+            echo "Please specify the Zip file to extract."
+            echo "E.g.: zip:extract sample_file.zip"
+        fi
+    ;;
+
+
+    # Compress Gzip file
+    "gzip:compress")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}gzip ${GRAY}${firstParameter}\n\n${NC}"
+            fi
+            gzip $firstParameter
+        else
+            echo "Please specify the file to compress."
+            echo "E.g.: gzip:compress sample_file"
+        fi
+    ;;
+
+
+    # Extract Gzip file
+    "gzip:extract")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}gzip -d ${GRAY}${firstParameter}\n\n${NC}"
+            fi
+            gzip -d $firstParameter
+        else
+            echo "Please specify the Gzip file to extract."
+            echo "E.g.: gzip:extract sample_file.gz"
+        fi
+    ;;
+
+
+    # Extract tar file
+    "tar:extract")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}tar -xvzf ${GRAY}${firstParameter}\n\n${NC}"
+            fi
+            tar -xvzf $firstParameter
+        else
+            echo "Please specify the tar file to extract."
+            echo "E.g.: tar:extract sample_file.tgz"
+	    fi
+    ;;
+
+
+    # Compress file/folder using TAR with progress indicator
+    "tar:compress")
+        echo "Please enter the filename to save the .tgz file: "
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            read filename
+
+            if [ ! -z "$filename" -a "$filename" != " " ]; then
+                if [ "$echocommand" == "true" ]; then
+                    echo "${GREEN}tar -czf${GRAY}: ${firstParameter}${GREEN}  | (pv -p --timer --rate --bytes > '${GRAY}${filename}${GREEN}'.tgz)\n\n${NC}"
+                fi
+                tar -czf - $firstParameter | (pv -p --timer --rate --bytes > "$filename".tgz)
+            else
+                "Please specify the file name"
+            fi
+        else
+            echo "Please specify the folder or directory to compress."
+            echo "E.g.: tar:compress foldername"
+        fi
+    ;;
+
+
+    # Search and replace string on file
+    "search:replace")
+        echo "Please enter the string to search on the file:"
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            read searchString
+
+            if [ ! -z "$searchString" -a "$searchString" != " " ]; then
+
+                echo "Please enter the string that will replace the search string:"
+                read replaceString
+
+                if [ ! -z "$replaceString" -a "$replaceString" != " " ]; then
+
+                    if [ "$echocommand" == "true" ]; then
+                        echo "${GREEN}LC_CTYPE=C sed -i'' -e 's#${GRAY}${searchString}${GREEN}#${GRAY}${replaceString}${GREEN}#g' ${GRAY}${firstParameter}\n\n${NC}"
+                    fi
+                    LC_CTYPE=C sed -i'' -e 's#'"${searchString}"'#'"${replaceString}"'#g' $firstParameter
+
+                else
+                    "Please specify the string to replace"
+                fi
+
+            else
+                "Please specify the string to search"
+            fi
+        else
+            echo "Please specify the file to perform the search and replace operation"
+            echo "E.g.: search:replace /path/to/file.csv"
+        fi
+    ;;
+
+
+esac

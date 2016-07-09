@@ -4,13 +4,21 @@
 # Homebrew Utilities
 #--------------------------------------------------------------------
 
-# Get list of installed Homebrew packages
-if [ "$fn" == "brew:list" ]; then
-	brew list
-elif [[ "$fn" == "brew:update" ]]; then
-	echo "Updating Homebrew and its installed packages..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
-	fi
-	brew update; brew upgrade --all; brew cleanup;
-fi
+case "$fn" in
+
+    # Get list of installed Homebrew packages
+    "brew:list")
+	    brew list
+    ;;
+
+
+    # Update Homebrew and installed packages
+    "brew:update")
+        echo "Updating Homebrew and its installed packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+        fi
+        brew update; brew upgrade --all; brew cleanup;
+    ;;
+
+esac

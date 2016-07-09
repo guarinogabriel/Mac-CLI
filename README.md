@@ -80,7 +80,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac apps:close-all`  | Close all opened apps  | |
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
-| `mac battery:status`  | Get battery status  | |
+| `mac battery`  | Get battery status  | |
 | `mac info`  | Get OS X version information  | |
 | `mac hidden:show`  | Show hidden files  | |
 | `mac hidden:hide`  | Hide hidden files  | |

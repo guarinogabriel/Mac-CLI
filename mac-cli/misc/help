@@ -4,7 +4,8 @@
 # mac script commands list - all commands
 #--------------------------------------------------------------------
 
-if [[ "$fn" == "list" || "$fn" == "help" ]]; then
+case "$fn" in
+    "list"|"help")
 
     echo "\n${WHITEBOLD} mac CLI – OS X command line tools for developers"
     echo "${WHITEBOLD}===================================================="
@@ -29,7 +30,7 @@ if [[ "$fn" == "list" || "$fn" == "help" ]]; then
     echo "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps"
     echo "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store"
     echo "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks"
-    echo "${LIGHTBLUE}mac battery:status${GRAY}: Get battery information"
+    echo "${LIGHTBLUE}mac battery${GRAY}: Get battery information"
     echo "${LIGHTBLUE}mac info${GRAY}: Get OS X version information"
     echo "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string"
     echo "${LIGHTBLUE}mac find:biggest-files ${GRAY}: Find biggest files inside directory"
@@ -115,7 +116,7 @@ if [[ "$fn" == "list" || "$fn" == "help" ]]; then
     echo "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local Git branch "
     echo "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote Git branch "
     echo "${LIGHTBLUE}mac git:removeecho "${LIGHTBLUE}mac git:branch${GRAY}: See all branches "${GRAY}: Remove Git from current project "
-    echo "${LIGHTBLUE}mac git:settings${GRAY}: Check Git settings "
+    echo "${LIGHTBLUE}mac git:config${GRAY}: Check Git settings "
     echo "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files "
     echo "${LIGHTBLUE}mac git:size${GRAY}: Get size for current Git repository "
 
@@ -149,5 +150,6 @@ if [[ "$fn" == "list" || "$fn" == "help" ]]; then
     echo "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory "
 
     echo "${NC}"
+    ;;
 
-fi
+esac

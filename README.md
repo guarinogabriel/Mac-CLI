@@ -44,10 +44,17 @@ These are the requirements to be able to run all the commands (the dependencies/
 
 ---
 
+### Upgrading
+
+You can upgrade Mac CLI to the latest version by running:
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/upgrade)"`
+
+---
+
 ### Uninstallation
 
 You can uninstall Mac CLI by running:
-> `sh /usr/local/bin/mac-cli/tools/uninstall`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall`
 
 ---
 

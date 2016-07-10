@@ -67,6 +67,13 @@ case "$fn" in
     ;;
 
 
+    # Get OS X Info
+    "info")
+        printf "${GREEN}sw_vers\n${NC}"
+        sw_vers
+    ;;
+
+
     # Lock Mac
     "lock")
         if [ "$echocommand" == "true" ]; then

@@ -7,7 +7,7 @@
 case "$fn" in
 
     # Internet connection speed test
-    "magento:speedtest")
+    "speedtest")
 
         if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
             read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response

@@ -126,7 +126,7 @@ case "$fn" in
 
 
     echo "\n\n${WHITEBOLD}Homebrew Utilities: "
-    echo "${LIGHTBLUE}mac brew:list${GRAY}: Get list of installed Homebrew packages "
+    echo "${LIGHTBLUE}mac brew${GRAY}: Get list of installed Homebrew packages "
     echo "${LIGHTBLUE}mac brew:update${GRAY}: Upgrade Homebrew, installed Homebrew packages, and cleanup "
 
 

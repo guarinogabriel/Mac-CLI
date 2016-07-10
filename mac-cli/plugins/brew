@@ -7,7 +7,7 @@
 case "$fn" in
 
     # Get list of installed Homebrew packages
-    "brew:list")
+    "brew")
 	    brew list
     ;;
 

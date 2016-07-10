@@ -231,7 +231,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac brew:list`  | Get a list of installed Homebrew packages  |
+| `mac brew`  | Get a list of installed Homebrew packages  |
 
 
 ### Xcode Utilities

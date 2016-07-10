@@ -39,6 +39,14 @@ case "$fn" in
         fi
         pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 
+        if [ -f /usr/local/bin/apm ]; then
+            echo "Updating Atom Packages..."
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}apm upgrade\n${NC}"
+            fi
+            apm upgrade
+        fi
+
         if [ -f /usr/local/bin/n98-magerun.phar ]; then
             echo "Updating N98-Magerun..."
             if [ "$echocommand" == "true" ]; then

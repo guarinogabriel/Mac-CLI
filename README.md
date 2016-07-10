@@ -44,6 +44,13 @@ These are the requirements to be able to run all the commands (the dependencies/
 
 ---
 
+### Uninstallation
+
+You can uninstall Mac CLI by running:
+> `sh /usr/local/bin/mac-cli/tools/uninstall`
+
+---
+
 ### Integrated Projects
 
 The following amazing projects have been integrated on the mac script (all the integrated projects are optional and can be installed through the installation wizard):

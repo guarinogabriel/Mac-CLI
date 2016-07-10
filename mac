@@ -179,7 +179,6 @@ COMMANDS=(
     git:add-removed
     git:size
     web:download-images
-    brew
     brew:update
     xcode:cleanup
     image:generate:mobile-app-icons

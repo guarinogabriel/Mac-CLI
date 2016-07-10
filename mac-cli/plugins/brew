@@ -6,12 +6,6 @@
 
 case "$fn" in
 
-    # Get list of installed Homebrew packages
-    "brew")
-	    brew list
-    ;;
-
-
     # Update Homebrew and installed packages
     "brew:update")
         echo "Updating Homebrew and its installed packages..."

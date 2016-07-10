@@ -44,10 +44,10 @@ These are the requirements to be able to run all the commands (the dependencies/
 
 ---
 
-### Upgrading
+### Update
 
-You can upgrade Mac CLI to the latest version by running:
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/upgrade)"`
+You can update Mac CLI to the latest version by running:
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"`
 
 ---
 

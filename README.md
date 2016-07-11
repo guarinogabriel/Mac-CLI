@@ -54,7 +54,7 @@ You can update Mac CLI to the latest version by running:
 ### Uninstallation
 
 You can uninstall Mac CLI by running:
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"`
 
 ---
 

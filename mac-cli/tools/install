@@ -268,7 +268,7 @@ main() {
 	    echo "Installing bash-completion"
 	    echo "${GREEN}brew install bash-completion\n\n${NC}"
 	    brew install bash-completion
-	    echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bash_profile
+	    echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bashrc
 	    echo "Setting up Mac-CLI bash-completion"
 	    if [ -d /usr/local/etc/bash_completion.d/ ]; then
 	    	cp /usr/local/bin/mac-cli/misc/bash_completion /usr/local/etc/bash_completion.d/mac
@@ -277,6 +277,7 @@ main() {
 	    echo "Setting up Mac-CLI bash-completion"
 	    if [ -d $(brew --prefix)/etc/bash_completion.d/ ]; then
 		    cp /usr/local/bin/mac-cli/misc/bash_completion $(brew --prefix)/etc/bash_completion.d/mac
+		    echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bashrc
 	    fi
     fi
 

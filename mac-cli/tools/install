@@ -54,10 +54,10 @@ main() {
     fi
 
     echo "${LIGHTGREEN}Please enter path to your Dropbox folder:"
-    echo "${NC}Press enter without any value to keep default: /Volumes/$(id -u -n)/Dropbox/"
+    echo "${NC}Press enter without any value to keep default: /Users/$(id -u -n)/Dropbox/"
     read dropbox_path
     if [ ! -z "$dropbox_path" -a "$dropbox_path" != " " ]; then
-        LC_CTYPE=C sed -i'' -e "s#/Volumes/\$(id -u -n)/Dropbox/#${dropbox_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+        LC_CTYPE=C sed -i'' -e "s#/Users/\$(id -u -n)/Dropbox/#${dropbox_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
     printf "${LIGHTGREEN}"

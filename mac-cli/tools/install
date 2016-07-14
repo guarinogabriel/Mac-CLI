@@ -287,6 +287,27 @@ main() {
 
     fi
 
+    #
+    # Check if fish shell is installed and prompt user to copy fish_completion
+    #
+    if $(cat /etc/shells | grep -q fish) && [ -d ~/.config/fish ];
+    then
+	    printf "${LIGHTGREEN}"
+	    read -r -p "Would you like to install fish shell suggestions/tab completion? (Yes / No) " response
+	    case $response in
+		    [yY][eE][sS]|[yY])
+			    echo "Setting up Mac-CLI Fish completion"
+			    if [ -d ~/.config/fish/completions ];then
+				    cp /usr/local/bin/mac-cli/misc/fish_completion ~/.config/fish/completions/mac.fish
+			    else
+				    mkdir ~/.config/fish/completions && cp /usr/local/bin/mac-cli/misc/fish_completion ~/.config/fish/completions/mac.fish
+			    fi
+			    ;;
+		    *)
+			    ;;
+	    esac
+	    printf "${NC}"
+    fi
 }
 
 main

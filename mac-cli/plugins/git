@@ -4,127 +4,187 @@
 # Git Utilities
 #--------------------------------------------------------------------
 
-# Display local Git configuration
-if [ "$fn" == "git:config" ]; then
-    if [ "$echocommand" == "true" ]; then
-        echo "${GREEN}git config --list\n\n${NC}"
-	fi
-	git config --list
+case "$fn" in
 
-# Open current Git repository on Github
-elif [ "$fn" == "git:open" ]; then
-	giturl=$(git config --get remote.origin.url)
-      if [ "$giturl" == "" ]
-        then
-         echo "Not a git repository or no remote.origin.url set"
-         exit 1;
-      fi
-      giturl=${giturl/git\@github\.com\:/https://github.com/}
-      giturl=${giturl/\.git/\/}
-      branch="$(git symbolic-ref HEAD 2>/dev/null)" ||
-      branch="(unnamed branch)"     # detached HEAD
-      branch=${branch##refs/heads/}
-      giturl=$giturl
-      open $giturl
+    # Display local Git configuration
+    "brew:git:config")
 
-# Create Git branch based on current branch
-elif [ "$fn" == "git:create:branch" ]; then
-
-    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
-	    fi
-	    git checkout -b $firstParameter
+            echo "${GREEN}git config --list\n\n${NC}"
+        fi
+        git config --list
+    ;;
 
-    else
-        echo "Please specify the name for the new branch"
-        echo "E.g.: git:create:branch sample-branch"
-    fi
 
-# Get last update date for all branches in current project
-elif [ "$fn" == "git:branches" ]; then
-	git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+    # Open current Git repository on Github
+    "git:open")
 
-# Undo latest commit
-elif [ "$fn" == "git:undo-commit" ]; then
-    if [ "$echocommand" == "true" ]; then
-        echo "${GREEN}git reset --soft HEAD~\n\n${NC}"
-	fi
-	git reset --soft HEAD~
+        giturl=$(git config --get remote.origin.url)
+          if [ "$giturl" == "" ]
+            then
+             echo "Not a git repository or no remote.origin.url set"
+             exit 1;
+          fi
+          giturl=${giturl/git\@github\.com\:/https://github.com/}
+          giturl=${giturl/\.git/\/}
+          branch="$(git symbolic-ref HEAD 2>/dev/null)" ||
+          branch="(unnamed branch)"     # detached HEAD
+          branch=${branch##refs/heads/}
+          giturl=$giturl
+          open $giturl
+    ;;
 
-# See latest commits IDs and titles for current branch
-elif [ "$fn" == "git:log" ]; then
-	git log --pretty=oneline
 
-# See all branches
-elif [ "$fn" == "git:branch" ]; then
-	git branch -a
+    # Create Git branch based on current branch
+    "git:create:branch")
 
-# Rename Git branch
-elif [ "$fn" == "git:branch:rename" ]; then
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}git checkout -b ${GRAY}$firstParameter\n\n${NC}"
+            fi
+            git checkout -b $firstParameter
 
-	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+        else
+            echo "Please specify the name for the new branch"
+            echo "E.g.: git:create:branch sample-branch"
+        fi
+    ;;
+
+
+    # Get last update date for all branches in current project
+    "git:branches")
+
+        git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+    ;;
+
+
+    # Undo latest commit
+    "git:undo-commit")
+
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}git branch -m ${GRAY}$firstParameter\n\n${NC}"
-	    fi
-	    git branch -m $firstParameter
+            echo "${GREEN}git reset --soft HEAD~\n\n${NC}"
+        fi
+        git reset --soft HEAD~
+    ;;
 
-    else
-        echo "Please specify the name of the branch to rename"
-        echo "E.g.: git:branch:rename sample-branch"
-    fi
 
-# Remove local Git branch
-elif [ "$fn" == "git:branch:remove-local" ]; then
+    # See latest commits IDs and titles for current branch
+    "git:log")
 
-	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
-	    fi
-	    git branch -d $firstParameter
+            echo "${GREEN}git log --pretty=oneline\n\n${NC}"
+        fi
+    	git log --pretty=oneline
+    ;;
 
-    else
-        echo "Please specify the name of the branch to remove"
-        echo "E.g.: git:branch:remove-local sample-branch"
-    fi
 
-# Remove local and remote Git branch
-elif [ "$fn" == "git:branch:remove-remote" ]; then
+    # See all branches
+    "git:branch")
 
-	 if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
-	    fi
-	    git branch -d $firstParameter
+            echo "${GREEN}git branch -a\n\n${NC}"
+        fi
+        git branch -a
+    ;;
+
+
+    # Rename Git branch
+    "git:branch:rename")
+
+         if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}git branch -m ${GRAY}$firstParameter\n\n${NC}"
+            fi
+            git branch -m $firstParameter
+
+        else
+            echo "Please specify the name of the branch to rename"
+            echo "E.g.: git:branch:rename sample-branch"
+        fi
+    ;;
+
+
+    # Remove local Git branch
+    "git:branch:remove-local")
+
+         if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+            fi
+            git branch -d $firstParameter
+
+        else
+            echo "Please specify the name of the branch to remove"
+            echo "E.g.: git:branch:remove-local sample-branch"
+        fi
+    ;;
+
+
+    # Remove local and remote Git branch
+    "git:branch:remove-remote")
+
+         if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}git branch -d ${GRAY}$firstParameter\n\n${NC}"
+            fi
+            git branch -d $firstParameter
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}git push origin --delete ${GRAY}$firstParameter\n\n${NC}"
+            fi
+            git push origin --delete $firstParameter
+
+        else
+            echo "Please specify the name of the branch to remove"
+            echo "E.g.: git:branch:remove-remote sample-branch"
+        fi
+    ;;
+
+
+    # Check Git settings
+    "git:config")
+
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}git push origin --delete ${GRAY}$firstParameter\n\n${NC}"
-	    fi
-	    git push origin --delete $firstParameter
+            echo "${GREEN}git config --list\n\n${NC}"
+        fi
+        git config --list
+    ;;
 
-    else
-        echo "Please specify the name of the branch to remove"
-        echo "E.g.: git:branch:remove-remote sample-branch"
-    fi
 
-# Check Git settings
-elif [ "$fn" == "git:settings" ]; then
-	git config --list
+    # Add removed files to staged files
+    "git:add-removed")
 
-# Add removed files to staged files
-elif [ "$fn" == "git:add-removed" ]; then
-	git add -u
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}git add -u\n\n${NC}"
+        fi
+        git add -u
+    ;;
 
-# Remove Git from current project
-elif [ "$fn" == "git:remove" ]; then
-	find . -name '.git' -exec rm -rf {} \;
 
-# Open current Git repository URL
-elif [ "$fn" == "git:open" ]; then
-	open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
+    # Remove Git from current project
+    "git:remove")
 
-# Get size of current Git repository
-elif [ "$fn" == "git:size" ]; then
-	git bundle create tmp.bundle --all
-	echo "\n\nCurrent Git repository size: "
-	du -sh tmp.bundle
-	rm tmp.bundle
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find . -name '.git' -exec rm -rf {} \;\n\n${NC}"
+        fi
+        find . -name '.git' -exec rm -rf {} \;
+    ;;
+
+
+    # Open current Git repository URL
+    "git:open")
+
+        open `git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#http://#' -e 's@com:@com/@'`| head -n1
+    ;;
+
+
+    # Get size of current Git repository
+    "git:size")
+
+        git bundle create tmp.bundle --all
+        echo "\n\nCurrent Git repository size: "
+        du -sh tmp.bundle
+        rm tmp.bundle
+    ;;
+
+
+esac

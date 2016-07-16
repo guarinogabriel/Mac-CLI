@@ -4,244 +4,259 @@
 # SSH Utilities
 #--------------------------------------------------------------------
 
-# Download file through SSH on current folder
-if [ "$fn" == "ssh:download-file" ]; then
+case "$fn" in
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+    # Download file through SSH on current folder
+    "ssh:download-file")
 
-		echo "Please enter the server IP address or domain: "
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 
-		read ipaddress
-		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+            echo "Please enter the server IP address or domain: "
 
-			echo "Please enter username: "
+            read ipaddress
+            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
 
-			read username
+                echo "Please enter username: "
 
-			if [ ! -z "$username" -a "$username" != " " ]; then
+                read username
 
-				if [ "$echocommand" == "true" ]; then
-				    echo "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
-				fi
-				scp $username@$ipaddress:$firstParameter .
+                if [ ! -z "$username" -a "$username" != " " ]; then
 
-			else
-				"Please specify the username for the remote server"
-			fi
-
-		else
-			"Please specify the server IP address or domain"
-		fi
-
-	else
-		echo "Please specify the path to the file on the remote server to download"
-		echo "E.g.: /home/sample/file.jpg"
-	fi
-
-# Download entire folder through SSH on current directory
-elif [ "$fn" == "ssh:download-folder" ]; then
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-
-		echo "Please enter the server IP address or domain: "
-
-		read ipaddress
-		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
-
-			echo "Please enter username: "
-
-			read username
-
-			if [ ! -z "$username" -a "$username" != " " ]; then
-
-				if [ "$echocommand" == "true" ]; then
-				    echo "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
-				fi
-				scp -r $username@$ipaddress:$firstParameter .
-
-			else
-				"Please specify the username for the remote server"
-			fi
-
-		else
-			"Please specify the server IP address or domain"
-		fi
-
-	else
-		echo "Please specify the path to the folder on the remote server to download"
-		echo "E.g.: /home/sample/folder/"
-	fi
-
-
-# Download remote database through SSH on current directory
-elif [ "$fn" == "ssh:download-database" ]; then
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-
-		echo "Please enter the server IP address or domain: "
-
-		read ipaddress
-		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
-
-			echo "Please enter username: "
-
-			read username
-
-			if [ ! -z "$username" -a "$username" != " " ]; then
-
-                # TODO: Create method to download database through SSH
-                echo ""
-				# echo "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
-				# scp -r $username@$ipaddress:$firstParameter .
-
-			else
-				"Please specify the username for the remote server"
-			fi
-
-		else
-			"Please specify the server IP address or domain"
-		fi
-
-	else
-		echo "Please specify the database name on the remote server to download"
-		echo "E.g.: mac ssh:download-database database-name"
-	fi
-
-
-elif [ "$fn" == "ssh:sync:local" ]; then
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-
-		echo "Please enter the server IP address or domain: "
-
-		read ipaddress
-		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
-
-			echo "Please enter username: "
-
-			read username
-
-			if [ ! -z "$username" -a "$username" != " " ]; then
-
-                echo "Please enter local folder to sync with the remote folder: "
-
-                read localfolder
-
-                if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
                     if [ "$echocommand" == "true" ]; then
-                        echo "${GREEN}rsync -a --progress ${GRAY}${username}@${ipaddress}:${firstparameter} ${localfolder}${GREEN}\n\n${NC}"
+                        echo "${GREEN}scp ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
                     fi
-                    rsync -a --progress ${username}@${ipaddress}:${firstparameter} ${localfolder}
+                    scp $username@$ipaddress:$firstParameter .
 
                 else
-                    "Please specify the local folder to sync with the remote folder"
+                    "Please specify the username for the remote server"
                 fi
-			else
-				"Please specify the username for the remote server"
-			fi
 
-		else
-			"Please specify the server IP address or domain"
-		fi
+            else
+                "Please specify the server IP address or domain"
+            fi
 
-	else
-		echo "Please specify the remote folder path to sync"
-		echo "E.g.: mac ssh:sync:remote /var/www/html/media/"
-	fi
+        else
+            echo "Please specify the path to the file on the remote server to download"
+            echo "E.g.: /home/sample/file.jpg"
+        fi
+    ;;
 
 
+    # Download entire folder through SSH on current directory
+    "ssh:download-folder")
 
-elif [ "$fn" == "ssh:sync:remote" ]; then
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            echo "Please enter the server IP address or domain: "
 
-		echo "Please enter the server IP address or domain: "
+            read ipaddress
+            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
 
-		read ipaddress
-		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+                echo "Please enter username: "
 
-			echo "Please enter username: "
+                read username
 
-			read username
+                if [ ! -z "$username" -a "$username" != " " ]; then
 
-			if [ ! -z "$username" -a "$username" != " " ]; then
-
-                echo "Please enter local folder to sync from the remove folder: "
-
-                read localfolder
-
-                if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
                     if [ "$echocommand" == "true" ]; then
-                        echo "${GREEN}rsync -a ${localfolder} ${username}@${ipaddress}:${firstparameter}\n\n${NC}"
+                        echo "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
                     fi
-                    rsync -a --progress ${localfolder} ${username}@${ipaddress}:${firstparameter}
+                    scp -r $username@$ipaddress:$firstParameter .
 
                 else
-                    "Please specify the local folder to sync from the remote folder"
+                    "Please specify the username for the remote server"
                 fi
-			else
-				"Please specify the username for the remote server"
-			fi
 
-		else
-			"Please specify the server IP address or domain"
-		fi
+            else
+                "Please specify the server IP address or domain"
+            fi
 
-	else
-		echo "Please specify the remote folder path to sync"
-		echo "E.g.: mac ssh:sync:remote /var/www/html/media/"
-	fi
+        else
+            echo "Please specify the path to the folder on the remote server to download"
+            echo "E.g.: /home/sample/folder/"
+        fi
+    ;;
 
 
+    # Download remote database through SSH on current directory
+    "ssh:download-database")
 
-# Upload file to remote server through SSH
-elif [ "$fn" == "ssh:upload" ]; then
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            echo "Please enter the server IP address or domain: "
 
-		echo "Please enter the server IP address or domain: "
+            read ipaddress
+            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
 
-		read ipaddress
+                echo "Please enter username: "
 
-		if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+                read username
 
-			echo "Please enter username: "
+                if [ ! -z "$username" -a "$username" != " " ]; then
 
-			read username
+                    # TODO: Create method to download database through SSH
+                    echo ""
+                    # echo "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
+                    # scp -r $username@$ipaddress:$firstParameter .
 
-			if [ ! -z "$username" -a "$username" != " " ]; then
+                else
+                    "Please specify the username for the remote server"
+                fi
 
-					echo "Please enter path on the remote server to upload the file: "
+            else
+                "Please specify the server IP address or domain"
+            fi
 
-					read remotePath
+        else
+            echo "Please specify the database name on the remote server to download"
+            echo "E.g.: mac ssh:download-database database-name"
+        fi
+    ;;
 
-					if [ ! -z "$remotePath" -a "$remotePath" != " " ]; then
 
-						if [ "$echocommand" == "true" ]; then
-						    echo "${GREEN}scp ${GRAY}${firstParameter} ${username}@${ipaddress}:${remotePath}${GREEN}\n\n${NC}"
-						fi
-						scp $firstParameter $username@$ipaddress:$remotePath
+    # Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)
+    "ssh:sync:local")
 
-					else
-						"Please specify the path on the remote server to upload the file"
-					fi
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
 
-			else
-				"Please specify the username for the remote server"
-			fi
+            echo "Please enter the server IP address or domain: "
 
-		else
-			"Please specify the server IP address or domain"
-		fi
+            read ipaddress
+            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
 
-	else
-		echo "Please specify the path to the file to upload to the remote server"
-		echo "E.g.: /user/example/documents/file.pdf"
-	fi
+                echo "Please enter username: "
 
-# SSH key Utilities
-elif [ "$fn" == "ssh:public-key" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
-	fi
-	pbcopy < ~/.ssh/id_rsa.pub
+                read username
+
+                if [ ! -z "$username" -a "$username" != " " ]; then
+
+                    echo "Please enter local folder to sync with the remote folder: "
+
+                    read localfolder
+
+                    if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
+                        if [ "$echocommand" == "true" ]; then
+                            echo "${GREEN}rsync -a --progress ${GRAY}${username}@${ipaddress}:${firstparameter} ${localfolder}${GREEN}\n\n${NC}"
+                        fi
+                        rsync -a --progress ${username}@${ipaddress}:${firstparameter} ${localfolder}
+
+                    else
+                        "Please specify the local folder to sync with the remote folder"
+                    fi
+                else
+                    "Please specify the username for the remote server"
+                fi
+
+            else
+                "Please specify the server IP address or domain"
+            fi
+
+        else
+            echo "Please specify the remote folder path to sync"
+            echo "E.g.: mac ssh:sync:remote /var/www/html/media/"
+        fi
+    ;;
+
+
+    # Sync remote folder with local folder using rsync through SSH (upload local folder to remote folder)
+    "ssh:sync:remote")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+            echo "Please enter the server IP address or domain: "
+
+            read ipaddress
+            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+                echo "Please enter username: "
+
+                read username
+
+                if [ ! -z "$username" -a "$username" != " " ]; then
+
+                    echo "Please enter local folder to sync from the remove folder: "
+
+                    read localfolder
+
+                    if [ ! -z "$localfolder" -a "$localfolder" != " " ]; then
+                        if [ "$echocommand" == "true" ]; then
+                            echo "${GREEN}rsync -a ${localfolder} ${username}@${ipaddress}:${firstparameter}\n\n${NC}"
+                        fi
+                        rsync -a --progress ${localfolder} ${username}@${ipaddress}:${firstparameter}
+
+                    else
+                        "Please specify the local folder to sync from the remote folder"
+                    fi
+                else
+                    "Please specify the username for the remote server"
+                fi
+
+            else
+                "Please specify the server IP address or domain"
+            fi
+
+        else
+            echo "Please specify the remote folder path to sync"
+            echo "E.g.: mac ssh:sync:remote /var/www/html/media/"
+        fi
+    ;;
+
+
+    # Upload file to remote server through SSH
+    "ssh:upload")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+
+            echo "Please enter the server IP address or domain: "
+
+            read ipaddress
+
+            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
+
+                echo "Please enter username: "
+
+                read username
+
+                if [ ! -z "$username" -a "$username" != " " ]; then
+
+                        echo "Please enter path on the remote server to upload the file: "
+
+                        read remotePath
+
+                        if [ ! -z "$remotePath" -a "$remotePath" != " " ]; then
+
+                            if [ "$echocommand" == "true" ]; then
+                                echo "${GREEN}scp ${GRAY}${firstParameter} ${username}@${ipaddress}:${remotePath}${GREEN}\n\n${NC}"
+                            fi
+                            scp $firstParameter $username@$ipaddress:$remotePath
+
+                        else
+                            "Please specify the path on the remote server to upload the file"
+                        fi
+
+                else
+                    "Please specify the username for the remote server"
+                fi
+
+            else
+                "Please specify the server IP address or domain"
+            fi
+
+        else
+            echo "Please specify the path to the file to upload to the remote server"
+            echo "E.g.: /user/example/documents/file.pdf"
+        fi
+    ;;
+
+
+    # SSH key Utilities
+    "ssh:public-key")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+        fi
+        pbcopy < ~/.ssh/id_rsa.pub
+    ;;
+
+
+esac

@@ -24,12 +24,12 @@ mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
 mysql_user="root"
 mysql_password="root"
 mysqldump="/Applications/MAMP/Library/bin/mysqldump"
-dropbox_folder="/Volumes/$(id -u -n)/Dropbox/"
+dropbox_folder="/Users/$(id -u -n)/Dropbox/"
 php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 php_cli=$(which php)
 github_email_account=$(git config -l | grep user.email= | cut -d "=" -f2)
 echocommand="false"
-pref_editor="vi" # what's your preferred terminal editor?
+pref_editor="vi"
 
 export cli_path
 export plugins_path
@@ -95,8 +95,15 @@ COMMANDS=(
     lock
     restart
     sleep
+    display
     shutdown
     time
+    volume
+    volume:ismute
+    volume:mute
+    volume:unmute
+    hidden:show
+    hidden:hide
     screensaver
     folders:list
     folder:size
@@ -104,7 +111,7 @@ COMMANDS=(
     apps:close-all
     apps:app-store
     eject-all
-    battery:status
+    battery
     info
     find:text
     find:biggest-files
@@ -131,6 +138,7 @@ COMMANDS=(
     mysql:create
     mysql:drop
     mysql:duplicate
+    mysql:dump
     mamp:start
     mamp:stop
     mamp:restart
@@ -171,7 +179,7 @@ COMMANDS=(
     git:add-removed
     git:size
     web:download-images
-    brew:list
+    brew:update
     xcode:cleanup
     image:generate:mobile-app-icons
     magento:version
@@ -184,10 +192,9 @@ COMMANDS=(
     magento:url-rewrites:disable
     magento2:install
 )
+## ---- END OF COMMANDS; Comment required for bash_completion------
 
-if [[ " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
-    echo "${GREEN}mac ${fn} ${allParameters} ${NC}"
-else
+if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
     echo "${RED}Command not found: ${NC}"
 	echo "$fn"
 	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
@@ -221,3 +228,4 @@ fi
 "$MAC/mac-cli/plugins/ssh"
 "$MAC/mac-cli/plugins/web"
 "$MAC/mac-cli/plugins/xcode"
+"$MAC/mac-cli/plugins/volume"

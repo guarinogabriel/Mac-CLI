@@ -4,74 +4,90 @@
 # Network Utilities
 #--------------------------------------------------------------------
 
-# Internet connection speed test
-if [ "$fn" == "speedtest" ]; then
-	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
-		read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
-		case $response in
-			[yY][eE][sS]|[yY])
-				npm install --global speed-test
-				;;
-			*)
-				exit
-				;;
-		esac
-	else
-		echo "Testing internet connection speed..."
-		node "/usr/local/lib/node_modules/speed-test/cli.js"
-	fi
+case "$fn" in
 
-# Run internet connection Speed Test each 5 minutes
-elif [ "$fn" == "speedtest:infinite" ]; then
-	if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
-		read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
-		case $response in
-			[yY][eE][sS]|[yY])
-				npm install --global speed-test
-				;;
-			*)
-				exit
-				;;
-		esac
-	else
-		while true
-		do
-			title="\nTesting internet connection speed - "
-			title+=`date '+%Y-%m-%d %H:%M:%S'`
-			echo $title
-			node "/usr/local/lib/node_modules/speed-test/cli.js"
-			sleep 300
-		done
-	fi
+    # Internet connection speed test
+    "speedtest")
 
-# List of used ports
-elif [ "$fn" == "ports" ]; then
-	echo "Getting list of used ports..."
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
-	fi
-	sudo lsof -iTCP -sTCP:LISTEN -P
-
-# Get local IP address
-elif [ "$fn" == "ip:local" ]; then
-	local_ip=$(ipconfig getifaddr en0)
-	if [ $? == 0 ]; then
-		if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}ipconfig getifaddr en0\n\n${NC}"
+        if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+            case $response in
+                [yY][eE][sS]|[yY])
+                    npm install --global speed-test
+                    ;;
+                *)
+                    exit
+                    ;;
+            esac
+        else
+            echo "Testing internet connection speed..."
+            node "/usr/local/lib/node_modules/speed-test/cli.js"
         fi
-	else
-	    if [ "$echocommand" == "true" ]; then
-		    echo "${GREEN}ipconfig getifaddr en1\n\n${NC}"
-		fi
-		local_ip=$(ipconfig getifaddr en1)
-	fi
-	echo "Your IP address is:\n${local_ip}"
+    ;;
 
-# Get public IP address
-elif [ "$fn" == "ip:public" ]; then
-    if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
-	fi
-	wget http://ipinfo.io/ip -qO -
 
-fi
+    # Run internet connection Speed Test each 5 minutes
+    "speedtest:infinite")
+
+        if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+            case $response in
+                [yY][eE][sS]|[yY])
+                    npm install --global speed-test
+                    ;;
+                *)
+                    exit
+                    ;;
+            esac
+        else
+            while true
+            do
+                title="\nTesting internet connection speed - "
+                title+=`date '+%Y-%m-%d %H:%M:%S'`
+                echo $title
+                node "/usr/local/lib/node_modules/speed-test/cli.js"
+                sleep 300
+            done
+        fi
+    ;;
+
+
+    # List of used ports
+    "ports")
+
+        echo "Getting list of used ports..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo lsof -iTCP -sTCP:LISTEN -P\n\n${NC}"
+        fi
+        sudo lsof -iTCP -sTCP:LISTEN -P
+    ;;
+
+
+    # Get local IP address
+    "ip:local")
+
+        local_ip=$(ipconfig getifaddr en0)
+        if [ $? == 0 ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}ipconfig getifaddr en0\n\n${NC}"
+            fi
+        else
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}ipconfig getifaddr en1\n\n${NC}"
+            fi
+            local_ip=$(ipconfig getifaddr en1)
+        fi
+        echo "Your IP address is:\n${local_ip}"
+    ;;
+
+
+    # Get public IP address
+    "ip:public")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}wget http://ipinfo.io/ip -qO -\n\n${NC}"
+        fi
+        wget http://ipinfo.io/ip -qO -
+    ;;
+
+esac

@@ -4,221 +4,248 @@
 # LAMP (Linux, Apache, MySQL, PHP)
 #--------------------------------------------------------------------
 
-## MySQL Utilities
-if [ "$fn" == "mysql" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
-	fi
-	open -a /Applications/Sequel\ Pro.app
+case "$fn" in
 
-elif [ "$fn" == "mysql:cli" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
-	fi
-	mycli  -u$mysql_user -p$mysql_password -S /Applications/MAMP/tmp/mysql/mysql.sock
+    # Open Sequel Pro
+    "mysql")
 
-elif [ "$fn" == "mysql:export-all" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql\n\n${NC}"
-	fi
-	${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql
-
-# Export MySQL database
-elif [ "$fn" == "mysql:dump" ]; then
-	echo "Please enter the filename to save the compressed database: "
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		read filename
-
-		if [ ! -z "$filename" -a "$filename" != " " ]; then
-			if [ "$echocommand" == "true" ]; then
-			    echo "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
-			fi
-			$mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
-		else
-			"Please specify the file name"
-		fi
-	else
-		echo "Please specify the database to export"
-		echo "E.g.: mysql:export database"
-	fi
-
-# List all MySQL databases
-elif [ "$fn" == "mysql:list" ]; then
-    if [ "$echocommand" == "true" ]; then
-        echo "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
-    fi
-    echo "show databases;" | ${mysql} -u${mysql_user} -p${mysql_password}
-
-# Import MySQL database
-elif [ "$fn" == "mysql:import" ]; then
-	echo "Please enter the database name to import the selected SQL file: "
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		read databasename
-
-		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			if [ "$echocommand" == "true" ]; then
-			    echo "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
-			fi
-			pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
-		else
-			"Please specify the database name"
-		fi
-	else
-		echo "Please specify the SQL file to import"
-		echo "E.g.: mysql:import /path/to/file.sql"
-	fi
-
-# Export all MySQL databases
-elif [ "$fn" == "mysql:dump-all" ]; then
-
-    databases=`$mysql -u"$mysql_user" -p"$mysql_password" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
-
-    for db in $databases; do
-        if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
-            echo "Dumping database: $db"
-            $mysqldump -u"$mysql_user" -p"$mysql_password" --databases $db > `date +%Y%m%d`.$db.sql
-        fi
-    done
-
-# Import single MySQL database table
-elif [ "$fn" == "mysql:import-table" ]; then
-	echo "Please enter the name from the database containing the table to import: "
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		read databasename
-
-		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			if [ "$echocommand" == "true" ]; then
-			    echo "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u ${mysql_user} -D ${databasename}\n\n${NC}"
-			fi
-			pv $firstParameter | $mysql -u $mysql_user -p -D $databasename
-		else
-			"Please specify the database name"
-		fi
-	else
-		echo "Please specify the SQL file containing the single table to import"
-		echo "E.g.: mysql:import /path/to/file.sql"
-	fi
-
-# Create MySQL database
-elif [ "$fn" == "mysql:create" ]; then
-
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            echo "${GREEN}open -a /Applications/Sequel\ Pro.app\n\n${NC}"
         fi
-        echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
-	else
-		echo "Please specify the name for the new database"
-		echo "E.g.: mysql:create database-name"
-	fi
+        open -a /Applications/Sequel\ Pro.app
+    ;;
 
-# Remove MySQL database
-elif [ "$fn" == "mysql:drop" ]; then
 
-	if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+    # Open MySQL CLI
+    "mysql:cli")
+
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
         fi
-        echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
-	else
-		echo "Please specify the name of the database to remove"
-		echo "E.g.: mysql:drop database-name"
-	fi
+        mycli  -u$mysql_user -p$mysql_password -S /Applications/MAMP/tmp/mysql/mysql.sock
+    ;;
 
-# Duplicate MySQL database
-elif [ "$fn" == "mysql:duplicate" ]; then
 
-    echo "Please enter the name for new table: "
+    # Dump all MySQL databases
+    "mysql:export-all")
 
-    if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-		read databasename
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql\n\n${NC}"
+        fi
+        ${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql
+    ;;
 
-		if [ ! -z "$databasename" -a "$databasename" != " " ]; then
-			if [ "$echocommand" == "true" ]; then
-			    echo "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
-			fi
-			mac mysql:create $databasename && $mysqldump -u${mysql_user} -p${mysql_password} $firstParameter | $mysql -u${mysql_user} -p${mysql_password} $databasename
-		else
-			"Please specify the database name"
-		fi
-	else
-		echo "Please specify the name of the database to duplicate"
-		echo "E.g.: mysql:remove database-name"
-	fi
 
-# Start MAMP Apache and MySQL
-elif [ "$fn" == "mamp:start" ]; then
-    # Ask for password up-front
-    sudo -v
-    # Open MAMP
-    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
-    # Start Apache
-    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
-    # Start MySQL
-    sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+    # Export MySQL database
+    "mysql:dump")
 
-# Start MAMP Apache and MySQL
-elif [ "$fn" == "mamp:stop" ]; then
-    # Ask for password up-front
-    sudo -v
-    # Open MAMP
-    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
-    # Stop Apache
-    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
-    # Stop MySQL
-    sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+        echo "Please enter the filename to save the compressed database: "
 
-# Restart MAMP Apache and MySQL
-elif [ "$fn" == "mamp:restart" ]; then
-    # Ask for password up-front
-    sudo -v
-    # Open MAMP
-    open /Applications/MAMP\ PRO/MAMP\ PRO.app/
-    # Stop Apache
-    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
-    # Stop MySQL
-    sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
-    # Start Apache
-    sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
-    # Start MySQL
-    sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            read filename
 
-# PHP Utilities
-elif [ "$fn" == "php:syntax" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
-	fi
-	echo "Checking PHP syntax for all files in current location..."
-	find . -name \*.php -exec php -l "{}" \;
+            if [ ! -z "$filename" -a "$filename" != " " ]; then
+                if [ "$echocommand" == "true" ]; then
+                    echo "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
+                fi
+                $mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
+            else
+                "Please specify the file name"
+            fi
+        else
+            echo "Please specify the database to export"
+            echo "E.g.: mysql:export database"
+        fi
+    ;;
 
-elif [ "$fn" == "php:info" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}$php -i\n\n${NC}"
-	fi
-	$php -i
 
-# Get battery information
-elif [ "$fn" == "battery:status" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { echo }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'\n\n${NC}"
-	fi
-	system_profiler SPPowerDataType | awk '/Full/ || /Remaining/ || /Cycle/ { echo }' | sed -e 's/[^:]*/Battery/' -e 's/ *R.*):./\//' -e 's/ *Cycle/ (mAh)     Cycle/'
+    # List all MySQL databases
+    "mysql:list")
 
-# Get OS X version information
-elif [ "$fn" == "info" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}sw_vers \n\n${NC}"
-	fi
-	sw_vers
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+        fi
+        echo "show databases;" | ${mysql} -u${mysql_user} -p${mysql_password}
+    ;;
 
-# Edit hosts file
-elif [ "$fn" == "hosts:edit" ]; then
-	if [ "$echocommand" == "true" ]; then
-	    echo "${GREEN}sudo ${pref_editor} /private/etc/hosts \n\n${NC}"
-	fi
-	sudo $pref_editor /private/etc/hosts
 
-fi
+    # Import MySQL database
+    "mysql:import")
+
+        echo "Please enter the database name to import the selected SQL file: "
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            read databasename
+
+            if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+                if [ "$echocommand" == "true" ]; then
+                    echo "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+                fi
+                pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
+            else
+                "Please specify the database name"
+            fi
+        else
+            echo "Please specify the SQL file to import"
+            echo "E.g.: mysql:import /path/to/file.sql"
+        fi
+    ;;
+
+
+    # Export all MySQL databases
+    "mysql:dump-all")
+
+        databases=`$mysql -u"$mysql_user" -p"$mysql_password" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
+
+        for db in $databases; do
+            if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
+                echo "Dumping database: $db"
+                $mysqldump -u"$mysql_user" -p"$mysql_password" --databases $db > `date +%Y%m%d`.$db.sql
+            fi
+        done
+    ;;
+
+
+    # Import single MySQL database table
+    "mysql:import-table")
+
+        echo "Please enter the name from the database containing the table to import: "
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            read databasename
+
+            if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+                if [ "$echocommand" == "true" ]; then
+                    echo "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u ${mysql_user} -D ${databasename}\n\n${NC}"
+                fi
+                pv $firstParameter | $mysql -u $mysql_user -p -D $databasename
+            else
+                "Please specify the database name"
+            fi
+        else
+            echo "Please specify the SQL file containing the single table to import"
+            echo "E.g.: mysql:import /path/to/file.sql"
+        fi
+    ;;
+
+
+    # Create MySQL database
+    "mysql:create")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            fi
+            echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+        else
+            echo "Please specify the name for the new database"
+            echo "E.g.: mysql:create database-name"
+        fi
+    ;;
+
+
+    # Remove MySQL database
+    "mysql:drop")
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            fi
+            echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+        else
+            echo "Please specify the name of the database to remove"
+            echo "E.g.: mysql:drop database-name"
+        fi
+    ;;
+
+
+    # Duplicate MySQL database
+    "mysql:duplicate")
+
+        echo "Please enter the name for new table: "
+
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+            read databasename
+
+            if [ ! -z "$databasename" -a "$databasename" != " " ]; then
+                if [ "$echocommand" == "true" ]; then
+                    echo "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
+                fi
+                mac mysql:create $databasename && $mysqldump -u${mysql_user} -p${mysql_password} $firstParameter | $mysql -u${mysql_user} -p${mysql_password} $databasename
+            else
+                "Please specify the database name"
+            fi
+        else
+            echo "Please specify the name of the database to duplicate"
+            echo "E.g.: mysql:remove database-name"
+        fi
+    ;;
+
+
+    # Start MAMP Apache and MySQL
+    "mamp:start")
+
+        # Ask for password up-front
+        sudo -v
+        # Open MAMP
+        open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+        # Start Apache
+        sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
+        # Start MySQL
+        sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+    ;;
+
+
+    # Start MAMP Apache and MySQL
+    "mamp:stop")
+
+        # Ask for password up-front
+        sudo -v
+        # Open MAMP
+        open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+        # Stop Apache
+        sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
+        # Stop MySQL
+        sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+    ;;
+
+
+    # Restart MAMP Apache and MySQL
+    "mamp:restart")
+
+        # Ask for password up-front
+        sudo -v
+        # Open MAMP
+        open /Applications/MAMP\ PRO/MAMP\ PRO.app/
+        # Stop Apache
+        sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k stop
+        # Stop MySQL
+        sh -c '/Applications/MAMP/Library/bin/mysqladmin -u root -proot --socket=/Applications/MAMP/tmp/mysql/mysql.sock shutdown'
+        # Start Apache
+        sudo /Applications/MAMP/Library/bin/httpd -f "/Library/Application Support/appsolute/MAMP PRO/conf/httpd.conf" -k start
+        # Start MySQL
+        sh -c '/Applications/MAMP/Library/bin/mysqld_safe --defaults-file=/Applications/MAMP/tmp/mysql/my.cnf --port=3306 --socket=/Applications/MAMP/tmp/mysql/mysql.sock --user=gabriel --pid-file=/Applications/MAMP/tmp/mysql/mysql.pid --log-error=/Applications/MAMP/logs/mysql_error_log.err --tmpdir=/Applications/MAMP/tmp/mysql/tmpdir --datadir=/Library/Application\ Support/appsolute/MAMP\ PRO/db/mysql &'
+    ;;
+
+
+    # Check PHP syntax in current directory
+    "php:syntax")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}find . -name \*.php -exec php -l '{}' \;\n\n${NC}"
+        fi
+        echo "Checking PHP syntax for all files in current location..."
+        find . -name \*.php -exec php -l "{}" \;
+    ;;
+
+
+    # Get PHP info
+    "php:info")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}$php -i\n\n${NC}"
+        fi
+        $php -i
+    ;;
+
+esac

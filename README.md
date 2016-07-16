@@ -2,8 +2,9 @@
 
  OS X command line tools for developers
 
-:star: Now with modularity and plugins! You can check the plugins folder.
-Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!
+:star: Now with modularity and plugins! You can check the plugins folder: [/mac-cli/plugins](https://github.com/guarinogabriel/mac-cli/tree/master/mac-cli/plugins)
+
+_Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!_
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
@@ -14,11 +15,11 @@ When you run a function, the executed command is displayed and that helps you me
 
 ### Installation in 1 Simple Step - Including configuration wizard!
 
-via curl
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/tools/install)"`
+Via curl
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"`
 
-via wget
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/tools/install)"`
+Via wget
+> `sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"`
 
 Then, re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`
@@ -40,6 +41,20 @@ These are the requirements to be able to run all the commands (the dependencies/
 * Git
 * Python
 * Pipe Viewer (pv)
+
+---
+
+### Update
+
+You can update Mac CLI to the latest version by running:
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"`
+
+---
+
+### Uninstallation
+
+You can uninstall Mac CLI by running:
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"`
 
 ---
 
@@ -66,8 +81,6 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac install`  | Install all mac script dependencies to be able to run all commands  | |
-| `mac install:all`  | Install all mac script dependencies and integrated projects  | |
 | `mac update`  | Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
 | `mac lock`  | Lock  | |
 | `mac restart`  | Restart OS X  | |
@@ -81,8 +94,10 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac apps:close-all`  | Close all opened apps  | |
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
-| `mac battery:status`  | Get battery status  | |
+| `mac battery`  | Get battery status  | |
 | `mac info`  | Get OS X version information  | |
+| `mac hidden:show`  | Show hidden files  | |
+| `mac hidden:hide`  | Hide hidden files  | |
 | `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
 | `mac find:biggest-files`  | Find biggest files inside directory  | |
 | `mac find:biggest-directories`  | Find biggest directories inside directory  | |
@@ -230,7 +245,7 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description |
 | ------------- | ------------- |
-| `mac brew:list`  | Get a list of installed Homebrew packages  |
+| `mac brew`  | Get a list of installed Homebrew packages  |
 
 
 ### Xcode Utilities

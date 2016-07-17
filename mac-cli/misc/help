@@ -54,6 +54,9 @@ case "$fn" in
     echo "${LIGHTBLUE}mac ports${GRAY}: List of used ports "
     echo "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address "
     echo "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address "
+    echo "${LIGHTBLUE}mac dhcp:renew${GRAY}: Renew DHCP Lease "
+    echo "${LIGHTBLUE}mac dns:clear${GRAY}: Clear DNS Cache "
+
 
 
     echo "\n\n${WHITEBOLD}LAMP Utilities: "

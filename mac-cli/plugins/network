@@ -99,7 +99,7 @@ case "$fn" in
         sudo ipconfig set en0 DHCP
     ;;
 
-    # Get public IP address
+    # Clear DNS Cache
     "dns:clear")
 
         if [ "$echocommand" == "true" ]; then

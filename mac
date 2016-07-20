@@ -65,6 +65,8 @@ export allParameters
 # Is the user running commands in sudo?
 IS_SUDO=$(id -u)
 
+export IS_SUDO
+
 #--------------------------------------------------------------------
 # Colors
 #--------------------------------------------------------------------

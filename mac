@@ -98,6 +98,7 @@ COMMANDS=(
     display
     shutdown
     time
+    uptime
     volume
     volume:ismute
     volume:mute
@@ -128,6 +129,8 @@ COMMANDS=(
     ports
     ip:local
     ip:public
+    dhcp:renew
+    dns:clear
     mysql
     mysql:cli
     mysql:list

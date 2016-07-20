@@ -18,6 +18,7 @@ case "$fn" in
     echo "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode"
     echo "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown"
     echo "${LIGHTBLUE}mac time${GRAY}: Show clock at top right position in Terminal/iTerm"
+    echo "${LIGHTBLUE}mac uptime${GRAY}: Get the time since last restart"
     echo "${LIGHTBLUE}mac volume${GRAY}: Get the volume from the terminal"
     echo "${LIGHTBLUE}mac volume ${LIGHTGREEN}X${GRAY}: Set the volume from the terminal - ${LIGHTGREEN}X = Level (0-100)"
     echo "${LIGHTBLUE}mac volume:mute${GRAY}: Mute volume"
@@ -53,6 +54,9 @@ case "$fn" in
     echo "${LIGHTBLUE}mac ports${GRAY}: List of used ports "
     echo "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address "
     echo "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address "
+    echo "${LIGHTBLUE}mac dhcp:renew${GRAY}: Renew DHCP Lease "
+    echo "${LIGHTBLUE}mac dns:clear${GRAY}: Clear DNS Cache "
+
 
 
     echo "\n\n${WHITEBOLD}LAMP Utilities: "

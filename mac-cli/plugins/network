@@ -90,4 +90,23 @@ case "$fn" in
         wget http://ipinfo.io/ip -qO -
     ;;
 
+    # Renew DHCP Lease
+    "dhcp:renew")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo ipconfig set en0 DHCP -\n\n${NC}"
+        fi
+        sudo ipconfig set en0 DHCP
+    ;;
+
+    # Clear DNS Cache
+    "dns:clear")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder -\n\n${NC}"
+        fi
+        sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+    ;;
+
+
 esac

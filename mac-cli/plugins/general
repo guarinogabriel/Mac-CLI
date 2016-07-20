@@ -123,6 +123,14 @@ case "$fn" in
         fi
     ;;
 
+    # Uptime
+    "uptime")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}uptime\n\n${NC}"
+        fi
+        uptime
+    ;;
+
 
     # Remove files older than X days in current folder
     "files:remove-older")

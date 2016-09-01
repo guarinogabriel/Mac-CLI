@@ -10,9 +10,9 @@ case "$fn" in
     "brew:update")
         echo "Updating Homebrew and its installed packages..."
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+            echo "${GREEN}brew update; brew upgrade --all; brew cleanup; brew prune; brew cask cleanup;\n${NC}"
         fi
-        brew update; brew upgrade --all; brew cleanup;
+        brew update; brew upgrade --all; brew cleanup; brew prune; brew cask cleanup;
     ;;
 
 esac

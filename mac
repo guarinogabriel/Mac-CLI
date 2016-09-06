@@ -103,6 +103,10 @@ COMMANDS=(
     folder:size
     folders:remove-empty
     apps:close-all
+    dock:add-space
+    bluetooth:status
+    bluetooth:enable
+    bluetooth:disable
     apps:app-store
     eject-all
     battery

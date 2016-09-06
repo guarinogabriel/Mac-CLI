@@ -138,8 +138,8 @@ main() {
         case $response in
             [yY][eE][sS]|[yY])
                 echo "Installing sass..."
-                echo "${GREEN}sudo gem install sass\n${NC}"
-                sudo gem install sass
+                echo "${GREEN}sudo gem install -n /usr/local/bin compass\n${NC}"
+                sudo gem install -n /usr/local/bin compass
                 ;;
             *)
                 ;;

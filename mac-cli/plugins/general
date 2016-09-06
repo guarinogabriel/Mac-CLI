@@ -1,6 +1,12 @@
 #!/bin/sh
 
 #--------------------------------------------------------------------
+# General Variables
+#--------------------------------------------------------------------
+
+_W_DEVICE=${_W_DEVICE:-en0}
+
+#--------------------------------------------------------------------
 # General Utilities
 #--------------------------------------------------------------------
 
@@ -235,12 +241,13 @@ case "$fn" in
 
     # Enable wifi
     "wifi:enable")
-        echo "${GREEN}Wifi enabled{NC}"
+        echo "${GREEN}Wifi enabled${NC}"
         networksetup -setairportpower ${_W_DEVICE} on
     ;;
 
     # Disable wifi
     "wifi:disable")
+        echo "${GREEN}Wifi disabled{NC}"
         networksetup -setairportpower ${_W_DEVICE} off
     ;;
 

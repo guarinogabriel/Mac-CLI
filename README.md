@@ -63,7 +63,7 @@ You can uninstall Mac CLI by running:
 The following amazing projects have been integrated on the mac script (all the integrated projects are optional and can be installed through the installation wizard):
 * Glances (https://github.com/nicolargo/glances)
 * MySQL CLI (https://github.com/dbcli/mycli)
-* speedtest-cli (https://github.com/sivel/speedtest-cli)
+* fast-cli (https://github.com/sindresorhus/fast-cli)
 * n98-magerun (https://github.com/netz98/n98-magerun)
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
 * imageOptim

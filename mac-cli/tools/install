@@ -179,12 +179,12 @@ main() {
 
     if [ ! -f /usr/local/bin/speedtest-cli ]; then
         printf "${LIGHTGREEN}"
-        read -r -p "Would you like to install SpeedTest CLI to run internet speed tests from your command line (https://github.com/sivel/speedtest-cli)? (Yes / No)" response
+        read -r -p "Would you like to install Fast CLI to run internet speed tests from your command line (https://github.com/sindresorhus/fast-cli)? (Yes / No)" response
         case $response in
             [yY][eE][sS]|[yY])
-                echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
-                echo "${GREEN}pip install speedtest-cli\n${NC}"
-                pip install speedtest-cli
+                echo "Installing Fast CLI (https://github.com/sindresorhus/fast-cli)..."
+                echo "${GREEN}npm install --global fast-cli\n${NC}"
+                npm install --global fast-cli
                 ;;
             *)
                 ;;

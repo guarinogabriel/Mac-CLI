@@ -10,10 +10,10 @@ case "$fn" in
     "speedtest")
 
         if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
-            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/fast-cli) (Yes / No)" response
             case $response in
                 [yY][eE][sS]|[yY])
-                    npm install --global speed-test
+                    npm install --global fast-cli
                     ;;
                 *)
                     exit
@@ -21,7 +21,7 @@ case "$fn" in
             esac
         else
             echo "Testing internet connection speed..."
-            node "/usr/local/lib/node_modules/speed-test/cli.js"
+            fast
         fi
     ;;
 
@@ -30,10 +30,10 @@ case "$fn" in
     "speedtest:infinite")
 
         if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
-            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/fast-cli) (Yes / No)" response
             case $response in
                 [yY][eE][sS]|[yY])
-                    npm install --global speed-test
+                    npm install --global fast-cli
                     ;;
                 *)
                     exit
@@ -45,7 +45,7 @@ case "$fn" in
                 title="\nTesting internet connection speed - "
                 title+=`date '+%Y-%m-%d %H:%M:%S'`
                 echo $title
-                node "/usr/local/lib/node_modules/speed-test/cli.js"
+                fast
                 sleep 300
             done
         fi

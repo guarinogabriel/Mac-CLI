@@ -200,12 +200,11 @@ case "$fn" in
     ;;
 
 
-
     # Check bluetooth status
     "bluetooth:status")
         defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState | \
             awk '{ if($1 != 0) {print "Bluetooth: ON"} else { print "Bluetooth: OFF" }  }'
-        ;;
+    ;;
 
 
     # Enable bluetooth
@@ -213,7 +212,7 @@ case "$fn" in
         echo "${GREEN}Bluetooth enabled{NC}"
         sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 1 && \
             sudo killall -HUP blued
-        ;;
+    ;;
 
 
     # Disable bluetooth
@@ -221,29 +220,29 @@ case "$fn" in
         echo "${GREEN}Bluetooth disabled${NC}"
         sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0 && \
             sudo killall -HUP blued
-        ;;
+    ;;
 
 
     # Check wifi status
     "wifi:status")
         /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
-
+    ;;
 
     # Check available wifi networks
     "wifi:scan")
         /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s
-
+    ;;
 
     # Enable wifi
     "wifi:enable")
         echo "${GREEN}Wifi enabled{NC}"
         networksetup -setairportpower ${_W_DEVICE} on
-
+    ;;
 
     # Disable wifi
     "wifi:disable")
         networksetup -setairportpower ${_W_DEVICE} off
-
+    ;;
 
     # Show wifi password for current network
     "wifi:password")
@@ -254,14 +253,14 @@ case "$fn" in
                 ssid=$1
         fi
         security find-generic-password -D "AirPort network password" -a "$ssid" -gw
-
+    ;;
 
     # Add blank space to the dock
     "dock:add-space")
         echo "${GREEN}Added new blank space to the dock${NC}"
         defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
         killall Dock
-
+    ;;
 
     # Get list of installed apps from the App Store
     "apps:app-store")

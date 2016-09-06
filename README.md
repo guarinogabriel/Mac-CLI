@@ -95,6 +95,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac bluetooth:status`  | Get the bluetooth status  | |
 | `mac bluetooth:enable`  | Enable bluetooth  | |
 | `mac bluetooth:disable`  | Disable bluetooth  | |
+| `mac dock:add-space`  | Add blank space to dock  | |
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery`  | Get battery status  | |

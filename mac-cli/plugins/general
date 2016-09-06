@@ -224,6 +224,38 @@ case "$fn" in
         ;;
 
 
+    # Check wifi status
+    "wifi:status")
+        /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
+
+
+    # Check available wifi networks
+    "wifi:scan")
+        /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s
+
+
+    # Enable wifi
+    "wifi:enable")
+        echo "${GREEN}Wifi enabled{NC}"
+        networksetup -setairportpower ${_W_DEVICE} on
+
+
+    # Disable wifi
+    "wifi:disable")
+        networksetup -setairportpower ${_W_DEVICE} off
+
+
+    # Show wifi password for current network
+    "wifi:password")
+        if [ -z "$1" ]
+            then
+                ssid="`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`"
+            else
+                ssid=$1
+        fi
+        security find-generic-password -D "AirPort network password" -a "$ssid" -gw
+
+
     # Add blank space to the dock
     "dock:add-space")
         echo "${GREEN}Added new blank space to the dock${NC}"

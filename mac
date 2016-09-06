@@ -107,6 +107,11 @@ COMMANDS=(
     bluetooth:status
     bluetooth:enable
     bluetooth:disable
+    wifi:status
+    wifi:scan
+    wifi:enable
+    wifi:disable
+    wifi:password
     apps:app-store
     eject-all
     battery

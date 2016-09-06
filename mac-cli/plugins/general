@@ -222,6 +222,13 @@ case "$fn" in
         ;;
 
 
+    # Add blank space to the dock
+    "dock:add-space")
+        echo "${GREEN}Added new blank space to the dock${NC}"
+        defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+        killall Dock
+
+
     # Get list of installed apps from the App Store
     "apps:app-store")
         if [ "$echocommand" == "true" ]; then

@@ -1,6 +1,6 @@
 # Mac CLI
 
- OS X command line tools for developers
+ macOS command line tools for developers
 
 :star: Now with modularity and plugins! You can check the plugins folder: [/mac-cli/plugins](https://github.com/guarinogabriel/mac-cli/tree/master/mac-cli/plugins)
 
@@ -8,7 +8,7 @@ _Contributions to add new plugins and keep improving the existing ones are welco
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
-The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your OS X system.
+The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your macOS system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
 ---
@@ -81,9 +81,9 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac update`  | Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
+| `mac update`  | Install macOS software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
 | `mac lock`  | Lock  | |
-| `mac restart`  | Restart OS X  | |
+| `mac restart`  | Restart macOS  | |
 | `mac sleep`  | Sleep mode  | |
 | `mac shutdown`  | Shutdown  | |
 | `mac time`  | Show clock at top right position in Terminal/iTerm  | |
@@ -95,7 +95,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery`  | Get battery status  | |
-| `mac info`  | Get OS X version information  | |
+| `mac info`  | Get macOS version information  | |
 | `mac hidden:show`  | Show hidden files  | |
 | `mac hidden:hide`  | Hide hidden files  | |
 | `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |

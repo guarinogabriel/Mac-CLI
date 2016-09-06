@@ -1,13 +1,13 @@
 #!/bin/sh
 ###########################################################################
-#  mac CLI (mac command line tools) - OS X command line tools for developers
+#  mac CLI (mac command line tools) - macOS command line tools for developers
 ###########################################################################
 
 # Version: 2.0
 # Date: December 8, 2015
 # Author: Gabriel Guarino
 #
-# Collection of useful functions to automate OS X common tasks
+# Collection of useful functions to automate macOS common tasks
 #
 ###########################################################################
 

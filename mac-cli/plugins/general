@@ -6,10 +6,10 @@
 
 case "$fn" in
 
-    # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
+    # Install macOS software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
     "update")
 
-        echo "Updating OS X..."
+        echo "Updating macOS..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}sudo softwareupdate -i -a;\n${NC}"
         fi
@@ -67,7 +67,7 @@ case "$fn" in
     ;;
 
 
-    # Get OS X Info
+    # Get macOS Info
     "info")
         printf "${GREEN}sw_vers\n${NC}"
         sw_vers

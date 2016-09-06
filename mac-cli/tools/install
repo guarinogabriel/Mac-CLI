@@ -273,7 +273,7 @@ main() {
             echo "Setting up Mac-CLI bash-completion\n"
 
         if [ -d /usr/local/etc/bash_completion.d/ ]; then
-            cp /usr/local/bin/mac-cli/misc/bash_completion /usr/local/etc/bash_completion.d/mac
+            cp /usr/local/bin/mac-cli/completion/bash_completion /usr/local/etc/bash_completion.d/mac
         fi
 
     else
@@ -281,7 +281,7 @@ main() {
         echo "Setting up Mac-CLI bash-completion\n"
 
         if [ -d $(brew --prefix)/etc/bash_completion.d/ ]; then
-            cp /usr/local/bin/mac-cli/misc/bash_completion $(brew --prefix)/etc/bash_completion.d/mac
+            cp /usr/local/bin/mac-cli/completion/bash_completion $(brew --prefix)/etc/bash_completion.d/mac
             echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bashrc
         fi
 
@@ -298,9 +298,9 @@ main() {
 		    [yY][eE][sS]|[yY])
 			    echo "Setting up Mac-CLI Fish completion"
 			    if [ -d ~/.config/fish/completions ];then
-				    cp /usr/local/bin/mac-cli/misc/fish_completion ~/.config/fish/completions/mac.fish
+				    cp /usr/local/bin/mac-cli/completion/fish_completion ~/.config/fish/completions/mac.fish
 			    else
-				    mkdir ~/.config/fish/completions && cp /usr/local/bin/mac-cli/misc/fish_completion ~/.config/fish/completions/mac.fish
+				    mkdir ~/.config/fish/completions && cp /usr/local/bin/mac-cli/completion/fish_completion ~/.config/fish/completions/mac.fish
 			    fi
 			    ;;
 		    *)

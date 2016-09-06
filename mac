@@ -190,13 +190,18 @@ COMMANDS=(
 )
 ## ---- END OF COMMANDS; Comment required for bash_completion------
 
+if [ -z "$fn" ]; then
+    fn="list"
+fi
+
 if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
     echo "${RED}Command not found: ${NC}"
-	echo "$fn"
-	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
+    echo "$fn"
+
+    if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
         echo "${RED}\nParameters: ${NC}"
         echo "$allParameters"
-	fi
+    fi
 fi
 
 #--------------------------------------------------------------------

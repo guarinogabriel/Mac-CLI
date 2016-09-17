@@ -28,8 +28,8 @@ case "$fn" in
         echo "${WHITEBOLD}Mute:${NC} ${GREEN}true${NC}"
     ;;
 
-     # Umute volume
-    "volume:umute")
+     # Unmute volume
+    "volume:unmute")
         osascript -e "set volume output muted false"
         echo "${WHITEBOLD}Mute:${NC} ${GREEN}false${NC}"
     ;;

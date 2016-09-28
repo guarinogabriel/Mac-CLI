@@ -86,6 +86,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac restart`  | Restart macOS  | |
 | `mac sleep`  | Sleep mode  | |
 | `mac shutdown`  | Shutdown  | |
+| `mac presentation`  | Prepare MAC for presentation: minimize all apps, send files from desktop and downloads to trash and set not disturb mode  | |
 | `mac time`  | Show clock at top right position in Terminal/iTerm  | |
 | `mac screensaver`  | Start screensaver  | |
 | `mac folders:list`  | List folders in current directory with their current size  | |

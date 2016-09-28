@@ -91,6 +91,7 @@ COMMANDS=(
     display
     shutdown
     time
+    presentation
     uptime
     volume
     volume:ismute

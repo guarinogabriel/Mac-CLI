@@ -116,6 +116,33 @@ case "$fn" in
     ;;
 
 
+    # Prepare MAC for presentation: minimize all apps, send files from desktop and downloads to trash and set not disturb mode
+    "presentation")
+
+        # Minimize all the windows
+        osascript <<EOD
+            activate application "Finder"
+            tell application "System Events"
+              set visible of processes where name is not "Finder" to false
+            end tell
+            tell application "Finder" to set collapsed of windows to true'
+        EOD
+
+        # Cleanup desktop and downloads
+        gvfs-trash ~/Downloads/*
+        gvfs-trash ~/Desktop/*
+
+        # Set not disturb mode
+        osascript <<EOD
+          tell application "System Events" to tell process "SystemUIServer"
+            key down option
+            click menu bar item 1 of menu bar 2
+            key up option
+          end tell
+        EOD
+    ;;
+
+
     # Display clock in Terminal
     "clock")
         if [ "$echocommand" == "true" ]; then

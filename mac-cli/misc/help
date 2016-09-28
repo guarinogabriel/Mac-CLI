@@ -17,6 +17,7 @@ case "$fn" in
     echo "${LIGHTBLUE}mac restart${GRAY}: Restart OS X"
     echo "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode"
     echo "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown"
+    echo "${LIGHTBLUE}mac presentation${GRAY}: Prepare MAC for presentation: minimize all apps, send files from desktop and downloads to trash and set not disturb mode"
     echo "${LIGHTBLUE}mac time${GRAY}: Show clock at top right position in Terminal/iTerm"
     echo "${LIGHTBLUE}mac uptime${GRAY}: Get the time since last restart"
     echo "${LIGHTBLUE}mac volume${GRAY}: Get the volume from the terminal"

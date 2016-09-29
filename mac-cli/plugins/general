@@ -119,28 +119,54 @@ case "$fn" in
     # Prepare MAC for presentation: minimize all apps, send files from desktop and downloads to trash and set not disturb mode
     "presentation")
 
+        # Close browsers
+        killall -9 Safari
+        killall -9 Google\ Chrome
+        killall -9 firefox
+
+
         # Minimize all the windows
-        osascript <<EOD
-            activate application "Finder"
-            tell application "System Events"
-              set visible of processes where name is not "Finder" to false
-            end tell
-            tell application "Finder" to set collapsed of windows to true'
-        EOD
+osascript <<'END'
+tell application "System Events"
+    repeat with p in every application process whose visible is true
+        click (first button of every window of p whose role description is "minimize button")
+    end repeat
+end tell
+END
 
         # Cleanup desktop and downloads
-        gvfs-trash ~/Downloads/*
-        gvfs-trash ~/Desktop/*
+osascript >/dev/null <<'END'
+tell application "System Events"
+  set currentUser to (name of current user)
+end tell
+tell application "Finder"
+try
+  delete (every item of folder "Downloads" of folder currentUser of folder "Users" of startup disk)
+end try
+try
+  delete (every item of folder "Desktop" of folder currentUser of folder "Users" of startup disk)
+end try
+end tell
+END
 
         # Set not disturb mode
-        osascript <<EOD
-          tell application "System Events" to tell process "SystemUIServer"
-            key down option
-            click menu bar item 1 of menu bar 2
-            key up option
-          end tell
-        EOD
+osascript >/dev/null <<'END'
+try
+	tell application "System Events"
+		tell process "SystemUIServer"
+			key down option
+			click menu bar item "Notification Center" of menu bar 1
+			key up option
+		end tell
+	end tell
+end try
+END
+
+        # Restart notification center
+        killall NotificationCenter
     ;;
+
+
 
 
     # Display clock in Terminal

@@ -13,6 +13,8 @@ case "$fn" in
     echo "\n${WHITEBOLD}General Utilities: "
 
     echo "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages"
+    echo "${LIGHTBLUE}mac mas:update${GRAY}: Update AppStore Applications"
+    echo "${LIGHTBLUE}mac mas:list${GRAY}: List installed AppStore Applications"
     echo "${LIGHTBLUE}mac lock${GRAY}: Lock"
     echo "${LIGHTBLUE}mac restart${GRAY}: Restart OS X"
     echo "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode"

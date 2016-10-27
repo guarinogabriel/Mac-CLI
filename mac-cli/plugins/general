@@ -21,7 +21,7 @@ case "$fn" in
         fi
         sudo softwareupdate -i -a;
 	
-	echo "Updating AppStore applications."
+	echo "Updating AppStore Applications..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}mas upgrade;\n${NC}"
         fi

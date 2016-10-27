@@ -20,6 +20,12 @@ case "$fn" in
             echo "${GREEN}sudo softwareupdate -i -a;\n${NC}"
         fi
         sudo softwareupdate -i -a;
+	
+	echo "Updating AppStore applications."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}mas upgrade;\n${NC}"
+        fi
+        mas upgrade;
 
         echo "Updating Homebrew and its installed packages..."
         if [ "$echocommand" == "true" ]; then

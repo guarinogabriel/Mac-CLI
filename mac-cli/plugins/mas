@@ -1,18 +1,27 @@
 #!/bin/sh
 
 #--------------------------------------------------------------------
-# Homebrew Utilities
+# Mas Utilities
 #--------------------------------------------------------------------
 
 case "$fn" in
 
-    # Update Homebrew and installed packages
+    # Update AppStore Applications
     "mas:upgrade")
-        echo "Updating Homebrew and its installed packages..."
+        echo "Update AppStore Applications..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}mas upgrade;\n${NC}"
         fi
         mas upgrade;
+    ;;
+    
+    # List AppStore Applications
+    "mas:list")
+        echo "Update AppStore Applications..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}mas list;\n${NC}"
+        fi
+        mas list;
     ;;
 
 esac

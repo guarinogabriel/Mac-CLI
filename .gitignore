@@ -2,3 +2,4 @@
 .idea/
 .idea/workspace.xml
 .phpstorm.meta.php
+*.iml

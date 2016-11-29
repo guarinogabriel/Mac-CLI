@@ -1,0 +1,27 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# Mas Utilities
+#--------------------------------------------------------------------
+
+case "$fn" in
+
+    # Update AppStore Applications
+    "mas:upgrade")
+        echo "Update AppStore Applications..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}mas upgrade;\n${NC}"
+        fi
+        mas upgrade;
+    ;;
+    
+    # List AppStore Applications
+    "mas:list")
+        echo "Update AppStore Applications..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}mas list;\n${NC}"
+        fi
+        mas list;
+    ;;
+
+esac

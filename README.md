@@ -174,28 +174,6 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac ssh:list`  | List all the saved SSH credentials  |  |
 
 
-### LAMP Utilities
-
-| Command  | Description | Arguments |
-| ------------- | ------------- | ------------- |
-| `mac mysql:gui`  | Open Sequel PRO app)  |  |
-| `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
-| `mac mysql:list`  | List all MySQL databases  | |
-| `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |
-| `mac mysql:dump X`  | Export MySQL database to current directory  |  X = database name  |
-| `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
-| `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |
-| `mac mysql:create X`  | Create MySQL database  |  X = Database name |
-| `mac mysql:drop X`  | Remove MySQL database  |  X = Database name |
-| `mac mysql:duplicate X`  | Duplicate MySQL database  |  X = Database name |
-| `mac mamp:start`  | Start MAMP Server (Apache and MySQL)  | |
-| `mac mamp:stop`  | Stop MAMP Server (Apache and MySQL)  | |
-| `mac mamp:restart`  | Restart MAMP Server (Apache and MySQL)  | |
-| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
-| `mac php:info`  | Get PHP info on command line  |  |
-| `mac hosts:edit`  | Edit hosts file  |  |
-
-
 ### Web Development Utilities
 
 | Command  | Description | Arguments |

@@ -77,7 +77,18 @@ main() {
     if [ ! -z "$pref_editor" -a "$pref_editor" != " " ]; then
         LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
-
+    
+    if [ ! -d /usr/local/bin ]; then
+            echo "bin not found"
+    	{
+    		echo "creating bin directory..."
+    		mkdir /usr/local/bin
+    	} || {
+    		echo "error in creating bin directory"
+    		exit 1
+    	}
+    fi
+    
     cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac
 	cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
 	chmod -R +x /usr/local/bin/mac-cli/*

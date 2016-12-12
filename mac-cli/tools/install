@@ -82,7 +82,7 @@ main() {
             echo "bin not found"
     	{
     		echo "creating bin directory..."
-    		mkdir /usr/local/bin
+    		mkdir -p /usr/local/bin
     	} || {
     		echo "error in creating bin directory"
     		exit 1

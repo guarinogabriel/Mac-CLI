@@ -111,7 +111,7 @@ main() {
         brew install pv
 	fi
 
-    if [ ! -f /usr/local/bin/node ]; then
+    if ! which node > /dev/null; then
         echo "Installing node..."
         echo "${GREEN}brew install node\n${NC}"
         brew install node

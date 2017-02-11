@@ -73,6 +73,24 @@ case "$fn" in
     ;;
 
 
+    # Upgrade Mac CLI to the latest version
+    "upgrade")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"\n\n${NC}"
+        fi
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"
+    ;;
+
+
+    # Uninstall Mac CLI from your Mac
+    "upgrade")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"\n\n${NC}"
+        fi
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"
+    ;;
+
+
     # Get macOS Info
     "info")
         printf "${GREEN}sw_vers\n${NC}"

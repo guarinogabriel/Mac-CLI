@@ -74,6 +74,8 @@ COMMANDS=(
     image
     magento
     update
+    upgrade
+    uninstall
     lock
     restart
     sleep

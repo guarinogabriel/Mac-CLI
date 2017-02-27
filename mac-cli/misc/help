@@ -46,8 +46,8 @@ function usageList()
         general)
             echo "\n${WHITEBOLD}General Utilities: "
             echo "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages"
-            echo "${LIGHTBLUE}mac upgrade{GRAY}: Upgrade Mac CLI to the latest version"
-            echo "${LIGHTBLUE}mac uninstall{GRAY}: Uninstall Mac CLI"
+            echo "${LIGHTBLUE}mac upgrade${GRAY}: Upgrade Mac CLI to the latest version"
+            echo "${LIGHTBLUE}mac uninstall${GRAY}: Uninstall Mac CLI"
             echo "${LIGHTBLUE}mac lock${GRAY}: Lock"
             echo "${LIGHTBLUE}mac restart${GRAY}: Restart OS X"
             echo "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode"

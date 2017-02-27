@@ -171,7 +171,8 @@ COMMANDS=(
     git:branch:rename
     git:branch:remove-local
     git:branch:remove-remote
-    git:removegit:branch
+    git:remove
+    git:branch
     git:settings
     git:add-removed
     git:size

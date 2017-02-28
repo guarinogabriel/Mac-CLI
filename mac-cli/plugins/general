@@ -265,15 +265,22 @@ END
 
     # Close all opened apps
     "apps:close-all")
+        mac_cli_config=$HOME/.mac-cli
+        ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
+        if [ -e $mac_cli_config ]; then
+          source ${mac_cli_config}
+          ignore="${ignore}\|${__MAC_CLI_IGNORE_APPS}"
+        fi
+
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}ignore='grep\|iTerm\|Terminal\|Finder\|Dropbox\|Bartender'\n${NC}"
+            echo "${GREEN}ignore='$ignore'\n${NC}"
             echo "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
         fi
         # To customize ignored apps, just put the keywords in $ignore
+        # or add a file called $HOME/.mac-cli and set the variable __MAC_CLI_IGNORE_APPS
         # To test which apps you are going to kill, run:
         # ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
-        ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
-        ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
+        ps aux | grep /Applications | grep -v "${ignore}" | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
     ;;
 
 

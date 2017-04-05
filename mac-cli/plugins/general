@@ -41,9 +41,9 @@ case "$fn" in
 
         echo "Updating installed pip packages..."
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+            echo "${GREEN}pip list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
         fi
-        pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+        pip list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
 
         if [ -f /usr/local/bin/apm ]; then
             echo "Updating Atom Packages..."

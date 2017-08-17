@@ -369,9 +369,9 @@ END
     # Eject all mounted volumes and disk
     "eject-all")
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
+            echo "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose ejectable is true)'\n\n${NC}"
         fi
-        osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
+        osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
     ;;
 
 

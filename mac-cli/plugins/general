@@ -33,6 +33,12 @@ case "$fn" in
         fi
         npm install npm -g; npm update -g;
 
+        echo "Updating Yarn's installed packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}yarn global upgrade;\n${NC}"
+        fi
+        yarn global upgrade;
+        
         echo "Updating installed Ruby gems..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}sudo gem update --system; sudo gem update\n${NC}"

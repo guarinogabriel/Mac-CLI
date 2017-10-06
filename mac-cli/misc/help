@@ -65,7 +65,7 @@ function usageList()
             echo "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size"
             echo "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories"
             echo "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps"
-            echo "${LIGHTBLUE}mac dock:add-space ${LIGHTGREEN}N${GRAY}: Add (N) blank space(s) to dock"
+            echo "${LIGHTBLUE}mac dock:add-space ${LIGHTGREEN}N${GRAY}: Add blank space to dock - ${LIGHTGREEN}N = Number of spaces to add"
             echo "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store"
             echo "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks"
             echo "${LIGHTBLUE}mac battery${GRAY}: Get battery information"

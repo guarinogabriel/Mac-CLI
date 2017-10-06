@@ -342,8 +342,17 @@ END
 
     # Add blank space to the dock
     "dock:add-space")
-        echo "${GREEN}Added new blank space to the dock${NC}"
-        defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+          echo "${GREEN}Added $firstParameter new blank spaces to the dock${NC}"
+
+          for i in `seq "$firstParameter"`; do
+            defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+          done
+        else
+          echo "${GREEN}Added new blank space to the dock${NC}"
+          defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+        fi
+
         killall Dock
     ;;
 

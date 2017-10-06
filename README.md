@@ -101,7 +101,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac wifi:enable`  | Enable wifi  | |
 | `mac wifi:disable`  | Disable wifi  | |
 | `mac wifi:password`  | Get password for current wifi network  | |
-| `mac dock:add-space`  | Add blank space to dock  | |
+| `mac dock:add-space N`  | Add (N) blank space(s) to dock  | |
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery`  | Get battery status  | |

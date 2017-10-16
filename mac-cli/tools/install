@@ -77,7 +77,7 @@ main() {
     if [ ! -z "$pref_editor" -a "$pref_editor" != " " ]; then
         LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
-    
+
     if [ ! -d /usr/local/bin ]; then
             echo "bin not found"
     	{
@@ -88,7 +88,7 @@ main() {
     		exit 1
     	}
     fi
-    
+
     cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac
 	cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
 	chmod -R +x /usr/local/bin/mac-cli/*
@@ -143,20 +143,35 @@ main() {
         sudo mv composer.phar /usr/local/bin/
 	fi
 
-    if [ ! -f /usr/local/bin/sass ]; then
+    if [ ! -f /usr/local/bin/compass ]; then
         printf "${LIGHTGREEN}"
-        read -r -p "Would you like to install sass (http://sass-lang.com/)? (Yes / No)" response
+        read -r -p "Would you like to install Compass (http://compass-style.org/)? (Yes / No)" response
         case $response in
-            [yY][eE][sS]|[yY])
-                echo "Installing sass..."
-                echo "${GREEN}sudo gem install -n /usr/local/bin compass\n${NC}"
-                sudo gem install -n /usr/local/bin compass
-                ;;
-            *)
-                ;;
+          [yY][eE][sS]|[yY])
+            echo "Installing Compass..."
+            echo "${GREEN}sudo gem install -n /usr/local/bin compass\n${NC}"
+            sudo gem install -n /usr/local/bin compass
+          ;;
+          *)
+          ;;
         esac
         printf "${NC}"
-	fi
+    fi
+
+    if [ ! -f /usr/local/bin/sass ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install SASS (http://sass-lang.com/)? (Yes / No)" response
+        case $response in
+          [yY][eE][sS]|[yY])
+            echo "Installing SCSS..."
+            echo "${GREEN}gem install sass\n${NC}"
+            gem install sass
+          ;;
+          *)
+          ;;
+        esac
+        printf "${NC}"
+    fi
 
     if [ ! -f /usr/local/bin/mycli ]; then
         printf "${LIGHTGREEN}"

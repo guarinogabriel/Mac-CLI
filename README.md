@@ -180,6 +180,7 @@ The following amazing projects have been integrated on the mac script (all the i
 | ------------- | ------------- | ------------- |
 | `mac dev:monitor X`  | Monitor file changes (for example: log files)  |  X = File to monitor  |
 | `mac dev:compass:compile`  | Compile current folder using compass  | |
+| `mac dev:sass`  | Compile current folder using SASS  | |
 | `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 | `mac dev:css:convert-to-scss`  | Convert CSS file to SCSS |
 

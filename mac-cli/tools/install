@@ -136,12 +136,19 @@ main() {
 	fi
 
     if [ ! -f /usr/local/bin/composer.phar ]; then
-        echo "Installing composer..."
-        echo "${GREEN}curl -sS https://getcomposer.org/installer | php\n${NC}"
-        curl -sS https://getcomposer.org/installer | php
-        echo "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
-        sudo mv composer.phar /usr/local/bin/
-	fi
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install composer (https://getcomposer.org/)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing composer..."
+                echo "${GREEN}brew install composer\n${NC}"
+                brew install composer
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+    fi
 
     if [ ! -f /usr/local/bin/sass ]; then
         printf "${LIGHTGREEN}"

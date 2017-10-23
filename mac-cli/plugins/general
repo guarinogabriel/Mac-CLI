@@ -375,9 +375,9 @@ END
     # Start screensaver
     "screensaver")
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
+            echo "${GREEN}open -a ScreenSaverEngine\n\n${NC}"
         fi
-        open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+        open -a ScreenSaverEngine
     ;;
 
 

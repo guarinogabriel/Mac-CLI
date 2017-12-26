@@ -27,7 +27,7 @@ export mysqldump="/Applications/MAMP/Library/bin/mysqldump"
 export dropbox_folder="/Users/$(id -u -n)/Dropbox/"
 export php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
 export php_cli=$(which php)
-export github_email_account=$(git config -l | grep user.email= | cut -d "=" -f2)
+export github_email_account=$(git config user.email)
 export echocommand="false"
 export pref_editor="vi"
 

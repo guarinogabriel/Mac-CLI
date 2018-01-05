@@ -54,9 +54,9 @@ case "$fn" in
         if [ -f /usr/local/bin/apm ]; then
             echo "Updating Atom Packages..."
             if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}apm upgrade\n${NC}"
+                echo "${GREEN}apm upgrade --no-confirm\n${NC}"
             fi
-            apm upgrade
+            apm upgrade --no-confirm
         fi
 
         if [ -f /usr/local/bin/n98-magerun.phar ]; then

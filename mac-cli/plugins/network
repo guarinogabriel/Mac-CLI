@@ -8,8 +8,7 @@ case "$fn" in
 
     # Internet connection speed test
     "speedtest")
-
-        if [ ! -f /usr/local/lib/node_modules/fast-cli/cli.js ]; then
+        if ! [ -x "$(command -v fast)" ]; then
             read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/fast-cli) (Yes / No)" response
             case $response in
                 [yY][eE][sS]|[yY])
@@ -29,7 +28,7 @@ case "$fn" in
     # Run internet connection Speed Test each 5 minutes
     "speedtest:infinite")
 
-        if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
+        if ! [ -x "$(command -v fast)" ]; then
             read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/fast-cli) (Yes / No)" response
             case $response in
                 [yY][eE][sS]|[yY])

@@ -1,0 +1,346 @@
+#!/bin/sh
+
+# Colors
+GREEN='\033[0;32m'
+LIGHTGREEN='\033[1;32m'
+NC='\033[1;37m'
+LIGHTBLUE='\033[01;34m'
+NC='\033[0m' # No Color
+
+# In directory
+PACKAGE_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+main() {
+
+    echo "${LIGHTBLUE}================================================"
+    echo " Mac CLI Installer"
+    echo "================================================${NC}\n"
+
+    git clone https://github.com/guarinogabriel/mac-cli.git --depth 1 && cd mac-cli
+
+    echo "${LIGHTGREEN}Please enter path to mysql on your local machine:"
+    echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysql"
+    read mysql_path
+    if [ ! -z "$mysql_path" -a "$mysql_path" != " " ]; then
+        LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/Library/bin/mysql#${mysql_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    echo "${LIGHTGREEN}Please enter your mysql user:"
+    echo "${NC}Press enter without any value to keep default: root"
+    read mysql_user
+    if [ ! -z "$mysql_user" -a "$mysql_user" != " " ]; then
+        LC_CTYPE=C sed -i'' -e "s#mysql_user=\"root\"#mysql_user=\"${mysql_user}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    echo "${LIGHTGREEN}Please enter your mysql password:"
+    echo "${NC}Press enter without any value to keep default: root"
+    read mysql_password
+    if [ ! -z "$mysql_password" -a "$mysql_password" != " " ]; then
+        LC_CTYPE=C sed -i'' -e "s#mysql_password=\"root\"#mysql_password=\"${mysql_password}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    echo "${LIGHTGREEN}Please enter path to the mysql socket on your local machine:"
+    echo "${NC}Press enter without any value to keep default: /Applications/MAMP/tmp/mysql/mysql.sock"
+    read mysql_socket
+    if [ ! -z "$mysql_socket" -a "$mysql_socket" != " " ]; then
+        LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/tmp/mysql/mysql.sock#${mysql_socket}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    echo "${LIGHTGREEN}Please enter path to mysqldump on your local machine:"
+    echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysqldump"
+    read mysql_dump
+    if [ ! -z "$mysql_dump" -a "$mysql_dump" != " " ]; then
+        LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/Library/bin/mysqldump#${mysql_dump}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    echo "${LIGHTGREEN}Please enter path to your Dropbox folder:"
+    echo "${NC}Press enter without any value to keep default: /Users/$(id -u -n)/Dropbox/"
+    read dropbox_path
+    if [ ! -z "$dropbox_path" -a "$dropbox_path" != " " ]; then
+        LC_CTYPE=C sed -i'' -e "s#/Users/\$(id -u -n)/Dropbox/#${dropbox_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    printf "${LIGHTGREEN}"
+    read -r -p "Would you like Mac CLI to show you the commands that are run on each mac command? (Yes / No)" response
+    case $response in
+        [yY][eE][sS]|[yY])
+            LC_CTYPE=C sed -i'' -e 's#echocommand="false"#echocommand="true"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
+            ;;
+        *)
+            ;;
+    esac
+    printf "${NC}"
+
+    echo "${LIGHTGREEN}Please enter your favourite text editor (by entering the command that opens your favourite editor. i.e: nano):"
+    echo "${NC}Press enter without any value to keep default: vi"
+    read pref_editor
+    if [ ! -z "$pref_editor" -a "$pref_editor" != " " ]; then
+        LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
+    fi
+
+    if [ ! -d /usr/local/bin ]; then
+            echo "bin not found"
+    	{
+    		echo "creating bin directory..."
+    		mkdir -p /usr/local/bin
+    	} || {
+    		echo "error in creating bin directory"
+    		exit 1
+    	}
+    fi
+
+    cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac
+	cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
+	chmod -R +x /usr/local/bin/mac-cli/*
+
+    if [ ! -f /usr/local/bin/brew ]; then
+        echo "Installing homebrew..."
+        echo "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    if [ ! -f /usr/local/bin/git ]; then
+        echo "Installing Git..."
+        echo "${GREEN}brew install git\n${NC}"
+        brew install git
+	fi
+
+    if [ ! -f /usr/local/bin/pv ]; then
+        echo "Installing pv (Pipe Viewer)..."
+        echo "${GREEN}brew install pv\n${NC}"
+        brew install pv
+	fi
+
+    if ! which node > /dev/null; then
+        echo "Installing node..."
+        echo "${GREEN}brew install node\n${NC}"
+        brew install node
+	fi
+
+    if [ ! -f /usr/local/bin/python ]; then
+        echo "Installing Python..."
+        echo "${GREEN}brew install python\n${NC}"
+        brew install python
+	fi
+
+    if [ ! -f /usr/local/bin/fdupes ]; then
+        echo "Installing fdupes..."
+        echo "${GREEN}brew install fdupes\n\n${NC}"
+        brew install fdupes
+    fi
+
+    if [ ! -f /usr/local/bin/wget ]; then
+        echo "Installing wget..."
+        printf "${GREEN}brew install wget\n${NC}"
+        brew install wget
+	fi
+
+    if [ ! -f /usr/local/bin/composer.phar ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install composer (https://getcomposer.org/)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing composer..."
+                echo "${GREEN}brew install composer\n${NC}"
+                brew install composer
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+    fi
+
+    if [ ! -f /usr/local/bin/compass ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install Compass (http://compass-style.org/)? (Yes / No)" response
+        case $response in
+          [yY][eE][sS]|[yY])
+            echo "Installing Compass..."
+            echo "${GREEN}sudo gem install -n /usr/local/bin compass\n${NC}"
+            sudo gem install -n /usr/local/bin compass
+          ;;
+          *)
+          ;;
+        esac
+        printf "${NC}"
+    fi
+
+    if [ ! -f /usr/local/bin/sass ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install SASS (http://sass-lang.com/)? (Yes / No)" response
+        case $response in
+          [yY][eE][sS]|[yY])
+            echo "Installing SCSS..."
+            echo "${GREEN}gem install sass\n${NC}"
+            gem install sass
+          ;;
+          *)
+          ;;
+        esac
+        printf "${NC}"
+    fi
+
+    if [ ! -f /usr/local/bin/mycli ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install MySQL CLI to manage your databases (https://github.com/dbcli/mycli)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing mycli (MySQL CLI - https://github.com/dbcli/mycli)..."
+                echo "${GREEN}brew install mycli\n${NC}"
+                brew install mycli
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+	fi
+
+    if [ ! -f /usr/local/bin/glances ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install Glances to access advanced information about the system (https://github.com/nicolargo/glances)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing Glances (https://github.com/nicolargo/glances)..."
+                echo "${GREEN}pip install glances\n${NC}"
+                pip install glances
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+	fi
+
+    if [ ! -f /usr/local/bin/speedtest-cli ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install Fast CLI to run internet speed tests from your command line (https://github.com/sindresorhus/fast-cli)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing Fast CLI (https://github.com/sindresorhus/fast-cli)..."
+                echo "${GREEN}npm install --global fast-cli\n${NC}"
+                npm install --global fast-cli
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+	fi
+
+    if [ ! -f /usr/local/bin/n98-magerun.phar ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install N98 Magerun to access to Magento 1 command line tools (https://github.com/netz98/n98-magerun)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing N98 Magerun (https://github.com/netz98/n98-magerun)..."
+                echo "${GREEN}wget https://files.magerun.net/n98-magerun.phar\n${NC}"
+                wget https://files.magerun.net/n98-magerun.phar
+                echo "${GREEN}chmod +x ./n98-magerun.phar\n${NC}"
+                chmod +x ./n98-magerun.phar
+                echo "${GREEN}sudo mv ./n98-magerun.phar /usr/local/bin/\n${NC}"
+                sudo mv ./n98-magerun.phar /usr/local/bin/
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+	fi
+
+    if [ ! -f /usr/local/bin/n98-magerun2.phar ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install N98 Magerun 2 to access to Magento 2 command line tools (https://github.com/netz98/n98-magerun2)? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing N98 Magerun 2 (https://github.com/netz98/n98-magerun2)..."
+                echo "${GREEN}wget https://files.magerun.net/n98-magerun2.phar\n${NC}"
+                wget https://files.magerun.net/n98-magerun2.phar
+                echo "${GREEN}chmod +x ./n98-magerun2.phar\n${NC}"
+                chmod +x ./n98-magerun2.phar
+                echo "${GREEN}sudo mv ./n98-magerun2.phar /usr/local/bin/\n${NC}"
+                sudo mv ./n98-magerun2.phar /usr/local/bin/
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+	fi
+
+    if [ ! -f /usr/local/bin/imageOptim ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install ImageOptim to optimize images from the command line? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing ImageOptim..."
+                echo "${GREEN}brew cask install --appdir="~/Applications" imageoptim --force\n${NC}"
+                brew cask install --appdir="~/Applications" imageoptim --force
+
+                echo "Installing ImageOptim-CLI (https://github.com/JamieMason/ImageOptim-CLI)..."
+                echo "${GREEN}npm install -g imageoptim-cli\n${NC}"
+                npm install -g imageoptim-cli
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+	fi
+
+    if [ ! -f /usr/local/bin/istats ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install iStats access information about your Mac temperature and fan speed? (Yes / No)" response
+        case $response in
+            [yY][eE][sS]|[yY])
+                echo "Installing iStats..."
+                echo "${GREEN}sudo gem install iStats -n/usr/local/bin\n\n${NC}"
+                sudo gem install iStats -n/usr/local/bin
+                ;;
+            *)
+                ;;
+        esac
+        printf "${NC}"
+    fi
+
+    if ! brew list | grep -q bash-completion ; then
+
+            echo "Installing bash-completion\n"
+            echo "${GREEN}brew install bash-completion\n\n${NC}"
+            brew install bash-completion
+            echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bashrc
+            echo "Setting up Mac-CLI bash-completion\n"
+
+        if [ -d /usr/local/etc/bash_completion.d/ ]; then
+            cp /usr/local/bin/mac-cli/completion/bash_completion /usr/local/etc/bash_completion.d/mac
+        fi
+
+    else
+
+        echo "Setting up Mac-CLI bash-completion\n"
+
+        if [ -d $(brew --prefix)/etc/bash_completion.d/ ]; then
+            cp /usr/local/bin/mac-cli/completion/bash_completion $(brew --prefix)/etc/bash_completion.d/mac
+            echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bashrc
+        fi
+
+    fi
+
+    #
+    # Check if fish shell is installed and prompt user to copy fish_completion
+    #
+    if $(cat /etc/shells | grep -q fish) && [ -d ~/.config/fish ];
+    then
+	    printf "${LIGHTGREEN}"
+	    read -r -p "Would you like to install fish shell suggestions/tab completion? (Yes / No) " response
+	    case $response in
+		    [yY][eE][sS]|[yY])
+			    echo "Setting up Mac-CLI Fish completion"
+			    if [ -d ~/.config/fish/completions ];then
+				    cp /usr/local/bin/mac-cli/completion/fish_completion ~/.config/fish/completions/mac.fish
+			    else
+				    mkdir ~/.config/fish/completions && cp /usr/local/bin/mac-cli/completion/fish_completion ~/.config/fish/completions/mac.fish
+			    fi
+			    ;;
+		    *)
+			    ;;
+	    esac
+	    printf "${NC}"
+    fi
+}
+
+main

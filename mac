@@ -1,0 +1,240 @@
+#!/bin/sh
+###########################################################################
+#  mac CLI (mac command line tools) - macOS command line tools for developers
+###########################################################################
+
+# Version: 2.0
+# Date: December 8, 2015
+# Author: Gabriel Guarino
+#
+# Collection of useful functions to automate macOS common tasks
+#
+###########################################################################
+
+# Mac CLI directory
+MAC="$(dirname "$0")"
+
+#--------------------------------------------------------------------
+# Configuration
+#--------------------------------------------------------------------
+export cli_path="/usr/local/bin/"
+export plugins_path="/usr/local/bin/mac-cli/"
+export mysql="/Applications/MAMP/Library/bin/mysql"
+export mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
+export mysql_user="root"
+export mysql_password="root"
+export mysqldump="/Applications/MAMP/Library/bin/mysqldump"
+export dropbox_folder="/Users/$(id -u -n)/Dropbox/"
+export php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
+export php_cli=$(which php)
+export github_email_account=$(git config user.email)
+export echocommand="false"
+export pref_editor="vi"
+
+#--------------------------------------------------------------------
+# Parameters
+#--------------------------------------------------------------------
+export fn=$1
+export firstParameter=$2
+export secondParameter=$3
+export allParameters=${@:2}
+
+#--------------------------------------------------------------------
+# Colors
+#--------------------------------------------------------------------
+export GREEN='\033[0;32m'
+export GRAY='\033[0;37m'
+export LIGHTBLUE='\033[1;34m'
+export LIGHTGREEN='\033[1;32m'
+export WHITEBOLD='\033[1;37m'
+export RED='\033[1;31m'
+export NC='\033[0m' # No Color
+
+#--------------------------------------------------------------------
+# List of Commands
+#--------------------------------------------------------------------
+
+COMMANDS=(
+    list
+    help
+    usage
+    categories
+    general
+    search
+    network
+    lamp
+    ssh
+    webdev
+    performance
+    terminal
+    git
+    web_utilities
+    homebrew
+    xcode
+    image
+    magento
+    update
+    upgrade
+    uninstall
+    lock
+    restart
+    sleep
+    display
+    shutdown
+    time
+    presentation
+    uptime
+    volume
+    volume:ismute
+    volume:mute
+    volume:unmute
+    hidden:show
+    hidden:hide
+    screensaver
+    folders:list
+    folder:size
+    folders:remove-empty
+    apps:close-all
+    dock:add-space
+    bluetooth:status
+    bluetooth:enable
+    bluetooth:disable
+    wifi:status
+    wifi:scan
+    wifi:enable
+    wifi:disable
+    wifi:password
+    apps:app-store
+    eject-all
+    battery
+    info
+    find:text
+    find:biggest-files
+    find:biggest-directories
+    zip:extract
+    gzip:compress
+    gzip:extract
+    tar:compress
+    tar:extract
+    find:recent
+    search:replace
+    speedtest
+    speedtest:infinite
+    ports
+    ip:local
+    ip:public
+    dhcp:renew
+    dns:clear
+    mysql
+    mysql:cli
+    mysql:list
+    mysql:export-all
+    mysql:export
+    mysql:import
+    mysql:import-table
+    mysql:create
+    mysql:drop
+    mysql:duplicate
+    mysql:dump
+    mamp:start
+    mamp:stop
+    mamp:restart
+    php:syntax
+    php:info
+    hosts:edit
+    ssh:download-file
+    ssh:download-folder
+    ssh:download-database
+    ssh:sync:local
+    ssh:sync:remote
+    ssh:upload
+    ssh:public-key
+    ssh:list
+    dev:monitor
+    dev:optimize-images
+    dev:css:convert-to-scss
+    system
+    temp
+    memory
+    trash:empty
+    trash:size
+    desktop:cleanup
+    downloads:cleanup
+    iterm:tab-title
+    git:config
+    git:open
+    git:create:branch
+    git:branches:date
+    git:undo-commit
+    git:log
+    git:branch
+    git:branch:rename
+    git:branch:remove-local
+    git:branch:remove-remote
+    git:remove
+    git:branch
+    git:settings
+    git:add-removed
+    git:size
+    web:download-images
+    brew:update
+    xcode:cleanup
+    image:generate:mobile-app-icons
+    magento:version
+    magento:customer:create
+    magento:fix-permissions
+    magento:order:create
+    magento:shell-script:create
+    magento:gitignore:create
+    magento:url-rewrite:enable
+    magento:url-rewrites:disable
+    magento2:install
+)
+## ---- END OF COMMANDS; Comment required for bash_completion------
+
+if [ -z "$fn" ] || [[ "$#" -lt "1" ]]; then
+    fn="list"
+fi
+
+#--------------------------------------------------------------------
+# Help
+#--------------------------------------------------------------------
+
+# Documentation / Help
+source "$MAC/mac-cli/misc/help"
+
+#--------------------------------------------------------------------
+# Catch command not found
+#--------------------------------------------------------------------
+
+if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
+    echo "${RED}Command not found: '${fn}' $(test ! -z "$allParameters" -a "$allParameters" != " " && echo "\nParameters: $allParameters" || echo "")${NC}"
+    read -p "Choose a category for which to list help/usage... ($(categoriesList)) " category # Ask user for a category to print usage
+
+    if [ ! -z "${category}" ]; then
+        echo "$(usageList ${category})\n" # Show help/usage for user-selected category
+        echo "$(printAdditionalHelp)"
+    else
+        kill -INT $$ # Exit
+    fi
+fi
+
+#--------------------------------------------------------------------
+# Plugins
+#--------------------------------------------------------------------
+
+source "$MAC/mac-cli/plugins/brew"
+source "$MAC/mac-cli/plugins/general"
+source "$MAC/mac-cli/plugins/git"
+source "$MAC/mac-cli/plugins/image"
+source "$MAC/mac-cli/plugins/brew"
+source "$MAC/mac-cli/plugins/iterm"
+source "$MAC/mac-cli/plugins/lamp"
+source "$MAC/mac-cli/plugins/magento"
+source "$MAC/mac-cli/plugins/network"
+source "$MAC/mac-cli/plugins/performance"
+source "$MAC/mac-cli/plugins/search"
+source "$MAC/mac-cli/plugins/ssh"
+source "$MAC/mac-cli/plugins/web"
+source "$MAC/mac-cli/plugins/xcode"
+source "$MAC/mac-cli/plugins/volume"

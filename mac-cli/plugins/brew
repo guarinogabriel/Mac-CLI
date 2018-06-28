@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# Homebrew Utilities
+#--------------------------------------------------------------------
+
+case "$fn" in
+
+    # Update Homebrew and installed packages
+    "brew:update")
+        echo "Updating Homebrew and its installed packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;\n${NC}"
+        fi
+        brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;
+    ;;
+
+esac

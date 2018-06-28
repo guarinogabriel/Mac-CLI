@@ -1,0 +1,238 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# mac script commands list - all commands
+#--------------------------------------------------------------------
+
+MacCategories=(
+general
+git
+homebrew
+image
+lamp
+magento
+network
+performance
+search
+ssh
+terminal
+web_utilities
+webdev
+xcode
+)
+
+function printInfo()
+{
+    echo "\n${WHITEBOLD} mac CLI – OS X command line tools for developers"
+    echo "====================================================${NC}"
+}
+
+function printAdditionalHelp()
+{
+    echo "\nRun ${LIGHTBLUE}mac help${NC} for full usage, ${LIGHTBLUE}mac categories${NC} for categories list, or ${LIGHTBLUE}mac {category}${NC} for usage related to {category}"
+    echo "${NC}\n"
+}
+
+function categoriesList()
+{
+    cats=${cats}$(printf "%s|" "${MacCategories[@]}")
+    cats="${cats%?}"
+    echo "${cats}"
+}
+
+function usageList()
+{
+    case ${1} in
+        general)
+            echo "\n${WHITEBOLD}General Utilities: "
+            echo "${LIGHTBLUE}mac update${GRAY}: Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages"
+            echo "${LIGHTBLUE}mac upgrade${GRAY}: Upgrade Mac CLI to the latest version"
+            echo "${LIGHTBLUE}mac uninstall${GRAY}: Uninstall Mac CLI"
+            echo "${LIGHTBLUE}mac lock${GRAY}: Lock"
+            echo "${LIGHTBLUE}mac restart${GRAY}: Restart OS X"
+            echo "${LIGHTBLUE}mac sleep${GRAY}: Sleep mode"
+            echo "${LIGHTBLUE}mac shutdown${GRAY}: Shutdown"
+            echo "${LIGHTBLUE}mac presentation${GRAY}: Prepare MAC for presentation: minimize all apps, close browsers, send files from desktop and downloads to trash and set not disturb mode"
+            echo "${LIGHTBLUE}mac time${GRAY}: Show clock at top right position in Terminal/iTerm"
+            echo "${LIGHTBLUE}mac uptime${GRAY}: Get the time since last restart"
+            echo "${LIGHTBLUE}mac volume${GRAY}: Get the volume from the terminal"
+            echo "${LIGHTBLUE}mac volume ${LIGHTGREEN}X${GRAY}: Set the volume from the terminal - ${LIGHTGREEN}X = Level (0-100)"
+            echo "${LIGHTBLUE}mac volume:mute${GRAY}: Mute volume"
+            echo "${LIGHTBLUE}mac volume:unmute${GRAY}: Unmute volume"
+            echo "${LIGHTBLUE}mac volume:ismute${GRAY}: Check if the volume is muted or not"
+            echo "${LIGHTBLUE}mac screensaver${GRAY}: Start screensaver"
+            echo "${LIGHTBLUE}mac folders:list${GRAY}: List folders in current directory with their current size"
+            echo "${LIGHTBLUE}mac folder:size${GRAY}: Calculate current folder size"
+            echo "${LIGHTBLUE}mac folders:remove-empty${GRAY}: Remove empty subdirectories"
+            echo "${LIGHTBLUE}mac apps:close-all${GRAY}: Close all opened apps"
+            echo "${LIGHTBLUE}mac dock:add-space ${LIGHTGREEN}N${GRAY}: Add blank space to dock - ${LIGHTGREEN}N = Number of spaces to add"
+            echo "${LIGHTBLUE}mac apps:app-store${GRAY}: Get list of installed apps from App Store"
+            echo "${LIGHTBLUE}mac eject-all${GRAY}: Eject all mounted volumes and disks"
+            echo "${LIGHTBLUE}mac battery${GRAY}: Get battery information"
+            echo "${LIGHTBLUE}mac info${GRAY}: Get OS X version information"
+            echo "${LIGHTBLUE}mac find:text ${LIGHTGREEN}X${GRAY}: Find exact phrase recursively inside directory - ${LIGHTGREEN}X = Text string"
+            echo "${LIGHTBLUE}mac find:biggest-files ${GRAY}: Find biggest files inside directory"
+            echo "${LIGHTBLUE}mac find:biggest-directories ${GRAY}: Find biggest directories inside directory"
+            echo "${LIGHTBLUE}mac zip:extract ${LIGHTGREEN}X${GRAY}: Extract Zip file to current folder - ${LIGHTGREEN}X = Zip file to extract"
+            echo "${LIGHTBLUE}mac gzip:compress ${LIGHTGREEN}X${GRAY}: Compress current file using Gzip - ${LIGHTGREEN}X = File to compress"
+            echo "${LIGHTBLUE}mac gzip:extract ${LIGHTGREEN}X${GRAY}: Extract Gzip file to current folder - ${LIGHTGREEN}X = Gzip file to extract"
+            echo "${LIGHTBLUE}mac tar:compress ${LIGHTGREEN}X${GRAY}: Compress X file/directory using tar with progress indicator - ${LIGHTGREEN}X = File or directory"
+            echo "${LIGHTBLUE}mac tar:extract ${LIGHTGREEN}X${GRAY}: Extract tar file to current folder - ${LIGHTGREEN}X = Tar file to extract"
+            echo "${NC}\n"
+            ;;
+        search)
+            echo "\n${WHITEBOLD}Search Utilities: "
+            echo "${LIGHTBLUE}mac find:recent ${LIGHTGREEN}X${GRAY}: Find files modified in the last N minutes - ${LIGHTGREEN}X = number of minutes "
+            echo "${LIGHTBLUE}mac search:replace ${LIGHTGREEN}X${GRAY}: Search and replace string in file - ${LIGHTGREEN}X = File to perform the search and replace operation"
+            echo "${NC}\n"
+            ;;
+        network)
+            echo "\n${WHITEBOLD}Network Utilities: "
+            echo "${LIGHTBLUE}mac speedtest${GRAY}: Internet connection speed test "
+            echo "${LIGHTBLUE}mac speedtest:infinite${GRAY}: Run internet speed test each 5 minutes "
+            echo "${LIGHTBLUE}mac ports${GRAY}: List of used ports "
+            echo "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address "
+            echo "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address "
+            echo "${LIGHTBLUE}mac dhcp:renew${GRAY}: Renew DHCP Lease "
+            echo "${LIGHTBLUE}mac dns:clear${GRAY}: Clear DNS Cache "
+            echo "${NC}\n"
+            ;;
+        lamp)
+            echo "\n${WHITEBOLD}LAMP Utilities: "
+            echo "${LIGHTBLUE}mac mysql${GRAY}: Open MySQL app "
+            echo "${LIGHTBLUE}mac mysql:cli${GRAY}: Start MySQL CLI with autocompletion and syntax higlighting "
+            echo "${LIGHTBLUE}mac mysql:list${GRAY}: List all MySQL databases"
+            echo "${LIGHTBLUE}mac mysql:export-all${GRAY}: Export all MySQL databases to individual files"
+            echo "${LIGHTBLUE}mac mysql:export ${LIGHTGREEN}X${GRAY}: Export MySQL database to current directory - X = database name "
+            echo "${LIGHTBLUE}mac mysql:import ${LIGHTGREEN}X${GRAY}: Import MySQL database - X = SQL file "
+            echo "${LIGHTBLUE}mac mysql:import-table ${LIGHTGREEN}X${GRAY}: Import single MySQL database table -   X = SQL file containing database table "
+            echo "${LIGHTBLUE}mac mysql:create ${LIGHTGREEN}X${GRAY}: Create MySQL database - X = Database name"
+            echo "${LIGHTBLUE}mac mysql:drop ${LIGHTGREEN}X${GRAY}: Remove MySQL database - X = Database name"
+            echo "${LIGHTBLUE}mac mysql:duplicate ${LIGHTGREEN}X${GRAY}: Duplicate MySQL database - X = Database name"
+            echo "${LIGHTBLUE}mac mamp:start${GRAY}: Start MAMP Server (Apache and MySQL)"
+            echo "${LIGHTBLUE}mac mamp:stop${GRAY}: Stop MAMP Server (Apache and MySQL)"
+            echo "${LIGHTBLUE}mac mamp:restart${GRAY}: Restart MAMP Server (Apache and MySQL)"
+            echo "${LIGHTBLUE}mac php:syntax${GRAY}: Check PHP Syntax for all PHP files in current location "
+            echo "${LIGHTBLUE}mac php:info${GRAY}: Get PHP info on command line "
+            echo "${LIGHTBLUE}mac hosts:edit${GRAY}: Edit hosts file "
+            echo "${NC}\n"
+            ;;
+        ssh)
+            echo "\n${WHITEBOLD}SSH Utilities: "
+            echo "${LIGHTBLUE}mac ssh:download-file ${LIGHTGREEN}X${GRAY}: Download file from remote server through SSH - X = Path of the remote file to download "
+            echo "${LIGHTBLUE}mac ssh:download-folder ${LIGHTGREEN}X${GRAY}: Download entire folder from remote server through SSH - X = Path of the remote folder to download "
+            echo "${LIGHTBLUE}mac ssh:download-database ${LIGHTGREEN}X${GRAY}: Download database from remote server through SSH - X = Name of the database to download "
+            echo "${LIGHTBLUE}mac ssh:sync:local ${LIGHTGREEN}X${GRAY}: Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)"
+            echo "${LIGHTBLUE}mac ssh:sync:remote ${LIGHTGREEN}X${GRAY}: Path of the remote folder to sync from local folder (upload local folder to remote folder) "
+            echo "${LIGHTBLUE}mac ssh:upload ${LIGHTGREEN}X${GRAY}: Upload file to remote server through SSH - X = Path of the file to upload to the remote server "
+            echo "${LIGHTBLUE}mac ssh:public-key ${LIGHTGREEN}X${GRAY}: Get public SSH key for local machine "
+            echo "${NC}\n"
+            ;;
+        webdev)
+            echo "\n${WHITEBOLD}Web Development Utilities: "
+            echo "${LIGHTBLUE}mac dev:monitor ${LIGHTGREEN}X${GRAY}: Monitor file changes (for example: log file) - X = File to monitor "
+            echo "${LIGHTBLUE}mac dev:optimize-images${GRAY}: Optimize all images in current directory and subdirectories "
+            echo "${LIGHTBLUE}mac dev:css:convert-to-scss${GRAY}: Convert CSS file to SCSS "
+            echo "${NC}\n"
+            ;;
+        performance)
+            echo "\n${WHITEBOLD}Performance and maintenance Utilities: "
+            echo "${LIGHTBLUE}mac system${GRAY}: Show system information to review mac performance "
+            echo "${LIGHTBLUE}mac temp${GRAY}: Show temperature, fan and battery statistics "
+            echo "${LIGHTBLUE}mac memory${GRAY}: See memory usage sorted by memory consumption "
+            echo "${LIGHTBLUE}mac trash:empty${GRAY}: Empty trash"
+            echo "${LIGHTBLUE}mac trash:size${GRAY}: Calculate trash size"
+            echo "${LIGHTBLUE}mac desktop:cleanup${GRAY}: Remove all files and directories from the Desktop directory"
+            echo "${LIGHTBLUE}mac downloads:cleanup${GRAY}: Remove all files and directories from the Downloads directory"
+            echo "${NC}\n"
+            ;;
+        terminal)
+            echo "\n${WHITEBOLD}iTerm / Terminal Utilities: "
+            echo "${LIGHTBLUE}mac iterm:tab-title${GRAY}: Set title to current iTerm tab "
+            echo "${NC}\n"
+            ;;
+        git)
+            echo "\n${WHITEBOLD}Git Utilities: "
+            echo "${LIGHTBLUE}mac git:config${GRAY}: Display local Git configuration "
+            echo "${LIGHTBLUE}mac git:open${GRAY}: Open current repository on Github "
+            echo "${LIGHTBLUE}mac git:create:branch${GRAY}: Create branch based on current branch "
+            echo "${LIGHTBLUE}mac git:branches:date${GRAY}: Get last update date for all branches in current project "
+            echo "${LIGHTBLUE}mac git:undo-commit${GRAY}: Undo latest commit "
+            echo "${LIGHTBLUE}mac git:log${GRAY}: See latest commits IDs and titles for current branch "
+            echo "${LIGHTBLUE}mac git:branch${GRAY}: See all branches "
+            echo "${LIGHTBLUE}mac git:branch:rename${GRAY}: Rename Git branch "
+            echo "${LIGHTBLUE}mac git:branch:remove-local${GRAY}: Remove local Git branch "
+            echo "${LIGHTBLUE}mac git:branch:remove-remote${GRAY}: Remove local and remote Git branch "
+            echo "${LIGHTBLUE}mac git:remove${GRAY}: Remove Git from current project "
+            echo "${LIGHTBLUE}mac git:branch${GRAY}: See all branches "
+            echo "${LIGHTBLUE}mac git:add-removed${GRAY}: Add removed files to staged files "
+            echo "${LIGHTBLUE}mac git:size${GRAY}: Get size for current Git repository "
+            echo "${NC}\n"
+            ;;
+        web_utilities)
+            echo "\n${WHITEBOLD}Web Utilities: "
+            echo "${LIGHTBLUE}mac web:download-images${GRAY}: Download all images from website to current directory "
+            echo "${NC}\n"
+            ;;
+        homebrew)
+            echo "\n${WHITEBOLD}Homebrew Utilities: "
+            echo "${LIGHTBLUE}mac brew:update${GRAY}: Upgrade Homebrew, installed Homebrew packages, and cleanup "
+            echo "${NC}\n"
+            ;;
+        xcode)
+            echo "\n${WHITEBOLD}Xcode Utilities: "
+            echo "${LIGHTBLUE}mac xcode:cleanup${GRAY}: Cleanup XCode files to free up hard disk space "
+            echo "${NC}\n"
+            ;;
+        image)
+            echo "\n${WHITEBOLD}Image Utilities: "
+            echo "${LIGHTBLUE}mac image:generate:mobile-app-icons ${LIGHTGREEN}X Y${GRAY}: Generate mobile app icons - X = Path of the original image file, Y= Path of the output file path "
+            echo "${NC}\n"
+            ;;
+        magento)
+            echo "\n${WHITEBOLD}Magento Utilities: "
+            echo "${LIGHTBLUE}mac magento:version${GRAY}: Get Magento version from current project on command line "
+            echo "${LIGHTBLUE}mac magento:customer:create${GRAY}: Create Magento customer with sample address and sample credit card information "
+            echo "${LIGHTBLUE}mac magento:fix-permissions${GRAY}: Fix Magento permissions for files and directories "
+            echo "${LIGHTBLUE}mac magento:order:create${GRAY}: Create sample order in Magento "
+            echo "${LIGHTBLUE}mac magento:shell-script:create${GRAY}: Create script in Magento shell folder to be run from command line "
+            echo "${LIGHTBLUE}mac magento:gitignore:create${GRAY}: Create gitignore file for Magento project "
+            echo "${LIGHTBLUE}mac magento:url-rewrite:enable${GRAY}: Enable Magento URL rewrites "
+            echo "${LIGHTBLUE}mac magento:url-rewrites:disable${GRAY}: Disable Magento URL rewrites "
+            echo "${LIGHTBLUE}mac magento2:install${GRAY}: Install Magento 2 in current directory "
+            echo "${NC}\n"
+            ;;
+    esac
+
+}
+
+
+case ${fn} in
+    "list"|"help"|"usage")
+        echo "$(printInfo)"
+        for c in ${MacCategories[@]}
+        do
+            echo "$(usageList ${c})"
+        done
+        echo "$(printAdditionalHelp)"
+        ;;
+    "categories")
+        echo "$(printInfo)"
+        echo "\n${WHITEBOLD}mac CLI Categories: ${NC}\n"
+        for c in "${MacCategories[@]}"
+        do
+            echo "${WHITEBOLD} >\t$c ${NC}"
+        done
+        echo "$(printAdditionalHelp)"
+        ;;
+esac
+
+for c in "${MacCategories[@]}"
+do
+    if [ "${c}" = "${fn}" ]; then
+        echo "$(printInfo)"
+        echo "\n${WHITEBOLD}Usage for 'mac ${c}'"
+        echo "$(usageList ${c})"
+        break
+    fi
+done

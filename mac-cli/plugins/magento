@@ -32,7 +32,8 @@ case "$fn" in
             # Keep-alive: update existing `sudo` time stamp until `.osx` has finished
             while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-            if [ ${IS_SUDO} -eq 0 ]; then
+            # Run commands only if user has sudo privileges
+            if [ $(id -u) -eq 0 ]; then
                 find . -type f \-exec chmod 644 {} \;
                 find . -type d \-exec chmod 755 {} \;
                 find ./var -type d \-exec chmod 777 {} \;

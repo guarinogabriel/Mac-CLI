@@ -1,15 +1,21 @@
 #!/bin/sh
 
 #--------------------------------------------------------------------
+# General Variables
+#--------------------------------------------------------------------
+
+_W_DEVICE=${_W_DEVICE:-en0}
+
+#--------------------------------------------------------------------
 # General Utilities
 #--------------------------------------------------------------------
 
 case "$fn" in
 
-    # Install OS X software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
+    # Install macOS software updates, update installed Ruby gems, Homebrew, npm, pip and their installed packages
     "update")
 
-        echo "Updating OS X..."
+        echo "Updating macOS..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}sudo softwareupdate -i -a;\n${NC}"
         fi
@@ -17,9 +23,9 @@ case "$fn" in
 
         echo "Updating Homebrew and its installed packages..."
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}brew update; brew upgrade --all; brew cleanup;\n${NC}"
+            echo "${GREEN}brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;\n${NC}"
         fi
-        brew update; brew upgrade --all; brew cleanup;
+        brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;
 
         echo "Updating npm and its installed packages..."
         if [ "$echocommand" == "true" ]; then
@@ -27,6 +33,12 @@ case "$fn" in
         fi
         npm install npm -g; npm update -g;
 
+        echo "Updating Yarn's installed packages..."
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}yarn global upgrade;\n${NC}"
+        fi
+        yarn global upgrade;
+        
         echo "Updating installed Ruby gems..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
@@ -35,16 +47,24 @@ case "$fn" in
 
         echo "Updating installed pip packages..."
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+            echo "${GREEN}pip list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
         fi
-        pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+        pip list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+
+        if [ -x "$(command -v pip3)" ]; then
+            echo "Updating installed pip3 packages..."
+            if [ "$echocommand" == "true" ]; then
+                echo "${GREEN}pip3 list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U\n${NC}"
+            fi
+            pip3 list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U
+        fi
 
         if [ -f /usr/local/bin/apm ]; then
             echo "Updating Atom Packages..."
             if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}apm upgrade\n${NC}"
+                echo "${GREEN}apm upgrade --no-confirm\n${NC}"
             fi
-            apm upgrade
+            apm upgrade --no-confirm
         fi
 
         if [ -f /usr/local/bin/n98-magerun.phar ]; then
@@ -67,7 +87,25 @@ case "$fn" in
     ;;
 
 
-    # Get OS X Info
+    # Upgrade Mac CLI to the latest version
+    "upgrade")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"\n\n${NC}"
+        fi
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"
+    ;;
+
+
+    # Uninstall Mac CLI from your Mac
+    "uninstall")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"\n\n${NC}"
+        fi
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"
+    ;;
+
+
+    # Get macOS Info
     "info")
         printf "${GREEN}sw_vers\n${NC}"
         sw_vers
@@ -110,6 +148,59 @@ case "$fn" in
     ;;
 
 
+    # Prepare MAC for presentation: minimize all apps, send files from desktop and downloads to trash and set not disturb mode
+    "presentation")
+
+        # Close browsers
+        killall -9 Safari
+        killall -9 Google\ Chrome
+        killall -9 firefox
+
+
+        # Minimize all the windows
+osascript <<'END'
+tell application "System Events"
+    repeat with p in every application process whose visible is true
+        click (first button of every window of p whose role description is "minimize button")
+    end repeat
+end tell
+END
+
+        # Cleanup desktop and downloads
+osascript >/dev/null <<'END'
+tell application "System Events"
+  set currentUser to (name of current user)
+end tell
+tell application "Finder"
+try
+  delete (every item of folder "Downloads" of folder currentUser of folder "Users" of startup disk)
+end try
+try
+  delete (every item of folder "Desktop" of folder currentUser of folder "Users" of startup disk)
+end try
+end tell
+END
+
+        # Set not disturb mode
+osascript >/dev/null <<'END'
+try
+	tell application "System Events"
+		tell process "SystemUIServer"
+			key down option
+			click menu bar item "Notification Center" of menu bar 1
+			key up option
+		end tell
+	end tell
+end try
+END
+
+        # Restart notification center
+        killall NotificationCenter
+    ;;
+
+
+
+
     # Display clock in Terminal
     "clock")
         if [ "$echocommand" == "true" ]; then
@@ -121,6 +212,14 @@ case "$fn" in
         else
             pkill macClock
         fi
+    ;;
+
+    # Uptime
+    "uptime")
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}uptime\n\n${NC}"
+        fi
+        uptime
     ;;
 
 
@@ -136,7 +235,7 @@ case "$fn" in
 
     #List folders in current directory
     "folders:list")
-        du -sk * | sort -g | awk '{ numBytes = $1 * 1024; numUnits = split("B K M G T P", unit); num = numBytes; iUnit = 0; while(num >= 1024 && iUnit + 1 < numUnits) { num = num / 1024; iUnit++; } $1 = secho( ((num == 0) ? "%6d%s " : "%6.1f%s "), num, unit[iUnit + 1]); print $0; }'
+        du -sk * | sort -rn
     ;;
 
 
@@ -180,17 +279,96 @@ case "$fn" in
 
     # Close all opened apps
     "apps:close-all")
+        mac_cli_config=$HOME/.mac-cli
+        ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
+        if [ -e $mac_cli_config ]; then
+          source ${mac_cli_config}
+          ignore="${ignore}\|${__MAC_CLI_IGNORE_APPS}"
+        fi
+
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}ignore='grep\|iTerm\|Terminal\|Finder\|Dropbox\|Bartender'\n${NC}"
+            echo "${GREEN}ignore='$ignore'\n${NC}"
             echo "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
         fi
         # To customize ignored apps, just put the keywords in $ignore
+        # or add a file called $HOME/.mac-cli and set the variable __MAC_CLI_IGNORE_APPS
         # To test which apps you are going to kill, run:
         # ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
-        ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
-        ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
+        ps aux | grep /Applications | grep -v "${ignore}" | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
     ;;
 
+
+    # Check bluetooth status
+    "bluetooth:status")
+        defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState | \
+            awk '{ if($1 != 0) {print "Bluetooth: ON"} else { print "Bluetooth: OFF" }  }'
+    ;;
+
+
+    # Enable bluetooth
+    "bluetooth:enable")
+        echo "${GREEN}Bluetooth enabled{NC}"
+        sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 1 && \
+            sudo killall -HUP blued
+    ;;
+
+
+    # Disable bluetooth
+    "bluetooth:disable")
+        echo "${GREEN}Bluetooth disabled${NC}"
+        sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0 && \
+            sudo killall -HUP blued
+    ;;
+
+
+    # Check wifi status
+    "wifi:status")
+        /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
+    ;;
+
+    # Check available wifi networks
+    "wifi:scan")
+        /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s
+    ;;
+
+    # Enable wifi
+    "wifi:enable")
+        echo "${GREEN}Wifi enabled${NC}"
+        networksetup -setairportpower ${_W_DEVICE} on
+    ;;
+
+    # Disable wifi
+    "wifi:disable")
+        echo "${GREEN}Wifi disabled{NC}"
+        networksetup -setairportpower ${_W_DEVICE} off
+    ;;
+
+    # Show wifi password for current network
+    "wifi:password")
+        if [ -z "$1" ]
+            then
+                ssid="`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`"
+            else
+                ssid=$1
+        fi
+        security find-generic-password -D "AirPort network password" -a "$ssid" -gw
+    ;;
+
+    # Add blank space to the dock
+    "dock:add-space")
+        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
+          echo "${GREEN}Added $firstParameter new blank spaces to the dock${NC}"
+
+          for i in `seq "$firstParameter"`; do
+            defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+          done
+        else
+          echo "${GREEN}Added new blank space to the dock${NC}"
+          defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+        fi
+
+        killall Dock
+    ;;
 
     # Get list of installed apps from the App Store
     "apps:app-store")
@@ -205,18 +383,18 @@ case "$fn" in
     # Start screensaver
     "screensaver")
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app\n\n${NC}"
+            echo "${GREEN}open -a ScreenSaverEngine\n\n${NC}"
         fi
-        open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+        open -a ScreenSaverEngine
     ;;
 
 
     # Eject all mounted volumes and disk
     "eject-all")
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose executable is true)'\n\n${NC}"
+            echo "${GREEN}osascript -e 'tell application 'Finder' to eject (every disk whose ejectable is true)'\n\n${NC}"
         fi
-        osascript -e 'tell application "Finder" to eject (every disk whose executable is true)'
+        osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
     ;;
 
 

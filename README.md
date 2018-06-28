@@ -1,6 +1,6 @@
 # Mac CLI
 
- OS X command line tools for developers
+ macOS command line tools for developers
 
 :star: Now with modularity and plugins! You can check the plugins folder: [/mac-cli/plugins](https://github.com/guarinogabriel/mac-cli/tree/master/mac-cli/plugins)
 
@@ -8,7 +8,7 @@ _Contributions to add new plugins and keep improving the existing ones are welco
 
 ![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
 
-The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your OS X system.
+The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your macOS system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
 
 ---
@@ -63,7 +63,7 @@ You can uninstall Mac CLI by running:
 The following amazing projects have been integrated on the mac script (all the integrated projects are optional and can be installed through the installation wizard):
 * Glances (https://github.com/nicolargo/glances)
 * MySQL CLI (https://github.com/dbcli/mycli)
-* speedtest-cli (https://github.com/sivel/speedtest-cli)
+* fast-cli (https://github.com/sindresorhus/fast-cli)
 * n98-magerun (https://github.com/netz98/n98-magerun)
 * n98-magerun2 (https://github.com/netz98/n98-magerun2)
 * imageOptim
@@ -81,21 +81,31 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
-| `mac update`  | Install OS X software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
+| `mac update`  | Install macOS software updates, update installed Ruby gems, Homebrew, npm and their installed packages  | |
 | `mac lock`  | Lock  | |
-| `mac restart`  | Restart OS X  | |
+| `mac restart`  | Restart macOS  | |
 | `mac sleep`  | Sleep mode  | |
 | `mac shutdown`  | Shutdown  | |
+| `mac presentation`  | Prepare MAC for presentation: minimize all apps, close browsers, send files from desktop and downloads to trash and set not disturb mode  | |
 | `mac time`  | Show clock at top right position in Terminal/iTerm  | |
 | `mac screensaver`  | Start screensaver  | |
 | `mac folders:list`  | List folders in current directory with their current size  | |
 | `mac folder:size`  | Calculate current folder size  | |
 | `mac folders:remove-empty`  | Remove empty subdirectories  | |
 | `mac apps:close-all`  | Close all opened apps  | |
+| `mac bluetooth:status`  | Get the bluetooth status  | |
+| `mac bluetooth:enable`  | Enable bluetooth  | |
+| `mac bluetooth:disable`  | Disable bluetooth  | |
+| `mac wifi:status`  | Get the wifi status  | |
+| `mac wifi:scan`  | Scan available wifi networks  | |
+| `mac wifi:enable`  | Enable wifi  | |
+| `mac wifi:disable`  | Disable wifi  | |
+| `mac wifi:password`  | Get password for current wifi network  | |
+| `mac dock:add-space N`  | Add blank space to dock  | N = number of spaces |
 | `mac apps:app-store`  | Get list of installed apps from App Store  | |
 | `mac eject-all`  | Eject all mounted volumes and disks  | |
 | `mac battery`  | Get battery status  | |
-| `mac info`  | Get OS X version information  | |
+| `mac info`  | Get macOS version information  | |
 | `mac hidden:show`  | Show hidden files  | |
 | `mac hidden:hide`  | Hide hidden files  | |
 | `mac find:text X`  | Find exact phrase recursively inside directory  | X = Text string |
@@ -164,34 +174,13 @@ The following amazing projects have been integrated on the mac script (all the i
 | `mac ssh:list`  | List all the saved SSH credentials  |  |
 
 
-### LAMP Utilities
-
-| Command  | Description | Arguments |
-| ------------- | ------------- | ------------- |
-| `mac mysql:gui`  | Open Sequel PRO app)  |  |
-| `mac mysql:cli`  | Start MySQL CLI with autocompletion and syntax higlighting  |  |
-| `mac mysql:list`  | List all MySQL databases  | |
-| `mac mysql:dump-all`  | Export all MySQL databases to individual files  | |
-| `mac mysql:dump X`  | Export MySQL database to current directory  |  X = database name  |
-| `mac mysql:import X`  | Import MySQL database  |  X = SQL file  |
-| `mac mysql:import-table X`  | Import single MySQL database table |  X = SQL file containing database table  |
-| `mac mysql:create X`  | Create MySQL database  |  X = Database name |
-| `mac mysql:drop X`  | Remove MySQL database  |  X = Database name |
-| `mac mysql:duplicate X`  | Duplicate MySQL database  |  X = Database name |
-| `mac mamp:start`  | Start MAMP Server (Apache and MySQL)  | |
-| `mac mamp:stop`  | Stop MAMP Server (Apache and MySQL)  | |
-| `mac mamp:restart`  | Restart MAMP Server (Apache and MySQL)  | |
-| `mac php:syntax`  | Check PHP Syntax for all PHP files in current location  |  |
-| `mac php:info`  | Get PHP info on command line  |  |
-| `mac hosts:edit`  | Edit hosts file  |  |
-
-
 ### Web Development Utilities
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
 | `mac dev:monitor X`  | Monitor file changes (for example: log files)  |  X = File to monitor  |
 | `mac dev:compass:compile`  | Compile current folder using compass  | |
+| `mac dev:sass`  | Compile current folder using SASS  | |
 | `mac dev:optimize-images`  | Optimize all images in current directory and subdirectories |
 | `mac dev:css:convert-to-scss`  | Convert CSS file to SCSS |
 

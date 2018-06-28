@@ -1,13 +1,13 @@
 #!/bin/sh
 ###########################################################################
-#  mac CLI (mac command line tools) - OS X command line tools for developers
+#  mac CLI (mac command line tools) - macOS command line tools for developers
 ###########################################################################
 
 # Version: 2.0
 # Date: December 8, 2015
 # Author: Gabriel Guarino
 #
-# Collection of useful functions to automate OS X common tasks
+# Collection of useful functions to automate macOS common tasks
 #
 ###########################################################################
 
@@ -17,72 +17,38 @@ MAC="$(dirname "$0")"
 #--------------------------------------------------------------------
 # Configuration
 #--------------------------------------------------------------------
-cli_path="/usr/local/bin/"
-plugins_path="/usr/local/bin/mac-cli/"
-mysql="/Applications/MAMP/Library/bin/mysql"
-mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
-mysql_user="root"
-mysql_password="root"
-mysqldump="/Applications/MAMP/Library/bin/mysqldump"
-dropbox_folder="/Users/$(id -u -n)/Dropbox/"
-php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
-php_cli=$(which php)
-github_email_account=$(git config -l | grep user.email= | cut -d "=" -f2)
-echocommand="false"
-pref_editor="vi"
-
-export cli_path
-export plugins_path
-export mysql
-export mysql_socket
-export mysql_user
-export mysql_password
-export mysqldump
-export dropbox_folder
-export php
-export php_cli
-export github_email_account
-export echocommand
-export pref_editor
+export cli_path="/usr/local/bin/"
+export plugins_path="/usr/local/bin/mac-cli/"
+export mysql="/usr/local/bin/mysql"
+export mysql_socket="/tmp/mysql.sock"
+export mysql_user="peranakan"
+export mysql_password="$MYSQL_PERANAKAN_PASSWORD"
+export mysqldump="/usr/local/bin/mysqldump"
+export dropbox_folder="$HOME/'Dropbox (Personal)'"
+export php=$(which php)
+export php_cli=$(which php)
+export github_email_account=$(git config user.email)
+export echocommand="true"
+export pref_editor="vi"
 
 #--------------------------------------------------------------------
 # Parameters
 #--------------------------------------------------------------------
-fn=$1
-firstParameter=$2
-secondParameter=$3
-allParameters=${@:2}
-
-export fn
-export firstParameter
-export secondParameter
-export allParameters
-
-#--------------------------------------------------------------------
-# Utilities
-#--------------------------------------------------------------------
-
-# Is the user running commands in sudo?
-IS_SUDO=$(id -u)
+export fn=$1
+export firstParameter=$2
+export secondParameter=$3
+export allParameters=${@:2}
 
 #--------------------------------------------------------------------
 # Colors
 #--------------------------------------------------------------------
-GREEN='\033[0;32m'
-GRAY='\033[0;37m'
-LIGHTBLUE='\033[1;34m'
-LIGHTGREEN='\033[1;32m'
-WHITEBOLD='\033[1;37m'
-RED='\033[1;31m'
-NC='\033[0m' # No Color
-
-export GREEN
-export GRAY
-export LIGHTBLUE
-export LIGHTGREEN
-export WHITEBOLD
-export RED
-export NC
+export GREEN='\033[0;32m'
+export GRAY='\033[0;37m'
+export LIGHTBLUE='\033[1;34m'
+export LIGHTGREEN='\033[1;32m'
+export WHITEBOLD='\033[1;37m'
+export RED='\033[1;31m'
+export NC='\033[0m' # No Color
 
 #--------------------------------------------------------------------
 # List of Commands
@@ -91,13 +57,33 @@ export NC
 COMMANDS=(
     list
     help
+    usage
+    categories
+    general
+    search
+    network
+    lamp
+    ssh
+    webdev
+    performance
+    terminal
+    git
+    web_utilities
+    homebrew
+    xcode
+    image
+    magento
     update
+    upgrade
+    uninstall
     lock
     restart
     sleep
     display
     shutdown
     time
+    presentation
+    uptime
     volume
     volume:ismute
     volume:mute
@@ -109,6 +95,15 @@ COMMANDS=(
     folder:size
     folders:remove-empty
     apps:close-all
+    dock:add-space
+    bluetooth:status
+    bluetooth:enable
+    bluetooth:disable
+    wifi:status
+    wifi:scan
+    wifi:enable
+    wifi:disable
+    wifi:password
     apps:app-store
     eject-all
     battery
@@ -128,6 +123,8 @@ COMMANDS=(
     ports
     ip:local
     ip:public
+    dhcp:renew
+    dns:clear
     mysql
     mysql:cli
     mysql:list
@@ -174,7 +171,8 @@ COMMANDS=(
     git:branch:rename
     git:branch:remove-local
     git:branch:remove-remote
-    git:removegit:branch
+    git:remove
+    git:branch
     git:settings
     git:add-removed
     git:size
@@ -194,13 +192,8 @@ COMMANDS=(
 )
 ## ---- END OF COMMANDS; Comment required for bash_completion------
 
-if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
-    echo "${RED}Command not found: ${NC}"
-	echo "$fn"
-	if [ ! -z "$allParameters" -a "$allParameters" != " " ]; then
-        echo "${RED}\nParameters: ${NC}"
-        echo "$allParameters"
-	fi
+if [ -z "$fn" ] || [[ "$#" -lt "1" ]]; then
+    fn="list"
 fi
 
 #--------------------------------------------------------------------
@@ -208,24 +201,40 @@ fi
 #--------------------------------------------------------------------
 
 # Documentation / Help
-"$MAC/mac-cli/misc/help"
+source "$MAC/mac-cli/misc/help"
+
+#--------------------------------------------------------------------
+# Catch command not found
+#--------------------------------------------------------------------
+
+if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
+    echo "${RED}Command not found: '${fn}' $(test ! -z "$allParameters" -a "$allParameters" != " " && echo "\nParameters: $allParameters" || echo "")${NC}"
+    read -p "Choose a category for which to list help/usage... ($(categoriesList)) " category # Ask user for a category to print usage
+
+    if [ ! -z "${category}" ]; then
+        echo "$(usageList ${category})\n" # Show help/usage for user-selected category
+        echo "$(printAdditionalHelp)"
+    else
+        kill -INT $$ # Exit
+    fi
+fi
 
 #--------------------------------------------------------------------
 # Plugins
 #--------------------------------------------------------------------
 
-"$MAC/mac-cli/plugins/brew"
-"$MAC/mac-cli/plugins/general"
-"$MAC/mac-cli/plugins/git"
-"$MAC/mac-cli/plugins/image"
-"$MAC/mac-cli/plugins/brew"
-"$MAC/mac-cli/plugins/iterm"
-"$MAC/mac-cli/plugins/lamp"
-"$MAC/mac-cli/plugins/magento"
-"$MAC/mac-cli/plugins/network"
-"$MAC/mac-cli/plugins/performance"
-"$MAC/mac-cli/plugins/search"
-"$MAC/mac-cli/plugins/ssh"
-"$MAC/mac-cli/plugins/web"
-"$MAC/mac-cli/plugins/xcode"
-"$MAC/mac-cli/plugins/volume"
+source "$MAC/mac-cli/plugins/brew"
+source "$MAC/mac-cli/plugins/general"
+source "$MAC/mac-cli/plugins/git"
+source "$MAC/mac-cli/plugins/image"
+source "$MAC/mac-cli/plugins/brew"
+source "$MAC/mac-cli/plugins/iterm"
+source "$MAC/mac-cli/plugins/lamp"
+source "$MAC/mac-cli/plugins/magento"
+source "$MAC/mac-cli/plugins/network"
+source "$MAC/mac-cli/plugins/performance"
+source "$MAC/mac-cli/plugins/search"
+source "$MAC/mac-cli/plugins/ssh"
+source "$MAC/mac-cli/plugins/web"
+source "$MAC/mac-cli/plugins/xcode"
+source "$MAC/mac-cli/plugins/volume"

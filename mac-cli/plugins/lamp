@@ -20,9 +20,18 @@ case "$fn" in
     "mysql:cli")
 
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN}-S /Applications/MAMP/tmp/mysql/mysql.sock\n\n${NC}"
+            if [ "$mysql_socket" != "" ]; then
+                echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN} -S $mysql_socket\n\n${NC}"
+            else
+                echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN} \n\n${NC}"
+            fi
+            
         fi
-        mycli  -u$mysql_user -p$mysql_password -S /Applications/MAMP/tmp/mysql/mysql.sock
+        if [ "$mysql_socket" != "" ]; then
+            mycli  -u$mysql_user -p$mysql_password -S $mysql_socket
+        else
+            mycli  -u$mysql_user -p$mysql_password
+        fi
     ;;
 
 

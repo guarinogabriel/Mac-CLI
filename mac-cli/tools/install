@@ -78,6 +78,17 @@ main() {
         LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
     fi
 
+    if [ ! -d /usr/local/bin ]; then
+            echo "bin not found"
+    	{
+    		echo "creating bin directory..."
+    		mkdir -p /usr/local/bin
+    	} || {
+    		echo "error in creating bin directory"
+    		exit 1
+    	}
+    fi
+
     cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac
 	cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
 	chmod -R +x /usr/local/bin/mac-cli/*
@@ -100,7 +111,7 @@ main() {
         brew install pv
 	fi
 
-    if [ ! -f /usr/local/bin/node ]; then
+    if ! which node > /dev/null; then
         echo "Installing node..."
         echo "${GREEN}brew install node\n${NC}"
         brew install node
@@ -125,27 +136,49 @@ main() {
 	fi
 
     if [ ! -f /usr/local/bin/composer.phar ]; then
-        echo "Installing composer..."
-        echo "${GREEN}curl -sS https://getcomposer.org/installer | php\n${NC}"
-        curl -sS https://getcomposer.org/installer | php
-        echo "${GREEN}sudo mv composer.phar /usr/local/bin/\n${NC}"
-        sudo mv composer.phar /usr/local/bin/
-	fi
-
-    if [ ! -f /usr/local/bin/sass ]; then
         printf "${LIGHTGREEN}"
-        read -r -p "Would you like to install sass (http://sass-lang.com/)? (Yes / No)" response
+        read -r -p "Would you like to install composer (https://getcomposer.org/)? (Yes / No)" response
         case $response in
             [yY][eE][sS]|[yY])
-                echo "Installing sass..."
-                echo "${GREEN}sudo gem install sass\n${NC}"
-                sudo gem install sass
+                echo "Installing composer..."
+                echo "${GREEN}brew install composer\n${NC}"
+                brew install composer
                 ;;
             *)
                 ;;
         esac
         printf "${NC}"
-	fi
+    fi
+
+    if [ ! -f /usr/local/bin/compass ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install Compass (http://compass-style.org/)? (Yes / No)" response
+        case $response in
+          [yY][eE][sS]|[yY])
+            echo "Installing Compass..."
+            echo "${GREEN}sudo gem install -n /usr/local/bin compass\n${NC}"
+            sudo gem install -n /usr/local/bin compass
+          ;;
+          *)
+          ;;
+        esac
+        printf "${NC}"
+    fi
+
+    if [ ! -f /usr/local/bin/sass ]; then
+        printf "${LIGHTGREEN}"
+        read -r -p "Would you like to install SASS (http://sass-lang.com/)? (Yes / No)" response
+        case $response in
+          [yY][eE][sS]|[yY])
+            echo "Installing SCSS..."
+            echo "${GREEN}gem install sass\n${NC}"
+            gem install sass
+          ;;
+          *)
+          ;;
+        esac
+        printf "${NC}"
+    fi
 
     if [ ! -f /usr/local/bin/mycli ]; then
         printf "${LIGHTGREEN}"
@@ -179,12 +212,12 @@ main() {
 
     if [ ! -f /usr/local/bin/speedtest-cli ]; then
         printf "${LIGHTGREEN}"
-        read -r -p "Would you like to install SpeedTest CLI to run internet speed tests from your command line (https://github.com/sivel/speedtest-cli)? (Yes / No)" response
+        read -r -p "Would you like to install Fast CLI to run internet speed tests from your command line (https://github.com/sindresorhus/fast-cli)? (Yes / No)" response
         case $response in
             [yY][eE][sS]|[yY])
-                echo "Installing SpeedTest CLI (https://github.com/sivel/speedtest-cli)..."
-                echo "${GREEN}pip install speedtest-cli\n${NC}"
-                pip install speedtest-cli
+                echo "Installing Fast CLI (https://github.com/sindresorhus/fast-cli)..."
+                echo "${GREEN}npm install --global fast-cli\n${NC}"
+                npm install --global fast-cli
                 ;;
             *)
                 ;;
@@ -273,7 +306,7 @@ main() {
             echo "Setting up Mac-CLI bash-completion\n"
 
         if [ -d /usr/local/etc/bash_completion.d/ ]; then
-            cp /usr/local/bin/mac-cli/misc/bash_completion /usr/local/etc/bash_completion.d/mac
+            cp /usr/local/bin/mac-cli/completion/bash_completion /usr/local/etc/bash_completion.d/mac
         fi
 
     else
@@ -281,7 +314,7 @@ main() {
         echo "Setting up Mac-CLI bash-completion\n"
 
         if [ -d $(brew --prefix)/etc/bash_completion.d/ ]; then
-            cp /usr/local/bin/mac-cli/misc/bash_completion $(brew --prefix)/etc/bash_completion.d/mac
+            cp /usr/local/bin/mac-cli/completion/bash_completion $(brew --prefix)/etc/bash_completion.d/mac
             echo 'if [ -f $(brew --prefix)/etc/bash_completion ]; then source $(brew --prefix)/etc/bash_completion; fi' >> ~/.bashrc
         fi
 
@@ -298,9 +331,9 @@ main() {
 		    [yY][eE][sS]|[yY])
 			    echo "Setting up Mac-CLI Fish completion"
 			    if [ -d ~/.config/fish/completions ];then
-				    cp /usr/local/bin/mac-cli/misc/fish_completion ~/.config/fish/completions/mac.fish
+				    cp /usr/local/bin/mac-cli/completion/fish_completion ~/.config/fish/completions/mac.fish
 			    else
-				    mkdir ~/.config/fish/completions && cp /usr/local/bin/mac-cli/misc/fish_completion ~/.config/fish/completions/mac.fish
+				    mkdir ~/.config/fish/completions && cp /usr/local/bin/mac-cli/completion/fish_completion ~/.config/fish/completions/mac.fish
 			    fi
 			    ;;
 		    *)

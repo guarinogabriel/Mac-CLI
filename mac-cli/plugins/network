@@ -8,12 +8,11 @@ case "$fn" in
 
     # Internet connection speed test
     "speedtest")
-
-        if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
-            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+        if ! [ -x "$(command -v fast)" ]; then
+            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/fast-cli) (Yes / No)" response
             case $response in
                 [yY][eE][sS]|[yY])
-                    npm install --global speed-test
+                    npm install --global fast-cli
                     ;;
                 *)
                     exit
@@ -21,7 +20,7 @@ case "$fn" in
             esac
         else
             echo "Testing internet connection speed..."
-            node "/usr/local/lib/node_modules/speed-test/cli.js"
+            fast
         fi
     ;;
 
@@ -29,11 +28,11 @@ case "$fn" in
     # Run internet connection Speed Test each 5 minutes
     "speedtest:infinite")
 
-        if [ ! -f /usr/local/lib/node_modules/speed-test/cli.js ]; then
-            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/speed-test) (Yes / No)" response
+        if ! [ -x "$(command -v fast)" ]; then
+            read -r -p "Do you want to install the Speed Test utility? (https://github.com/sindresorhus/fast-cli) (Yes / No)" response
             case $response in
                 [yY][eE][sS]|[yY])
-                    npm install --global speed-test
+                    npm install --global fast-cli
                     ;;
                 *)
                     exit
@@ -45,7 +44,7 @@ case "$fn" in
                 title="\nTesting internet connection speed - "
                 title+=`date '+%Y-%m-%d %H:%M:%S'`
                 echo $title
-                node "/usr/local/lib/node_modules/speed-test/cli.js"
+                fast
                 sleep 300
             done
         fi
@@ -89,5 +88,24 @@ case "$fn" in
         fi
         wget http://ipinfo.io/ip -qO -
     ;;
+
+    # Renew DHCP Lease
+    "dhcp:renew")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo ipconfig set en0 DHCP -\n\n${NC}"
+        fi
+        sudo ipconfig set en0 DHCP
+    ;;
+
+    # Clear DNS Cache
+    "dns:clear")
+
+        if [ "$echocommand" == "true" ]; then
+            echo "${GREEN}sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder -\n\n${NC}"
+        fi
+        sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+    ;;
+
 
 esac

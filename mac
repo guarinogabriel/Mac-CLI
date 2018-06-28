@@ -19,16 +19,16 @@ MAC="$(dirname "$0")"
 #--------------------------------------------------------------------
 export cli_path="/usr/local/bin/"
 export plugins_path="/usr/local/bin/mac-cli/"
-export mysql="/Applications/MAMP/Library/bin/mysql"
-export mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
-export mysql_user="root"
-export mysql_password="root"
-export mysqldump="/Applications/MAMP/Library/bin/mysqldump"
-export dropbox_folder="/Users/$(id -u -n)/Dropbox/"
-export php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
+export mysql="/usr/local/bin/mysql"
+export mysql_socket="/tmp/mysql.sock"
+export mysql_user="peranakan"
+export mysql_password="$MYSQL_PERANAKAN_PASSWORD"
+export mysqldump="/usr/local/bin/mysqldump"
+export dropbox_folder="$HOME/'Dropbox (Personal)'"
+export php=$(which php)
 export php_cli=$(which php)
 export github_email_account=$(git config user.email)
-export echocommand="false"
+export echocommand="true"
 export pref_editor="vi"
 
 #--------------------------------------------------------------------

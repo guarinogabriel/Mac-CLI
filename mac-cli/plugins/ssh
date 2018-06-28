@@ -253,9 +253,9 @@ case "$fn" in
     "ssh:public-key")
 
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}pbcopy < ~/.ssh/id_rsa.pub \n\n${NC}"
+            echo "${GREEN}pbcopy < ~/.ssh/id_krypton.pub \n\n${NC}"
         fi
-        pbcopy < ~/.ssh/id_rsa.pub
+        pbcopy < ~/.ssh/id_krypton.pub
     ;;
 
 

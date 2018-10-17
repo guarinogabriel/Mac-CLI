@@ -23,9 +23,9 @@ case "$fn" in
 
         echo "Updating Homebrew and its installed packages..."
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;\n${NC}"
+            echo "${GREEN}brew update; brew upgrade; brew cleanup; brew prune;\n${NC}"
         fi
-        brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;
+        brew update; brew upgrade; brew cleanup; brew prune;
 
         echo "Updating npm and its installed packages..."
         if [ "$echocommand" == "true" ]; then

@@ -12,7 +12,7 @@ case "$fn" in
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;\n${NC}"
         fi
-        brew update; brew upgrade; brew cleanup; brew prune; brew cask cleanup;
+        brew update; brew upgrade; brew cleanup; brew prune;
     ;;
 
 esac

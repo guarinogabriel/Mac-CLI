@@ -339,7 +339,7 @@ END
 
     # Disable wifi
     "wifi:disable")
-        echo "${GREEN}Wifi disabled{NC}"
+        echo "${GREEN}Wifi disabled${NC}"
         networksetup -setairportpower ${_W_DEVICE} off
     ;;
 

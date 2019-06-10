@@ -9,6 +9,23 @@ NC='\033[0m' # No Color
 
 # In directory
 PACKAGE_DIRECTORY="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+suggest_current(){
+    case "$1" in
+        "mysql.sock")
+            current=$(netstat -ln | awk '/mysql\.sock/ { print $9 }')
+        ;;
+        "editor")
+            current=$EDITOR
+        ;;
+        *)
+            current=$(which $1)
+        ;;
+    esac
+    if [ -n $current ]; then
+        echo $current | pbcopy
+        echo "${NC}Press ⌘ V to insert current (${current})"
+    fi
+}
 
 main() {
 
@@ -17,9 +34,10 @@ main() {
     echo "================================================${NC}\n"
 
     git clone https://github.com/guarinogabriel/mac-cli.git --depth 1 && cd mac-cli
-
+    
     echo "${LIGHTGREEN}Please enter path to mysql on your local machine:"
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysql"
+    suggest_current mysql
     read mysql_path
     if [ ! -z "$mysql_path" -a "$mysql_path" != " " ]; then
         LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/Library/bin/mysql#${mysql_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
@@ -41,6 +59,7 @@ main() {
 
     echo "${LIGHTGREEN}Please enter path to the mysql socket on your local machine:"
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/tmp/mysql/mysql.sock"
+    suggest_current mysql.sock
     read mysql_socket
     if [ ! -z "$mysql_socket" -a "$mysql_socket" != " " ]; then
         LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/tmp/mysql/mysql.sock#${mysql_socket}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
@@ -48,6 +67,7 @@ main() {
 
     echo "${LIGHTGREEN}Please enter path to mysqldump on your local machine:"
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysqldump"
+    suggest_current mysqldump
     read mysql_dump
     if [ ! -z "$mysql_dump" -a "$mysql_dump" != " " ]; then
         LC_CTYPE=C sed -i'' -e "s#/Applications/MAMP/Library/bin/mysqldump#${mysql_dump}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
@@ -73,6 +93,7 @@ main() {
 
     echo "${LIGHTGREEN}Please enter your favourite text editor (by entering the command that opens your favourite editor. i.e: nano):"
     echo "${NC}Press enter without any value to keep default: vi"
+    suggest_current editor
     read pref_editor
     if [ ! -z "$pref_editor" -a "$pref_editor" != " " ]; then
         LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
@@ -135,7 +156,7 @@ main() {
         brew install wget
 	fi
 
-    if [ ! -f /usr/local/bin/composer.phar ]; then
+    if [ ! -f /usr/local/bin/composer.phar ] && [ ! -f /usr/local/bin/composer ]; then
         printf "${LIGHTGREEN}"
         read -r -p "Would you like to install composer (https://getcomposer.org/)? (Yes / No)" response
         case $response in

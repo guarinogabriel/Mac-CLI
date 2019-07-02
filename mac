@@ -142,6 +142,8 @@ COMMANDS=(
     php:syntax
     php:info
     hosts:edit
+    ssh:enable
+    ssh:disable
     ssh:download-file
     ssh:download-folder
     ssh:download-database

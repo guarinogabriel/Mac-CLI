@@ -164,6 +164,8 @@ The following amazing projects have been integrated on the mac script (all the i
 
 | Command  | Description | Arguments |
 | ------------- | ------------- | ------------- |
+| `mac ssh:enable` | Enable remote login | |
+| `mac ssh:disable` | Disable remote login | |
 | `mac ssh:download-file X`  | Download file from remote server through SSH  |  X = Path of the remote file to download  |
 | `mac ssh:download-folder X`  | Download entire folder from remote server through SSH  |  X = Path of the remote folder to download  |
 | `mac ssh:download-database X`  | Download MySQL from remote server through SSH  |  X = Name of the database to download  |

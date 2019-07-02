@@ -6,6 +6,22 @@
 
 case "$fn" in
 
+    # Enable remote login via SSH
+    "ssh:enable")
+
+        echo "Enabling SSH..."
+        sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+    ;;
+
+
+    # Disable remote login via SSH
+    "ssh:disable")
+
+        echo "Disabling SSH..."
+        sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+    ;;
+
+
     # Download file through SSH on current folder
     "ssh:download-file")
 

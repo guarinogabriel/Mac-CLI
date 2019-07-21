@@ -3,6 +3,11 @@
 #--------------------------------------------------------------------
 # LAMP (Linux, Apache, MySQL, PHP)
 #--------------------------------------------------------------------
+if [ "$mysql_password" != "none" ]; then
+    mysql_password_arg="${mysql_password_arg}"
+else
+    mysql_password_arg=""
+fi
 
 case "$fn" in
 
@@ -21,16 +26,16 @@ case "$fn" in
 
         if [ "$echocommand" == "true" ]; then
             if [ "$mysql_socket" != "" ]; then
-                echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN} -S $mysql_socket\n\n${NC}"
+                echo "${GREEN}mycli ${GRAY}-u${mysql_user} ${mysql_password_arg} ${GREEN} -S $mysql_socket\n\n${NC}"
             else
-                echo "${GREEN}mycli ${GRAY}-u${mysql_user} -p${mysql_password} ${GREEN} \n\n${NC}"
+                echo "${GREEN}mycli ${GRAY}-u${mysql_user} ${mysql_password_arg} ${GREEN} \n\n${NC}"
             fi
             
         fi
         if [ "$mysql_socket" != "" ]; then
-            mycli  -u$mysql_user -p$mysql_password -S $mysql_socket
+            mycli  -u$mysql_user $mysql_password_arg -S $mysql_socket
         else
-            mycli  -u$mysql_user -p$mysql_password
+            mycli  -u$mysql_user $mysql_password_arg
         fi
     ;;
 
@@ -41,7 +46,7 @@ case "$fn" in
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql\n\n${NC}"
         fi
-        ${mysqldump} -u ${mysql_user} -p ${mysql_password} --all-databases > all-database.sql
+        ${mysqldump} -u ${mysql_user} ${mysql_password_arg} --all-databases > all-database.sql
     ;;
 
 
@@ -55,9 +60,9 @@ case "$fn" in
 
             if [ ! -z "$filename" -a "$filename" != " " ]; then
                 if [ "$echocommand" == "true" ]; then
-                    echo "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} -p${mysql_password}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
+                    echo "${GREEN}$mysql --host=localhost ${GRAY}-u${mysql_user} ${mysql_password_arg}${GREEN} | pv | gzip -c > ${GRAY}'${filename}'.sql.gz\n\n${NC}"
                 fi
-                $mysqldump -u"$mysql_user" -p"$mysql_password" $firstParameter | pv | gzip -c > "$filename".sql.gz
+                $mysqldump -u"$mysql_user" "$mysql_password_arg" $firstParameter | pv | gzip -c > "$filename".sql.gz
             else
                 "Please specify the file name"
             fi
@@ -72,9 +77,9 @@ case "$fn" in
     "mysql:list")
 
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+            echo "${GREEN}echo 'show databases;' | ${mysql} ${GRAY} -u${mysql_user} ${mysql_password_arg} ${databasename}\n\n${NC}"
         fi
-        echo "show databases;" | ${mysql} -u${mysql_user} -p${mysql_password}
+        echo "show databases;" | ${mysql} -u${mysql_user} ${mysql_password_arg}
     ;;
 
 
@@ -88,9 +93,9 @@ case "$fn" in
 
             if [ ! -z "$databasename" -a "$databasename" != " " ]; then
                 if [ "$echocommand" == "true" ]; then
-                    echo "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+                    echo "${GREEN}pv ${GRAY}${firstParameter}${GREEN} | ${mysql} ${GRAY} -u${mysql_user} ${mysql_password_arg} ${databasename}\n\n${NC}"
                 fi
-                pv $firstParameter | $mysql -u"$mysql_user" -p"$mysql_password" $databasename
+                pv $firstParameter | $mysql -u"$mysql_user" "$mysql_password_arg" $databasename
             else
                 "Please specify the database name"
             fi
@@ -104,12 +109,12 @@ case "$fn" in
     # Export all MySQL databases
     "mysql:dump-all")
 
-        databases=`$mysql -u"$mysql_user" -p"$mysql_password" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
+        databases=`$mysql -u"$mysql_user" "$mysql_password_arg" -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
 
         for db in $databases; do
             if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
                 echo "Dumping database: $db"
-                $mysqldump -u"$mysql_user" -p"$mysql_password" --databases $db > `date +%Y%m%d`.$db.sql
+                $mysqldump -u"$mysql_user" "$mysql_password_arg" --databases $db > `date +%Y%m%d`.$db.sql
             fi
         done
     ;;
@@ -143,9 +148,9 @@ case "$fn" in
 
         if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
             if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+                echo "${GREEN}echo 'create database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} ${mysql_password_arg} ${databasename}\n\n${NC}"
             fi
-            echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+            echo "create database ${firstParameter}" | ${mysql} -u${mysql_user} ${mysql_password_arg}
         else
             echo "Please specify the name for the new database"
             echo "E.g.: mysql:create database-name"
@@ -158,9 +163,9 @@ case "$fn" in
 
         if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
             if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} -p${mysql_password} ${databasename}\n\n${NC}"
+                echo "${GREEN}echo 'drop database ${GRAY}${firstParameter}'${GREEN} | ${mysql} ${GRAY} -u${mysql_user} ${mysql_password_arg} ${databasename}\n\n${NC}"
             fi
-            echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} -p${mysql_password}
+            echo "drop database ${firstParameter}" | ${mysql} -u${mysql_user} ${mysql_password_arg}
         else
             echo "Please specify the name of the database to remove"
             echo "E.g.: mysql:drop database-name"
@@ -178,9 +183,9 @@ case "$fn" in
 
             if [ ! -z "$databasename" -a "$databasename" != " " ]; then
                 if [ "$echocommand" == "true" ]; then
-                    echo "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} -p${mysql_password} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} -p${mysql_password} ${GRAY}${databasename}\n\n${NC}"
+                    echo "${GREEN}mac mysql:create ${GRAY}$databasename${GREEN} && $mysqldump -u${mysql_user} ${mysql_password_arg} ${GRAY}${firstParameter}${GREEN} | ${mysql} -u${mysql_user} ${mysql_password_arg} ${GRAY}${databasename}\n\n${NC}"
                 fi
-                mac mysql:create $databasename && $mysqldump -u${mysql_user} -p${mysql_password} $firstParameter | $mysql -u${mysql_user} -p${mysql_password} $databasename
+                mac mysql:create $databasename && $mysqldump -u${mysql_user} ${mysql_password_arg} $firstParameter | $mysql -u${mysql_user} ${mysql_password_arg} $databasename
             else
                 "Please specify the database name"
             fi

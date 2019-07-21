@@ -34,6 +34,7 @@ main() {
 
     echo "${LIGHTGREEN}Please enter your mysql password:"
     echo "${NC}Press enter without any value to keep default: root"
+    echo "${NC}Type none if no password is used"
     read mysql_password
     if [ ! -z "$mysql_password" -a "$mysql_password" != " " ]; then
         LC_CTYPE=C sed -i'' -e "s#mysql_password=\"root\"#mysql_password=\"${mysql_password}\"#g" "$PACKAGE_DIRECTORY/mac-cli/mac"

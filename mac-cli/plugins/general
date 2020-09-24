@@ -309,7 +309,7 @@ END
     "bluetooth:enable")
         echo "${GREEN}Bluetooth enabled{NC}"
         sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 1 && \
-            sudo killall -HUP blued
+            sudo killall -HUP bluetoothd
     ;;
 
 
@@ -317,7 +317,7 @@ END
     "bluetooth:disable")
         echo "${GREEN}Bluetooth disabled${NC}"
         sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0 && \
-            sudo killall -HUP blued
+            sudo killall -HUP bluetoothd
     ;;
 
 

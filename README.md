@@ -13,7 +13,7 @@ When you run a function, the executed command is displayed and that helps you me
 
 ---
 
-### Installation in 1 Simple Step - Including configuration wizard!
+### Installation in 1 Simple Step - Including Configuration Wizard!
 
 Via curl
 > `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"`

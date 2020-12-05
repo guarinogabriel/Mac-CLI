@@ -38,7 +38,7 @@ case "$fn" in
             echo "${GREEN}yarn global upgrade;\n${NC}"
         fi
         yarn global upgrade;
-        
+
         echo "Updating installed Ruby gems..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
@@ -148,7 +148,7 @@ case "$fn" in
     ;;
 
 
-    # Prepare MAC for presentation: minimize all apps, send files from desktop and downloads to trash and set not disturb mode
+    # Prepare MAC for presentation: minimize all apps and set not disturb mode
     "presentation")
 
         # Close browsers
@@ -163,21 +163,6 @@ tell application "System Events"
     repeat with p in every application process whose visible is true
         click (first button of every window of p whose role description is "minimize button")
     end repeat
-end tell
-END
-
-        # Cleanup desktop and downloads
-osascript >/dev/null <<'END'
-tell application "System Events"
-  set currentUser to (name of current user)
-end tell
-tell application "Finder"
-try
-  delete (every item of folder "Downloads" of folder currentUser of folder "Users" of startup disk)
-end try
-try
-  delete (every item of folder "Desktop" of folder currentUser of folder "Users" of startup disk)
-end try
 end tell
 END
 

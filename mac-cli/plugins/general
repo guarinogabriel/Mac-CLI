@@ -66,24 +66,6 @@ case "$fn" in
             fi
             apm upgrade --no-confirm
         fi
-
-        if [ -f /usr/local/bin/n98-magerun.phar ]; then
-            echo "Updating N98-Magerun..."
-            if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}n98-magerun.phar self-update\n${NC}"
-            fi
-            n98-magerun.phar self-update
-
-        fi
-
-        if [ -f /usr/local/bin/n98-magerun2.phar ]; then
-            echo "Updating N98-Magerun 2..."
-            if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}n98-magerun2.phar self-update\n${NC}"
-            fi
-            n98-magerun2.phar self-update
-            echo "Your system has been successfully updated"
-        fi
     ;;
 
 
@@ -147,58 +129,6 @@ case "$fn" in
         osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
     ;;
 
-
-    # Prepare MAC for presentation: minimize all apps and set not disturb mode
-    "presentation")
-
-        # Close browsers
-        killall -9 Safari
-        killall -9 Google\ Chrome
-        killall -9 firefox
-
-
-        # Minimize all the windows
-osascript <<'END'
-tell application "System Events"
-    repeat with p in every application process whose visible is true
-        click (first button of every window of p whose role description is "minimize button")
-    end repeat
-end tell
-END
-
-        # Set not disturb mode
-osascript >/dev/null <<'END'
-try
-	tell application "System Events"
-		tell process "SystemUIServer"
-			key down option
-			click menu bar item "Notification Center" of menu bar 1
-			key up option
-		end tell
-	end tell
-end try
-END
-
-        # Restart notification center
-        killall NotificationCenter
-    ;;
-
-
-
-
-    # Display clock in Terminal
-    "time")
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done &'\n\n${NC}"
-        fi
-        if [ -z "$(pgrep macClock)"   ]; then
-            # naming the process
-            ( exec -a macClock bash -c 'while sleep 1;do tput sc;tput cup 0 $(($(tput cols)-29));date;tput rc;done' &   )
-        else
-            pkill macClock
-        fi
-    ;;
-
     # Uptime
     "uptime")
         if [ "$echocommand" == "true" ]; then
@@ -208,28 +138,9 @@ END
     ;;
 
 
-    # Remove files older than X days in current folder
-    "files:remove-older")
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}find . -ctime +${GRAY}${firstParameter}${GREEN} -print0 | xargs -0 -n1\n\n${NC}"
-        fi
-        echo "Removing files older than "$firstParameter" days..."
-        find . -ctime +$firstParameter -print0 | xargs -0 -n1
-    ;;
-
-
     #List folders in current directory
     "folders:list")
         du -sk * | sort -rn
-    ;;
-
-
-    # Remove empty subdirectories
-    "folders:remove-empty")
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}find . -type d -empty -delete\n\n${NC}"
-        fi
-        find . -type d -empty -delete
     ;;
 
 
@@ -262,27 +173,6 @@ END
     ;;
 
 
-    # Close all opened apps
-    "apps:close-all")
-        mac_cli_config=$HOME/.mac-cli
-        ignore="grep\|iTerm\|Finder\|Dropbox\|Bartender"
-        if [ -e $mac_cli_config ]; then
-          source ${mac_cli_config}
-          ignore="${ignore}\|${__MAC_CLI_IGNORE_APPS}"
-        fi
-
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}ignore='$ignore'\n${NC}"
-            echo "${GREEN}ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X\n\n${NC}"
-        fi
-        # To customize ignored apps, just put the keywords in $ignore
-        # or add a file called $HOME/.mac-cli and set the variable __MAC_CLI_IGNORE_APPS
-        # To test which apps you are going to kill, run:
-        # ps aux | grep /Applications | grep -v $ignore | sed "s/\ *\ /\ /g" | cut -d ' ' -f 11 | xargs -I X echo X
-        ps aux | grep /Applications | grep -v "${ignore}" | sed "s/\ *\ /\ /g" | cut -d ' ' -f 2 | xargs -I X kill -9 X
-    ;;
-
-
     # Check bluetooth status
     "bluetooth:status")
         defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState | \
@@ -311,10 +201,12 @@ END
         /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I
     ;;
 
+
     # Check available wifi networks
     "wifi:scan")
         /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s
     ;;
+
 
     # Enable wifi
     "wifi:enable")
@@ -322,22 +214,13 @@ END
         networksetup -setairportpower ${_W_DEVICE} on
     ;;
 
+
     # Disable wifi
     "wifi:disable")
         echo "${GREEN}Wifi disabled${NC}"
         networksetup -setairportpower ${_W_DEVICE} off
     ;;
 
-    # Show wifi password for current network
-    "wifi:password")
-        if [ -z "$1" ]
-            then
-                ssid="`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`"
-            else
-                ssid=$1
-        fi
-        security find-generic-password -D "AirPort network password" -a "$ssid" -gw
-    ;;
 
     # Add blank space to the dock
     "dock:add-space")
@@ -353,15 +236,6 @@ END
         fi
 
         killall Dock
-    ;;
-
-    # Get list of installed apps from the App Store
-    "apps:app-store")
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'\n\n${NC}"
-        fi
-        echo "Getting list of installed apps from the App Store..."
-        find /Applications -path '*Contents/_MASReceipt/receipt' -maxdepth 4 -print |\sed 's#.app/Contents/_MASReceipt/receipt#.app#g; s#/Applications/##'
     ;;
 
 

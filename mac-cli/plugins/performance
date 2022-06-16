@@ -6,39 +6,6 @@
 
 case "$fn" in
 
-    # Get overall system information
-    "system")
-
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}glances \n\n${NC}"
-        fi
-
-        glances
-    ;;
-
-
-    # Show temperature, fan and battery statistics
-    "temp")
-
-        if [ ! -f /usr/local/bin/istats ]; then
-            read -r -p "Do you want to install the iStats utility? (https://github.com/Chris911/iStats) (Yes / No)" response
-            case $response in
-                [yY][eE][sS]|[yY])
-                    sudo gem install iStats -n/usr/local/bin
-                    ;;
-                *)
-                    exit
-                    ;;
-            esac
-        else
-            if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}istats all \n\n${NC}"
-            fi
-            istats all
-        fi
-    ;;
-
-
     # See memory usage sorted by memory consumption
     "memory")
 
@@ -67,48 +34,6 @@ case "$fn" in
         fi
         echo "Trash size: "
         du -sh ~/.Trash/
-    ;;
-
-
-    # Remove all files and directories from Desktop directory
-    "desktop:cleanup")
-
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
-        fi
-        echo "These are the files and directories that are currently located on Desktop: "
-        ls -lat ~/Desktop/
-        echo "\n============================================="
-        read -r -p "Do you want to remove all the content from the Desktop directory? (Yes / No)" response
-        case $response in
-            [yY][eE][sS]|[yY])
-                rm -rf ~/Desktop/*
-                ;;
-            *)
-                exit
-                ;;
-        esac
-    ;;
-
-
-    # Remove all files and directories from Downloads directory
-    "downloads:cleanup")
-
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}du -sh ~/.Trash/ \n\n${NC}"
-        fi
-        echo "These are the files and directories that are currently located on Downloads: "
-        ls -lat ~/Downloads/
-        echo "\n============================================="
-        read -r -p "Do you want to remove all the content from the Downloads directory? (Yes / No)" response
-        case $response in
-            [yY][eE][sS]|[yY])
-                rm -rf ~/Downloads/*
-                ;;
-            *)
-                exit
-                ;;
-        esac
     ;;
 
 esac

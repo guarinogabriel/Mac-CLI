@@ -4,12 +4,10 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 main() {
-
-    echo "Uninstalling Mac CLI..."
+  echo "Uninstalling Mac CLI..."
 	rm /usr/local/bin/mac
 	rm -rf /usr/local/bin/mac-cli
 	echo "${GREEN}Mac CLI has been uninstalled\n${NC}"
-
 }
 
 main

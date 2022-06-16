@@ -32,13 +32,6 @@ main() {
 
     git clone https://github.com/guarinogabriel/mac-cli.git --depth 1 && cd mac-cli
 
-    echo "${LIGHTGREEN}Please enter path to your Dropbox folder:"
-    echo "${NC}Press enter without any value to keep default: /Users/$(id -u -n)/Dropbox/"
-    read dropbox_path
-    if [ ! -z "$dropbox_path" -a "$dropbox_path" != " " ]; then
-        LC_CTYPE=C sed -i'' -e "s#/Users/\$(id -u -n)/Dropbox/#${dropbox_path}#g" "$PACKAGE_DIRECTORY/mac-cli/mac"
-    fi
-
     printf "${LIGHTGREEN}"
     read -r -p "Would you like Mac CLI to show you the commands that are run on each mac command? (Yes / No)" response
     case $response in

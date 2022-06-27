@@ -173,7 +173,6 @@ fi
 source "$MAC/mac-cli/plugins/brew"
 source "$MAC/mac-cli/plugins/general"
 source "$MAC/mac-cli/plugins/git"
-source "$MAC/mac-cli/plugins/image"
 source "$MAC/mac-cli/plugins/brew"
 source "$MAC/mac-cli/plugins/network"
 source "$MAC/mac-cli/plugins/performance"

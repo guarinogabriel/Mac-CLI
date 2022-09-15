@@ -66,25 +66,25 @@ main() {
     cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
     chmod -R +x /usr/local/bin/mac-cli/*
 
-    if [ ! -f /usr/local/bin/brew ]; then
+    if [ $(command -v brew) == "" ]; then
         echo "Installing Homebrew..."
         echo "${GREEN}/usr/bin/ruby -e '\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)'\n${NC}"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
 
-    if [ ! -f /usr/local/bin/git ]; then
+    if [ $(command -v git) == "" ]; then
         echo "Installing Git..."
         echo "${GREEN}brew install git\n${NC}"
         brew install git
 	  fi
 
-    if [ ! -f /usr/local/bin/pv ]; then
+    if [ $(command -v pv) == "" ]; then
         echo "Installing pv (Pipe Viewer)..."
         echo "${GREEN}brew install pv\n${NC}"
         brew install pv
 	  fi
 
-    if [ ! -f /usr/local/bin/wget ]; then
+    if [ $(command -v wget) == "" ]; then
         echo "Installing wget..."
         printf "${GREEN}brew install wget\n${NC}"
         brew install wget

@@ -15,17 +15,6 @@
 MAC="$(dirname "$0")"
 
 #--------------------------------------------------------------------
-# Configuration
-#--------------------------------------------------------------------
-export cli_path="/usr/local/bin/"
-export plugins_path="/usr/local/bin/mac-cli/"
-export php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
-export php_cli=$(which php)
-export github_email_account=$(git config user.email)
-export echocommand="false"
-export pref_editor="vi"
-
-#--------------------------------------------------------------------
 # Parameters
 #--------------------------------------------------------------------
 export fn=$1

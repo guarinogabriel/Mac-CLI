@@ -43,28 +43,9 @@ main() {
     esac
     printf "${NC}"
 
-    echo "${LIGHTGREEN}Please enter your favourite text editor (by entering the command that opens your favourite editor. i.e: nano):"
-    echo "${NC}Press enter without any value to keep default: vi"
-    suggest_current editor
-    read pref_editor
-    if [ ! -z "$pref_editor" -a "$pref_editor" != " " ]; then
-        LC_CTYPE=C sed -i'' -e 's#pref_editor="vi"#pref_editor="${pref_Editor}"#g' "$PACKAGE_DIRECTORY/mac-cli/mac"
-    fi
-
-    if [ ! -d /usr/local/bin ]; then
-            echo "bin not found"
-      {
-        echo "creating bin directory..."
-        mkdir -p /usr/local/bin
-      } || {
-        echo "error in creating bin directory"
-        exit 1
-      }
-    fi
-
-    cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac
-    cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
-    chmod -R +x /usr/local/bin/mac-cli/*
+    sudo cp "$PACKAGE_DIRECTORY/mac-cli/mac" /usr/local/bin/mac
+    sudo cp -r "$PACKAGE_DIRECTORY/mac-cli/mac-cli/" /usr/local/bin/mac-cli
+    sudo chmod -R +x /usr/local/bin/mac-cli/*
 
     if [ $(command -v brew) == "" ]; then
         echo "Installing Homebrew..."

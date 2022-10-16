@@ -1,0 +1,50 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------
+# DNS Utilities
+#--------------------------------------------------------------------
+
+case "$fn" in
+
+    # List DNS servers
+    "dns:list")
+        echo "List of the DNS servers:"
+        cat /etc/resolv.conf | grep nameserver | cut -b 11-
+    ;;
+
+    # Add DNS server
+    "dns:add")
+        if [ -z "${2}" ]
+        then
+            sudo sh -c "echo nameserver '${2}' >> /etc/resolv.conf"
+        else
+            echo "Please provide a DNS server address to add."
+            exit 1
+        fi
+    ;;
+
+    # Remove DNS server
+    "dns:remove")
+        if [ -z "${2}" ]
+        then
+            sudo sed -i "" "/${2}/d" /etc/resolv.conf
+        else
+            echo "Please provide a DNS server address to remove."
+            exit 1
+        fi
+    ;;
+
+    # Flush DNS cache
+    "dns:flush")
+        VERSION=$(sw_vers -productVersion)
+        echo "Flushing DNS cache..."
+        if echo $VERSION | grep -E '^10\.10(\.[0-3])?$' >/dev/null 2>&1; then
+            sudo discoveryutil mdnsflushcache
+        elif echo $VERSION | grep -E '^10\.6(\.[0-8])?$' >/dev/null 2>&1; then
+            sudo dscacheutil -flushcache
+        else
+            sudo killall -HUP mDNSResponder
+        fi
+    ;;
+
+esac

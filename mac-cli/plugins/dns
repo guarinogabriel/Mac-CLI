@@ -6,30 +6,32 @@
 
 case "$fn" in
 
-    # List DNS servers
+    # List DNS server(s)
     "dns:list")
-        echo "List of the DNS servers:"
+        echo "List of the DNS server(s):"
         cat /etc/resolv.conf | grep nameserver | cut -b 11-
     ;;
 
     # Add DNS server
     "dns:add")
-        if [ -z "${2}" ]
+        if [[ $2 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]
         then
+            echo "Adding DNS server $2"
             sudo sh -c "echo nameserver '${2}' >> /etc/resolv.conf"
         else
-            echo "Please provide a DNS server address to add."
+            echo "Please provide a valid DNS server address to add."
             exit 1
         fi
     ;;
 
     # Remove DNS server
     "dns:remove")
-        if [ -z "${2}" ]
+        if [[ $2 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]
         then
+            echo "Deleting DNS server ${2}..."
             sudo sed -i "" "/${2}/d" /etc/resolv.conf
         else
-            echo "Please provide a DNS server address to remove."
+            echo "Please provide a valid DNS server address to remove."
             exit 1
         fi
     ;;

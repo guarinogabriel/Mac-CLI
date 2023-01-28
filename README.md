@@ -7,7 +7,7 @@
 
 ### Sponsors
 
->![image](images/sponsor-icon.png)
+>[![Sponsor logo](images/sponsor-icon.png)](https://apps.apple.com/us/app/superplanner/id6443725564)
 >
 >Mac CLI is sponsored by 📒 [SuperPlanner](https://superplanner.app/), an innovative daily planner and task manager for iPhone, iPad and Mac.
 >
@@ -15,7 +15,7 @@
 >
 >There is no login or user registration required. All data is stored locally and syncs between your devices using private and secure iCloud sync.
 >
->[![image](images/sponsor-download-badge.png)](https://apps.apple.com/us/app/superplanner/id6443725564)
+>[![Sponsor download badge](images/sponsor-download-badge.png)](https://apps.apple.com/us/app/superplanner/id6443725564)
 
 ---
 

@@ -10,6 +10,7 @@ git
 homebrew
 lamp
 network
+dns
 performance
 search
 ssh
@@ -84,6 +85,14 @@ function usageList()
             echo "${LIGHTBLUE}mac ports${GRAY}: List of used ports "
             echo "${LIGHTBLUE}mac ip:local${GRAY}: Get local IP address "
             echo "${LIGHTBLUE}mac ip:public${GRAY}: Get public IP address "
+            echo "${NC}\n"
+            ;;
+        dns)
+            echo "\n${WHITEBOLD}DNS Utilities: "
+            echo "${LIGHTBLUE}mac dns:list${GRAY}: List DNS server(s) "
+            echo "${LIGHTBLUE}mac dns:add${GRAY}: Add DNS server "
+            echo "${LIGHTBLUE}mac dns:remove${GRAY}: Remove DNS server "
+            echo "${LIGHTBLUE}mac dns:flush${GRAY}: Flush DNS cache "
             echo "${NC}\n"
             ;;
         ssh)

@@ -117,6 +117,16 @@ You can uninstall Mac CLI by running:
 | `mac ip:public`  | Get public IP address  |
 
 
+### DNS Utilities
+
+| Command  | Description |
+| ------------- | ------------- |
+| `mac dns:list`  | List DNS server(s)  |
+| `mac dns:add`  | Add DNS server  |
+| `mac dns:remove`  | Remove DNS server  |
+| `mac dns:flush`  | Flush DNS cache  |
+
+
 ### SSH Utilities
 
 | Command  | Description | Arguments |

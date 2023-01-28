@@ -50,6 +50,7 @@ COMMANDS=(
     general
     search
     network
+    dns
     ssh
     webdev
     performance
@@ -102,6 +103,10 @@ COMMANDS=(
     ports
     ip:local
     ip:public
+    dns:list
+    dns:add
+    dns:remove
+    dns:flush
     hosts:edit
     ssh:download-file
     ssh:download-folder
@@ -168,6 +173,7 @@ source "$MAC/mac-cli/plugins/brew"
 source "$MAC/mac-cli/plugins/general"
 source "$MAC/mac-cli/plugins/git"
 source "$MAC/mac-cli/plugins/network"
+source "$MAC/mac-cli/plugins/dns"
 source "$MAC/mac-cli/plugins/performance"
 source "$MAC/mac-cli/plugins/search"
 source "$MAC/mac-cli/plugins/ssh"

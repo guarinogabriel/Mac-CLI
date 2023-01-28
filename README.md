@@ -2,14 +2,33 @@
 
  macOS command line tools for developers
 
-:star: Now with modularity and plugins! You can check the plugins folder: [/mac-cli/plugins](https://github.com/guarinogabriel/mac-cli/tree/master/mac-cli/plugins)
+
+---
+
+### Sponsors
+
+>[![Sponsor logo](images/sponsor-icon.png)](https://apps.apple.com/us/app/superplanner/id6443725564)
+>
+>Mac CLI is sponsored by 📒 [SuperPlanner](https://superplanner.app/), an innovative daily planner and task manager for iPhone, iPad and Mac.
+>
+>SuperPlanner combines the calendar with task management features to keep everything organized in one place.
+>
+>There is no login or user registration required. All data is stored locally and syncs between your devices using private and secure iCloud sync.
+>
+>[![Sponsor download badge](images/sponsor-download-badge.png)](https://apps.apple.com/us/app/superplanner/id6443725564)
+
+---
+
+### Introduction
+
+Mac CLI is the ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your macOS system.
+When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
+
+The tool is designed to be easily extendable with additional commands through the use of plugins. To view the currently available commands, you can navigate to the plugins folder and explore the different categories: [/mac-cli/plugins](https://github.com/guarinogabriel/mac-cli/tree/master/mac-cli/plugins)
 
 _Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!_
 
-![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
-
-The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your macOS system.
-When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
+![image](images/demo.gif)
 
 ---
 

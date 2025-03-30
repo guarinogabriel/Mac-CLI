@@ -160,16 +160,6 @@ case "$fn" in
     ;;
 
 
-    # Remove Git from current project
-    "git:remove")
-
-        if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}find . -name '.git' -exec rm -rf {} \;\n\n${NC}"
-        fi
-        find . -name '.git' -exec rm -rf {} \;
-    ;;
-
-
     # Open current Git repository URL
     "git:open")
 

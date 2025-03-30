@@ -17,19 +17,7 @@ MAC="$(dirname "$0")"
 #--------------------------------------------------------------------
 # Configuration
 #--------------------------------------------------------------------
-export cli_path="/usr/local/bin/"
-export plugins_path="/usr/local/bin/mac-cli/"
-export mysql="/Applications/MAMP/Library/bin/mysql"
-export mysql_socket="/Applications/MAMP/tmp/mysql/mysql.sock"
-export mysql_user="root"
-export mysql_password="root"
-export mysqldump="/Applications/MAMP/Library/bin/mysqldump"
-export dropbox_folder="/Users/$(id -u -n)/Dropbox/"
-export php="/Applications/MAMP/bin/php/php5.5.26/bin/php"
-export php_cli=$(which php)
-export github_email_account=$(git config user.email)
-export echocommand="false"
-export pref_editor="vi"
+export echocommand="true"
 
 #--------------------------------------------------------------------
 # Parameters
@@ -62,7 +50,7 @@ COMMANDS=(
     general
     search
     network
-    lamp
+    dns
     ssh
     webdev
     performance
@@ -70,7 +58,6 @@ COMMANDS=(
     git
     web_utilities
     homebrew
-    xcode
     image
     magento
     update
@@ -81,8 +68,6 @@ COMMANDS=(
     sleep
     display
     shutdown
-    time
-    presentation
     uptime
     volume
     volume:ismute
@@ -93,8 +78,6 @@ COMMANDS=(
     screensaver
     folders:list
     folder:size
-    folders:remove-empty
-    apps:close-all
     dock:add-space
     bluetooth:status
     bluetooth:enable
@@ -103,8 +86,6 @@ COMMANDS=(
     wifi:scan
     wifi:enable
     wifi:disable
-    wifi:password
-    apps:app-store
     eject-all
     battery
     info
@@ -119,48 +100,26 @@ COMMANDS=(
     find:recent
     search:replace
     speedtest
-    speedtest:infinite
     ports
     ip:local
     ip:public
-    dhcp:renew
-    dns:clear
-    mysql
-    mysql:cli
-    mysql:list
-    mysql:export-all
-    mysql:export
-    mysql:import
-    mysql:import-table
-    mysql:create
-    mysql:drop
-    mysql:duplicate
-    mysql:dump
-    mamp:start
-    mamp:stop
-    mamp:restart
-    php:syntax
-    php:info
+    dns:list
+    dns:add
+    dns:remove
+    dns:flush
     hosts:edit
     ssh:download-file
     ssh:download-folder
-    ssh:download-database
     ssh:sync:local
     ssh:sync:remote
     ssh:upload
     ssh:public-key
     ssh:list
-    dev:monitor
-    dev:optimize-images
-    dev:css:convert-to-scss
     system
     temp
     memory
     trash:empty
     trash:size
-    desktop:cleanup
-    downloads:cleanup
-    iterm:tab-title
     git:config
     git:open
     git:create:branch
@@ -171,24 +130,11 @@ COMMANDS=(
     git:branch:rename
     git:branch:remove-local
     git:branch:remove-remote
-    git:remove
     git:branch
     git:settings
     git:add-removed
     git:size
-    web:download-images
     brew:update
-    xcode:cleanup
-    image:generate:mobile-app-icons
-    magento:version
-    magento:customer:create
-    magento:fix-permissions
-    magento:order:create
-    magento:shell-script:create
-    magento:gitignore:create
-    magento:url-rewrite:enable
-    magento:url-rewrites:disable
-    magento2:install
 )
 ## ---- END OF COMMANDS; Comment required for bash_completion------
 
@@ -226,15 +172,9 @@ fi
 source "$MAC/mac-cli/plugins/brew"
 source "$MAC/mac-cli/plugins/general"
 source "$MAC/mac-cli/plugins/git"
-source "$MAC/mac-cli/plugins/image"
-source "$MAC/mac-cli/plugins/brew"
-source "$MAC/mac-cli/plugins/iterm"
-source "$MAC/mac-cli/plugins/lamp"
-source "$MAC/mac-cli/plugins/magento"
 source "$MAC/mac-cli/plugins/network"
+source "$MAC/mac-cli/plugins/dns"
 source "$MAC/mac-cli/plugins/performance"
 source "$MAC/mac-cli/plugins/search"
 source "$MAC/mac-cli/plugins/ssh"
-source "$MAC/mac-cli/plugins/web"
-source "$MAC/mac-cli/plugins/xcode"
 source "$MAC/mac-cli/plugins/volume"

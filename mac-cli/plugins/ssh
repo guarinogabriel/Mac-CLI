@@ -78,42 +78,6 @@ case "$fn" in
     ;;
 
 
-    # Download remote database through SSH on current directory
-    "ssh:download-database")
-
-        if [ ! -z "$firstParameter" -a "$firstParameter" != " " ]; then
-
-            echo "Please enter the server IP address or domain: "
-
-            read ipaddress
-            if [ ! -z "$ipaddress" -a "$ipaddress" != " " ]; then
-
-                echo "Please enter username: "
-
-                read username
-
-                if [ ! -z "$username" -a "$username" != " " ]; then
-
-                    # TODO: Create method to download database through SSH
-                    echo ""
-                    # echo "${GREEN}scp -r ${GRAY}${username}@${ipaddress}:${firstparameter}${GREEN} .\n\n${NC}"
-                    # scp -r $username@$ipaddress:$firstParameter .
-
-                else
-                    "Please specify the username for the remote server"
-                fi
-
-            else
-                "Please specify the server IP address or domain"
-            fi
-
-        else
-            echo "Please specify the database name on the remote server to download"
-            echo "E.g.: mac ssh:download-database database-name"
-        fi
-    ;;
-
-
     # Sync local folder with remote folder using rsync through SSH (download remote folder to local folder)
     "ssh:sync:local")
 

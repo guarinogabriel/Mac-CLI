@@ -16,27 +16,4 @@ case "$fn" in
         sudo find / -mmin $firstParameter -type f
     ;;
 
-
-    # Find duplicated files
-    "find:duplicated")
-
-        # Check if fdupes is installed
-        if [ ! -f /usr/local/bin/fdupes ]; then
-            echo "${RED}fdupes not found ${NC}- ${GREEN}Installing dependency...\n\n${NC}"
-            if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}brew install fdupes\n\n${NC}"
-            fi
-            brew install fdupes
-            echo "Searching for duplicated files in current directory and subdirectories..."
-            fdupes -r .
-
-        else
-            if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}fdupes -r .\n\n${NC}"
-            fi
-            echo "Searching for duplicated files in current directory and subdirectories..."
-            fdupes -r .
-        fi
-    ;;
-
 esac

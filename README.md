@@ -1,12 +1,12 @@
 # Mac CLI
 
- macOS command line tools for developers
+ macOS command line tools for developers originally by [guarinogabriel](https://github.com/guarinogabriel/Mac-CLI). This is a fork of his work.
 
-:star: Now with modularity and plugins! You can check the plugins folder: [/mac-cli/plugins](https://github.com/guarinogabriel/mac-cli/tree/master/mac-cli/plugins)
+:star: Now with modularity and plugins! You can check the plugins folder: [/mac-cli/plugins](https://github.com/martinsnygg/mac-cli/tree/master/mac-cli/plugins)
 
 _Contributions to add new plugins and keep improving the existing ones are welcome and very much appreciated!_
 
-![image](https://github.com/guarinogabriel/mac-cli/raw/master/demo/demo.gif)
+![image](https://github.com/martinsnygg/mac-cli/raw/master/demo/demo.gif)
 
 The ultimate tool for developers to manage their Mac. It provides a huge set of command line commands that automate the usage of your macOS system.
 When you run a function, the executed command is displayed and that helps you memorize each of the Utilities for future usage.
@@ -16,10 +16,10 @@ When you run a function, the executed command is displayed and that helps you me
 ### Installation in 1 Simple Step - Including configuration wizard!
 
 Via curl
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/martinsnygg/mac-cli/master/mac-cli/tools/install)"`
 
 Via wget
-> `sh -c "$(wget https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install -O -)"`
+> `sh -c "$(wget https://raw.githubusercontent.com/martinsnygg/mac-cli/master/mac-cli/tools/install -O -)"`
 
 Then, re-open your terminal client. You will be able to run all the commands listed below, for example:
 > `mac help`
@@ -47,14 +47,14 @@ These are the requirements to be able to run all the commands (the dependencies/
 ### Update
 
 You can update Mac CLI to the latest version by running:
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/update)"`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/martinsnygg/mac-cli/master/mac-cli/tools/update)"`
 
 ---
 
 ### Uninstallation
 
 You can uninstall Mac CLI by running:
-> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/uninstall)"`
+> `sh -c "$(curl -fsSL https://raw.githubusercontent.com/martinsnygg/mac-cli/master/mac-cli/tools/uninstall)"`
 
 ---
 

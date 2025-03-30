@@ -33,7 +33,7 @@ main() {
     echo " Mac CLI Installer"
     echo "================================================${NC}\n"
 
-    git clone https://github.com/guarinogabriel/mac-cli.git --depth 1 && cd mac-cli
+    git clone https://github.com/martinsnygg/mac-cli.git --depth 1 && cd mac-cli
     
     echo "${LIGHTGREEN}Please enter path to mysql on your local machine:"
     echo "${NC}Press enter without any value to keep default: /Applications/MAMP/Library/bin/mysql"

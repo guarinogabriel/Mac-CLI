@@ -38,7 +38,7 @@ case "$fn" in
             echo "${GREEN}yarn global upgrade;\n${NC}"
         fi
         yarn global upgrade;
-        
+
         echo "Updating installed Ruby gems..."
         if [ "$echocommand" == "true" ]; then
             echo "${GREEN}sudo gem update --system; sudo gem update\n${NC}"
@@ -47,16 +47,16 @@ case "$fn" in
 
         echo "Updating installed pip packages..."
         if [ "$echocommand" == "true" ]; then
-            echo "${GREEN}pip list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U\n${NC}"
+            echo "${GREEN}pip list --outdated --format=json | python -c \"import json, sys; print('\\n'.join([p['name'] for p in json.load(sys.stdin)]))\" | xargs -n1 pip install -U\n${NC}"
         fi
-        pip list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+        pip list --outdated --format=json | python -c "import json, sys; print('\n'.join([p['name'] for p in json.load(sys.stdin)]))" | xargs -n1 pip install -U
 
         if [ -x "$(command -v pip3)" ]; then
             echo "Updating installed pip3 packages..."
             if [ "$echocommand" == "true" ]; then
-                echo "${GREEN}pip3 list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U\n${NC}"
+                echo "${GREEN}pip3 list --outdated --format=json | python -c \"import json, sys; print('\\n'.join([p['name'] for p in json.load(sys.stdin)]))\" | xargs -n1 pip3 install -U\n${NC}"
             fi
-            pip3 list --outdated --format=freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U
+            pip3 list --outdated --format=json | python -c "import json, sys; print('\n'.join([p['name'] for p in json.load(sys.stdin)]))" | xargs -n1 pip3 install -U
         fi
 
         if [ -f /usr/local/bin/apm ]; then

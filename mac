@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ###########################################################################
 #  mac CLI (mac command line tools) - macOS command line tools for developers
 ###########################################################################
@@ -73,6 +73,9 @@ COMMANDS=(
     volume:ismute
     volume:mute
     volume:unmute
+    appearance:dark
+    appearance:light
+    appearance:toggle
     hidden:show
     hidden:hide
     screensaver
@@ -178,3 +181,4 @@ source "$MAC/mac-cli/plugins/performance"
 source "$MAC/mac-cli/plugins/search"
 source "$MAC/mac-cli/plugins/ssh"
 source "$MAC/mac-cli/plugins/volume"
+source "$MAC/mac-cli/plugins/appearance"

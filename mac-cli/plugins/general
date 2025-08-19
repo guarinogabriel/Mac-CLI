@@ -221,6 +221,23 @@ case "$fn" in
         networksetup -setairportpower ${_W_DEVICE} off
     ;;
 
+    # Enable Dark Mode
+    "appearance:dark-mode")
+        echo "${GREEN}Enabling Dark Mode${NC}"
+        osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
+    ;;
+
+    # Disable Dark Mode
+    "appearance:light-mode")
+        echo "${GREEN}Disabling Dark Mode${NC}"
+        osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
+    ;;
+
+    # Toggle Dark Mode
+    "appearance:toggle-dark-mode")
+        echo "${GREEN}Toggling Dark Mode${NC}"
+        osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode'
+    ;;
 
     # Add blank space to the dock
     "dock:add-space")

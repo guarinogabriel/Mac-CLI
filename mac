@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 ###########################################################################
 #  mac CLI (mac command line tools) - macOS command line tools for developers
 ###########################################################################
@@ -73,9 +73,6 @@ COMMANDS=(
     volume:ismute
     volume:mute
     volume:unmute
-    appearance:dark
-    appearance:light
-    appearance:toggle
     hidden:show
     hidden:hide
     screensaver
@@ -89,6 +86,9 @@ COMMANDS=(
     wifi:scan
     wifi:enable
     wifi:disable
+    appearance:dark-mode
+    appearance:light-mode
+    appearance:toggle-dark-mode
     eject-all
     battery
     info
@@ -181,4 +181,3 @@ source "$MAC/mac-cli/plugins/performance"
 source "$MAC/mac-cli/plugins/search"
 source "$MAC/mac-cli/plugins/ssh"
 source "$MAC/mac-cli/plugins/volume"
-source "$MAC/mac-cli/plugins/appearance"

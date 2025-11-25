@@ -1,0 +1,48 @@
+#!/bin/zsh
+
+GREEN='\033[0;32m'
+LIGHTGREEN='\033[1;32m'
+LIGHTBLUE='\033[01;34m'
+NC='\033[0m'
+
+PACKAGE_DIRECTORY="${0:A:h}"
+
+main() {
+    echo "${LIGHTBLUE}================================================"
+    echo "mac-clit Installer"
+    echo "================================================${NC}\n"
+
+    if [ -d "mac-clit" ]; then
+        echo "mac-clit directory already exists, pulling latest changes..."
+        cd mac-clit && git pull --rebase
+    else
+        git clone https://github.com/<your-username>/mac-clit.git --depth 1 && cd mac-clit
+    fi
+
+    printf "${LIGHTGREEN}"
+    read -r "response?Would you like to install Homebrew (if missing)? (Yes / No): "
+    case "$response" in
+        [yY][eE][sS]|[yY])
+            if ! command -v brew >/dev/null; then
+                echo "Installing Homebrew..."
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            fi
+            ;;
+    esac
+    printf "${NC}"
+
+    sudo cp mac /usr/local/bin/mac
+    sudo cp -r mac-clit /usr/local/bin/mac-clit
+    sudo chmod -R +x /usr/local/bin/mac-clit/*
+
+    for dep in git pv wget; do
+        if ! command -v "$dep" >/dev/null; then
+            echo "Installing $dep..."
+            brew install "$dep"
+        else
+            echo "$dep is already installed."
+        fi
+    done
+}
+
+main

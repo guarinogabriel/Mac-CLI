@@ -1,31 +1,31 @@
-#!/bin/sh
+#!/bin/zsh
 ###########################################################################
-#  mac CLI (mac command line tools) - macOS command line tools for developers
+# mac-clit - macOS command line interface tools
 ###########################################################################
 
-# Version: 2.0
-# Date: December 8, 2015
-# Author: Gabriel Guarino
+# Version: 1.0.0
+# Date: November 24, 2025
+# Author: gospelranger
+# Forked from Gabriel Guarino (original)
 #
-# Collection of useful functions to automate macOS common tasks
+# This fork is released under the same MIT License as the original:
+#   - Copyright (c) 2015-2022 Gabriel Guarino
+#   - Copyright (c) 2025 gospelranger
+#
+# Cleaned up and modularized macOS CLI utilities
 #
 ###########################################################################
 
-# Mac CLI directory
-MAC="$(dirname "$0")"
-
-#--------------------------------------------------------------------
-# Configuration
-#--------------------------------------------------------------------
-export echocommand="true"
+# mac-clit directory
+MAC_DIR="$(dirname "$0")"
 
 #--------------------------------------------------------------------
 # Parameters
 #--------------------------------------------------------------------
-export fn=$1
-export firstParameter=$2
-export secondParameter=$3
-export allParameters=${@:2}
+fn=$1
+firstParameter=$2
+secondParameter=$3
+allParameters=${@:2}
 
 #--------------------------------------------------------------------
 # Colors
@@ -39,104 +39,15 @@ export RED='\033[1;31m'
 export NC='\033[0m' # No Color
 
 #--------------------------------------------------------------------
-# List of Commands
+# Logging helpers
 #--------------------------------------------------------------------
+log_info()  { echo "\033[1;32m[info]\033[0m $1"; }
+log_warn()  { echo "\033[1;33m[warning]\033[0m $1"; }
+log_error()  { echo "\033[1;31m[error]\033[0m $1"; }
 
-COMMANDS=(
-    list
-    help
-    usage
-    categories
-    general
-    search
-    network
-    dns
-    ssh
-    webdev
-    performance
-    terminal
-    git
-    web_utilities
-    homebrew
-    image
-    magento
-    update
-    upgrade
-    uninstall
-    lock
-    restart
-    sleep
-    display
-    shutdown
-    uptime
-    volume
-    volume:ismute
-    volume:mute
-    volume:unmute
-    hidden:show
-    hidden:hide
-    screensaver
-    folders:list
-    folder:size
-    dock:add-space
-    bluetooth:status
-    bluetooth:enable
-    bluetooth:disable
-    wifi:status
-    wifi:scan
-    wifi:enable
-    wifi:disable
-    eject-all
-    battery
-    info
-    find:text
-    find:biggest-files
-    find:biggest-directories
-    zip:extract
-    gzip:compress
-    gzip:extract
-    tar:compress
-    tar:extract
-    find:recent
-    search:replace
-    speedtest
-    ports
-    ip:local
-    ip:public
-    dns:list
-    dns:add
-    dns:remove
-    dns:flush
-    hosts:edit
-    ssh:download-file
-    ssh:download-folder
-    ssh:sync:local
-    ssh:sync:remote
-    ssh:upload
-    ssh:public-key
-    ssh:list
-    system
-    temp
-    memory
-    trash:empty
-    trash:size
-    git:config
-    git:open
-    git:create:branch
-    git:branches:date
-    git:undo-commit
-    git:log
-    git:branch
-    git:branch:rename
-    git:branch:remove-local
-    git:branch:remove-remote
-    git:branch
-    git:settings
-    git:add-removed
-    git:size
-    brew:update
-)
-## ---- END OF COMMANDS; Comment required for bash_completion------
+#--------------------------------------------------------------------
+# List Commands
+#--------------------------------------------------------------------
 
 if [ -z "$fn" ] || [[ "$#" -lt "1" ]]; then
     fn="list"
@@ -147,34 +58,13 @@ fi
 #--------------------------------------------------------------------
 
 # Documentation / Help
-source "$MAC/mac-cli/misc/help"
-
-#--------------------------------------------------------------------
-# Catch command not found
-#--------------------------------------------------------------------
-
-if [[ ! " ${COMMANDS[@]} " =~ " ${fn} " ]]; then
-    echo "${RED}Command not found: '${fn}' $(test ! -z "$allParameters" -a "$allParameters" != " " && echo "\nParameters: $allParameters" || echo "")${NC}"
-    read -p "Choose a category for which to list help/usage... ($(categoriesList)) " category # Ask user for a category to print usage
-
-    if [ ! -z "${category}" ]; then
-        echo "$(usageList ${category})\n" # Show help/usage for user-selected category
-        echo "$(printAdditionalHelp)"
-    else
-        kill -INT $$ # Exit
-    fi
-fi
+source "$MAC_DIR/mac-clitt/misc/help"
 
 #--------------------------------------------------------------------
 # Plugins
 #--------------------------------------------------------------------
 
-source "$MAC/mac-cli/plugins/brew"
-source "$MAC/mac-cli/plugins/general"
-source "$MAC/mac-cli/plugins/git"
-source "$MAC/mac-cli/plugins/network"
-source "$MAC/mac-cli/plugins/dns"
-source "$MAC/mac-cli/plugins/performance"
-source "$MAC/mac-cli/plugins/search"
-source "$MAC/mac-cli/plugins/ssh"
-source "$MAC/mac-cli/plugins/volume"
+source "$MAC_DIR/mac-clit/plugins/general"
+source "$MAC_DIR/mac-clit/plugins/network"
+source "$MAC_DIR/mac-clit/plugins/performance"
+source "$MAC_DIR/mac-clit/plugins/volume"

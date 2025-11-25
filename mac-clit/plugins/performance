@@ -1,0 +1,39 @@
+#!/bin/zsh
+
+#--------------------------------------------------------------------
+# Performance and maintenance Utilities
+#--------------------------------------------------------------------
+
+log_info()  { echo "\033[1;32m[info]\033[0m $1"; }
+log_warn()  { echo "\033[1;33m[warning]\033[0m $1"; }
+log_error() { echo "\033[1;31m[error]\033[0m $1"; }
+
+# See memory usage sorted by memory consumption
+memory_usage() {
+    log_info "Displaying memory usage..."
+    top -o MEM
+}
+
+# Empty trash
+trash_empty() {
+    log_info "Emptying Trash..."
+    sudo rm -rf ~/.Trash/*
+    log_info "Trash emptied."
+}
+
+# Calculate trash size
+trash_size() {
+    log_info "Calculating Trash size..."
+    du -sh ~/.Trash/
+}
+
+performance_dispatch() {
+    case "$1" in
+        memory)       memory_usage ;;
+        trash:empty)  trash_empty ;;
+        trash:size)   trash_size ;;
+        *)            log_error "Unknown performance command: $1"; return 1 ;;
+    esac
+}
+
+performance_dispatch "$@"

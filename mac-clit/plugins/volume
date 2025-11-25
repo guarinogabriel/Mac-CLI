@@ -1,0 +1,54 @@
+#!/bin/zsh
+
+#--------------------------------------------------------------------
+# Volume Utilities
+#--------------------------------------------------------------------
+
+# Get current volume
+volume_get_set() {
+    local level="$1"
+
+    if [[ -n "$level" ]]; then
+        log_info "Setting volume to $level%"
+        osascript -e "set volume output volume $level"
+        log_info "Volume set to $level%"
+    else
+        local current
+        current=$(osascript -e "output volume of (get volume settings)")
+        log_info "Current volume: $current%"
+    fi
+}
+
+# Is volume muted?
+volume_ismute() {
+    local muted
+    muted=$(osascript -e 'output muted of (get volume settings)')
+    log_info "Mute status: $muted"
+}
+
+# Mute volume
+volume_mute() {
+    log_info "Muting volume..."
+    osascript -e "set volume output muted true"
+    log_info "Volume muted"
+}
+
+# Unmute volume
+volume_unmute() {
+    log_info "Unmuting volume..."
+    osascript -e "set volume output muted false"
+    log_info "Volume unmuted"
+}
+
+
+volume_dispatch() {
+    case "$1" in
+        volume)       volume_get_set "$2" ;;
+        volume:ismute) volume_ismute ;;
+        volume:mute)   volume_mute ;;
+        volume:unmute) volume_unmute ;;
+        *)             log_error "Unknown volume command: $1"; return 1 ;;
+    esac
+}
+
+volume_dispatch "$@"

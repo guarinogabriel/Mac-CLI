@@ -1,0 +1,152 @@
+#!/bin/zsh
+
+#--------------------------------------------------------------------
+# Logging helpers
+#--------------------------------------------------------------------
+log_info()  { echo "\033[1;32m[info]\033[0m $1"; }
+log_warn()  { echo "\033[1;33m[warning]\033[0m $1"; }
+log_error()  { echo "\033[1;31m[error]\033[0m $1"; }
+
+#--------------------------------------------------------------------
+# Network Utilities
+#--------------------------------------------------------------------
+
+_w_device=$(
+    networksetup -listallhardwareports | \
+    awk '/Hardware Port: Wi-Fi/{getline; print $2; exit}'
+)
+
+_w_service=$(
+    networksetup -listallnetworkservices | \
+    awk '/Wi-Fi/{print $0; exit}'
+)
+
+# Check wifi status
+wifi_status() {
+    log_info "Checking Wi-Fi status..."
+    networksetup -getairportpower "$_w_device"
+    networksetup -getinfo "$_w_service"
+}
+
+# Check available wifi networks
+wifi_scan() {
+    log_info "Scanning for available Wi-Fi networks..."
+    "$(dirname "$0")/../tools/wifi_scan.swift"
+}
+
+# Enable wifi
+enable_wifi() {
+    log_info "Enabling Wi-Fi on $_w_device..."
+    if networksetup -setairportpower "$_w_device" on; then
+        log_info "Wi-Fi enabled"
+    else
+        log_error "Failed to enable Wi-Fi"
+    fi
+}
+
+# Disable wifi
+disable_wifi() {
+    log_info "Disabling Wi-Fi on $_w_device..."
+    if networksetup -setairportpower "$_w_device" off; then
+        log_info "Wi-Fi disabled"
+    else
+        log_error "Failed to disable Wi-Fi"
+    fi
+}
+
+# Internet connection speed test
+speedtest() {
+    log_info "Testing internet connection speed..."
+    networkQuality -v
+}
+
+# List of used ports
+network_ports() {
+    log_info "Getting list of used ports..."
+    sudo lsof -iTCP -sTCP:LISTEN -P
+}
+
+# Get public IP address
+public_ip() {
+    log_info "Fetching public IP address..."
+    
+    if command -v curl >/dev/null 2>&1; then
+        curl -s http://ipinfo.io/ip
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO- http://ipinfo.io/ip
+    else
+        log_error "Neither curl nor wget found. Cannot fetch public IP."
+        return 1
+    fi
+}
+
+# List DNS servers
+dns_list() {
+    log_info "Listing configured DNS servers..."
+    networksetup -getdnsservers "$_w_service"
+}
+
+# Add DNS server
+dns_add() {
+    local server="$1"
+    if [[ ! $server =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        log_error "Please provide a valid DNS server address."
+        return 1
+    fi
+
+    log_info "Adding DNS server $server..."
+    # Get current servers
+    local current
+    current=$(networksetup -getdnsservers "$_w_service" | grep -v "There aren't any")
+
+    sudo networksetup -setdnsservers "$_w_service" $current $server
+}
+
+# Remove DNS server
+dns_remove() {
+    local server="$1"
+    log_info "Removing DNS server $server..."
+
+    local current
+    current=$(networksetup -getdnsservers "$_w_service" | grep -v "There aren't any")
+
+    local newlist
+    newlist=$(echo "$current" | grep -v "^$server$")
+
+    if [[ -z "$newlist" ]]; then
+        sudo networksetup -setdnsservers "$_w_service" Empty
+    else
+        sudo networksetup -setdnsservers "$_w_service" $newlist
+    fi
+}
+
+# Flush DNS cache
+dns_flush() {
+    log_info "Flushing DNS cache..."
+    sudo killall -HUP mDNSResponder
+    log_info "DNS cache flushed."
+}
+
+
+#--------------------------------------------------------------------
+# Network dispatcher
+#--------------------------------------------------------------------
+
+network_dispatch() {
+    case "$1" in
+        speedtest)          speedtest ;;
+        ports)              network_ports ;;
+        ip:public)          public_ip ;;
+        wifi:status)        wifi_status ;;
+        wifi:scan)          wifi_scan ;;
+        wifi:enable)        enable_wifi ;;
+        wifi:disable)       disable_wifi ;;
+        dns:list)           dns_list ;;
+        dns:add)            dns_add "$2" ;;
+        dns:remove)         dns_remove "$2" ;;
+        dns:flush)          dns_flush ;;
+        *)                  log_error "Unknown network command: $1" ; return 1 ;;
+    esac
+}
+
+network_dispatch "$@"

@@ -1,0 +1,117 @@
+#!/bin/zsh
+
+#--------------------------------------------------------------------
+# mac script commands list - all commands
+#--------------------------------------------------------------------
+
+MacCategories=(
+general
+network
+performance
+volume
+)
+
+printInfo() {
+    echo "\n${WHITEBOLD}mac-clit – macOS command line interface tools"
+    echo "====================================================${NC}"
+}
+
+printAdditionalHelp() {
+    echo "\nRun ${LIGHTBLUE}mac help${NC} for full usage, " \
+         "${LIGHTBLUE}mac categories${NC} for categories list, or " \
+         "${LIGHTBLUE}mac {category}${NC} for usage related to {category}\n"
+}
+
+categoriesList() {
+    echo "${(j:|:)MacCategories}"
+}
+
+function usageList() {
+    local category=$1
+    local commands=()
+
+    case "$category" in
+        general)
+            commands=(
+                "mac update : Install OS X software updates, update installed Ruby gems, Homebrew, npm and their packages"
+                "mac upgrade : Upgrade Mac CLI to the latest version"
+                "mac uninstall : Uninstall Mac CLI"
+                "mac lock : Lock"
+                "mac restart : Restart OS X"
+                "mac sleep : Sleep mode"
+                "mac shutdown : Shutdown"
+                "mac volume : Get the volume from the terminal"
+                "mac volume X : Set the volume (0-100)"
+                "mac volume:mute : Mute volume"
+                "mac volume:unmute : Unmute volume"
+                "mac volume:ismute : Check if volume is muted"
+                "mac screensaver : Start screensaver"
+                "mac dock:add-space N : Add blank space to dock"
+                "mac eject-all : Eject all mounted volumes and disks"
+                "mac battery : Get battery info"
+                "mac info : Get OS X version info"
+            )
+            ;;
+        network)
+            commands=(
+                "mac speedtest : Internet connection speed test"
+                "mac ports : List of used ports"
+                "mac ip:public : Get public IP address"
+                "mac dns:list : List DNS server(s)"
+                "mac dns:add : Add DNS server"
+                "mac dns:remove : Remove DNS server"
+                "mac dns:flush : Flush DNS cache"
+            )
+            ;;
+        performance)
+            commands=(
+                "mac memory : See memory usage sorted by consumption"
+                "mac trash:empty : Empty trash"
+                "mac trash:size : Calculate trash size"
+            )
+            ;;
+        *)
+            echo "${RED}Unknown category: $category${NC}"
+            return 1
+            ;;
+    esac
+
+    echo "\n${WHITEBOLD}${category^} Utilities:${NC}"
+    for cmd in "${commands[@]}"; do
+        local name=${cmd%%:*}
+        local desc=${cmd#*: }
+        echo "${LIGHTBLUE}$name${GRAY}: $desc"
+    done
+    echo "\n"
+}
+
+
+case ${fn} in
+    "list"|"help"|"usage")
+        echo "$(printInfo)"
+        for c in ${MacCategories[@]}
+        do
+            echo "$(usageList ${c})"
+        done
+        echo "$(printAdditionalHelp)"
+        ;;
+    "categories")
+        echo "$(printInfo)"
+        echo "\n${WHITEBOLD}mac CLI Categories: ${NC}\n"
+        for c in "${MacCategories[@]}"
+        do
+            echo "${WHITEBOLD} >\t$c ${NC}"
+        done
+        echo "$(printAdditionalHelp)"
+        ;;
+esac
+
+for c in "${MacCategories[@]}"
+do
+    if [ "${c}" = "${fn}" ]; then
+        echo "$(printInfo)"
+        echo "\n${WHITEBOLD}Usage for 'mac ${c}'"
+        echo "$(usageList ${c})"
+        break
+    fi
+done

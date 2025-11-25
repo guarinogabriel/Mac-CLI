@@ -1,0 +1,321 @@
+#!/bin/zsh
+
+#--------------------------------------------------------------------
+# General Utilities
+#--------------------------------------------------------------------
+
+ # Install macOS software updates, update installed Ruby gems, Homebrew, npm, yarn, cargo, pip and their installed packages
+
+update_macos() {
+    if command -v softwareupdate >/dev/null 2>&1; then
+        log_info "Updating macOS..."
+        sudo softwareupdate -i -a
+    else
+        log_warn "macOS update failed. Check network or sudo permissions."
+    fi
+}
+
+update_homebrew() {
+    if command -v brew >/dev/null 2>&1; then
+        log_info "Updating Homebrew and installed packages..."
+        brew update
+        brew upgrade
+        brew upgrade --cask
+        brew cleanup
+    else
+        log_warn "Homebrew not installed, skipping."
+    fi
+}
+
+update_npm() {
+    if command -v npm >/dev/null 2>&1; then
+        log_info "Updating npm and global packages..."
+        npm install npm -g
+        npm update -g
+    else
+        log_warn "npm not installed, skipping."
+    fi
+}
+
+update_yarn() {
+    if command -v yarn >/dev/null 2>&1; then
+        log_info "Updating Yarn global packages..."
+        yarn global upgrade
+    else
+        log_warn "Yarn not installed, skipping."
+    fi
+}
+
+update_pip3() {
+    if ! command -v pip3 >/dev/null 2>&1; then
+        log_warn "pip3 not installed, skipping."
+        return
+    fi
+
+    log_info "Updating pip3 packages..."
+
+    outdated=""
+
+    # Try JSON mode first if jq exists
+    if command -v jq >/dev/null 2>&1; then
+        outdated=$(pip3 list --outdated --format=json 2>/dev/null | \
+                    jq -r '.[].name' 2>/dev/null)
+    fi
+
+    # Fallback to table parsing if JSON failed or jq missing
+    if [[ -z "$outdated" ]]; then
+        outdated=$(pip3 list --outdated 2>/dev/null | \
+            awk '
+                /^-+/ { start=1; next }
+                start { print $1 }
+            ')
+    fi
+
+    if [[ -z "$outdated" ]]; then
+        log_info "All pip3 packages are up to date."
+        return
+    fi
+
+    echo "$outdated" | xargs -r -n1 pip3 install -U
+}
+
+update_ruby_gems() {
+    if ! command -v gem >/dev/null 2>&1; then
+        log_warn "RubyGems not installed, skipping."
+        return
+    fi
+
+    ruby_version=$(ruby -e 'print RUBY_VERSION')
+    if [[ "$ruby_version" < "3.2" ]]; then
+        log_warn "System Ruby ($ruby_version) too old for gem updates. Consider installing Ruby via Homebrew."
+        return
+    fi
+
+    log_info "Updating Ruby gems..."
+    sudo gem update --system
+    sudo gem update
+}
+
+update_cargo() {
+    if command -v cargo >/dev/null 2>&1; then
+        log_info "Updating Rust cargo packages..."
+        cargo install-update -a
+    else
+        log_warn "Cargo not installed, skipping."
+    fi
+}
+
+update() {
+    update_macos
+    update_homebrew
+    update_npm
+    update_yarn
+    update_pip3
+    update_ruby_gems
+    update_cargo
+}
+
+# Upgrade Mac CLI to the latest version
+upgrade_mac_cli() {
+    update_url="https://raw.githubusercontent.com/gospelranger/mac-cli/master/mac-cli/tools/update"
+
+    log_info "Upgrading mac-cli..."
+
+    tmp_script=$(mktemp)
+    trap 'rm -f "$tmp_script"' EXIT
+
+    if ! command -v curl >/dev/null 2>&1; then
+        log_error "curl not installed, cannot download update"
+        return 1
+    fi
+
+    if curl -fsSL "$update_url" -o "$tmp_script"; then
+        log_info "Downloaded update script"
+        zsh "$tmp_script"
+        log_info "mac-cli upgrade complete"
+    else
+        log_error "Failed to download update script from $update_url"
+    fi
+}
+
+# Uninstall Mac CLI from your Mac
+uninstall_mac_cli() {
+    bin_mac="/usr/local/bin/mac"
+    bin_mac_cli="/usr/local/bin/mac-cli"
+
+    read -q "REPLY?Are you sure you want to uninstall mac-cli? [y/N] "
+    echo
+    [[ ! $REPLY =~ ^[Yy]$ ]] && log_info "Uninstall cancelled" && return
+
+    log_info "Uninstalling mac-cli..."
+    [[ -f "$bin_mac" ]] && sudo rm "$bin_mac" && log_info "Removed $bin_mac" || log_warn "$bin_mac not found, skipping"
+    [[ -d "$bin_mac_cli" ]] && sudo rm -rf "$bin_mac_cli" && log_info "Removed $bin_mac_cli" || log_warn "$bin_mac_cli not found, skipping"
+    log_info "mac-cli has been uninstalled"
+}
+
+# Get macOS Info
+macos_info() {
+    log_info "Fetching macOS info..."
+    log_info "Product Name: $(sw_vers -productName)"
+    log_info "Product Version: $(sw_vers -productVersion)"
+    log_info "Build Version: $(sw_vers -buildVersion)"
+}
+
+# Lock Mac
+lock_mac() {
+    log_info "Locking Mac..."
+    if ! osascript -e 'tell application "System Events" to keystroke "q" using {control down, command down}' >/dev/null 2>&1; then
+        log_error "Failed to lock Mac."
+        return 1
+    fi
+    log_info "Mac locked."
+}
+
+# Restart Mac
+restart_mac() {
+    log_info "Restarting Mac..."
+    osascript -e 'tell app "loginwindow" to «event aevtrrst»'
+}
+
+# Sleep
+sleep_mac() {
+    log_info "Putting Mac to sleep..."
+    pmset sleepnow
+}
+
+# Shutdown Mac
+shutdown_mac() {
+    log_info "Shutting down Mac..."
+    osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
+}
+
+# Show hidden files
+show_hidden_files() {
+    log_info "Showing hidden files..."
+    defaults write com.apple.finder AppleShowAllFiles YES
+    killall Finder
+    log_info "Hidden files are now visible."
+}
+
+# Hide hidden files
+hide_hidden_files() {
+    log_info "Hiding hidden files..."
+    defaults write com.apple.finder AppleShowAllFiles NO
+    killall Finder
+    log_info "Hidden files are now hidden."
+}
+
+# Check bluetooth status
+check_bluetooth_status() {
+    log_info "Checking Bluetooth status..."
+    if ! command -v defaults >/dev/null 2>&1; then
+        log_error "defaults command not found."
+        return 1
+    fi
+
+    local bt_status
+    bt_status=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2>/dev/null)
+
+    if [[ "$bt_status" == "1" ]]; then
+        echo "Bluetooth: ON"
+    else
+        echo "Bluetooth: OFF"
+    fi
+}
+
+# Enable bluetooth
+enable_bluetooth() {
+    log_info "Enabling Bluetooth..."
+    if sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 1 \
+       && sudo killall -HUP bluetoothd 2>/dev/null; then
+        log_info "Bluetooth enabled"
+    else
+        log_error "Failed to enable Bluetooth"
+    fi
+}
+
+# Disable bluetooth
+disable_bluetooth() {
+    log_info "Disabling Bluetooth..."
+    if sudo defaults write /Library/Preferences/com.apple.Bluetooth ControllerPowerState -int 0 \
+       && sudo killall -HUP bluetoothd 2>/dev/null; then
+        log_info "Bluetooth disabled"
+    else
+        log_error "Failed to disable Bluetooth"
+    fi
+}
+
+
+# Add blank space to the dock
+add_dock_space() {
+    log_info "Adding a blank space to the Dock..."
+    defaults write com.apple.dock persistent-apps -array-add '{"tile-type"="spacer-tile";}'
+    killall Dock
+    log_info "Blank space added."
+}
+
+# Start screensaver
+start_screensaver() {
+    log_info "Starting screensaver..."
+    if ! command -v open >/dev/null 2>&1; then
+        log_error "Cannot start screensaver: 'open' command not found."
+        return 1
+    fi
+    open -a ScreenSaverEngine
+    log_info "Screensaver started."
+}
+
+# Eject all mounted volumes and disk
+eject_all_volumes() {
+    log_info "Ejecting all mounted volumes..."
+    if ! command -v osascript >/dev/null 2>&1; then
+        log_error "Cannot eject volumes: osascript not found."
+        return 1
+    fi
+    osascript -e 'tell application "Finder" to eject (every disk whose ejectable is true)'
+    log_info "All ejectable volumes have been ejected."
+}
+
+# Get battery information
+show_battery_info() {
+    log_info "Fetching battery information..."
+    if ! command -v pmset >/dev/null 2>&1; then
+        log_error "pmset not found, cannot get battery info."
+        return 1
+    fi
+    pmset -g batt
+}
+
+#--------------------------------------------------------------------
+# Mr. dispatcher
+#--------------------------------------------------------------------
+echocommand=${echocommand:-false}  # optional: preview commands
+
+show_usage() {
+    echo "Usage: $0 {update|upgrade|uninstall|info|lock|restart|sleep|shutdown|uptime|folders:list|folder:size|hidden:show|hidden:hide}"
+}
+
+case "$1" in
+    update)      update ;;
+    upgrade)     upgrade_mac_cli ;;
+    uninstall)   uninstall_mac_cli ;;
+    info)        macos_info ;;
+    lock)        lock_mac ;;
+    restart)     restart_mac ;;
+    sleep)       sleep_mac ;;
+    shutdown)    shutdown_mac ;;
+    hidden:show) show_hidden_files ;;
+    hidden:hide) hide_hidden_files ;;
+    bluetooth:status) check_bluetooth_status ;;
+    bluetooth:enable)  enable_bluetooth ;;
+    bluetooth:disable) disable_bluetooth ;;
+    dock:add-space) add_dock_space ;;
+    screensaver) start_screensaver ;;
+    eject-all) eject_all_volumes ;;
+    battery) show_battery_info ;;
+    *) 
+        log_error "Unknown command: $1"
+        show_usage
+        exit 1
+        ;;
+esac
